@@ -13,9 +13,9 @@
 
 *The OS X window manager for hackers*
 
-* Current version: **2.4**
+* Current version: **2.5**
 * Requires: OS X 10.7 and up
-* Download: [latest .zip file](https://raw.github.com/sdegutis/zephyros/master/Builds/Zephyros-LATEST.app.tar.gz), unzip, right-click app, choose "Open"
+* Download: [latest .zip file](https://raw.github.com/mattgemmell/zephyros/master/Builds/Zephyros-LATEST.app.tar.gz), unzip, right-click app, choose "Open"
 
 Table of contents:
 
@@ -35,7 +35,6 @@ Table of contents:
     * [Type "App"](#type-app)
     * [Other Type](#other-types)
     * [Events](#events)
-* [Mailing List](#mailing-list)
 * [Change log](#change-log)
 * [Todo](#todo)
 * [License](#license)
@@ -127,7 +126,7 @@ bind "J", ["cmd", "alt", "ctrl"], ->
 
 #### More Config Tricks/Examples
 
-The [wiki home page](https://github.com/sdegutis/zephyros/wiki) has a list of configs from users, and configs that replicate other apps (like SizeUp and Divvy).
+The [wiki home page](https://github.com/mattgemmell/zephyros/wiki) has a list of configs from users, and configs that replicate other apps (like SizeUp and Divvy).
 
 ## API
 
@@ -159,7 +158,7 @@ property (API) api
 - (void) doAfter(Float sec, Function fn)
 ```
 
-The function `bind()` uses [this list](https://github.com/sdegutis/zephyros/blob/master/Zephyros/SDKeyBindingTranslator.m#L148) of key strings.
+The function `bind()` uses [this list](https://github.com/mattgemmell/zephyros/blob/master/Zephyros/SDKeyBindingTranslator.m#L148) of key strings.
 
 ### Type: `API`
 
@@ -285,13 +284,10 @@ The rest you'll have to look up for yourself.
 'app_shown', callback args: (app)
 ```
 
-## Mailing List
-
-There's a Google Groups [mailing list](https://groups.google.com/forum/?fromgroups=#!forum/windows-app) for discussion about config ideas, techniques, or anything related to Zephyros
-
-
 ## Change log
 
+- 2.5
+  - Repo moved
 - 2.4
   - Adds grid functions to window
 - 2.3.6
