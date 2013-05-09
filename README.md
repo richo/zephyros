@@ -288,6 +288,7 @@ The rest you'll have to look up for yourself.
 
 - 2.5
   - Repo moved
+  - If you don't install this update, you don't get automatic updates anymore
 - 2.4
   - Adds grid functions to window
 - 2.3.6
