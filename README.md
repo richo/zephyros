@@ -286,9 +286,7 @@ The rest you'll have to look up for yourself.
 ## Change log
 
 - 2.6
-  - Got rid of `selectedText()` function, that was so hacky
-  - Repo moved
-  - If you don't install this update, you don't get automatic updates anymore
+  - Got rid of `selectedText()` function (that was so hacky)
 - 2.4
   - Adds grid functions to window
 - 2.3.6
