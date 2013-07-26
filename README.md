@@ -175,7 +175,6 @@ The function `bind()` uses [this list](https://github.com/evanescence/zephyros/b
 - (Array<App>) runningApps()
 
 - (String) clipboardContents()
-- (String) selectedText()
 ```
 
 ### Type: `Settings`
@@ -286,16 +285,13 @@ The rest you'll have to look up for yourself.
 
 ## Change log
 
-- 2.5
+- 2.6
+  - Got rid of `selectedText()` function, that was so hacky
   - Repo moved
   - If you don't install this update, you don't get automatic updates anymore
 - 2.4
   - Adds grid functions to window
 - 2.3.6
-  - The app has been renamed!
-      - **But** this means auto-updating won't work.
-      - Download it from the link at the top of this page.
-      - Sorry. This *should* be the only time you'll ever need to do this.
   - Added `show` and `hide` to App class.
   - Added `minimize` and `unMinimize` to Window class.
   - Modified shell API method: `shell(command, args, options)`. Options is a hash with the following optional keys:
