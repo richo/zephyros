@@ -2,26 +2,26 @@
 <rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0">
   <channel>
     <title>Zephyros Changelog</title>
-    <link>https://raw.github.com/mattgemmell/zephyros/master/appcast.xml</link>
+    <link>https://raw.github.com/evanescence/zephyros/master/appcast.xml</link>
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
     <item>
       <title>Version 2.5</title>
-      <sparkle:releaseNotesLink>https://github.com/mattgemmell/zephyros#change-log</sparkle:releaseNotesLink>
+      <sparkle:releaseNotesLink>https://github.com/evanescence/zephyros#change-log</sparkle:releaseNotesLink>
       <pubDate>Tue May 7 08:10:53 CDT 2013</pubDate>
-      <enclosure url="https://raw.github.com/mattgemmell/zephyros/master/Builds/Zephyros-2.5.app.tar.gz" sparkle:version="2.5" sparkle:dsaSignature="MC0CFQC89tljMao+f1IYTUBwJ+QMaKBpmwIUdf3uzyDHjcKfVUi50c5b6YFrwyY=" length="1309746" type="application/octet-stream"/>
+      <enclosure url="https://raw.github.com/evanescence/zephyros/master/Builds/Zephyros-2.5.app.tar.gz" sparkle:version="2.5" sparkle:dsaSignature="MC0CFQC89tljMao+f1IYTUBwJ+QMaKBpmwIUdf3uzyDHjcKfVUi50c5b6YFrwyY=" length="1309746" type="application/octet-stream"/>
     </item>
     <item>
       <title>Version 2.4</title>
-      <sparkle:releaseNotesLink>https://github.com/mattgemmell/zephyros#change-log</sparkle:releaseNotesLink>
+      <sparkle:releaseNotesLink>https://github.com/evanescence/zephyros#change-log</sparkle:releaseNotesLink>
       <pubDate>Tue Apr 30 13:02:12 CDT 2013</pubDate>
-      <enclosure url="https://raw.github.com/mattgemmell/zephyros/master/Builds/Zephyros-2.4.app.tar.gz" sparkle:version="2.4" sparkle:dsaSignature="MCwCFAeinkE08PQvG3ErMm7ZZBO+ANEQAhQJXghTYWSe192ipH1LWYjaCQB1HA==" length="1309730" type="application/octet-stream"/>
+      <enclosure url="https://raw.github.com/evanescence/zephyros/master/Builds/Zephyros-2.4.app.tar.gz" sparkle:version="2.4" sparkle:dsaSignature="MCwCFAeinkE08PQvG3ErMm7ZZBO+ANEQAhQJXghTYWSe192ipH1LWYjaCQB1HA==" length="1309730" type="application/octet-stream"/>
     </item>
     <item>
       <title>Version 2.3.6</title>
-      <sparkle:releaseNotesLink>https://github.com/mattgemmell/zephyros#change-log</sparkle:releaseNotesLink>
+      <sparkle:releaseNotesLink>https://github.com/evanescence/zephyros#change-log</sparkle:releaseNotesLink>
       <pubDate>Mon Apr 29 12:34:54 CDT 2013</pubDate>
-      <enclosure url="https://raw.github.com/mattgemmell/zephyros/master/Builds/Zephyros-2.3.6.app.tar.gz" sparkle:version="2.3.6" sparkle:dsaSignature="MC0CFQCxIul3WW8olj46dElIJ6yCaojM7QIUTVovCXhsrnmM9/esfVTjTOIGun4=" length="1309435" type="application/octet-stream"/>
+      <enclosure url="https://raw.github.com/evanescence/zephyros/master/Builds/Zephyros-2.3.6.app.tar.gz" sparkle:version="2.3.6" sparkle:dsaSignature="MC0CFQCxIul3WW8olj46dElIJ6yCaojM7QIUTVovCXhsrnmM9/esfVTjTOIGun4=" length="1309435" type="application/octet-stream"/>
     </item>
   </channel>
 </rss>
