@@ -53,10 +53,6 @@
 		94E0964B171ED905002D8668 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E0964A171ED905002D8668 /* Sparkle.framework */; };
 		94E0964C171ED9D6002D8668 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 94E0964A171ED905002D8668 /* Sparkle.framework */; };
 		94E0964E171EDBA6002D8668 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 94E0964D171EDBA6002D8668 /* dsa_pub.pem */; };
-		B94C68BF1725B7D0008CE994 /* DJRKeyboardEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = B94C68BC1725B7D0008CE994 /* DJRKeyboardEvents.m */; };
-		B94C68C31725B7E7008CE994 /* DJRKeyboardTools.m in Sources */ = {isa = PBXBuildFile; fileRef = B94C68C21725B7E7008CE994 /* DJRKeyboardTools.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		B969B0A61725BE4F00C11451 /* DJRPasteboardProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = B969B0A51725BE4F00C11451 /* DJRPasteboardProxy.m */; };
-		B969B0AF1728141700C11451 /* NSPasteboard+SaveRestore.m in Sources */ = {isa = PBXBuildFile; fileRef = B969B0AE1728141700C11451 /* NSPasteboard+SaveRestore.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -145,14 +141,6 @@
 		94DAFB521719B99A00526003 /* LogWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LogWindow.xib; sourceTree = "<group>"; };
 		94E0964A171ED905002D8668 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = ThirdParty/Sparkle.framework; sourceTree = "<group>"; };
 		94E0964D171EDBA6002D8668 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dsa_pub.pem; path = AutoUpdating/dsa_pub.pem; sourceTree = SOURCE_ROOT; };
-		B94C68BB1725B7D0008CE994 /* DJRKeyboardEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJRKeyboardEvents.h; sourceTree = "<group>"; };
-		B94C68BC1725B7D0008CE994 /* DJRKeyboardEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJRKeyboardEvents.m; sourceTree = "<group>"; };
-		B94C68C11725B7E7008CE994 /* DJRKeyboardTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJRKeyboardTools.h; sourceTree = "<group>"; };
-		B94C68C21725B7E7008CE994 /* DJRKeyboardTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJRKeyboardTools.m; sourceTree = "<group>"; };
-		B969B0A41725BE4F00C11451 /* DJRPasteboardProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJRPasteboardProxy.h; sourceTree = "<group>"; };
-		B969B0A51725BE4F00C11451 /* DJRPasteboardProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJRPasteboardProxy.m; sourceTree = "<group>"; };
-		B969B0AD1728141700C11451 /* NSPasteboard+SaveRestore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSPasteboard+SaveRestore.h"; sourceTree = "<group>"; };
-		B969B0AE1728141700C11451 /* NSPasteboard+SaveRestore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSPasteboard+SaveRestore.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -340,15 +328,12 @@
 		94873F6417192987000AC0A6 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				B94C68BA1725B7B2008CE994 /* Selection */,
 				94873F6817193270000AC0A6 /* SDKeyBindingTranslator.h */,
 				94873F6917193270000AC0A6 /* SDKeyBindingTranslator.m */,
 				9495B45817197396002C9EF5 /* SDUniversalAccessHelper.h */,
 				9495B45917197396002C9EF5 /* SDUniversalAccessHelper.m */,
 				94D307FB1719FF0F00D392B1 /* SDOpenAtLogin.h */,
 				94D307FC1719FF0F00D392B1 /* SDOpenAtLogin.m */,
-				B969B0AD1728141700C11451 /* NSPasteboard+SaveRestore.h */,
-				B969B0AE1728141700C11451 /* NSPasteboard+SaveRestore.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -362,21 +347,8 @@
 				94454B32171B31AC003EF64E /* SDScreenProxy.m */,
 				94D07FB41723B16900CF44E9 /* SDAppProxy.h */,
 				94D07FB51723B16900CF44E9 /* SDAppProxy.m */,
-				B969B0A41725BE4F00C11451 /* DJRPasteboardProxy.h */,
-				B969B0A51725BE4F00C11451 /* DJRPasteboardProxy.m */,
 			);
 			name = Proxies;
-			sourceTree = "<group>";
-		};
-		B94C68BA1725B7B2008CE994 /* Selection */ = {
-			isa = PBXGroup;
-			children = (
-				B94C68C11725B7E7008CE994 /* DJRKeyboardTools.h */,
-				B94C68C21725B7E7008CE994 /* DJRKeyboardTools.m */,
-				B94C68BB1725B7D0008CE994 /* DJRKeyboardEvents.h */,
-				B94C68BC1725B7D0008CE994 /* DJRKeyboardEvents.m */,
-			);
-			name = Selection;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -478,10 +450,6 @@
 				94D07FB61723B16900CF44E9 /* SDAppProxy.m in Sources */,
 				94D07FBA1723BACB00CF44E9 /* SDAppStalker.m in Sources */,
 				94D07FBD1723C61C00CF44E9 /* SDEventListener.m in Sources */,
-				B94C68BF1725B7D0008CE994 /* DJRKeyboardEvents.m in Sources */,
-				B94C68C31725B7E7008CE994 /* DJRKeyboardTools.m in Sources */,
-				B969B0A61725BE4F00C11451 /* DJRPasteboardProxy.m in Sources */,
-				B969B0AF1728141700C11451 /* NSPasteboard+SaveRestore.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

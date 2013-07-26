@@ -81,7 +81,6 @@ api =
   focusedWindow: -> Window.fromNS SDWindowProxy.focusedWindow()
   mainScreen: -> SDScreenProxy.mainScreen()
   allScreens: -> mapToJS SDScreenProxy.allScreens(), Screen.fromNS
-  selectedText: -> objToJS DJRPasteboardProxy.selectedText()
   clipboardContents: ->
     body = NSPasteboard.generalPasteboard().stringForType(NSPasteboardTypeString)
     if body
