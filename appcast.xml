@@ -6,6 +6,12 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
     <item>
+      <title>Version 2.6.1</title>
+      <sparkle:releaseNotesLink>https://github.com/evanescence/zephyros#change-log</sparkle:releaseNotesLink>
+      <pubDate>Sat Jul 27 18:55:28 CDT 2013</pubDate>
+      <enclosure url="https://raw.github.com/evanescence/zephyros/master/Builds/Zephyros-2.6.1.app.tar.gz" sparkle:version="2.6.1" sparkle:dsaSignature="MCwCFEQLSafPIK32yMYI4j7wRcP2rBEaAhRcuNrFRj/u1LbVBcWb62jAKsJi9A==" length="1306493" type="application/octet-stream"/>
+    </item>
+    <item>
       <title>Version 2.6</title>
       <sparkle:releaseNotesLink>https://github.com/evanescence/zephyros#change-log</sparkle:releaseNotesLink>
       <pubDate>Fri Jul 26 17:03:07 CDT 2013</pubDate>
