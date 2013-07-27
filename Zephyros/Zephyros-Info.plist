@@ -32,10 +32,6 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
-	<key>SUAllowsAutomaticUpdates</key>
-	<false/>
-	<key>SUEnableAutomaticChecks</key>
-	<true/>
 	<key>SUFeedURL</key>
 	<string>https://raw.github.com/evanescence/zephyros/master/appcast.xml</string>
 	<key>SUPublicDSAKeyFile</key>
