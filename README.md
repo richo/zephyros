@@ -281,10 +281,13 @@ The rest you'll have to look up for yourself.
 'app_died', callback args: (app)
 'app_hidden', callback args: (app)
 'app_shown', callback args: (app)
+'screens_changed', callback args: ()
 ```
 
 ## Change log
 
+- HEAD
+  - added 'screens_changed' event
 - 2.6
   - First version anyone should care about
 

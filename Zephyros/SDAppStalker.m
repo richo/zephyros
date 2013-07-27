@@ -34,6 +34,8 @@
         [self stalkApp:app];
     }
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didChangeScreenParams:) name:NSApplicationDidChangeScreenParametersNotification object:nil];
+    
     [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self selector:@selector(appLaunched:) name:NSWorkspaceDidLaunchApplicationNotification object:nil];
     [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self selector:@selector(appDied:) name:NSWorkspaceDidTerminateApplicationNotification object:nil];
 }
@@ -46,6 +48,12 @@
 - (void) appDied:(NSNotification*)note {
     NSRunningApplication *launchedApp = [[note userInfo] objectForKey:NSWorkspaceApplicationKey];
     [self unstalkApp:launchedApp];
+}
+
+- (void) didChangeScreenParams:(NSNotification*)note {
+    [[NSNotificationCenter defaultCenter] postNotificationName:SDListenEventScreensChanged
+                                                        object:nil
+                                                      userInfo:nil];
 }
 
 - (void) stalkApp:(NSRunningApplication*)runningApp {

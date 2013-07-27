@@ -99,9 +99,12 @@ doAfter = (sec, fn) -> SDAPI.doFn_after_ fn, sec
 
 listen = (event, fn) ->
   trampolineFn = (thing) ->
-    switch thing.className().toString()
-      when 'SDWindowProxy'
-        fn Window.fromNS(thing)
-      when 'SDAppProxy'
-        fn App.fromNS(thing)
+    if thing?
+      switch thing.className().toString()
+        when 'SDWindowProxy'
+          fn Window.fromNS(thing)
+        when 'SDAppProxy'
+          fn App.fromNS(thing)
+    else
+      fn()
   SDEventListener.sharedEventListener().listenForEvent_fn_(event, trampolineFn)
