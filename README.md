@@ -15,7 +15,7 @@
 
 * Current version: **2.6.1**
 * Requires: OS X 10.7 and up
-* Download: [latest .zip file](https://raw.github.com/evanescence/zephyros/master/Builds/Zephyros-LATEST.app.tar.gz), unzip, right-click app, choose "Open"
+* Download: [latest .zip file](https://raw.github.com/sdegutis/zephyros/master/Builds/Zephyros-LATEST.app.tar.gz), unzip, right-click app, choose "Open"
 
 Table of contents:
 
@@ -126,7 +126,7 @@ bind "J", ["cmd", "alt", "ctrl"], ->
 
 #### More Config Tricks/Examples
 
-The [wiki home page](https://github.com/evanescence/zephyros/wiki) has a list of configs from users, and configs that replicate other apps (like SizeUp and Divvy).
+The [wiki home page](https://github.com/sdegutis/zephyros/wiki) has a list of configs from users, and configs that replicate other apps (like SizeUp and Divvy).
 
 ## API
 
@@ -158,7 +158,7 @@ property (API) api
 - (void) doAfter(Float sec, Function fn)
 ```
 
-The function `bind()` uses [this list](https://github.com/evanescence/zephyros/blob/master/Zephyros/SDKeyBindingTranslator.m#L148) of key strings.
+The function `bind()` uses [this list](https://github.com/sdegutis/zephyros/blob/master/Zephyros/SDKeyBindingTranslator.m#L148) of key strings.
 
 ### Type: `API`
 
