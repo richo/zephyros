@@ -15,31 +15,6 @@
 #import "SDLogWindowController.h"
 #import "SDConfigChooserWindowController.h"
 
-
-
-
-//#include <ruby/ruby.h>
-//
-//
-//
-//VALUE lolwut(VALUE module, VALUE keys, VALUE callback) {
-//    NSString* ss = [NSString stringWithUTF8String:StringValueCStr(keys)];
-//    
-//    NSLog(@"it was [%@]", ss);
-//    
-//    double delayInSeconds = 2.0;
-//    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-//    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-//        rb_funcall(callback, rb_intern("call"), 0);
-//    });
-//    
-//    
-//    NSLog(@"lolcat");
-//    return Qnil;
-//}
-
-
-
 @interface AppDelegate ()
 
 @property NSStatusItem* statusItem;
@@ -64,27 +39,6 @@
     [[SDConfigLoader sharedConfigLoader] prepareScriptingBridge];
     [[SDConfigLoader sharedConfigLoader] reloadConfig];
     [[SDAppStalker sharedAppStalker] beginStalking];
-    
-    
-    
-    
-    
-//    RUBY_INIT_STACK;
-//    ruby_init();
-//    ruby_init_loadpath();
-//    
-//    VALUE mymod = rb_define_module("API");
-//    rb_define_module_function(mymod, "bind", lolwut, 2);
-//    
-//    rb_eval_string("API.bind 'sup', lambda { puts 'word' }");
-//    
-////    rb_require("sum");
-//    rb_eval_string("@result = 3");
-//    
-//    VALUE result = rb_iv_get(rb_eval_string("self"), "@result");
-//    printf("Result = %ld\n", NUM2INT(result));
-//    
-////    return ruby_cleanup(0);
 }
 
 - (IBAction) chooseConfig:(id)sender {

@@ -23,12 +23,15 @@
 
 
 #import "SDJS.h"
+#import "SDRuby.h"
+
 
 @interface SDConfigLoader ()
 
 @property SDConfigWatcher* configWatcher;
 
 @property SDJS* js;
+@property SDRuby* ruby;
 
 @end
 
@@ -49,7 +52,8 @@
     self.js = [[SDJS alloc] init];
     [self.js setup];
     
-    
+    self.ruby = [[SDRuby alloc] init];
+    [self.ruby setup];
 }
 
 - (void) reloadConfigIfWatchEnabled {
@@ -128,8 +132,7 @@
         [self.js evalString:contents asCoffee:YES];
     }
     else if ([type isEqualToString: @"ruby"]) {
-        NSLog(@"not yet...");
-        // ...
+        [self.ruby evalString:contents];
     }
     
     return YES;
