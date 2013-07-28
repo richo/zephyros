@@ -10,7 +10,9 @@
 
 #import <JSCocoa/JSCocoa.h>
 
-@interface SDJSBlockWrapper : NSObject
+#import "SDCallback.h"
+
+@interface SDJSCallback : NSObject <SDCallback>
 
 - (id) initWithJavaScriptFn:(JSValueRefAndContextRef)fn;
 

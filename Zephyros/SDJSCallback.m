@@ -6,16 +6,16 @@
 //  Copyright (c) 2013 Giant Robot Software. All rights reserved.
 //
 
-#import "SDJSBlockWrapper.h"
+#import "SDJSCallback.h"
 
-@interface SDJSBlockWrapper ()
+@interface SDJSCallback ()
 
 @property JSContextRef mainContext;
 @property JSValueRef actualFn;
 
 @end
 
-@implementation SDJSBlockWrapper
+@implementation SDJSCallback
 
 - (id) initWithJavaScriptFn:(JSValueRefAndContextRef)fn {
     if (self = [super init]) {

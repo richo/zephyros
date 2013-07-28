@@ -14,10 +14,6 @@
 #import "SDScreenProxy.h"
 
 
-FOUNDATION_EXTERN NSString* const DoNotWaitShellOption;
-FOUNDATION_EXTERN NSString* const PwdShellOption;
-FOUNDATION_EXTERN NSString* const InputShellOption;
-
 @interface SDAPISettings : NSObject
 
 @property CGFloat alertDisappearDelay;

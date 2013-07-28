@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		940BF5E9171FA49B0041089B /* SDJSBlockWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 940BF5E8171FA49B0041089B /* SDJSBlockWrapper.m */; };
+		940BF5E9171FA49B0041089B /* SDJSCallback.m in Sources */ = {isa = PBXBuildFile; fileRef = 940BF5E8171FA49B0041089B /* SDJSCallback.m */; };
 		943921BA1719B1EE00F63073 /* statusitem.png in Resources */ = {isa = PBXBuildFile; fileRef = 943921B61719B1EE00F63073 /* statusitem.png */; };
 		943921BB1719B1EE00F63073 /* statusitem_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 943921B71719B1EE00F63073 /* statusitem_pressed.png */; };
 		943921BC1719B1EE00F63073 /* statusitem_pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 943921B81719B1EE00F63073 /* statusitem_pressed@2x.png */; };
@@ -20,6 +20,7 @@
 		94454B3F171B479B003EF64E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94454B3E171B479B003EF64E /* QuartzCore.framework */; };
 		945B18091720FBB40067C834 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 945B18081720FBB40067C834 /* WebKit.framework */; };
 		946B3AAF1721C5C800FB05F3 /* logwindow.html in Resources */ = {isa = PBXBuildFile; fileRef = 946B3AAE1721C5C800FB05F3 /* logwindow.html */; };
+		947DC98817A58BC30082D095 /* libruby.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 947DC98717A58BC30082D095 /* libruby.dylib */; };
 		947E9955171CA9A9006F30AC /* coffee-script.js in Resources */ = {isa = PBXBuildFile; fileRef = 947E9953171CA99C006F30AC /* coffee-script.js */; };
 		947E9958171CEFB5006F30AC /* SDAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 947E9957171CEFB5006F30AC /* SDAPI.m */; };
 		947E995B171CF9DE006F30AC /* SDConfigLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 947E995A171CF9DE006F30AC /* SDConfigLoader.m */; };
@@ -70,8 +71,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		940BF5E7171FA49B0041089B /* SDJSBlockWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDJSBlockWrapper.h; sourceTree = "<group>"; };
-		940BF5E8171FA49B0041089B /* SDJSBlockWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDJSBlockWrapper.m; sourceTree = "<group>"; };
+		940BF5E7171FA49B0041089B /* SDJSCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDJSCallback.h; sourceTree = "<group>"; };
+		940BF5E8171FA49B0041089B /* SDJSCallback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDJSCallback.m; sourceTree = "<group>"; };
 		943921B61719B1EE00F63073 /* statusitem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = statusitem.png; sourceTree = "<group>"; };
 		943921B71719B1EE00F63073 /* statusitem_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = statusitem_pressed.png; sourceTree = "<group>"; };
 		943921B81719B1EE00F63073 /* statusitem_pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "statusitem_pressed@2x.png"; sourceTree = "<group>"; };
@@ -87,6 +88,8 @@
 		94454B3E171B479B003EF64E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		945B18081720FBB40067C834 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		946B3AAE1721C5C800FB05F3 /* logwindow.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = logwindow.html; sourceTree = "<group>"; };
+		947DC98717A58BC30082D095 /* libruby.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libruby.dylib; path = usr/lib/libruby.dylib; sourceTree = SDKROOT; };
+		947DC98A17A5B6FF0082D095 /* SDCallback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SDCallback.h; sourceTree = "<group>"; };
 		947E9953171CA99C006F30AC /* coffee-script.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "coffee-script.js"; sourceTree = "<group>"; };
 		947E9956171CEFB5006F30AC /* SDAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDAPI.h; sourceTree = "<group>"; };
 		947E9957171CEFB5006F30AC /* SDAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDAPI.m; sourceTree = "<group>"; };
@@ -148,6 +151,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				947DC98817A58BC30082D095 /* libruby.dylib in Frameworks */,
 				945B18091720FBB40067C834 /* WebKit.framework in Frameworks */,
 				94454B3F171B479B003EF64E /* QuartzCore.framework in Frameworks */,
 				9495B457171959B4002C9EF5 /* JavaScriptCore.framework in Frameworks */,
@@ -174,9 +178,7 @@
 				94873F66171929A0000AC0A6 /* SDKeyBinder.m */,
 				94D07FBB1723C61C00CF44E9 /* SDEventListener.h */,
 				94D07FBC1723C61C00CF44E9 /* SDEventListener.m */,
-				940BF5E7171FA49B0041089B /* SDJSBlockWrapper.h */,
-				940BF5E8171FA49B0041089B /* SDJSBlockWrapper.m */,
-				94D07FB71723BAAE00CF44E9 /* Proxies */,
+				947DC98A17A5B6FF0082D095 /* SDCallback.h */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -202,6 +204,15 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
+		947DC98917A5B6D20082D095 /* JS */ = {
+			isa = PBXGroup;
+			children = (
+				940BF5E7171FA49B0041089B /* SDJSCallback.h */,
+				940BF5E8171FA49B0041089B /* SDJSCallback.m */,
+			);
+			name = JS;
+			sourceTree = "<group>";
+		};
 		94873F2117191F40000AC0A6 = {
 			isa = PBXGroup;
 			children = (
@@ -224,6 +235,7 @@
 		94873F2C17191F40000AC0A6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				947DC98717A58BC30082D095 /* libruby.dylib */,
 				945B18081720FBB40067C834 /* WebKit.framework */,
 				94E0964A171ED905002D8668 /* Sparkle.framework */,
 				94C85824171C551B007790F2 /* JSCocoa.framework */,
@@ -253,6 +265,8 @@
 				94873F6217192236000AC0A6 /* XIBs */,
 				94873F611719222D000AC0A6 /* Controllers */,
 				94454B39171B421D003EF64E /* Views */,
+				94D07FB71723BAAE00CF44E9 /* Proxies */,
+				947DC98917A5B6D20082D095 /* JS */,
 				943921B41719AF5900F63073 /* API */,
 				94873F6417192987000AC0A6 /* Helpers */,
 				943921B51719B1E600F63073 /* Graphics */,
@@ -446,7 +460,7 @@
 				94454B3C171B422C003EF64E /* SDAlertWindow.m in Sources */,
 				947E9958171CEFB5006F30AC /* SDAPI.m in Sources */,
 				947E995B171CF9DE006F30AC /* SDConfigLoader.m in Sources */,
-				940BF5E9171FA49B0041089B /* SDJSBlockWrapper.m in Sources */,
+				940BF5E9171FA49B0041089B /* SDJSCallback.m in Sources */,
 				94D07FB61723B16900CF44E9 /* SDAppProxy.m in Sources */,
 				94D07FBA1723BACB00CF44E9 /* SDAppStalker.m in Sources */,
 				94D07FBD1723C61C00CF44E9 /* SDEventListener.m in Sources */,

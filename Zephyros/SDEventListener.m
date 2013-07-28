@@ -8,12 +8,12 @@
 
 #import "SDEventListener.h"
 
-#import "SDJSBlockWrapper.h"
+#import "SDJSCallback.h"
 #import <JSCocoa/JSCocoa.h>
 
 @interface SDEventObserver : NSObject
 @property NSString* eventName;
-@property SDJSBlockWrapper* fn;
+@property SDJSCallback* fn;
 @property id realObserver;
 @end
 
@@ -73,7 +73,7 @@
 - (void) listenForEvent:(NSString*)name fn:(JSValueRefAndContextRef)fn {
     SDEventObserver* observer = [[SDEventObserver alloc] init];
     observer.eventName = name;
-    observer.fn = [[SDJSBlockWrapper alloc] initWithJavaScriptFn:fn];
+    observer.fn = [[SDJSCallback alloc] initWithJavaScriptFn:fn];
     
     self.upcomingListeners = [[NSArray arrayWithArray:self.upcomingListeners] arrayByAddingObject:observer];
 }

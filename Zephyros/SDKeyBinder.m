@@ -11,13 +11,11 @@
 #import "MASShortcut+Monitoring.h"
 #import "SDKeyBindingTranslator.h"
 
-#import "SDJSBlockWrapper.h"
-
 
 @interface SDHotKey : NSObject
 @property NSArray* modifiers;
 @property NSString* key;
-@property SDJSBlockWrapper* fn;
+@property id<SDCallback> fn;
 @end
 
 @implementation SDHotKey
@@ -63,11 +61,11 @@
     return sharedKeyBinder;
 }
 
-- (void) bind:(NSString*)key modifiers:(NSArray*)mods fn:(JSValueRefAndContextRef)fn {
+- (void) bind:(NSString*)key modifiers:(NSArray*)mods fn:(id<SDCallback>)fn {
     SDHotKey* hotkey = [[SDHotKey alloc] init];
     hotkey.key = key;
     hotkey.modifiers = mods;
-    hotkey.fn = [[SDJSBlockWrapper alloc] initWithJavaScriptFn:fn];
+    hotkey.fn = fn;
     
     self.upcomingHotKeys = [[NSArray arrayWithArray:self.upcomingHotKeys] arrayByAddingObject:hotkey];
 }

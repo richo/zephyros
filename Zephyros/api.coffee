@@ -90,7 +90,7 @@ api =
 
 shell = (path, args, options) -> SDAPI.shell_args_options_ path, args, options
 open = (thing) -> SDAPI.shell_args_options_ "/usr/bin/open", [thing], {}
-bind = (key, modifiers, fn) -> SDKeyBinder.sharedKeyBinder().bind_modifiers_fn_ key, modifiers, fn
+bind = (key, modifiers, fn) -> SDKeyBinder.sharedKeyBinder().bind_modifiers_fn_ key, modifiers, SDJSCallback.alloc().initWithJavaScriptFn(fn).autorelease()
 log = (str) -> SDLogWindowController.sharedLogWindowController().show_type_ str, "SDLogMessageTypeUser"
 require = (file) -> SDConfigLoader.sharedConfigLoader().require(file)
 alert = (str, delay) -> SDAlertWindowController.sharedAlertWindowController().show_delay_ str, delay

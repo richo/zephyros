@@ -17,11 +17,7 @@
 #import "SDAlertWindowController.h"
 #import "SDLogWindowController.h"
 
-#import "SDJSBlockWrapper.h"
-
-NSString* const DoNotWaitShellOption = @"donotwait";
-NSString* const PwdShellOption = @"pwd";
-NSString* const InputShellOption = @"input";
+#import "SDJSCallback.h"
 
 @implementation SDAPISettings
 
@@ -63,7 +59,7 @@ NSString* const InputShellOption = @"input";
 }
 
 + (void) doFn:(JSValueRefAndContextRef)fn after:(double)delayInSeconds {
-    SDJSBlockWrapper* block = [[SDJSBlockWrapper alloc] initWithJavaScriptFn:fn];
+    SDJSCallback* block = [[SDJSCallback alloc] initWithJavaScriptFn:fn];
     
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_main_queue(), ^{
@@ -77,9 +73,9 @@ NSString* const InputShellOption = @"input";
     NSPipe* errPipe = [NSPipe pipe];
     NSPipe* inPipe = [NSPipe pipe];
     
-    NSString* pwd = [options objectForKey:PwdShellOption];
-    NSString* input = [options objectForKey:InputShellOption];
-    NSValue* doNotWaitOption = [options objectForKey:DoNotWaitShellOption];
+    NSString* pwd = [options objectForKey:@"pwd"];
+    NSString* input = [options objectForKey:@"input"];
+    NSValue* doNotWaitOption = [options objectForKey:@"donotwait"];
     if ([doNotWaitOption isKindOfClass:[NSValue class]]) {
         [doNotWaitOption getValue:&doNotWait];
     }
