@@ -17,7 +17,7 @@
 #import "SDAlertWindowController.h"
 #import "SDLogWindowController.h"
 
-#import "SDJSCallback.h"
+#import "SDCallback.h"
 
 @implementation SDAPISettings
 
@@ -58,12 +58,10 @@
     return settings;
 }
 
-+ (void) doFn:(JSValueRefAndContextRef)fn after:(double)delayInSeconds {
-    SDJSCallback* block = [[SDJSCallback alloc] initWithJavaScriptFn:fn];
-    
++ (void) doFn:(id<SDCallback>)fn after:(double)delayInSeconds {
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_main_queue(), ^{
-        [block call:nil];
+        [fn call:nil];
     });
 }
 

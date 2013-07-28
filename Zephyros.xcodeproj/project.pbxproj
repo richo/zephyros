@@ -170,14 +170,10 @@
 			children = (
 				947E9956171CEFB5006F30AC /* SDAPI.h */,
 				947E9957171CEFB5006F30AC /* SDAPI.m */,
-				94D07FB81723BACB00CF44E9 /* SDAppStalker.h */,
-				94D07FB91723BACB00CF44E9 /* SDAppStalker.m */,
 				947E9959171CF9DE006F30AC /* SDConfigLoader.h */,
 				947E995A171CF9DE006F30AC /* SDConfigLoader.m */,
 				94873F65171929A0000AC0A6 /* SDKeyBinder.h */,
 				94873F66171929A0000AC0A6 /* SDKeyBinder.m */,
-				94D07FBB1723C61C00CF44E9 /* SDEventListener.h */,
-				94D07FBC1723C61C00CF44E9 /* SDEventListener.m */,
 				947DC98A17A5B6FF0082D095 /* SDCallback.h */,
 			);
 			name = API;
@@ -211,6 +207,24 @@
 				940BF5E8171FA49B0041089B /* SDJSCallback.m */,
 			);
 			name = JS;
+			sourceTree = "<group>";
+		};
+		947DC98B17A5B9400082D095 /* Events */ = {
+			isa = PBXGroup;
+			children = (
+				94D07FB81723BACB00CF44E9 /* SDAppStalker.h */,
+				94D07FB91723BACB00CF44E9 /* SDAppStalker.m */,
+				94D07FBB1723C61C00CF44E9 /* SDEventListener.h */,
+				94D07FBC1723C61C00CF44E9 /* SDEventListener.m */,
+			);
+			name = Events;
+			sourceTree = "<group>";
+		};
+		947DC98F17A5BADE0082D095 /* Ruby */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Ruby;
 			sourceTree = "<group>";
 		};
 		94873F2117191F40000AC0A6 = {
@@ -266,7 +280,9 @@
 				94873F611719222D000AC0A6 /* Controllers */,
 				94454B39171B421D003EF64E /* Views */,
 				94D07FB71723BAAE00CF44E9 /* Proxies */,
+				947DC98F17A5BADE0082D095 /* Ruby */,
 				947DC98917A5B6D20082D095 /* JS */,
+				947DC98B17A5B9400082D095 /* Events */,
 				943921B41719AF5900F63073 /* API */,
 				94873F6417192987000AC0A6 /* Helpers */,
 				943921B51719B1E600F63073 /* Graphics */,

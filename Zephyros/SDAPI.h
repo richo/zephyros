@@ -8,8 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-#import <JSCocoa/JSCocoa.h>
-
 #import "SDWindowProxy.h"
 #import "SDScreenProxy.h"
 

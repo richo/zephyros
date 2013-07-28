@@ -95,7 +95,7 @@ log = (str) -> SDLogWindowController.sharedLogWindowController().show_type_ str,
 require = (file) -> SDConfigLoader.sharedConfigLoader().require(file)
 alert = (str, delay) -> SDAlertWindowController.sharedAlertWindowController().show_delay_ str, delay
 reloadConfig = -> SDConfigLoader.sharedConfigLoader().reloadConfig()
-doAfter = (sec, fn) -> SDAPI.doFn_after_ fn, sec
+doAfter = (sec, fn) -> SDAPI.doFn_after_ SDJSCallback.alloc().initWithJavaScriptFn(fn).autorelease(), sec
 
 listen = (event, fn) ->
   trampolineFn = (thing) ->
