@@ -13,7 +13,7 @@
 
 *The OS X window manager for hackers*
 
-* Current version: **2.6.1**
+* Current version: **2.7**
 * Requires: OS X 10.7 and up
 * Download: [latest .zip file](https://raw.github.com/sdegutis/zephyros/master/Builds/Zephyros-LATEST.app.tar.gz), unzip, right-click app, choose "Open"
 
@@ -49,7 +49,7 @@ You can write your config file using either:
 
 - JavaScript as `~/.zephyros.js`
 - [CoffeeScript 1.6.2](http://coffeescript.org/) as `~/.zephyros.coffee`
-- any language which compiles down to JavaScript (see [Using Other Languages](#using-other-languages) below)
+- Optionally, you can tell Zephyros to preprocess your config file with any command line utility (such as ClojureScript, other [altjs.org](http://altjs.org/) languages, such as from [this guy's list](https://github.com/jashkenas/coffee-script/wiki/List-of-languages-that-compile-to-JS))
 
 In your config file, `bind()` some global hot keys to your own JavaScript functions which do window-managery type things.
 
@@ -70,29 +70,12 @@ Is the API missing something you need? File an issue and let me know!
 
 For your convenience, [underscore.js](http://underscorejs.org/) 1.4.4 is loaded beforehand.
 
-#### Modular Configs
-
-Feel free to put some `.coffee` or `.js` files in `~/.zephyros/` and `require()` them from your main config file.
-
-If you want to put your config files all in one dir, you can use `~/.zephyros/config.*` as your config file instead of `~/.zephyros.*`. This has the advantage of your config files auto-reloading properly for new languages, plus you can then put the whole directory under version control more easily.
-
 #### Auto-Reload Configs
 
-When you enable this feature via the menu, Zephyros will reload your config file any time `~/.zephyros.coffee`, `~/.zephyros.js`, or anything within `~/.zephyros/` changes.
-
-#### Using Other Languages
-
-Besides JS and CoffeeScript, you can extend Zephyros to load other languages as well, so long as they compile down to JavaScript. There's a pretty big list you can choose from at [altjs.org](http://altjs.org/) and in [this guy's list](https://github.com/jashkenas/coffee-script/wiki/List-of-languages-that-compile-to-JS).
-
-To use another language:
-
-* Create `~/.zephyros/langs.json` which is a hash in the format `{ 'rb' : '/path/to/ruby-to-js/compiler' }`
-* Now you can `require('~/.zephyros/myfile.rb');` from your main config.
-* Plus you can use `~/.zephyros.rb` as your primary config.
+When you enable this feature via the menu, Zephyros will reload your config file it changes.
 
 #### Config Caveats
 
-- If both config files exist, the most recently modified one will be chosen. You can override this by using `touch`.
 - If reloading your config file fails, your key bindings will be un-bound as a precaution, presuming that your config file is in an unpredictable state. They will be re-bound again next time your config file is successfully loaded. Same with events you're registered to.
 
 ## Config Example
@@ -286,6 +269,8 @@ The rest you'll have to look up for yourself.
 
 ## Change log
 
+- 2.7
+  - Less dumb way of choosing configs (uses UI this time)
 - 2.6.1
   - Added 'screens_changed' event
 - 2.6
