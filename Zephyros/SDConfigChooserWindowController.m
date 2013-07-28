@@ -8,19 +8,7 @@
 
 #import "SDConfigChooserWindowController.h"
 
-@interface SDConfigExtrasValueTransformer : NSValueTransformer
-@end
-
-@implementation SDConfigExtrasValueTransformer
-
-+ (Class)transformedValueClass { return [NSString self]; }
-+ (BOOL)allowsReverseTransformation { return NO; }
-- (id)transformedValue:(id)value {
-    return @([value isEqual: @"altjs"]);
-}
-
-@end
-
+#import "SDConfigLoader.h"
 
 @interface SDConfigChooserWindowController ()
 
@@ -55,6 +43,8 @@
     [[NSUserDefaults standardUserDefaults] setBool:self.configShouldConvertFirst forKey:@"configShouldPreprocess"];
     
     [self close];
+    
+    [[SDConfigLoader sharedConfigLoader] reloadConfig];
 }
 
 - (IBAction) whateverIGiveUp:(id)sender {

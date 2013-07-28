@@ -36,8 +36,13 @@
 }
 
 - (void) windowDidLoad {
+    self.window.styleMask = NSBorderlessWindowMask;
+    self.window.backgroundColor = [NSColor clearColor];
+    self.window.opaque = NO;
+    self.window.level = NSFloatingWindowLevel;
     self.window.ignoresMouseEvents = YES;
     self.window.animationBehavior = NSWindowAnimationBehaviorAlertPanel;
+//    self.collectionBehavior = NSWindowCollectionBehaviorCanJoinAllSpaces | NSWindowCollectionBehaviorStationary;
 }
 
 - (void) show:(NSString*)oneLineMsg delay:(NSNumber*)delay {

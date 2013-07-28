@@ -16,7 +16,6 @@
 		94454B33171B31AC003EF64E /* SDScreenProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 94454B32171B31AC003EF64E /* SDScreenProxy.m */; };
 		94454B37171B4179003EF64E /* SDAlertWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94454B35171B4179003EF64E /* SDAlertWindowController.m */; };
 		94454B38171B4179003EF64E /* AlertWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94454B36171B4179003EF64E /* AlertWindow.xib */; };
-		94454B3C171B422C003EF64E /* SDAlertWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 94454B3B171B422C003EF64E /* SDAlertWindow.m */; };
 		94454B3F171B479B003EF64E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94454B3E171B479B003EF64E /* QuartzCore.framework */; };
 		945B18091720FBB40067C834 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 945B18081720FBB40067C834 /* WebKit.framework */; };
 		946B3AAF1721C5C800FB05F3 /* logwindow.html in Resources */ = {isa = PBXBuildFile; fileRef = 946B3AAE1721C5C800FB05F3 /* logwindow.html */; };
@@ -85,8 +84,6 @@
 		94454B34171B4179003EF64E /* SDAlertWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDAlertWindowController.h; sourceTree = "<group>"; };
 		94454B35171B4179003EF64E /* SDAlertWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDAlertWindowController.m; sourceTree = "<group>"; };
 		94454B36171B4179003EF64E /* AlertWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlertWindow.xib; sourceTree = "<group>"; };
-		94454B3A171B422C003EF64E /* SDAlertWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDAlertWindow.h; sourceTree = "<group>"; };
-		94454B3B171B422C003EF64E /* SDAlertWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDAlertWindow.m; sourceTree = "<group>"; };
 		94454B3E171B479B003EF64E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		945B18081720FBB40067C834 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		946B3AAE1721C5C800FB05F3 /* logwindow.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = logwindow.html; sourceTree = "<group>"; };
@@ -196,15 +193,6 @@
 			name = Graphics;
 			sourceTree = "<group>";
 		};
-		94454B39171B421D003EF64E /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				94454B3A171B422C003EF64E /* SDAlertWindow.h */,
-				94454B3B171B422C003EF64E /* SDAlertWindow.m */,
-			);
-			name = Views;
-			sourceTree = "<group>";
-		};
 		947DC98917A5B6D20082D095 /* JS */ = {
 			isa = PBXGroup;
 			children = (
@@ -307,7 +295,6 @@
 				947DC99517A5BCA90082D095 /* Config Chooser */,
 				947DC99617A5BCD30082D095 /* Log Window */,
 				94873F611719222D000AC0A6 /* Alert Window */,
-				94454B39171B421D003EF64E /* Views */,
 				94D07FB71723BAAE00CF44E9 /* Proxies */,
 				947DC98F17A5BADE0082D095 /* Ruby */,
 				947DC98917A5B6D20082D095 /* JS */,
@@ -490,7 +477,6 @@
 				94D307FD1719FF0F00D392B1 /* SDOpenAtLogin.m in Sources */,
 				94454B33171B31AC003EF64E /* SDScreenProxy.m in Sources */,
 				94454B37171B4179003EF64E /* SDAlertWindowController.m in Sources */,
-				94454B3C171B422C003EF64E /* SDAlertWindow.m in Sources */,
 				947E9958171CEFB5006F30AC /* SDAPI.m in Sources */,
 				947E995B171CF9DE006F30AC /* SDConfigLoader.m in Sources */,
 				940BF5E9171FA49B0041089B /* SDJSCallback.m in Sources */,
