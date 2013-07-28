@@ -78,7 +78,7 @@ You can `require()` other files.
 
 When you enable this feature via the menu, Zephyros will reload your config file it changes.
 
-#### Using Other Langauges
+#### Using Other Languages
 
 Optionally, you can tell Zephyros to preprocess your config file with any command line utility. This lets you use any [altjs.org](http://altjs.org/) languages, such as from [this guy's list](https://github.com/jashkenas/coffee-script/wiki/List-of-languages-that-compile-to-JS)).
 
