@@ -45,11 +45,11 @@ Table of contents:
 
 At it's core, Zephyros is just a program that runs quietly in your menu bar, and loads a config file in your home directory.
 
-You can write your config file using either:
+You can write your config file using:
 
 - JavaScript as `~/.zephyros.js`
 - [CoffeeScript 1.6.2](http://coffeescript.org/) as `~/.zephyros.coffee`
-- Optionally, you can tell Zephyros to preprocess your config file with any command line utility (such as ClojureScript, other [altjs.org](http://altjs.org/) languages, such as from [this guy's list](https://github.com/jashkenas/coffee-script/wiki/List-of-languages-that-compile-to-JS))
+- more, see [using other languages](#using-other-languages) below
 
 In your config file, `bind()` some global hot keys to your own JavaScript functions which do window-managery type things.
 
@@ -70,9 +70,17 @@ Is the API missing something you need? File an issue and let me know!
 
 For your convenience, [underscore.js](http://underscorejs.org/) 1.4.4 is loaded beforehand.
 
+#### Modular Configs
+
+You can `require()` other files.
+
 #### Auto-Reload Configs
 
 When you enable this feature via the menu, Zephyros will reload your config file it changes.
+
+#### Using Other Langauges
+
+Optionally, you can tell Zephyros to preprocess your config file with any command line utility. This lets you use any [altjs.org](http://altjs.org/) languages, such as from [this guy's list](https://github.com/jashkenas/coffee-script/wiki/List-of-languages-that-compile-to-JS)).
 
 #### Config Caveats
 
