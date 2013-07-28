@@ -23,6 +23,7 @@
 		947DC99317A5BC990082D095 /* SDConfigChooserWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 947DC99117A5BC990082D095 /* SDConfigChooserWindowController.m */; };
 		947DC99417A5BC990082D095 /* SDConfigChooserWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 947DC99217A5BC990082D095 /* SDConfigChooserWindow.xib */; };
 		947DC99D17A5D0940082D095 /* SDConfigWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 947DC99C17A5D0940082D095 /* SDConfigWatcher.m */; };
+		947DC9A017A5D3B50082D095 /* SDJS.m in Sources */ = {isa = PBXBuildFile; fileRef = 947DC99F17A5D3B50082D095 /* SDJS.m */; };
 		947E9955171CA9A9006F30AC /* coffee-script.js in Resources */ = {isa = PBXBuildFile; fileRef = 947E9953171CA99C006F30AC /* coffee-script.js */; };
 		947E9958171CEFB5006F30AC /* SDAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 947E9957171CEFB5006F30AC /* SDAPI.m */; };
 		947E995B171CF9DE006F30AC /* SDConfigLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 947E995A171CF9DE006F30AC /* SDConfigLoader.m */; };
@@ -95,6 +96,8 @@
 		947DC99217A5BC990082D095 /* SDConfigChooserWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SDConfigChooserWindow.xib; sourceTree = "<group>"; };
 		947DC99B17A5D0940082D095 /* SDConfigWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDConfigWatcher.h; sourceTree = "<group>"; };
 		947DC99C17A5D0940082D095 /* SDConfigWatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDConfigWatcher.m; sourceTree = "<group>"; };
+		947DC99E17A5D3B50082D095 /* SDJS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDJS.h; sourceTree = "<group>"; };
+		947DC99F17A5D3B50082D095 /* SDJS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDJS.m; sourceTree = "<group>"; };
 		947E9953171CA99C006F30AC /* coffee-script.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "coffee-script.js"; sourceTree = "<group>"; };
 		947E9956171CEFB5006F30AC /* SDAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDAPI.h; sourceTree = "<group>"; };
 		947E9957171CEFB5006F30AC /* SDAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDAPI.m; sourceTree = "<group>"; };
@@ -203,6 +206,8 @@
 			children = (
 				940BF5E7171FA49B0041089B /* SDJSCallback.h */,
 				940BF5E8171FA49B0041089B /* SDJSCallback.m */,
+				947DC99E17A5D3B50082D095 /* SDJS.h */,
+				947DC99F17A5D3B50082D095 /* SDJS.m */,
 			);
 			name = JS;
 			sourceTree = "<group>";
@@ -490,6 +495,7 @@
 				94D07FBD1723C61C00CF44E9 /* SDEventListener.m in Sources */,
 				947DC99317A5BC990082D095 /* SDConfigChooserWindowController.m in Sources */,
 				947DC99D17A5D0940082D095 /* SDConfigWatcher.m in Sources */,
+				947DC9A017A5D3B50082D095 /* SDJS.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

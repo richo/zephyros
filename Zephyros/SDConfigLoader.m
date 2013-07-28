@@ -21,13 +21,14 @@
 
 #import "SDConfigWatcher.h"
 
+
+#import "SDJS.h"
+
 @interface SDConfigLoader ()
 
 @property SDConfigWatcher* configWatcher;
 
-@property JSCocoa* jscocoa;
-
-- (void) reloadConfigIfWatchEnabled;
+@property SDJS* js;
 
 @end
 
@@ -45,17 +46,10 @@
 }
 
 - (void) prepareScriptingBridge {
-    self.jscocoa = [JSCocoa new];
-    self.jscocoa.delegate = self;
-    self.jscocoa.useAutoCall = YES;
-    self.jscocoa.useSplitCall = NO;
-    self.jscocoa.useJSLint = NO;
-    self.jscocoa.useAutoCall = NO;
+    self.js = [[SDJS alloc] init];
+    [self.js setup];
     
-    [self.jscocoa evalJSFile:[[NSBundle mainBundle] pathForResource:@"underscore-min" ofType:@"js"]];
-    [self.jscocoa evalJSFile:[[NSBundle mainBundle] pathForResource:@"coffee-script" ofType:@"js"]];
-    [self.jscocoa eval:@"function coffeeToJS(coffee) { return CoffeeScript.compile(coffee, { bare: true }); };"];
-    [self evalCoffeeFile:[[NSBundle mainBundle] pathForResource:@"api" ofType:@"coffee"]];
+    
 }
 
 - (void) reloadConfigIfWatchEnabled {
@@ -66,22 +60,15 @@
     }
 }
 
-- (void) evalCoffeeFile:(NSString*)path {
-    NSString* contents = [NSString stringWithContentsOfFile:[path stringByStandardizingPath]
-                                                   encoding:NSUTF8StringEncoding
-                                                      error:NULL];
-    [self evalString:contents asCoffee:YES];
-}
-
 - (void) reloadConfig {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.configWatcher stopWatching];
         
-        NSString* file = [[[NSUserDefaults standardUserDefaults] stringForKey:@"configPath"] stringByStandardizingPath];
+        NSString* file = [[NSUserDefaults standardUserDefaults] stringForKey:@"configPath"];
         
         if (!file) {
             [[SDAlertWindowController sharedAlertWindowController]
-             show:@"Can't find either ~/.zephyros.{coffee,js}\n\nMake one exist and try Reload Config again."
+             show:[NSString stringWithFormat:@"Um, %@ doesn't seem to exist", file]
              delay:@7.0];
             return;
         }
@@ -89,7 +76,7 @@
         [[SDKeyBinder sharedKeyBinder] removeKeyBindings];
         [[SDEventListener sharedEventListener] removeListeners];
         
-        if (![self require:file])
+        if (![self load:file])
             return;
         
         [[SDEventListener sharedEventListener] finalizeNewListeners];
@@ -113,57 +100,39 @@
     });
 }
 
-- (BOOL) require:(NSString*)filename {
-    if ([filename isAbsolutePath] == NO)
-        filename = [@"~/.zephyros/" stringByAppendingPathComponent:filename];
-    
+- (BOOL) load:(NSString*)filename {
     NSString* contents = [NSString stringWithContentsOfFile:[filename stringByStandardizingPath]
                                                    encoding:NSUTF8StringEncoding
                                                       error:NULL];
     
-    NSLog(@"ok %@", contents);
-    
     if (!contents)
         return NO;
     
-    if ([filename hasSuffix:@".js"]) {
-        [self evalString:contents asCoffee:NO];
-        return YES;
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"configShouldPreprocess"]) {
+        NSString* preprocessor = [[NSUserDefaults standardUserDefaults] stringForKey:@"configConverter"];
+        if (preprocessor) {
+            preprocessor = [preprocessor stringByStandardizingPath];
+            NSDictionary* result = [SDAPI shell:@"/bin/bash"
+                                           args:@[@"-lc", preprocessor]
+                                        options:@{@"input": contents, @"pwd":[preprocessor stringByDeletingLastPathComponent]}];
+            contents = [result objectForKey:@"stdout"];
+        }
     }
     
-    if ([filename hasSuffix:@".coffee"]) {
-        [self evalString:contents asCoffee:YES];
-        return YES;
+    NSString* type = [[NSUserDefaults standardUserDefaults] stringForKey:@"configType"];
+    
+    if ([type isEqualToString: @"js"]) {
+        [self.js evalString:contents asCoffee:NO];
+    }
+    else if ([type isEqualToString: @"coffee"]) {
+        [self.js evalString:contents asCoffee:YES];
+    }
+    else if ([type isEqualToString: @"ruby"]) {
+        NSLog(@"not yet...");
+        // ...
     }
     
-//    NSString* suffix = [filename pathExtension];
-//    NSString* compiler = [[nil objectForKey:suffix] stringByStandardizingPath];
-//    if (compiler) {
-//        NSDictionary* result = [SDAPI shell:@"/bin/bash"
-//                                       args:@[@"-lc", compiler]
-//                                    options:@{@"input": contents, @"pwd":[compiler stringByDeletingLastPathComponent]}];
-//        NSString* output = [result objectForKey:@"stdout"];
-//        [self.jscocoa eval:output];
-//        return YES;
-//    }
-    
-    [[SDAlertWindowController sharedAlertWindowController]
-     show:[NSString stringWithFormat:@"Don't know how to load %@", filename]
-     delay:@4.0];
-    return NO;
-}
-
-- (NSString*) evalString:(NSString*)str asCoffee:(BOOL)useCoffee {
-    if (useCoffee)
-        return [self evalString:[self.jscocoa callFunction:@"coffeeToJS" withArguments:@[str]]
-                       asCoffee:NO];
-    else
-        return [[self.jscocoa eval:str] description];
-}
-
-- (void) JSCocoa:(JSCocoaController*)controller hadError:(NSString*)error onLineNumber:(NSInteger)lineNumber atSourceURL:(id)url {
-    NSString* msg = [NSString stringWithFormat: @"Error in config file on line: %ld\n\n%@", lineNumber, error];
-    [[SDLogWindowController sharedLogWindowController] show:msg type:SDLogMessageTypeError];
+    return YES;
 }
 
 @end

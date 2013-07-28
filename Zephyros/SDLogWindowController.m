@@ -40,14 +40,14 @@
 }
 
 - (IBAction) evalFromRepl:(id)sender {
-    NSString* command = [sender stringValue];
-    NSString* str = [[SDConfigLoader sharedConfigLoader] evalString:command
-                                                           asCoffee:[[NSUserDefaults standardUserDefaults] boolForKey:@"replUsesCoffee"]];
-    [self show:str type:SDLogMessageTypeREPL];
-    [sender setStringValue:@""];
-    
-    [self.replHistory addObject:command];
-    self.replHistoryPos = [self.replHistory count];
+//    NSString* command = [sender stringValue];
+//    NSString* str = [[SDConfigLoader sharedConfigLoader] evalString:command
+//                                                           asCoffee:[[NSUserDefaults standardUserDefaults] boolForKey:@"replUsesCoffee"]];
+//    [self show:str type:SDLogMessageTypeREPL];
+//    [sender setStringValue:@""];
+//    
+//    [self.replHistory addObject:command];
+//    self.replHistoryPos = [self.replHistory count];
 }
 
 - (IBAction) clearLog:(id)sender {

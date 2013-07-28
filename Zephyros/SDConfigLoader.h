@@ -14,9 +14,6 @@
 
 - (void) prepareScriptingBridge;
 - (void) reloadConfig;
-
-- (NSString*) evalString:(NSString*)str asCoffee:(BOOL)useCoffee;
-
 - (void) reloadConfigIfWatchEnabled;
 
 @end

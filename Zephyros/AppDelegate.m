@@ -58,7 +58,7 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"configPath": @"~/zephyros.coffee"}];
-    [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"configType": @"coffeescript"}];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"configType": @"coffee"}];
     
     [self prepareStatusItem];
     [[SDConfigLoader sharedConfigLoader] prepareScriptingBridge];
