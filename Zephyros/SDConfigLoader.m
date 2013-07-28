@@ -19,21 +19,18 @@
 #import "SDAlertWindowController.h"
 #import "SDLogWindowController.h"
 
+#import "SDConfigWatcher.h"
+
 @interface SDConfigLoader ()
+
+@property SDConfigWatcher* configWatcher;
 
 @property JSCocoa* jscocoa;
 
 - (void) reloadConfigIfWatchEnabled;
 
-@property NSDictionary* langsMap;
-
 @end
 
-
-void fsEventsCallback(ConstFSEventStreamRef streamRef, void *clientCallBackInfo, size_t numEvents, void *eventPaths, const FSEventStreamEventFlags eventFlags[], const FSEventStreamEventId eventIds[])
-{
-    [[SDConfigLoader sharedConfigLoader] reloadConfigIfWatchEnabled];
-}
 
 @implementation SDConfigLoader
 
@@ -42,6 +39,7 @@ void fsEventsCallback(ConstFSEventStreamRef streamRef, void *clientCallBackInfo,
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedConfigLoader = [[SDConfigLoader alloc] init];
+        sharedConfigLoader.configWatcher = [[SDConfigWatcher alloc] init];
     });
     return sharedConfigLoader;
 }
@@ -58,16 +56,6 @@ void fsEventsCallback(ConstFSEventStreamRef streamRef, void *clientCallBackInfo,
     [self.jscocoa evalJSFile:[[NSBundle mainBundle] pathForResource:@"coffee-script" ofType:@"js"]];
     [self.jscocoa eval:@"function coffeeToJS(coffee) { return CoffeeScript.compile(coffee, { bare: true }); };"];
     [self evalCoffeeFile:[[NSBundle mainBundle] pathForResource:@"api" ofType:@"coffee"]];
-    
-    [self updateAltLangsMap];
-    [self watchConfigFiles];
-}
-
-- (void) updateAltLangsMap {
-    NSData* langsData = [NSData dataWithContentsOfFile:[@"~/.zephyros/langs.json" stringByStandardizingPath]];
-    if (langsData != nil) {
-        self.langsMap = [NSJSONSerialization JSONObjectWithData:langsData options:0 error:NULL];
-    }
 }
 
 - (void) reloadConfigIfWatchEnabled {
@@ -86,10 +74,10 @@ void fsEventsCallback(ConstFSEventStreamRef streamRef, void *clientCallBackInfo,
 }
 
 - (void) reloadConfig {
-    [self updateAltLangsMap];
-    
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSString* file = [self configFileToUse];
+        [self.configWatcher stopWatching];
+        
+        NSString* file = [[[NSUserDefaults standardUserDefaults] stringForKey:@"configPath"] stringByStandardizingPath];
         
         if (!file) {
             [[SDAlertWindowController sharedAlertWindowController]
@@ -121,6 +109,7 @@ void fsEventsCallback(ConstFSEventStreamRef streamRef, void *clientCallBackInfo,
             loaded = YES;
         }
         
+        [self.configWatcher startWatching:[[[NSUserDefaults standardUserDefaults] stringForKey:@"configPath"] stringByStandardizingPath]];
     });
 }
 
@@ -131,6 +120,8 @@ void fsEventsCallback(ConstFSEventStreamRef streamRef, void *clientCallBackInfo,
     NSString* contents = [NSString stringWithContentsOfFile:[filename stringByStandardizingPath]
                                                    encoding:NSUTF8StringEncoding
                                                       error:NULL];
+    
+    NSLog(@"ok %@", contents);
     
     if (!contents)
         return NO;
@@ -145,16 +136,16 @@ void fsEventsCallback(ConstFSEventStreamRef streamRef, void *clientCallBackInfo,
         return YES;
     }
     
-    NSString* suffix = [filename pathExtension];
-    NSString* compiler = [[self.langsMap objectForKey:suffix] stringByStandardizingPath];
-    if (compiler) {
-        NSDictionary* result = [SDAPI shell:@"/bin/bash"
-                                       args:@[@"-lc", compiler]
-                                    options:@{@"input": contents, @"pwd":[compiler stringByDeletingLastPathComponent]}];
-        NSString* output = [result objectForKey:@"stdout"];
-        [self.jscocoa eval:output];
-        return YES;
-    }
+//    NSString* suffix = [filename pathExtension];
+//    NSString* compiler = [[nil objectForKey:suffix] stringByStandardizingPath];
+//    if (compiler) {
+//        NSDictionary* result = [SDAPI shell:@"/bin/bash"
+//                                       args:@[@"-lc", compiler]
+//                                    options:@{@"input": contents, @"pwd":[compiler stringByDeletingLastPathComponent]}];
+//        NSString* output = [result objectForKey:@"stdout"];
+//        [self.jscocoa eval:output];
+//        return YES;
+//    }
     
     [[SDAlertWindowController sharedAlertWindowController]
      show:[NSString stringWithFormat:@"Don't know how to load %@", filename]
@@ -173,72 +164,6 @@ void fsEventsCallback(ConstFSEventStreamRef streamRef, void *clientCallBackInfo,
 - (void) JSCocoa:(JSCocoaController*)controller hadError:(NSString*)error onLineNumber:(NSInteger)lineNumber atSourceURL:(id)url {
     NSString* msg = [NSString stringWithFormat: @"Error in config file on line: %ld\n\n%@", lineNumber, error];
     [[SDLogWindowController sharedLogWindowController] show:msg type:SDLogMessageTypeError];
-}
-
-- (void) watchConfigFiles {
-    NSArray *pathsToWatch = @[[@"~/.zephyros.js" stringByStandardizingPath],
-                              [@"~/.zephyros.coffee" stringByStandardizingPath],
-                              [@"~/.zephyros" stringByStandardizingPath]];
-    FSEventStreamContext context;
-    context.info = NULL;
-    context.version = 0;
-    context.retain = NULL;
-    context.release = NULL;
-    context.copyDescription = NULL;
-    FSEventStreamRef stream = FSEventStreamCreate(NULL,
-                                                  fsEventsCallback,
-                                                  &context,
-                                                  (__bridge CFArrayRef)pathsToWatch,
-                                                  kFSEventStreamEventIdSinceNow,
-                                                  0.4,
-                                                  kFSEventStreamCreateFlagWatchRoot | kFSEventStreamCreateFlagNoDefer | kFSEventStreamCreateFlagFileEvents);
-    FSEventStreamScheduleWithRunLoop(stream, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode);
-    FSEventStreamStart(stream);
-}
-
-- (NSArray*) contentsOfDir:(NSString*)dir withPrefix:(NSString*)prefix {
-    NSMutableArray* paths = [NSMutableArray array];
-    
-    NSArray* allPaths = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[dir stringByStandardizingPath] error:NULL];
-    NSArray* matchingPaths = [allPaths filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(NSString* path, NSDictionary *bindings) {
-        return [path hasPrefix:prefix];
-    }]];
-    
-    for (NSString* path in matchingPaths) {
-        [paths addObject:[NSString stringWithFormat:@"%@%@", dir, path]];
-    }
-    
-    return paths;
-}
-
-- (NSString*) configFileToUse {
-    NSArray* rootConfigPaths = [self contentsOfDir:@"~/" withPrefix:@".zephyros."];
-    NSArray* subrootConfigPaths = [self contentsOfDir:@"~/.zephyros/" withPrefix:@"config."];
-    
-    NSArray* prettyChoices = [rootConfigPaths arrayByAddingObjectsFromArray:subrootConfigPaths];
-    NSArray* choices = [prettyChoices valueForKeyPath:@"stringByStandardizingPath"];
-    
-    NSDictionary* results = [NSDictionary dictionaryWithObjects:prettyChoices forKeys:choices];
-    
-    NSMutableArray* finalContenders = [NSMutableArray array];
-    
-    for (NSString* candidate in choices) {
-        if ([[NSFileManager defaultManager] fileExistsAtPath:candidate] && [[NSFileManager defaultManager] isReadableFileAtPath:candidate]) {
-            NSURL* url = [[NSURL fileURLWithPath:candidate] URLByResolvingSymlinksInPath];
-            NSDictionary* attrs = [url resourceValuesForKeys:@[NSURLContentModificationDateKey] error:NULL];
-            [finalContenders addObject:@{@"file": candidate, @"timestamp": [attrs objectForKey:NSURLContentModificationDateKey]}];
-        }
-    }
-    
-    if ([finalContenders count] >= 2) {
-        [finalContenders sortUsingComparator:^NSComparisonResult(NSDictionary* obj1, NSDictionary* obj2) {
-            NSDate* date1 = [obj1 objectForKey:@"timestamp"];
-            NSDate* date2 = [obj2 objectForKey:@"timestamp"];
-            return [date1 compare: date2];
-        }];
-    }
-    
-    return [results objectForKey:[[finalContenders lastObject] objectForKey:@"file"]];
 }
 
 @end
