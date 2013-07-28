@@ -13,6 +13,7 @@
 #import "SDAppStalker.h"
 
 #import "SDLogWindowController.h"
+#import "SDConfigChooserWindowController.h"
 
 
 
@@ -56,6 +57,9 @@
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+    [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"configPath": @"~/zephyros.coffee"}];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"configType": @"coffeescript"}];
+    
     [self prepareStatusItem];
     [[SDConfigLoader sharedConfigLoader] prepareScriptingBridge];
     [[SDConfigLoader sharedConfigLoader] reloadConfig];
@@ -81,6 +85,11 @@
 //    printf("Result = %ld\n", NUM2INT(result));
 //    
 ////    return ruby_cleanup(0);
+}
+
+- (IBAction) chooseConfig:(id)sender {
+    [NSApp activateIgnoringOtherApps:YES];
+    [[SDConfigChooserWindowController sharedConfigChooserWindowController] show];
 }
 
 - (IBAction) reloadConfig:(id)sender {

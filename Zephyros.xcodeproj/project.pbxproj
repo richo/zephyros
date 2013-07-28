@@ -21,6 +21,8 @@
 		945B18091720FBB40067C834 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 945B18081720FBB40067C834 /* WebKit.framework */; };
 		946B3AAF1721C5C800FB05F3 /* logwindow.html in Resources */ = {isa = PBXBuildFile; fileRef = 946B3AAE1721C5C800FB05F3 /* logwindow.html */; };
 		947DC98817A58BC30082D095 /* libruby.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 947DC98717A58BC30082D095 /* libruby.dylib */; };
+		947DC99317A5BC990082D095 /* SDConfigChooserWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 947DC99117A5BC990082D095 /* SDConfigChooserWindowController.m */; };
+		947DC99417A5BC990082D095 /* SDConfigChooserWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 947DC99217A5BC990082D095 /* SDConfigChooserWindow.xib */; };
 		947E9955171CA9A9006F30AC /* coffee-script.js in Resources */ = {isa = PBXBuildFile; fileRef = 947E9953171CA99C006F30AC /* coffee-script.js */; };
 		947E9958171CEFB5006F30AC /* SDAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 947E9957171CEFB5006F30AC /* SDAPI.m */; };
 		947E995B171CF9DE006F30AC /* SDConfigLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 947E995A171CF9DE006F30AC /* SDConfigLoader.m */; };
@@ -90,6 +92,9 @@
 		946B3AAE1721C5C800FB05F3 /* logwindow.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = logwindow.html; sourceTree = "<group>"; };
 		947DC98717A58BC30082D095 /* libruby.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libruby.dylib; path = usr/lib/libruby.dylib; sourceTree = SDKROOT; };
 		947DC98A17A5B6FF0082D095 /* SDCallback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SDCallback.h; sourceTree = "<group>"; };
+		947DC99017A5BC990082D095 /* SDConfigChooserWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDConfigChooserWindowController.h; sourceTree = "<group>"; };
+		947DC99117A5BC990082D095 /* SDConfigChooserWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDConfigChooserWindowController.m; sourceTree = "<group>"; };
+		947DC99217A5BC990082D095 /* SDConfigChooserWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SDConfigChooserWindow.xib; sourceTree = "<group>"; };
 		947E9953171CA99C006F30AC /* coffee-script.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "coffee-script.js"; sourceTree = "<group>"; };
 		947E9956171CEFB5006F30AC /* SDAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDAPI.h; sourceTree = "<group>"; };
 		947E9957171CEFB5006F30AC /* SDAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDAPI.m; sourceTree = "<group>"; };
@@ -227,6 +232,26 @@
 			name = Ruby;
 			sourceTree = "<group>";
 		};
+		947DC99517A5BCA90082D095 /* Config Chooser */ = {
+			isa = PBXGroup;
+			children = (
+				947DC99217A5BC990082D095 /* SDConfigChooserWindow.xib */,
+				947DC99017A5BC990082D095 /* SDConfigChooserWindowController.h */,
+				947DC99117A5BC990082D095 /* SDConfigChooserWindowController.m */,
+			);
+			name = "Config Chooser";
+			sourceTree = "<group>";
+		};
+		947DC99617A5BCD30082D095 /* Log Window */ = {
+			isa = PBXGroup;
+			children = (
+				94DAFB521719B99A00526003 /* LogWindow.xib */,
+				94DAFB4F1719B98500526003 /* SDLogWindowController.h */,
+				94DAFB501719B98500526003 /* SDLogWindowController.m */,
+			);
+			name = "Log Window";
+			sourceTree = "<group>";
+		};
 		94873F2117191F40000AC0A6 = {
 			isa = PBXGroup;
 			children = (
@@ -275,9 +300,13 @@
 		94873F3317191F40000AC0A6 /* Zephyros */ = {
 			isa = PBXGroup;
 			children = (
+				94873F4217191F40000AC0A6 /* MainMenu.xib */,
+				94873F3F17191F40000AC0A6 /* AppDelegate.h */,
+				94873F4017191F40000AC0A6 /* AppDelegate.m */,
 				94873F631719223F000AC0A6 /* Third Party */,
-				94873F6217192236000AC0A6 /* XIBs */,
-				94873F611719222D000AC0A6 /* Controllers */,
+				947DC99517A5BCA90082D095 /* Config Chooser */,
+				947DC99617A5BCD30082D095 /* Log Window */,
+				94873F611719222D000AC0A6 /* Alert Window */,
 				94454B39171B421D003EF64E /* Views */,
 				94D07FB71723BAAE00CF44E9 /* Proxies */,
 				947DC98F17A5BADE0082D095 /* Ruby */,
@@ -324,27 +353,14 @@
 			path = ../ThirdParty/MASShortcut;
 			sourceTree = "<group>";
 		};
-		94873F611719222D000AC0A6 /* Controllers */ = {
+		94873F611719222D000AC0A6 /* Alert Window */ = {
 			isa = PBXGroup;
 			children = (
-				94873F3F17191F40000AC0A6 /* AppDelegate.h */,
-				94873F4017191F40000AC0A6 /* AppDelegate.m */,
-				94DAFB4F1719B98500526003 /* SDLogWindowController.h */,
-				94DAFB501719B98500526003 /* SDLogWindowController.m */,
+				94454B36171B4179003EF64E /* AlertWindow.xib */,
 				94454B34171B4179003EF64E /* SDAlertWindowController.h */,
 				94454B35171B4179003EF64E /* SDAlertWindowController.m */,
 			);
-			name = Controllers;
-			sourceTree = "<group>";
-		};
-		94873F6217192236000AC0A6 /* XIBs */ = {
-			isa = PBXGroup;
-			children = (
-				94873F4217191F40000AC0A6 /* MainMenu.xib */,
-				94DAFB521719B99A00526003 /* LogWindow.xib */,
-				94454B36171B4179003EF64E /* AlertWindow.xib */,
-			);
-			name = XIBs;
+			name = "Alert Window";
 			sourceTree = "<group>";
 		};
 		94873F631719223F000AC0A6 /* Third Party */ = {
@@ -448,6 +464,7 @@
 				94E0964E171EDBA6002D8668 /* dsa_pub.pem in Resources */,
 				946B3AAF1721C5C800FB05F3 /* logwindow.html in Resources */,
 				94D07FB31723741000CF44E9 /* api.coffee in Resources */,
+				947DC99417A5BC990082D095 /* SDConfigChooserWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -480,6 +497,7 @@
 				94D07FB61723B16900CF44E9 /* SDAppProxy.m in Sources */,
 				94D07FBA1723BACB00CF44E9 /* SDAppStalker.m in Sources */,
 				94D07FBD1723C61C00CF44E9 /* SDEventListener.m in Sources */,
+				947DC99317A5BC990082D095 /* SDConfigChooserWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
