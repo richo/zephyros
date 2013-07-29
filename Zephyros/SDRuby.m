@@ -15,10 +15,11 @@
 
 
 VALUE sd_method_missing(VALUE self, VALUE args) {
-    NSString* s;
-    Data_Get_Struct(self, __bridge_transfer NSString, s);
+    void* s;
+    Data_Get_Struct(self, void, s);
+    id real = (__bridge_transfer id)s;
     
-    NSLog(@"im called! [%@]", s);
+    NSLog(@"im called! [%@]", real);
     return Qnil;
 }
 
@@ -47,6 +48,11 @@ VALUE sd_bind_keys_fn(VALUE module, VALUE key, VALUE mods) {
 
 
 
+VALUE SDWrappedObject(char* klass, id thing) {
+    return Data_Wrap_Struct(rb_eval_string(klass), NULL, NULL, (__bridge_retained void*)thing);
+}
+
+
 @implementation SDRuby
 
 - (void) setup {
@@ -67,10 +73,11 @@ VALUE sd_bind_keys_fn(VALUE module, VALUE key, VALUE mods) {
     
     
     
-    NSString* myptr = @"this is awesomes";
-    VALUE cc = rb_eval_string("Window");
-    VALUE wrapped = Data_Wrap_Struct(cc, NULL, NULL, (__bridge_retained void*)myptr);
-
+    NSString* thing = @"this is awesomes";
+    
+    
+    
+    VALUE wrapped = SDWrappedObject("Window", thing);
     rb_iv_set(rb_eval_string("self"), "@something", wrapped);
     
     rb_eval_string("doit");

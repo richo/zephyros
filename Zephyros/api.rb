@@ -1,5 +1,3 @@
-puts "fine"
-
 class Window < ObjcWrapper
 end
 
@@ -11,5 +9,6 @@ end
 
 
 def doit
+    @something.woo
     puts @something.class
 end
