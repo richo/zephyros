@@ -94,7 +94,7 @@ The [wiki home page](https://github.com/sdegutis/zephyros/wiki) has a list of co
 
 - For [JavaScript or CoffeeScript](Docs/JS_API.md)
 - For [Ruby](Docs/RUBY_API.md) (coming soon)
-- For [Python](Docs/RUBY_API.md) (coming soon)
+- For [Python](Docs/PYTHON_API.md) (coming soon)
 
 ### Change log
 
