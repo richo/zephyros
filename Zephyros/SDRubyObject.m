@@ -17,8 +17,17 @@
 @implementation SDRubyObject
 
 - (void) call:(NSArray*)args {
-    VALUE rubyargs = SDObjcToRubyValue(args);
-    rb_funcall2(self.internalValue, rb_intern("call"), (int)[args count], &rubyargs);
+    int count = (int)[args count];
+    VALUE* rubyargs = malloc(sizeof(VALUE) * count);
+    
+    int i = 0;
+    for (id arg in args) {
+        rubyargs[i++] = SDObjcToRubyValue(arg);
+    }
+    
+    rb_funcall2(self.internalValue, rb_intern("call"), count, rubyargs);
+    
+    free(rubyargs);
 }
 
 + (SDRubyObject*) withRubyValue:(VALUE)val {

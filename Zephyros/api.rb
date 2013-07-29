@@ -14,9 +14,8 @@ def after(sec, &blk)
     $api.doFn_after_ blk, sec
 end
 
-#p keybinder
+p $keybinder
 
 $keybinder.bind_modifiers_fn_ "D", ["cmd", "alt", "ctrl"], lambda {puts 'woot'}
 
-p $keybinder.cuz
 after 0.5 do puts 'ok' end
