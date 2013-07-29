@@ -20,10 +20,7 @@
 Table of contents:
 
 * [Overview](#overview)
-    * [Basics](#basics)
-    * [Auto-Reload Configs](#auto-reload-configs)
-* [Config Example](#config-example)
-    * [More Config Tricks/Examples](#more-config-tricksexamples)
+* [Example Configs](#example-configs)
 * [API Docs](#api-docs)
 * [Change log](#change-log)
 * [Todo](#todo)
@@ -64,7 +61,7 @@ For your convenience, the JS API comes with [underscore.js](http://underscorejs.
 
 Note: If reloading your config file fails, your key bindings will be un-bound as a precaution, presuming that your config file is in an unpredictable state. They will be re-bound again next time your config file is successfully loaded. Same with events you're registered to.
 
-### Config Example
+### Example Configs
 
 Put the following in `~/.zephyros.coffee`
 
@@ -92,8 +89,6 @@ bind "J", ["cmd", "alt", "ctrl"], ->
   frame.size.height /= 2
   win.setFrame frame
 ```
-
-#### More Config Tricks/Examples
 
 The [wiki home page](https://github.com/sdegutis/zephyros/wiki) has a list of configs from users, and configs that replicate other apps (like SizeUp and Divvy).
 
