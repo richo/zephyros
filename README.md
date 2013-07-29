@@ -21,13 +21,10 @@ Table of contents:
 
 * [Overview](#overview)
     * [Basics](#basics)
-    * [Modular Configs](#modular-configs)
     * [Auto-Reload Configs](#auto-reload-configs)
-    * [Using Other Languages](#using-other-languages)
 * [Config Example](#config-example)
     * [More Config Tricks/Examples](#more-config-tricksexamples)
-* [JS API doc](#ruby-api)
-* [Ruby API doc](#ruby-api)
+* [API Docs](#api-docs)
 * [Change log](#change-log)
 * [Todo](#todo)
 * [License](#license)
@@ -36,17 +33,17 @@ Table of contents:
 
 #### Basics
 
-At it's core, Zephyros is just a program that runs quietly in your menu bar, and loads a config file in your home directory.
+At it's core, Zephyros just runs quietly in your menu bar, and loads the configs you tell it to in the language you want.
 
-You can write your config file using:
+Supported config file languages:
 
-- JavaScript as `~/.zephyros.js`
-- [CoffeeScript 1.6.2](http://coffeescript.org/) as `~/.zephyros.coffee`
-- more, see [using other languages](#using-other-languages) below
+- JavaScript
+- [CoffeeScript 1.6.2](http://coffeescript.org/)
+- anything that compiles to JS (see [altjs.org](http://altjs.org/) and [this guy's list](https://github.com/jashkenas/coffee-script/wiki/List-of-languages-that-compile-to-JS))
 
 In your config file, `bind()` some global hot keys to your own JavaScript functions which do window-managery type things.
 
-Here are some things you can do with Zephyros's simple API ([actual API docs are below](#api)):
+Here are some things you can do with Zephyros's simple API (actual API docs are below):
 
 - find the focused window
 - determine window sizes and positions
@@ -61,23 +58,11 @@ Here are some things you can do with Zephyros's simple API ([actual API docs are
 
 Is the API missing something you need? File an issue and let me know!
 
-For your convenience, [underscore.js](http://underscorejs.org/) 1.4.4 is loaded beforehand.
+You can tell Zephyros to automatically reload your config file whenver it changes.
 
-#### Modular Configs
+For your convenience, the JS API comes with [underscore.js](http://underscorejs.org/) 1.4.4 pre-loaded.
 
-You can `require()` other files.
-
-#### Auto-Reload Configs
-
-When you enable this feature via the menu, Zephyros will reload your config file it changes.
-
-#### Using Other Languages
-
-Optionally, you can tell Zephyros to preprocess your config file with any command line utility. This lets you use any [altjs.org](http://altjs.org/) languages, such as from [this guy's list](https://github.com/jashkenas/coffee-script/wiki/List-of-languages-that-compile-to-JS)).
-
-#### Config Caveats
-
-- If reloading your config file fails, your key bindings will be un-bound as a precaution, presuming that your config file is in an unpredictable state. They will be re-bound again next time your config file is successfully loaded. Same with events you're registered to.
+Note: If reloading your config file fails, your key bindings will be un-bound as a precaution, presuming that your config file is in an unpredictable state. They will be re-bound again next time your config file is successfully loaded. Same with events you're registered to.
 
 ### Config Example
 
@@ -112,13 +97,10 @@ bind "J", ["cmd", "alt", "ctrl"], ->
 
 The [wiki home page](https://github.com/sdegutis/zephyros/wiki) has a list of configs from users, and configs that replicate other apps (like SizeUp and Divvy).
 
-### JS API
+### API Docs
 
-[Here.](Docs/JS_API.md)
-
-### Ruby API
-
-[Here.](Docs/RUBY_API.md)
+- For [JavaScript](Docs/JS_API.md)
+- For [Ruby](Docs/RUBY_API.md)
 
 ### Change log
 
