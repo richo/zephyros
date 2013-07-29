@@ -1,9 +1,21 @@
 class API
-    def self.after(sec, &blk)
-        $api.doFn_after_ blk, sec
+  class << self
+
+    def after(sec, &blk)
+      $api.doFn_after_ blk, sec
     end
-    
-    def self.bind(key, mods, &blk)
-        $keybinder.bind_modifiers_fn_ key, mods, blk
+
+    def bind(key, mods, &blk)
+      $keybinder.bind_modifiers_fn_ key, mods, blk
     end
+
+    def focused_window
+      $windowproxy.focusedWindow
+    end
+
+    def visible_windows
+      $windowproxy.visibleWindows
+    end
+
+  end
 end

@@ -16,6 +16,9 @@
 
 #import "SDAPI.h"
 #import "SDKeyBinder.h"
+#import "SDWindowProxy.h"
+#import "SDScreenProxy.h"
+#import "SDAppProxy.h"
 
 
 
@@ -198,12 +201,15 @@ VALUE sd_method_missing(VALUE self, VALUE args) {
     VALUE c = rb_define_class("WrappedObject", rb_cObject);
     rb_define_method(c, "method_missing", RUBY_METHOD_FUNC(sd_method_missing), -2);
     
-    for (NSString* name in @[@"Window", @"Screen", @"App", @"API", @"KeyBinder"]) {
+    for (NSString* name in @[@"Window", @"Screen", @"App", @"API", @"KeyBinder", @"WindowProxy", @"AppProxy", @"ScreenProxy"]) {
         rb_define_class([name UTF8String], rb_eval_string("WrappedObject"));
     }
     
     rb_gv_set("api", SDWrappedObject([SDAPI self]));
     rb_gv_set("keybinder", SDWrappedObject([SDKeyBinder sharedKeyBinder]));
+    rb_gv_set("windowproxy", SDWrappedObject([SDWindowProxy self]));
+    rb_gv_set("screenproxy", SDWrappedObject([SDScreenProxy self]));
+    rb_gv_set("appproxy", SDWrappedObject([SDAppProxy self]));
     
     rb_require([[[NSBundle mainBundle] pathForResource:@"api" ofType:@"rb"] UTF8String]);
 }
