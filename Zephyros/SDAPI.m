@@ -17,8 +17,6 @@
 #import "SDAlertWindowController.h"
 #import "SDLogWindowController.h"
 
-#import "SDCallback.h"
-
 @implementation SDAPISettings
 
 - (id) init {
