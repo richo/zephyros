@@ -13,12 +13,25 @@
 
 
 
-VALUE sd_bind_keys_fn(VALUE module, VALUE keys) {
+
+VALUE sd_method_missing(VALUE self, VALUE args) {
+    NSString* s;
+    Data_Get_Struct(self, __bridge_transfer NSString, s);
+    
+    NSLog(@"im called! [%@]", s);
+    return Qnil;
+}
+
+
+
+VALUE sd_bind_keys_fn(VALUE module, VALUE key, VALUE mods) {
     VALUE p = rb_block_proc();
+    
+    
     
     rb_funcall(p, rb_intern("call"), 0);
     
-    NSString* ss = [NSString stringWithUTF8String:StringValueCStr(keys)];
+    NSString* ss = [NSString stringWithUTF8String:StringValueCStr(key)];
     NSLog(@"it was [%@]", ss);
 
 //    double delayInSeconds = 2.0;
@@ -41,10 +54,26 @@ VALUE sd_bind_keys_fn(VALUE module, VALUE keys) {
     ruby_init();
     ruby_init_loadpath();
     
-    VALUE api_module = rb_define_module("API");
-    rb_define_module_function(api_module, "bind", sd_bind_keys_fn, 1);
+    VALUE api_module = rb_define_module("Internal");
+    rb_define_module_function(api_module, "bind", sd_bind_keys_fn, 2);
+    
+    VALUE c = rb_define_class("ObjcWrapper", rb_cObject);
+    rb_define_method(c, "method_missing", RUBY_METHOD_FUNC(sd_method_missing), -2);
     
     rb_require([[[NSBundle mainBundle] pathForResource:@"api" ofType:@"rb"] UTF8String]);
+    
+    
+    
+    
+    
+    
+    NSString* myptr = @"this is awesomes";
+    VALUE cc = rb_eval_string("Window");
+    VALUE wrapped = Data_Wrap_Struct(cc, NULL, NULL, (__bridge_retained void*)myptr);
+
+    rb_iv_set(rb_eval_string("self"), "@something", wrapped);
+    
+    rb_eval_string("doit");
 }
 
 - (void) evalString:(NSString*)code {
