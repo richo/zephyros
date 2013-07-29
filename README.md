@@ -122,8 +122,13 @@ The [wiki home page](https://github.com/sdegutis/zephyros/wiki) has a list of co
 
 ### Change log
 
+- HEAD
+  - Added a barely-working, mostly-broken Ruby API
+  - Broke the Log window
+  - Possibly broke some of the JS stuff? maybe not though...
 - 2.7
   - Less dumb way of choosing configs (uses UI this time)
+  - Added a non-functioning Ruby option
 - 2.6.1
   - Added 'screens_changed' event
 - 2.6
