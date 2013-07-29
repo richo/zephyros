@@ -9,17 +9,66 @@
 #import "SDRuby.h"
 
 
-#import "SDAPI.h"
-
 #import <objc/runtime.h>
-#include <ruby/ruby.h>
 
 #import "SDRubyObject.h"
 
 
+#import "SDAPI.h"
+#import "SDKeyBinder.h"
+
+
+
+VALUE SDWrappedObject(id thing) {
+    NSString* className = NSStringFromClass([thing class]);
+    
+//    if ([className hasPrefix:@"SD"])
+//        className = [className substringFromIndex:2];
+//    else
+        className = @"WrappedObject";
+    
+    return Data_Wrap_Struct(rb_eval_string([className UTF8String]), NULL, NULL, (__bridge void*)thing);
+}
+
+
+
+
 
 VALUE SDObjcToRubyValue(id obj) {
-    return Qnil;
+    if (obj == nil || [obj isEqual:[NSNull null]]) {
+        return Qnil;
+    }
+    if ([obj isKindOfClass:[NSNumber self]]) {
+        if (strcmp([obj objCType], "i") == 0) {
+            return LONG2FIX([obj longValue]);
+        }
+        if (strcmp([obj objCType], "d") == 0) {
+            return rb_float_new([obj doubleValue]);
+        }
+        if (strcmp([obj objCType], "c") == 0) {
+            return ([obj boolValue] ? Qtrue : Qfalse);
+        }
+    }
+    if ([obj isKindOfClass:[NSString self]]) {
+        return rb_str_new2([obj UTF8String]);
+    }
+    if ([obj isKindOfClass:[NSArray self]]) {
+        VALUE array = rb_ary_new();
+        for (id element in obj) {
+            rb_ary_push(array, SDObjcToRubyValue(element));
+        }
+        return array;
+    }
+    if ([obj isKindOfClass:[NSDictionary self]]) {
+        VALUE hash = rb_hash_new();
+        for (id key in obj) {
+            id val = [obj objectForKey:key];
+            rb_hash_aset(hash, SDObjcToRubyValue(key), SDObjcToRubyValue(val));
+        }
+        return hash;
+    }
+    
+    return SDWrappedObject(obj);
 }
 
 
@@ -93,20 +142,26 @@ VALUE sd_method_missing(VALUE self, VALUE args) {
     
     void* s;
     Data_Get_Struct(self, void, s);
-    id internalObj = (__bridge_transfer id)s;
+    id internalObj = (__bridge id)s;
     
     NSMutableArray* objsArgs = SDRubyToObjcValue(args);
     
     if (has_block)
         [objsArgs addObject:SDRubyToObjcValue(given_block)];
     
-    NSString* selStr = [objsArgs objectAtIndex:0];
-    selStr = [selStr stringByReplacingOccurrencesOfString:@"_" withString:@":"];
+    NSString* originalSelStr = [objsArgs objectAtIndex:0];
+    NSString* selStr = [originalSelStr stringByReplacingOccurrencesOfString:@"_" withString:@":"];
     SEL sel = NSSelectorFromString(selStr);
     
     [objsArgs removeObjectAtIndex:0];
     
-    NSInvocation* inv = [NSInvocation invocationWithMethodSignature:[internalObj methodSignatureForSelector:sel]];
+    NSMethodSignature* sig = [internalObj methodSignatureForSelector:sel];
+    
+    if (!sig) {
+        rb_raise(rb_eTypeError, [[NSString stringWithFormat:@"undefined ObjC method = %@", originalSelStr] UTF8String]);
+    }
+    
+    NSInvocation* inv = [NSInvocation invocationWithMethodSignature:sig];
     
     [inv setSelector:sel];
     [inv setTarget:internalObj];
@@ -120,22 +175,17 @@ VALUE sd_method_missing(VALUE self, VALUE args) {
     
     [inv invoke];
     
-    id result;
-//    [inv getReturnValue:&result];
+    if (strcmp([sig methodReturnType], "@") == 0) {
+        __unsafe_unretained id result;
+        [inv getReturnValue:&result];
+        id strongResult = result; // maybe not necessary but im paranoid these days
+        VALUE val = SDObjcToRubyValue(strongResult);
+        return val;
+    }
     
-    return SDObjcToRubyValue(result);
+    return Qnil;
 }
 
-
-
-VALUE SDWrappedObject(id thing) {
-    NSString* className = NSStringFromClass([thing class]);
-    
-    if (![className hasPrefix:@"SD"])
-        className = @"WrappedObject";
-    
-    return Data_Wrap_Struct(rb_eval_string([className UTF8String]), NULL, NULL, (__bridge void*)thing);
-}
 
 
 @implementation SDRuby
@@ -148,18 +198,10 @@ VALUE SDWrappedObject(id thing) {
     VALUE c = rb_define_class("WrappedObject", rb_cObject);
     rb_define_method(c, "method_missing", RUBY_METHOD_FUNC(sd_method_missing), -2);
     
+    rb_gv_set("api", SDWrappedObject([SDAPI self]));
+    rb_gv_set("keybinder", SDWrappedObject([SDKeyBinder sharedKeyBinder]));
+    
     rb_require([[[NSBundle mainBundle] pathForResource:@"api" ofType:@"rb"] UTF8String]);
-    
-    
-    
-    
-    
-    
-    rb_gv_set("internal", SDWrappedObject([SDAPI self]));
-    
-    rb_eval_string("after 2 do puts 'ok' end");
-    
-//    rb_eval_string("@something.woo(true, false, lambda{ puts 'whoa' }, nil, :hi, {:a => 2, :b => [:hi]}) { puts 'hi' }");
 }
 
 - (void) evalString:(NSString*)code {

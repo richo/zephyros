@@ -8,6 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+#import "SDCallback.h"
+#import <ruby/ruby.h>
+
 @interface SDRubyObject : NSObject
+
++ (SDRubyObject*) withRubyValue:(VALUE)val;
 
 @end

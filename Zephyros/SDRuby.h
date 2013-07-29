@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+#include <ruby/ruby.h>
+
 @interface SDRuby : NSObject
 
 - (void) setup;
@@ -15,3 +17,6 @@
 - (void) evalString:(NSString*)code;
 
 @end
+
+
+VALUE SDObjcToRubyValue(id obj);
