@@ -32,11 +32,13 @@ Table of contents:
 
 At it's core, Zephyros just runs quietly in your menu bar, and loads the configs you tell it to in the language you want.
 
-Supported config file languages:
+#### Supported languages
 
 - JavaScript
 - [CoffeeScript 1.6.2](http://coffeescript.org/)
 - anything that compiles to JS (see [altjs.org](http://altjs.org/) and [this guy's list](https://github.com/jashkenas/coffee-script/wiki/List-of-languages-that-compile-to-JS))
+
+#### Stuff you can do
 
 In your config file, `bind()` some global hot keys to your own JavaScript functions which do window-managery type things.
 
