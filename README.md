@@ -9,7 +9,7 @@
 > But before the people could approach him, he sensed in himself their plan, so he set out for his home country to reclaim his dear wife Penelope. Yet even so, not without first pushing his config changes to his github repo for all to benefit from. And, being of such noble blood, he even contributed some of his ideas and configs to the Zephyros wiki for all to benefit from.
 > - The Odyssey
 
-## About Zephyros
+### About Zephyros
 
 *The OS X window manager for hackers*
 
@@ -32,7 +32,7 @@ Table of contents:
 * [Todo](#todo)
 * [License](#license)
 
-## Overview
+### Overview
 
 #### Basics
 
@@ -79,7 +79,7 @@ Optionally, you can tell Zephyros to preprocess your config file with any comman
 
 - If reloading your config file fails, your key bindings will be un-bound as a precaution, presuming that your config file is in an unpredictable state. They will be re-bound again next time your config file is successfully loaded. Same with events you're registered to.
 
-## Config Example
+### Config Example
 
 Put the following in `~/.zephyros.coffee`
 
@@ -112,15 +112,15 @@ bind "J", ["cmd", "alt", "ctrl"], ->
 
 The [wiki home page](https://github.com/sdegutis/zephyros/wiki) has a list of configs from users, and configs that replicate other apps (like SizeUp and Divvy).
 
-## JS API
+### JS API
 
 [Here.](Docs/JS_API.md)
 
-## Ruby API
+### Ruby API
 
 [Here.](Docs/RUBY_API.md)
 
-## Change log
+### Change log
 
 - 2.7
   - Less dumb way of choosing configs (uses UI this time)
@@ -129,9 +129,9 @@ The [wiki home page](https://github.com/sdegutis/zephyros/wiki) has a list of co
 - 2.6
   - First version anyone should care about
 
-## Todo
+### Todo
 
-### Want to help?
+#### Want to help?
 
 * Are you some kind of designer? Want to help? Great! We need these 3 things:
     1. better CSS styling in [the Log Window](Zephyros/logwindow.html)
@@ -149,7 +149,7 @@ The [wiki home page](https://github.com/sdegutis/zephyros/wiki) has a list of co
     * Add `api.windowUnderMouse()`
     * Add `api.screenUnderMouse()`
 
-## License
+### License
 
 > Released under MIT license.
 >
