@@ -30,7 +30,7 @@ Table of contents:
 
 #### Basics
 
-At it's core, Zephyros just runs quietly in your menu bar, and loads the configs you tell it to in the language you want.
+At it's core, Zephyros just runs quietly in your menu bar, and runs your config script. You typically use this script to bind global hot keys to do stuff, often window-manager-type things.
 
 #### Supported languages
 
@@ -39,10 +39,6 @@ At it's core, Zephyros just runs quietly in your menu bar, and loads the configs
 - anything that compiles to JS (see [altjs.org](http://altjs.org/) and [this guy's list](https://github.com/jashkenas/coffee-script/wiki/List-of-languages-that-compile-to-JS))
 
 #### Stuff you can do
-
-In your config file, `bind()` some global hot keys to your own JavaScript functions which do window-managery type things.
-
-Here are some things you can do with Zephyros's simple API (actual API docs are below):
 
 - find the focused window
 - determine window sizes and positions
@@ -57,11 +53,11 @@ Here are some things you can do with Zephyros's simple API (actual API docs are 
 
 Is the API missing something you need? File an issue and let me know!
 
-You can tell Zephyros to automatically reload your config file whenver it changes.
-
-For your convenience, the JS API comes with [underscore.js](http://underscorejs.org/) 1.4.4 pre-loaded.
-
 Note: If reloading your config file fails, your key bindings will be un-bound as a precaution, presuming that your config file is in an unpredictable state. They will be re-bound again next time your config file is successfully loaded. Same with events you're registered to.
+
+#### Auto-reloading configs
+
+You can tell Zephyros to automatically reload your config file whenver it changes. You can also bind a global hot key to reloading it.
 
 ### Example Configs
 

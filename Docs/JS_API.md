@@ -9,6 +9,8 @@
 * [Other Type](#other-types)
 * [Events](#events)
 
+For your convenience, the JS API comes with [underscore.js](http://underscorejs.org/) 1.4.4 pre-loaded.
+
 ### Top Level
 
 ```coffeescript
