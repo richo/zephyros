@@ -9,28 +9,12 @@
 #import "SDRuby.h"
 
 
+#import "SDAPI.h"
+
+#import <objc/runtime.h>
 #include <ruby/ruby.h>
 
-
-@interface SDRubyBlock : NSObject
-@property VALUE inner;
-+ (SDRubyBlock*) withRubyValue:(VALUE)val;
-@end
-
-@implementation SDRubyBlock
-
-- (id) call:(NSArray*)args {
-    return nil;
-}
-
-+ (SDRubyBlock*) withRubyValue:(VALUE)val {
-    SDRubyBlock* block = [[SDRubyBlock alloc] init];
-    block.inner = val;
-    return block;
-}
-
-@end
-
+#import "SDRubyObject.h"
 
 
 
@@ -88,7 +72,7 @@ id SDRubyToObjcValue(VALUE obj) {
             return array;
         }
         case T_DATA:
-            return [SDRubyBlock withRubyValue:obj];
+            return [SDRubyObject withRubyValue:obj];
         default:
             rb_raise(rb_eTypeError, [[NSString stringWithFormat:@"not valid value, class = %@", SDRubyToObjcValue(rb_funcall(CLASS_OF(obj), rb_intern("name"), 0))] UTF8String]);
             break;
@@ -107,10 +91,6 @@ VALUE sd_method_missing(VALUE self, VALUE args) {
         has_block = YES;
     }
     
-    
-//    NSLog(@"%@", SDRubyToObjcValue(rb_funcall(CLASS_OF(args), rb_intern("name"), 0)));
-//    return Qnil;
-    
     void* s;
     Data_Get_Struct(self, void, s);
     id internalObj = (__bridge_transfer id)s;
@@ -120,47 +100,41 @@ VALUE sd_method_missing(VALUE self, VALUE args) {
     if (has_block)
         [objsArgs addObject:SDRubyToObjcValue(given_block)];
     
-//    NSLog(@"%@", objsArgs);
-    
     NSString* selStr = [objsArgs objectAtIndex:0];
+    selStr = [selStr stringByReplacingOccurrencesOfString:@"_" withString:@":"];
     SEL sel = NSSelectorFromString(selStr);
     
     [objsArgs removeObjectAtIndex:0];
     
-    NSInvocation* inv = [[NSInvocation alloc] init];
+    NSInvocation* inv = [NSInvocation invocationWithMethodSignature:[internalObj methodSignatureForSelector:sel]];
     
     [inv setSelector:sel];
     [inv setTarget:internalObj];
     
     int i = 0;
     for (id arg in objsArgs) {
-        __unsafe_unretained id tempArg = arg;
-        [inv setArgument:&tempArg atIndex:i++];
+        id temparg = arg;
+        [inv setArgument:&temparg atIndex:i+2];
+        i++;
     }
     
     [inv invoke];
     
     id result;
-    [inv getReturnValue:&result];
+//    [inv getReturnValue:&result];
     
     return SDObjcToRubyValue(result);
 }
 
 
 
-VALUE sd_bind_keys_fn(VALUE module, VALUE key, VALUE mods) {
-//    VALUE p = rb_block_proc();
-//    rb_funcall(p, rb_intern("call"), 0);
-//    
-//    NSLog(@"key = [%@]", SDRubyToObjcValue(key));
-//    NSLog(@"mods = [%@]", SDRubyToObjcValue(mods));
-    return Qnil;
-}
-
-
-
-VALUE SDWrappedObject(char* klass, id thing) {
-    return Data_Wrap_Struct(rb_eval_string(klass), NULL, NULL, (__bridge_retained void*)thing);
+VALUE SDWrappedObject(id thing) {
+    NSString* className = NSStringFromClass([thing class]);
+    
+    if (![className hasPrefix:@"SD"])
+        className = @"WrappedObject";
+    
+    return Data_Wrap_Struct(rb_eval_string([className UTF8String]), NULL, NULL, (__bridge void*)thing);
 }
 
 
@@ -171,10 +145,7 @@ VALUE SDWrappedObject(char* klass, id thing) {
     ruby_init();
     ruby_init_loadpath();
     
-    VALUE api_module = rb_define_module("Internal");
-    rb_define_module_function(api_module, "bind", sd_bind_keys_fn, 2);
-    
-    VALUE c = rb_define_class("ObjcWrapper", rb_cObject);
+    VALUE c = rb_define_class("WrappedObject", rb_cObject);
     rb_define_method(c, "method_missing", RUBY_METHOD_FUNC(sd_method_missing), -2);
     
     rb_require([[[NSBundle mainBundle] pathForResource:@"api" ofType:@"rb"] UTF8String]);
@@ -184,16 +155,11 @@ VALUE SDWrappedObject(char* klass, id thing) {
     
     
     
-    NSString* thing = @"this is awesomes";
+    rb_gv_set("internal", SDWrappedObject([SDAPI self]));
     
+    rb_eval_string("after 2 do puts 'ok' end");
     
-    
-    VALUE wrapped = SDWrappedObject("Window", thing);
-    rb_iv_set(rb_eval_string("self"), "@something", wrapped);
-    
-    
-    
-    rb_eval_string("@something.woo(true, false, lambda{ puts 'whoa' }, nil, :hi, {:a => 2, :b => [:hi]}) { puts 'hi' }");
+//    rb_eval_string("@something.woo(true, false, lambda{ puts 'whoa' }, nil, :hi, {:a => 2, :b => [:hi]}) { puts 'hi' }");
 }
 
 - (void) evalString:(NSString*)code {
@@ -204,6 +170,8 @@ VALUE SDWrappedObject(char* klass, id thing) {
         VALUE exception = rb_gv_get("$!");
         VALUE excStr = rb_obj_as_string(exception);
         NSString* exceptionString = [NSString stringWithUTF8String:StringValueCStr(excStr)];
+        
+        // TODO: show exceptions via log window
         NSLog(@"%@", exceptionString);
     }
 }

@@ -26,7 +26,7 @@
 @interface SDAPI : NSObject
 
 + (SDAPISettings*) settings;
-+ (void) doFn:(id<SDCallback>)fn after:(double)delayInSeconds;
++ (void) doFn:(id<SDCallback>)fn after:(NSNumber*)delayInSeconds;
 + (NSDictionary*) shell:(NSString*)cmd args:(NSArray*)args options:(NSDictionary *)options;
     
 @end

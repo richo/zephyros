@@ -56,8 +56,8 @@
     return settings;
 }
 
-+ (void) doFn:(id<SDCallback>)fn after:(double)delayInSeconds {
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
++ (void) doFn:(id<SDCallback>)fn after:(NSNumber*)delayInSeconds {
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)([delayInSeconds doubleValue] * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_main_queue(), ^{
         [fn call:nil];
     });

@@ -47,6 +47,7 @@
 		94873F6D171937BC000AC0A6 /* SDWindowProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 94873F6C171937BC000AC0A6 /* SDWindowProxy.m */; };
 		9495B457171959B4002C9EF5 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9495B456171959B4002C9EF5 /* JavaScriptCore.framework */; };
 		9495B45A17197396002C9EF5 /* SDUniversalAccessHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9495B45917197396002C9EF5 /* SDUniversalAccessHelper.m */; };
+		94AC665317A6FDD7007EA74C /* SDRubyObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 94AC665217A6FDD7007EA74C /* SDRubyObject.m */; };
 		94C85825171C551B007790F2 /* JSCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94C85824171C551B007790F2 /* JSCocoa.framework */; };
 		94C85826171C55C6007790F2 /* JSCocoa.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 94C85824171C551B007790F2 /* JSCocoa.framework */; };
 		94D07FB31723741000CF44E9 /* api.coffee in Resources */ = {isa = PBXBuildFile; fileRef = 94D07FB21723741000CF44E9 /* api.coffee */; };
@@ -142,6 +143,8 @@
 		9495B456171959B4002C9EF5 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		9495B45817197396002C9EF5 /* SDUniversalAccessHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDUniversalAccessHelper.h; sourceTree = "<group>"; };
 		9495B45917197396002C9EF5 /* SDUniversalAccessHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDUniversalAccessHelper.m; sourceTree = "<group>"; };
+		94AC665117A6FDD7007EA74C /* SDRubyObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDRubyObject.h; sourceTree = "<group>"; };
+		94AC665217A6FDD7007EA74C /* SDRubyObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDRubyObject.m; sourceTree = "<group>"; };
 		94C85824171C551B007790F2 /* JSCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JSCocoa.framework; path = ThirdParty/JSCocoa.framework; sourceTree = "<group>"; };
 		94D07FB21723741000CF44E9 /* api.coffee */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = api.coffee; sourceTree = "<group>"; };
 		94D07FB41723B16900CF44E9 /* SDAppProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDAppProxy.h; sourceTree = "<group>"; };
@@ -233,6 +236,8 @@
 			children = (
 				947DC9A117A5D8610082D095 /* SDRuby.h */,
 				947DC9A217A5D8610082D095 /* SDRuby.m */,
+				94AC665117A6FDD7007EA74C /* SDRubyObject.h */,
+				94AC665217A6FDD7007EA74C /* SDRubyObject.m */,
 			);
 			name = Ruby;
 			sourceTree = "<group>";
@@ -506,6 +511,7 @@
 				947DC99D17A5D0940082D095 /* SDConfigWatcher.m in Sources */,
 				947DC9A017A5D3B50082D095 /* SDJS.m in Sources */,
 				947DC9A317A5D8610082D095 /* SDRuby.m in Sources */,
+				94AC665317A6FDD7007EA74C /* SDRubyObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
