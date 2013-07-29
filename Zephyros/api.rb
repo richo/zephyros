@@ -6,9 +6,3 @@ end
 
 class Screen < ObjcWrapper
 end
-
-
-def doit
-    @something.woo
-    puts @something.class
-end

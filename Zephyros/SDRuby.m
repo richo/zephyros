@@ -80,7 +80,8 @@ VALUE SDWrappedObject(char* klass, id thing) {
     VALUE wrapped = SDWrappedObject("Window", thing);
     rb_iv_set(rb_eval_string("self"), "@something", wrapped);
     
-    rb_eval_string("doit");
+    rb_eval_string("puts @something.class");
+    rb_eval_string("@something.woo");
 }
 
 - (void) evalString:(NSString*)code {
