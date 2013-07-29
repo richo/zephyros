@@ -1,9 +1,3 @@
-#Window = Class.new(WrappedObject)
-#App = Class.new(WrappedObject)
-#Screen = Class.new(WrappedObject)
-#API = Class.new(WrappedObject)
-
-
 #class << API
 #    def foobartest2
 #        'sup'
@@ -15,6 +9,7 @@ def after(sec, &blk)
 end
 
 p $keybinder
+p $api
 
 $keybinder.bind_modifiers_fn_ "D", ["cmd", "alt", "ctrl"], lambda {puts 'woot'}
 

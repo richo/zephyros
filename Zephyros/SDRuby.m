@@ -22,9 +22,9 @@
 VALUE SDWrappedObject(id thing) {
     NSString* className = NSStringFromClass([thing class]);
     
-//    if ([className hasPrefix:@"SD"])
-//        className = [className substringFromIndex:2];
-//    else
+    if ([className hasPrefix:@"SD"])
+        className = [className substringFromIndex:2];
+    else
         className = @"WrappedObject";
     
     return Data_Wrap_Struct(rb_eval_string([className UTF8String]), NULL, NULL, (__bridge void*)thing);
@@ -197,6 +197,10 @@ VALUE sd_method_missing(VALUE self, VALUE args) {
     
     VALUE c = rb_define_class("WrappedObject", rb_cObject);
     rb_define_method(c, "method_missing", RUBY_METHOD_FUNC(sd_method_missing), -2);
+    
+    for (NSString* name in @[@"Window", @"Screen", @"App", @"API", @"KeyBinder"]) {
+        rb_define_class([name UTF8String], rb_eval_string("WrappedObject"));
+    }
     
     rb_gv_set("api", SDWrappedObject([SDAPI self]));
     rb_gv_set("keybinder", SDWrappedObject([SDKeyBinder sharedKeyBinder]));
