@@ -55,8 +55,8 @@ class Point
   def x; method_missing(:x); end
   def y; method_missing(:y); end
 
-  def x=(n); method_missing(:setX, n); end
-  def y=(n); method_missing(:setY, n); end
+  def x=(n); method_missing(:setX_, n); end
+  def y=(n); method_missing(:setY_, n); end
 
 end
 
@@ -65,8 +65,8 @@ class Size
   def w; method_missing(:w); end
   def h; method_missing(:h); end
 
-  def w=(n); method_missing(:setW, n); end
-  def h=(n); method_missing(:setH, n); end
+  def w=(n); method_missing(:setW_, n); end
+  def h=(n); method_missing(:setH_, n); end
 
 end
 
@@ -77,9 +77,9 @@ class Rect
   def w; method_missing(:w); end
   def h; method_missing(:h); end
 
-  def x=(n); method_missing(:setX, n); end
-  def y=(n); method_missing(:setY, n); end
-  def w=(n); method_missing(:setW, n); end
-  def h=(n); method_missing(:setH, n); end
+  def x=(n); method_missing(:setX_, n); end
+  def y=(n); method_missing(:setY_, n); end
+  def w=(n); method_missing(:setW_, n); end
+  def h=(n); method_missing(:setH_, n); end
 
 end
