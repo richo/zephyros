@@ -21,6 +21,7 @@
 		9463D42817A76EDA00A3E905 /* ruby21 in Resources */ = {isa = PBXBuildFile; fileRef = 9463D42717A76EDA00A3E905 /* ruby21 */; };
 		9463D43417A77E2C00A3E905 /* SDGeometry.m in Sources */ = {isa = PBXBuildFile; fileRef = 9463D43317A77E2C00A3E905 /* SDGeometry.m */; };
 		946B3AAF1721C5C800FB05F3 /* logwindow.html in Resources */ = {isa = PBXBuildFile; fileRef = 946B3AAE1721C5C800FB05F3 /* logwindow.html */; };
+		94779BD117A85CB000649169 /* Licenses in Resources */ = {isa = PBXBuildFile; fileRef = 94779BD017A85CB000649169 /* Licenses */; };
 		947DC99317A5BC990082D095 /* SDConfigChooserWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 947DC99117A5BC990082D095 /* SDConfigChooserWindowController.m */; };
 		947DC99417A5BC990082D095 /* SDConfigChooserWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 947DC99217A5BC990082D095 /* SDConfigChooserWindow.xib */; };
 		947DC99D17A5D0940082D095 /* SDConfigWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 947DC99C17A5D0940082D095 /* SDConfigWatcher.m */; };
@@ -96,6 +97,7 @@
 		9463D43217A77E2C00A3E905 /* SDGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDGeometry.h; sourceTree = "<group>"; };
 		9463D43317A77E2C00A3E905 /* SDGeometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDGeometry.m; sourceTree = "<group>"; };
 		946B3AAE1721C5C800FB05F3 /* logwindow.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = logwindow.html; sourceTree = "<group>"; };
+		94779BD017A85CB000649169 /* Licenses */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Licenses; sourceTree = SOURCE_ROOT; };
 		947DC98A17A5B6FF0082D095 /* SDCallback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SDCallback.h; sourceTree = "<group>"; };
 		947DC99017A5BC990082D095 /* SDConfigChooserWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDConfigChooserWindowController.h; sourceTree = "<group>"; };
 		947DC99117A5BC990082D095 /* SDConfigChooserWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDConfigChooserWindowController.m; sourceTree = "<group>"; };
@@ -335,6 +337,7 @@
 		94873F3417191F40000AC0A6 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				94779BD017A85CB000649169 /* Licenses */,
 				946B3AAE1721C5C800FB05F3 /* logwindow.html */,
 				94E0964D171EDBA6002D8668 /* dsa_pub.pem */,
 				94D07FB21723741000CF44E9 /* api.coffee */,
@@ -481,6 +484,7 @@
 				947DC99417A5BC990082D095 /* SDConfigChooserWindow.xib in Resources */,
 				947DC9A517A5E1430082D095 /* api.rb in Resources */,
 				9463D42817A76EDA00A3E905 /* ruby21 in Resources */,
+				94779BD117A85CB000649169 /* Licenses in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
