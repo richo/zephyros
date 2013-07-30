@@ -17,17 +17,6 @@
 * Requires: OS X 10.7 and up
 * Download: [latest .zip file](https://raw.github.com/sdegutis/zephyros/master/Builds/Zephyros-LATEST.app.tar.gz), unzip, right-click app, choose "Open"
 
-Table of contents:
-
-* [Overview](#overview)
-* [Example Configs](#example-configs)
-* [API Docs](#api-docs)
-* [Change log](#change-log)
-* [Todo](#todo)
-* [License](#license)
-
-### Overview
-
 #### Basics
 
 At it's core, Zephyros just runs quietly in your menu bar, and runs your config script. You typically use this script to bind global hot keys to do stuff, often window-manager-type things.
