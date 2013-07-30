@@ -19,6 +19,7 @@
 		94454B3F171B479B003EF64E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94454B3E171B479B003EF64E /* QuartzCore.framework */; };
 		945B18091720FBB40067C834 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 945B18081720FBB40067C834 /* WebKit.framework */; };
 		9463D42817A76EDA00A3E905 /* ruby21 in Resources */ = {isa = PBXBuildFile; fileRef = 9463D42717A76EDA00A3E905 /* ruby21 */; };
+		9463D43417A77E2C00A3E905 /* SDGeometry.m in Sources */ = {isa = PBXBuildFile; fileRef = 9463D43317A77E2C00A3E905 /* SDGeometry.m */; };
 		946B3AAF1721C5C800FB05F3 /* logwindow.html in Resources */ = {isa = PBXBuildFile; fileRef = 946B3AAE1721C5C800FB05F3 /* logwindow.html */; };
 		947DC99317A5BC990082D095 /* SDConfigChooserWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 947DC99117A5BC990082D095 /* SDConfigChooserWindowController.m */; };
 		947DC99417A5BC990082D095 /* SDConfigChooserWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 947DC99217A5BC990082D095 /* SDConfigChooserWindow.xib */; };
@@ -92,6 +93,8 @@
 		94454B3E171B479B003EF64E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		945B18081720FBB40067C834 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		9463D42717A76EDA00A3E905 /* ruby21 */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ruby21; path = ThirdParty/ruby21; sourceTree = SOURCE_ROOT; };
+		9463D43217A77E2C00A3E905 /* SDGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDGeometry.h; sourceTree = "<group>"; };
+		9463D43317A77E2C00A3E905 /* SDGeometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDGeometry.m; sourceTree = "<group>"; };
 		946B3AAE1721C5C800FB05F3 /* logwindow.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = logwindow.html; sourceTree = "<group>"; };
 		947DC98A17A5B6FF0082D095 /* SDCallback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SDCallback.h; sourceTree = "<group>"; };
 		947DC99017A5BC990082D095 /* SDConfigChooserWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDConfigChooserWindowController.h; sourceTree = "<group>"; };
@@ -192,6 +195,8 @@
 				947DC99C17A5D0940082D095 /* SDConfigWatcher.m */,
 				94873F65171929A0000AC0A6 /* SDKeyBinder.h */,
 				94873F66171929A0000AC0A6 /* SDKeyBinder.m */,
+				9463D43217A77E2C00A3E905 /* SDGeometry.h */,
+				9463D43317A77E2C00A3E905 /* SDGeometry.m */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -512,6 +517,7 @@
 				947DC9A017A5D3B50082D095 /* SDJS.m in Sources */,
 				947DC9A317A5D8610082D095 /* SDRuby.m in Sources */,
 				94AC665317A6FDD7007EA74C /* SDRubyObject.m in Sources */,
+				9463D43417A77E2C00A3E905 /* SDGeometry.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

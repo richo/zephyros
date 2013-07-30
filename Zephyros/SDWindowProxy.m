@@ -12,6 +12,8 @@
 
 #import "SDUniversalAccessHelper.h"
 
+#import "SDGeometry.h"
+
 @interface SDWindowProxy ()
 
 @property CFTypeRef window;
@@ -101,20 +103,21 @@
     return nil;
 }
 
-- (CGRect) frame {
+- (NSDictionary*) frame {
     CGRect r;
-    r.origin = [self topLeft];
-    r.size = [self size];
-    return r;
+    r.origin = SDPointFromDict([self topLeft]);
+    r.size = SDSizeFromDict([self size]);
+    return SDDictFromRect(r);
 }
 
-- (void) setFrame:(CGRect)frame {
-    [self setSize:frame.size];
-    [self setTopLeft:frame.origin];
-    [self setSize:frame.size];
+- (void) setFrame:(NSDictionary*)frameDict {
+    CGRect frame = SDRectFromDict(frameDict);
+    [self setSize: SDDictFromSize(frame.size)];
+    [self setTopLeft: SDDictFromPoint(frame.origin)];
+    [self setSize: SDDictFromSize(frame.size)];
 }
 
-- (CGPoint) topLeft {
+- (NSDictionary*) topLeft {
     CFTypeRef positionStorage;
     AXError result = AXUIElementCopyAttributeValue(self.window, (CFStringRef)NSAccessibilityPositionAttribute, &positionStorage);
     
@@ -133,10 +136,10 @@
     if (positionStorage)
         CFRelease(positionStorage);
     
-    return topLeft;
+    return SDDictFromPoint(topLeft);
 }
 
-- (CGSize) size {
+- (NSDictionary*) size {
     CFTypeRef sizeStorage;
     AXError result = AXUIElementCopyAttributeValue(self.window, (CFStringRef)NSAccessibilitySizeAttribute, &sizeStorage);
     
@@ -155,17 +158,19 @@
     if (sizeStorage)
         CFRelease(sizeStorage);
     
-    return size;
+    return SDDictFromSize(size);
 }
 
-- (void) setTopLeft:(CGPoint)thePoint {
+- (void) setTopLeft:(NSDictionary*)thePointDict {
+    CGPoint thePoint = SDPointFromDict(thePointDict);
     CFTypeRef positionStorage = (CFTypeRef)(AXValueCreate(kAXValueCGPointType, (const void *)&thePoint));
     AXUIElementSetAttributeValue(self.window, (CFStringRef)NSAccessibilityPositionAttribute, positionStorage);
     if (positionStorage)
         CFRelease(positionStorage);
 }
 
-- (void) setSize:(CGSize)theSize {
+- (void) setSize:(NSDictionary*)theSizeDict {
+    CGSize theSize = SDSizeFromDict(theSizeDict);
     CFTypeRef sizeStorage = (CFTypeRef)(AXValueCreate(kAXValueCGSizeType, (const void *)&theSize));
     AXUIElementSetAttributeValue(self.window, (CFStringRef)NSAccessibilitySizeAttribute, sizeStorage);
     if (sizeStorage)
@@ -173,13 +178,13 @@
 }
 
 - (SDScreenProxy*) screen {
-    CGRect windowFrame = [self frame];
+    CGRect windowFrame = SDRectFromDict([self frame]);
     
     CGFloat lastVolume = 0;
     SDScreenProxy* lastScreen = nil;
     
     for (SDScreenProxy* screen in [SDScreenProxy allScreens]) {
-        CGRect screenFrame = [screen frameIncludingDockAndMenu];
+        CGRect screenFrame = SDRectFromDict([screen frameIncludingDockAndMenu]);
         CGRect intersection = CGRectIntersection(windowFrame, screenFrame);
         CGFloat volume = intersection.size.width * intersection.size.height;
         
@@ -193,8 +198,8 @@
 }
 
 - (void) maximize {
-    CGRect screenRect = [[self screen] frameWithoutDockOrMenu];
-    [self setFrame:screenRect];
+    CGRect screenRect = SDRectFromDict([[self screen] frameWithoutDockOrMenu]);
+    [self setFrame: SDDictFromRect(screenRect)];
 }
 
 - (void) minimize {
@@ -280,13 +285,13 @@ NSPoint SDMidpoint(NSRect r) {
                 shouldDisregardFn:(BOOL(^)(double deltaX, double deltaY))shouldDisregardFn
 {
     SDWindowProxy* thisWindow = [SDWindowProxy focusedWindow];
-    NSPoint startingPoint = SDMidpoint([thisWindow frame]);
+    NSPoint startingPoint = SDMidpoint(SDRectFromDict([thisWindow frame]));
     
     NSArray* otherWindows = [thisWindow otherWindowsOnAllScreens];
     NSMutableArray* closestOtherWindows = [NSMutableArray arrayWithCapacity:[otherWindows count]];
     
     for (SDWindowProxy* win in otherWindows) {
-        NSPoint otherPoint = SDMidpoint([win frame]);
+        NSPoint otherPoint = SDMidpoint(SDRectFromDict([win frame]));
         
         double deltaX = otherPoint.x - startingPoint.x;
         double deltaY = otherPoint.y - startingPoint.y;

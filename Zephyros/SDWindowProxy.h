@@ -25,14 +25,14 @@
 
 // window position & size
 
-- (CGRect) frame;
-- (void) setFrame:(CGRect)frame;
+- (NSDictionary*) frame;
+- (void) setFrame:(NSDictionary*)frame;
 
-- (void) setTopLeft:(CGPoint)thePoint;
-- (void) setSize:(CGSize)theSize;
+- (void) setTopLeft:(NSDictionary*)thePoint;
+- (void) setSize:(NSDictionary*)theSize;
 
-- (CGPoint) topLeft;
-- (CGSize) size;
+- (NSDictionary*) topLeft;
+- (NSDictionary*) size;
 
 - (void) maximize;
 - (void) minimize;
