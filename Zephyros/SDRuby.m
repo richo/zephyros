@@ -21,6 +21,7 @@
 #import "SDScreenProxy.h"
 #import "SDAppProxy.h"
 #import "SDAlertWindowController.h"
+#import "SDLogWindowController.h"
 #import "SDEventListener.h"
 
 
@@ -281,7 +282,7 @@ VALUE SDReloadConfig(VALUE self) {
     VALUE c = rb_define_class("WrappedObject", rb_cObject);
     rb_define_method(c, "method_missing", RUBY_METHOD_FUNC(sd_method_missing), -2);
     
-    for (NSString* name in @[@"Window", @"Screen", @"App", @"API", @"KeyBinder", @"Window", @"App", @"Screen", @"AlertWindowController", @"EventListener"]) {
+    for (NSString* name in @[@"Window", @"Screen", @"App", @"API", @"KeyBinder", @"Window", @"App", @"Screen", @"AlertWindowController", @"LogWindowController", @"EventListener"]) {
         rb_define_class([name UTF8String], rb_eval_string("WrappedObject"));
     }
     
@@ -291,6 +292,7 @@ VALUE SDReloadConfig(VALUE self) {
     rb_gv_set("screenproxy", SDWrappedObject([SDScreenProxy self]));
     rb_gv_set("appproxy", SDWrappedObject([SDAppProxy self]));
     rb_gv_set("alert", SDWrappedObject([SDAlertWindowController sharedAlertWindowController]));
+    rb_gv_set("logwindow", SDWrappedObject([SDLogWindowController sharedLogWindowController]));
     rb_gv_set("listener", SDWrappedObject([SDEventListener sharedEventListener]));
     
     rb_require([[[NSBundle mainBundle] pathForResource:@"api" ofType:@"rb"] UTF8String]);

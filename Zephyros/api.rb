@@ -1,7 +1,6 @@
 ### remaining API stuff to port:
 
-# settings: -> SDAPI.settings()
-# log = (str) -> SDLogWindowController.sharedLogWindowController().show_type_ str, "SDLogMessageTypeUser"
+# SDAPI.settings()
 
 
 class API
@@ -14,6 +13,10 @@ class API
 
     def listen(event, &blk)
       $listener.listenForEvent_fn_(event, blk)
+    end
+
+    def log(str)
+      $logwindow.show_type_ str, "SDLogMessageTypeUser"
     end
 
     def shell(path, args, opts={})
