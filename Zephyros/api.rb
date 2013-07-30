@@ -82,6 +82,15 @@ end
 
 class Point
 
+  def self.new
+    $sighfactory.point.tap{|me|me.send :initialize}
+  end
+
+  def initialize
+    self.x = 0
+    self.y = 0
+  end
+
   def x; method_missing(:x); end
   def y; method_missing(:y); end
 
@@ -92,6 +101,15 @@ end
 
 class Size
 
+  def self.new
+    $sighfactory.size.tap{|me|me.send :initialize}
+  end
+
+  def initialize
+    self.w = 0
+    self.h = 0
+  end
+
   def w; method_missing(:w); end
   def h; method_missing(:h); end
 
@@ -101,6 +119,17 @@ class Size
 end
 
 class Rect
+
+  def self.new
+    $sighfactory.rect.tap{|me|me.send :initialize}
+  end
+
+  def initialize
+    self.x = 0
+    self.y = 0
+    self.w = 0
+    self.h = 0
+  end
 
   def x; method_missing(:x); end
   def y; method_missing(:y); end

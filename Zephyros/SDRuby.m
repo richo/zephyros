@@ -219,6 +219,18 @@ VALUE sd_method_missing(VALUE self, VALUE args) {
 
 
 
+@interface SDGeometry : NSObject
+@end
+@implementation SDGeometry
+
++ (SDPoint*) point { return [[SDPoint alloc] init]; }
++ (SDSize*) size { return [[SDSize alloc] init]; }
++ (SDRect*) rect { return [[SDRect alloc] init]; }
+
+@end
+
+
+
 @implementation SDRuby
 
 - (void) setup {
@@ -229,10 +241,11 @@ VALUE sd_method_missing(VALUE self, VALUE args) {
     VALUE c = rb_define_class("WrappedObject", rb_cObject);
     rb_define_method(c, "method_missing", RUBY_METHOD_FUNC(sd_method_missing), -2);
     
-    for (NSString* name in @[@"Window", @"Screen", @"App", @"API", @"KeyBinder", @"WindowProxy", @"AppProxy", @"ScreenProxy", @"Size", @"Point", @"Rect"]) {
+    for (NSString* name in @[@"Window", @"Screen", @"App", @"API", @"KeyBinder", @"WindowProxy", @"AppProxy", @"ScreenProxy", @"Size", @"Point", @"Rect", @"Geometry"]) {
         rb_define_class([name UTF8String], rb_eval_string("WrappedObject"));
     }
     
+    rb_gv_set("sighfactory", SDWrappedObject([SDGeometry self]));
     rb_gv_set("api", SDWrappedObject([SDAPI self]));
     rb_gv_set("keybinder", SDWrappedObject([SDKeyBinder sharedKeyBinder]));
     rb_gv_set("windowproxy", SDWrappedObject([SDWindowProxy self]));
