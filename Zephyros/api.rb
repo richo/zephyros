@@ -104,13 +104,6 @@ class WindowProxy
                           g.h * half_screen_height)
     new_frame.inset!($window_grid_margin_x, $window_grid_margin_y)
     new_frame.integral!
-
-    p new_frame
-    p new_frame.x
-    p new_frame.y
-    p new_frame.w
-    p new_frame.h
-
     self.frame = new_frame
   end
 
