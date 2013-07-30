@@ -155,6 +155,8 @@ id SDRubyToObjcValue(VALUE obj) {
             VALUE nameObj = rb_funcall(CLASS_OF(obj), rb_intern("name"), 0);
             char* nameCStr = StringValueCStr(nameObj);
             
+            NSLog(@"converting a [%s] object into ObjC", nameCStr);
+            
             if (strcmp(nameCStr, "Rect") == 0 || strcmp(nameCStr, "Point") == 0 || strcmp(nameCStr, "Size") == 0) {
                 void* s;
                 Data_Get_Struct(obj, void, s);
