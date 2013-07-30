@@ -54,17 +54,20 @@ You can tell Zephyros to automatically reload your config file whenver it change
 Here's a sample Ruby config to get you started:
 
 ```ruby
-# useful for testing
-API.bind("R", ["cmd", "alt", "ctrl"]) { API. reload_config }
+mash = ["cmd", "alt", "ctrl"]
 
-# maximize window
-bind "M", ["cmd", "alt", "ctrl"] do
+# useful for testing
+API.bind("R", mash) { API. reload_config }
+
+# maximize window (the hard way)
+API.bind "M", mash do
   win = API.focused_window
   win.frame = win.screen.frame_without_dock_or_menu
+  # note: we could have just done win.maximize, but this is more flexible
 end
 
 # push to top half of screen
-bind "K", ["cmd", "alt", "ctrl"] do
+API.bind "K", mash do
   win = API.focused_window
   frame = win.screen.frame_without_dock_or_menu
   frame.h /= 2
@@ -72,7 +75,7 @@ bind "K", ["cmd", "alt", "ctrl"] do
 end
 
 # push to bottom half of screen
-bind "J", ["cmd", "alt", "ctrl"] do
+API.bind "J", mash do
   win = API.focused_window
   frame = win.screen.frame_without_dock_or_menu
   frame.y += frame.h / 2
