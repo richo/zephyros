@@ -21,6 +21,9 @@
 #import "SDAppProxy.h"
 
 
+#import "SDGeometry.h"
+
+
 
 VALUE SDWrappedObject(id thing) {
     NSString* className = NSStringFromClass([thing class]);

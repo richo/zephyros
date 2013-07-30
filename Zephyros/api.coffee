@@ -1,24 +1,24 @@
 mapToJS = (list, fn) -> _.map __jsc__.toJS(list), fn
 objToJS = (obj) -> __jsc__.toJS obj
 
-SDMinX = (r) -> r.x()
-SDMinY = (r) -> r.y()
-SDMaxX = (r) -> r.x() + r.w()
-SDMaxY = (r) -> r.y() + r.h()
+SDMinX = (r) -> r.x
+SDMinY = (r) -> r.y
+SDMaxX = (r) -> r.x + r.w
+SDMaxY = (r) -> r.y + r.h
 
 SDRectMake = (x, y, w, h) ->
-  r = SDRect.alloc().init().autorelease()
-  r.setX x
-  r.setY y
-  r.setW w
-  r.setH h
+  r = {}
+  r.x = x
+  r.y = y
+  r.w = w
+  r.h = h
   r
 
 SDInsetRect = (r, byX, byY) ->
-  r.setX r.x() + byY
-  r.setY r.y() + byY
-  r.setW r.w() - (byX * 2)
-  r.setH r.h() - (byY * 2)
+  r.x += byY
+  r.y += byY
+  r.w -= (byX * 2)
+  r.h -= (byY * 2)
   r
 
 SDIntegralRect = (r) -> r
@@ -70,19 +70,19 @@ class Window
   getGrid: ->
     winFrame = @frame()
     screenRect = @screen().frameWithoutDockOrMenu()
-    thirdScrenWidth = screenRect.w() / Window.gridWidth
-    halfScreenHeight = screenRect.h() / 2.0
+    thirdScrenWidth = screenRect.w / Window.gridWidth
+    halfScreenHeight = screenRect.h / 2.0
     {
-      x: Math.round((winFrame.x() - SDMinX(screenRect)) / thirdScrenWidth),
-      y: Math.round((winFrame.y() - SDMinY(screenRect)) / halfScreenHeight),
-      w: Math.max(Math.round(winFrame.w() / thirdScrenWidth), 1),
-      h: Math.max(Math.round(winFrame.h() / halfScreenHeight), 1)
+      x: Math.round((winFrame.x - SDMinX(screenRect)) / thirdScrenWidth),
+      y: Math.round((winFrame.y - SDMinY(screenRect)) / halfScreenHeight),
+      w: Math.max(Math.round(winFrame.w / thirdScrenWidth), 1),
+      h: Math.max(Math.round(winFrame.h / halfScreenHeight), 1)
     }
   setGrid: (grid, screen) ->
     screen ?= @screen()
     screenRect = screen.frameWithoutDockOrMenu()
-    thirdScrenWidth = screenRect.w() / Window.gridWidth
-    halfScreenHeight = screenRect.h() / 2.0
+    thirdScrenWidth = screenRect.w / Window.gridWidth
+    halfScreenHeight = screenRect.h / 2.0
     newFrame = SDRectMake((grid.x * thirdScrenWidth) + SDMinX(screenRect),
                           (grid.y * halfScreenHeight) + SDMinY(screenRect),
                           grid.w * thirdScrenWidth,

@@ -10,7 +10,6 @@
 
 #import "SDAppProxy.h"
 #import "SDScreenProxy.h"
-#import "SDGeometry.h"
 
 @interface SDWindowProxy : NSObject
 
@@ -26,14 +25,14 @@
 
 // window position & size
 
-- (SDRect*) frame;
-- (void) setFrame:(SDRect*)frame;
+- (NSDictionary*) frame;
+- (void) setFrame:(NSDictionary*)frame;
 
-- (void) setTopLeft:(SDPoint*)thePoint;
-- (void) setSize:(SDSize*)theSize;
+- (void) setTopLeft:(NSDictionary*)thePoint;
+- (void) setSize:(NSDictionary*)theSize;
 
-- (SDPoint*) topLeft;
-- (SDSize*) size;
+- (NSDictionary*) topLeft;
+- (NSDictionary*) size;
 
 - (void) maximize;
 - (void) minimize;

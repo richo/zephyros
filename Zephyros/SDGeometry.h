@@ -32,3 +32,16 @@ SDSize* SDSizeFromCGSize(CGSize r);
 CGRect CGRectFromSDRect(SDRect* d);
 CGPoint CGPointFromSDPoint(SDPoint* d);
 CGSize CGSizeFromSDSize(SDSize* d);
+
+
+
+
+
+
+NSDictionary* SDDictFromRect(CGRect r);
+NSDictionary* SDDictFromPoint(CGPoint r);
+NSDictionary* SDDictFromSize(CGSize r);
+
+CGRect SDRectFromDict(NSDictionary* d);
+CGPoint SDPointFromDict(NSDictionary* d);
+CGSize SDSizeFromDict(NSDictionary* d);

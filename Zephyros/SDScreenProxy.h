@@ -8,8 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-#import "SDGeometry.h"
-
 @interface SDScreenProxy : NSObject
 
 @property NSScreen* actualScreenObject;
@@ -17,8 +15,8 @@
 + (SDScreenProxy*) mainScreen;
 + (NSArray*) allScreens;
 
-- (SDRect*) frameIncludingDockAndMenu;
-- (SDRect*) frameWithoutDockOrMenu;
+- (NSDictionary*) frameIncludingDockAndMenu;
+- (NSDictionary*) frameWithoutDockOrMenu;
 
 - (SDScreenProxy*) nextScreen;
 - (SDScreenProxy*) previousScreen;

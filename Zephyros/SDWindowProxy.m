@@ -103,20 +103,20 @@
     return nil;
 }
 
-- (SDRect*) frame {
+- (NSDictionary*) frame {
     CGRect r;
-    r.origin = CGPointFromSDPoint([self topLeft]);
-    r.size = CGSizeFromSDSize([self size]);
-    return SDRectFromCGRect(r);
+    r.origin = SDPointFromDict([self topLeft]);
+    r.size = SDSizeFromDict([self size]);
+    return SDDictFromRect(r);
 }
 
-- (void) setFrame:(SDRect*)frameDict {
-    [self setSize: (SDSize*)frameDict];
-    [self setTopLeft: (SDPoint*)frameDict];
-    [self setSize: (SDSize*)frameDict];
+- (void) setFrame:(NSDictionary*)frameDict {
+    [self setSize: frameDict];
+    [self setTopLeft: frameDict];
+    [self setSize: frameDict];
 }
 
-- (SDPoint*) topLeft {
+- (NSDictionary*) topLeft {
     CFTypeRef positionStorage;
     AXError result = AXUIElementCopyAttributeValue(self.window, (CFStringRef)NSAccessibilityPositionAttribute, &positionStorage);
     
@@ -135,10 +135,10 @@
     if (positionStorage)
         CFRelease(positionStorage);
     
-    return SDPointFromCGPoint(topLeft);
+    return SDDictFromPoint(topLeft);
 }
 
-- (SDSize*) size {
+- (NSDictionary*) size {
     CFTypeRef sizeStorage;
     AXError result = AXUIElementCopyAttributeValue(self.window, (CFStringRef)NSAccessibilitySizeAttribute, &sizeStorage);
     
@@ -157,19 +157,19 @@
     if (sizeStorage)
         CFRelease(sizeStorage);
     
-    return SDSizeFromCGSize(size);
+    return SDDictFromSize(size);
 }
 
-- (void) setTopLeft:(SDPoint*)thePointDict {
-    CGPoint thePoint = CGPointFromSDPoint(thePointDict);
+- (void) setTopLeft:(NSDictionary*)thePointDict {
+    CGPoint thePoint = SDPointFromDict(thePointDict);
     CFTypeRef positionStorage = (CFTypeRef)(AXValueCreate(kAXValueCGPointType, (const void *)&thePoint));
     AXUIElementSetAttributeValue(self.window, (CFStringRef)NSAccessibilityPositionAttribute, positionStorage);
     if (positionStorage)
         CFRelease(positionStorage);
 }
 
-- (void) setSize:(SDSize*)theSizeDict {
-    CGSize theSize = CGSizeFromSDSize(theSizeDict);
+- (void) setSize:(NSDictionary*)theSizeDict {
+    CGSize theSize = SDSizeFromDict(theSizeDict);
     CFTypeRef sizeStorage = (CFTypeRef)(AXValueCreate(kAXValueCGSizeType, (const void *)&theSize));
     AXUIElementSetAttributeValue(self.window, (CFStringRef)NSAccessibilitySizeAttribute, sizeStorage);
     if (sizeStorage)
@@ -177,13 +177,13 @@
 }
 
 - (SDScreenProxy*) screen {
-    CGRect windowFrame = CGRectFromSDRect([self frame]);
+    CGRect windowFrame = SDRectFromDict([self frame]);
     
     CGFloat lastVolume = 0;
     SDScreenProxy* lastScreen = nil;
     
     for (SDScreenProxy* screen in [SDScreenProxy allScreens]) {
-        CGRect screenFrame = CGRectFromSDRect([screen frameIncludingDockAndMenu]);
+        CGRect screenFrame = SDRectFromDict([screen frameIncludingDockAndMenu]);
         CGRect intersection = CGRectIntersection(windowFrame, screenFrame);
         CGFloat volume = intersection.size.width * intersection.size.height;
         
@@ -197,8 +197,8 @@
 }
 
 - (void) maximize {
-    CGRect screenRect = CGRectFromSDRect([[self screen] frameWithoutDockOrMenu]);
-    [self setFrame: SDRectFromCGRect(screenRect)];
+    CGRect screenRect = SDRectFromDict([[self screen] frameWithoutDockOrMenu]);
+    [self setFrame: SDDictFromRect(screenRect)];
 }
 
 - (void) minimize {
@@ -284,13 +284,13 @@ NSPoint SDMidpoint(NSRect r) {
                 shouldDisregardFn:(BOOL(^)(double deltaX, double deltaY))shouldDisregardFn
 {
     SDWindowProxy* thisWindow = [SDWindowProxy focusedWindow];
-    NSPoint startingPoint = SDMidpoint(CGRectFromSDRect([thisWindow frame]));
+    NSPoint startingPoint = SDMidpoint(SDRectFromDict([thisWindow frame]));
     
     NSArray* otherWindows = [thisWindow otherWindowsOnAllScreens];
     NSMutableArray* closestOtherWindows = [NSMutableArray arrayWithCapacity:[otherWindows count]];
     
     for (SDWindowProxy* win in otherWindows) {
-        NSPoint otherPoint = SDMidpoint(CGRectFromSDRect([win frame]));
+        NSPoint otherPoint = SDMidpoint(SDRectFromDict([win frame]));
         
         double deltaX = otherPoint.x - startingPoint.x;
         double deltaY = otherPoint.y - startingPoint.y;

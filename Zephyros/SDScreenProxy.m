@@ -28,18 +28,18 @@
     return allScreens;
 }
 
-- (SDRect*) frameIncludingDockAndMenu {
+- (NSDictionary*) frameIncludingDockAndMenu {
     NSScreen* primaryScreen = [[NSScreen screens] objectAtIndex:0];
     CGRect f = [self.actualScreenObject frame];
     f.origin.y = NSHeight([primaryScreen frame]) - NSHeight(f) - f.origin.y;
-    return SDRectFromCGRect(f);
+    return SDDictFromRect(f);
 }
 
-- (SDRect*) frameWithoutDockOrMenu {
+- (NSDictionary*) frameWithoutDockOrMenu {
     NSScreen* primaryScreen = [[NSScreen screens] objectAtIndex:0];
     CGRect f = [self.actualScreenObject visibleFrame];
     f.origin.y = NSHeight([primaryScreen frame]) - NSHeight(f) - f.origin.y;
-    return SDRectFromCGRect(f);
+    return SDDictFromRect(f);
 }
 
 - (SDScreenProxy*) nextScreen {
