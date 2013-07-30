@@ -62,7 +62,9 @@ API.bind("R", mash) { API. reload_config }
 # maximize window (the hard way)
 API.bind "M", mash do
   win = API.focused_window
-  win.frame = win.screen.frame_without_dock_or_menu
+  f = win.screen.frame_without_dock_or_menu
+  f.inset! 10, 10 # give the window-shadows a little breathing room
+  win.frame = f
   # note: we could have just done win.maximize, but this is more flexible
 end
 
