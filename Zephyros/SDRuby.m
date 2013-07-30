@@ -303,18 +303,18 @@ VALUE SDReloadConfig(VALUE self) {
     rb_define_singleton_method(rb_eval_string("API"), "reload_config", SDReloadConfig, 0);
 }
 
-- (void) evalString:(NSString*)code {
+- (id) evalString:(NSString*)code {
     int err;
-    rb_eval_string_protect([code UTF8String], &err);
+    VALUE returnVal = rb_eval_string_protect([code UTF8String], &err);
     
     if (err) {
         VALUE exception = rb_gv_get("$!");
         VALUE excStr = rb_obj_as_string(exception);
         NSString* exceptionString = [NSString stringWithUTF8String:StringValueCStr(excStr)];
-        
-        // TODO: show exceptions via log window
-        NSLog(@"%@", exceptionString);
+        return exceptionString;
     }
+    
+    return [SDRubyToObjcValue(returnVal) description];
 }
 
 @end

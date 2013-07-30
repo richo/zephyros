@@ -16,4 +16,6 @@
 - (void) reloadConfig;
 - (void) reloadConfigIfWatchEnabled;
 
+- (NSString*) evalString:(NSString*)str;
+
 @end

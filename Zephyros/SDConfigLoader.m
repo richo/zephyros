@@ -112,30 +112,40 @@
     if (!contents)
         return NO;
     
+    [self eval:contents];
+    
+    return YES;
+}
+
+- (NSString*) evalString:(NSString*)str {
+    return [self eval:str];
+}
+
+- (id) eval:(NSString*)str {
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"configShouldPreprocess"]) {
         NSString* preprocessor = [[NSUserDefaults standardUserDefaults] stringForKey:@"configConverter"];
         if (preprocessor) {
             preprocessor = [preprocessor stringByStandardizingPath];
             NSDictionary* result = [SDAPI shell:@"/bin/bash"
                                            args:@[@"-lc", preprocessor]
-                                        options:@{@"input": contents, @"pwd":[preprocessor stringByDeletingLastPathComponent]}];
-            contents = [result objectForKey:@"stdout"];
+                                        options:@{@"input": str, @"pwd":[preprocessor stringByDeletingLastPathComponent]}];
+            str = [result objectForKey:@"stdout"];
         }
     }
     
     NSString* type = [[NSUserDefaults standardUserDefaults] stringForKey:@"configType"];
     
     if ([type isEqualToString: @"js"]) {
-        [self.js evalString:contents asCoffee:NO];
+        return [self.js evalString:str asCoffee:NO];
     }
     else if ([type isEqualToString: @"coffee"]) {
-        [self.js evalString:contents asCoffee:YES];
+        return [self.js evalString:str asCoffee:YES];
     }
     else if ([type isEqualToString: @"ruby"]) {
-        [self.ruby evalString:contents];
+        return [self.ruby evalString:str];
     }
     
-    return YES;
+    return nil;
 }
 
 @end

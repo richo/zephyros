@@ -14,7 +14,7 @@
 
 - (void) setup;
 
-- (void) evalString:(NSString*)code;
+- (id) evalString:(NSString*)code;
 
 @end
 
