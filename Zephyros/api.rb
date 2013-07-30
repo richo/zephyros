@@ -25,8 +25,8 @@ end
 
 class ScreenProxy
 
-  def frame_including_dock_and_menu; frameIncludingDockAndMenu; end
-  def frame_without_dock_or_menu; frameWithoutDockOrMenu; end
+  def frame_including_dock_and_menu; Rect.from_hash frameIncludingDockAndMenu; end
+  def frame_without_dock_or_menu; Rect.from_hash frameWithoutDockOrMenu; end
   def next_screen; nextScreen; end
   def previous_screen; previousScreen; end
 
@@ -56,13 +56,13 @@ class WindowProxy
 
   def other_windows_on_same_screen; otherWindowsOnSameScreen; end
 
-  def frame; method_missing(:frame); end
-  def top_left; method_missing(:topLeft); end
-  def size; method_missing(:size); end
+  def frame; Rect.from_hash method_missing(:frame); end
+  def top_left; Point.from_hash method_missing(:topLeft); end
+  def size; Size.from_hash method_missing(:size); end
 
-  def frame=(x); method_missing(:setFrame_, x); end
-  def top_left=(x); method_missing(:setTopLeft_, x); end
-  def size=(x); method_missing(:setSize_, x); end
+  def frame=(x); method_missing(:setFrame_, x.to_hash); end
+  def top_left=(x); method_missing(:setTopLeft_, x.to_hash); end
+  def size=(x); method_missing(:setSize_, x.to_hash); end
 
   def maximize; method_missing(:maximize); end
   def minimize; method_missing(:minimize); end
@@ -111,6 +111,20 @@ end
 
 class Point
 
+  def self.from_hash(d)
+    r = new
+    r.x = d['x']
+    r.y = d['y']
+    r
+  end
+
+  def to_hash
+    {
+      'x' => x,
+      'y' => y,
+    }
+  end
+
   def self.new
     $sighfactory.point.tap{|me|me.send :initialize}
   end
@@ -130,6 +144,20 @@ end
 
 class Size
 
+  def self.from_hash(d)
+    r = new
+    r.w = d['w']
+    r.h = d['h']
+    r
+  end
+
+  def to_hash
+    {
+      'w' => w,
+      'h' => h,
+    }
+  end
+
   def self.new
     $sighfactory.size.tap{|me|me.send :initialize}
   end
@@ -148,6 +176,24 @@ class Size
 end
 
 class Rect
+
+  def self.from_hash(d)
+    r = new
+    r.x = d['x']
+    r.y = d['y']
+    r.w = d['w']
+    r.h = d['h']
+    r
+  end
+
+  def to_hash
+    {
+      'x' => x,
+      'y' => y,
+      'w' => w,
+      'h' => h,
+    }
+  end
 
   def self.new
     $sighfactory.rect.tap{|me|me.send :initialize}
