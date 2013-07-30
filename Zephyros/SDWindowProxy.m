@@ -111,10 +111,9 @@
 }
 
 - (void) setFrame:(NSDictionary*)frameDict {
-    CGRect frame = SDRectFromDict(frameDict);
-    [self setSize: SDDictFromSize(frame.size)];
-    [self setTopLeft: SDDictFromPoint(frame.origin)];
-    [self setSize: SDDictFromSize(frame.size)];
+    [self setSize: frameDict];
+    [self setTopLeft: frameDict];
+    [self setSize: frameDict];
 }
 
 - (NSDictionary*) topLeft {
