@@ -94,7 +94,7 @@ The [wiki home page](https://github.com/sdegutis/zephyros/wiki) has a list of co
 
 ### Community
 
-- <a href='irc://irc.freenode.org/#zephyros'>#zephyros</a> on irc.freenode.org
+- #zephyros on irc.freenode.org
 - [wiki home page](https://github.com/sdegutis/zephyros/wiki), a place to share configs and stuff
 
 ### Change log
