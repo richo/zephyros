@@ -89,6 +89,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4F76715717A8125700103E64 /* HIToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HIToolbox.framework; path = System/Library/Frameworks/Carbon.framework/Frameworks/HIToolbox.framework; sourceTree = SDKROOT; };
 		940BF5E7171FA49B0041089B /* SDJSCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDJSCallback.h; sourceTree = "<group>"; };
 		940BF5E8171FA49B0041089B /* SDJSCallback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDJSCallback.m; sourceTree = "<group>"; };
 		943921B61719B1EE00F63073 /* statusitem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = statusitem.png; sourceTree = "<group>"; };
@@ -340,6 +341,7 @@
 				9495B456171959B4002C9EF5 /* JavaScriptCore.framework */,
 				94873F5F171920B4000AC0A6 /* Carbon.framework */,
 				94873F2D17191F40000AC0A6 /* Cocoa.framework */,
+				4F76715717A8125700103E64 /* HIToolbox.framework */,
 				94873F2F17191F40000AC0A6 /* Other Frameworks */,
 			);
 			name = Frameworks;
@@ -694,6 +696,7 @@
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/ThirdParty\"",
 					"\"$(SRCROOT)/Zephyros\"",
+					"$(SDKROOT)$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Zephyros/Zephyros-Prefix.pch";
@@ -720,6 +723,7 @@
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/ThirdParty\"",
 					"\"$(SRCROOT)/Zephyros\"",
+					"$(SDKROOT)$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Zephyros/Zephyros-Prefix.pch";
