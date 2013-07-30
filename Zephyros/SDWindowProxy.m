@@ -45,8 +45,8 @@
     return windows;
 }
 
-- (BOOL) isNormalWindow {
-    return [[self subrole] isEqualToString: (__bridge NSString*)kAXStandardWindowSubrole];
+- (NSNumber*) isNormalWindow {
+    return @([[self subrole] isEqualToString: (__bridge NSString*)kAXStandardWindowSubrole]);
 }
 
 + (NSArray*) visibleWindows {
@@ -54,9 +54,9 @@
         return nil;
     
     return [[self allWindows] filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(SDWindowProxy* win, NSDictionary *bindings) {
-        return ![[win app] isHidden]
-        && ![win isWindowMinimized]
-        && [win isNormalWindow];
+        return ![[[win app] isHidden] boolValue]
+        && ![[win isWindowMinimized] boolValue]
+        && [[win isNormalWindow] boolValue];
     }]];
 }
 
@@ -205,17 +205,17 @@
     [self setWindowMinimized:NO];
 }
 
-- (BOOL) focusWindow {
+- (NSNumber*) focusWindow {
     AXError changedMainWindowResult = AXUIElementSetAttributeValue(self.window, (CFStringRef)NSAccessibilityMainAttribute, kCFBooleanTrue);
     if (changedMainWindowResult != kAXErrorSuccess) {
         NSLog(@"ERROR: Could not change focus to window");
-        return NO;
+        return @NO;
     }
     
     ProcessSerialNumber psn;
     GetProcessForPID([self processIdentifier], &psn);
     OSStatus focusAppResult = SetFrontProcessWithOptions(&psn, kSetFrontProcessFrontWindowOnly);
-    return focusAppResult == 0;
+    return @(focusAppResult == 0);
 }
 
 - (pid_t) processIdentifier {
@@ -260,8 +260,8 @@
     return [self getWindowProperty:NSAccessibilitySubroleAttribute withDefaultValue:@""];
 }
 
-- (BOOL) isWindowMinimized {
-    return [[self getWindowProperty:NSAccessibilityMinimizedAttribute withDefaultValue:@(NO)] boolValue];
+- (NSNumber*) isWindowMinimized {
+    return @([[self getWindowProperty:NSAccessibilityMinimizedAttribute withDefaultValue:@(NO)] boolValue]);
 }
 
 - (void) setWindowMinimized:(BOOL)flag
@@ -316,7 +316,7 @@ NSPoint SDMidpoint(NSRect r) {
 
 - (void) focusFirstValidWindowIn:(NSArray*)closestWindows {
     for (SDWindowProxy* win in [closestWindows valueForKeyPath:@"win"]) {
-        if ([win focusWindow])
+        if ([[win focusWindow] boolValue])
             break;
     }
 }
