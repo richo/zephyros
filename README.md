@@ -92,11 +92,11 @@ The [wiki home page](https://github.com/sdegutis/zephyros/wiki) has a list of co
 ### Change log
 
 - 3.0
-    - JS API changes:
+    - Added a Ruby API
+    - Changed JS API:
         - any function that returned a CGRect now returns a hash, keys `'x', 'y', 'w', 'h'`
         - any function that returned a CGPoint now returns a hash, keys `'x', 'y'`
         - any function that returned a CGSize now returns a hash, keys `'w', 'h'`
-    - Added a fully-working Ruby API, but need to integrate with log window still
 - 2.7
     - Broke the Log window
     - Less dumb way of choosing configs (uses UI this time)
@@ -107,8 +107,6 @@ The [wiki home page](https://github.com/sdegutis/zephyros/wiki) has a list of co
     - First version anyone should care about
 
 ### Todo
-
-#### Want to help?
 
 * Better error handling for Ruby
 * Better CSS styling in [the Log Window](Zephyros/logwindow.html)
@@ -121,6 +119,12 @@ The [wiki home page](https://github.com/sdegutis/zephyros/wiki) has a list of co
 * Give a better error message if your config file *actually turns out to be a directory* (sigh)
 * Add `mouseMoved` event, but coalesce notifications to a reasonable amount (default every 0.5 sec, make it configurable)
 * Add `api.screenUnderMouse()`
+
+### Special Thanks
+
+- Kyle
+- Everyone in #macdev and #ruby-lang and #ruby on irc.freenode.org
+    - Specifically, in no particular order, jkj, mikeash, whitequark, charliesome, Psy, and many others
 
 ### License
 
