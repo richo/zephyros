@@ -6,6 +6,12 @@
     <description>Most recent changes with links to updates.</description>
     <language>en</language>
     <item>
+      <title>Version 3.0</title>
+      <sparkle:releaseNotesLink>https://github.com/sdegutis/zephyros#change-log</sparkle:releaseNotesLink>
+      <pubDate>Tue Jul 30 15:43:21 CDT 2013</pubDate>
+      <enclosure url="https://raw.github.com/sdegutis/zephyros/master/Builds/Zephyros-3.0.app.tar.gz" sparkle:version="3.0" sparkle:dsaSignature="MC0CFQCcMJAcMJf4J2Z4E5S61sENbtMIlQIUReBfV6cYz95u1n2t/LgZNjzqnq8=" length="3598237" type="application/octet-stream"/>
+    </item>
+    <item>
       <title>Version 2.7</title>
       <sparkle:releaseNotesLink>https://github.com/sdegutis/zephyros#change-log</sparkle:releaseNotesLink>
       <pubDate>Sun Jul 28 18:09:29 CDT 2013</pubDate>

@@ -13,9 +13,9 @@
 
 *The OS X window manager for hackers*
 
-* Current version: **2.7**
+* Current version: **3.0**
 * Requires: OS X 10.7 and up
-* Download: [.zip file](https://raw.github.com/sdegutis/zephyros/master/Builds/Zephyros-LATEST.app.tar.gz), unzip, right-click app, choose "Open"
+* Download: get [.zip file](https://raw.github.com/sdegutis/zephyros/master/Builds/Zephyros-LATEST.app.tar.gz), unzip, right-click app, choose "Open"
 
 #### Basics
 
@@ -91,7 +91,7 @@ The [wiki home page](https://github.com/sdegutis/zephyros/wiki) has a list of co
 
 ### Change log
 
-- HEAD
+- 3.0
     - JS API changes:
         - any function that returned a CGRect now returns a hash, keys `'x', 'y', 'w', 'h'`
         - any function that returned a CGPoint now returns a hash, keys `'x', 'y'`
