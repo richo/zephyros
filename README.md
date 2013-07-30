@@ -23,6 +23,7 @@ At it's core, Zephyros just runs quietly in your menu bar, and runs your config 
 
 #### Supported languages
 
+- Ruby 2.0
 - JavaScript
 - [CoffeeScript 1.6.2](http://coffeescript.org/)
 - anything that compiles to JS (see [altjs.org](http://altjs.org/) and [this guy's list](https://github.com/jashkenas/coffee-script/wiki/List-of-languages-that-compile-to-JS))
@@ -50,31 +51,34 @@ You can tell Zephyros to automatically reload your config file whenver it change
 
 ### Example Configs
 
-Put the following in `~/.zephyros.coffee`
+Here's a sample Ruby config to get you started:
 
-```coffeescript
+```ruby
 # useful for testing
-bind "R", ["cmd", "alt", "ctrl"], -> reloadConfig()
+API.bind("R", ["cmd", "alt", "ctrl"]) { API. reload_config }
 
 # maximize window
-bind "M", ["cmd", "alt", "ctrl"], ->
-  win = api.focusedWindow()
-  win.setFrame win.screen().frameWithoutDockOrMenu()
+bind "M", ["cmd", "alt", "ctrl"] do
+  win = API.focused_window
+  win.frame = win.screen.frame_without_dock_or_menu
+end
 
 # push to top half of screen
-bind "K", ["cmd", "alt", "ctrl"], ->
-  win = api.focusedWindow()
-  frame = win.screen().frameWithoutDockOrMenu()
-  frame.size.height /= 2
-  win.setFrame frame
+bind "K", ["cmd", "alt", "ctrl"] do
+  win = API.focused_window
+  frame = win.screen.frame_without_dock_or_menu
+  frame.h /= 2
+  win.frame = frame
+end
 
 # push to bottom half of screen
-bind "J", ["cmd", "alt", "ctrl"], ->
-  win = api.focusedWindow()
-  frame = win.screen().frameWithoutDockOrMenu()
-  frame.origin.y += frame.size.height / 2
-  frame.size.height /= 2
-  win.setFrame frame
+bind "J", ["cmd", "alt", "ctrl"] do
+  win = API.focused_window
+  frame = win.screen.frame_without_dock_or_menu
+  frame.y += frame.h / 2
+  frame.h /= 2
+  win.frame = frame
+end
 ```
 
 The [wiki home page](https://github.com/sdegutis/zephyros/wiki) has a list of configs from users, and configs that replicate other apps (like SizeUp and Divvy).
@@ -82,7 +86,7 @@ The [wiki home page](https://github.com/sdegutis/zephyros/wiki) has a list of co
 ### API Docs
 
 - For [JavaScript or CoffeeScript](Docs/JS_API.md)
-- For [Ruby](Docs/RUBY_API.md) (coming soon)
+- For [Ruby](Docs/RUBY_API.md)
 - For [Python](Docs/PYTHON_API.md) (coming soon)
 
 ### Community
