@@ -133,8 +133,9 @@ The [wiki home page](https://github.com/sdegutis/zephyros/wiki) has a list of co
 ### Special Thanks
 
 - Kyle
-- Everyone in #macdev and #ruby-lang and #ruby on irc.freenode.org
-    - Specifically, in no particular order, jkj, mikeash, whitequark, charliesome, Psy, and many others
+- jkj, mikeash, whitequark, charliesome, Psy, dirkg
+- Matz, Apple
+- and many others
 
 ### License
 
