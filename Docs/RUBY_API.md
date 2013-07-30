@@ -6,7 +6,6 @@ class API
   class << self
 
     def after(sec, &blk); end
-    def listen(event, &blk); end
     def log(str); end
     def shell(path, args, opts={}); end # TODO: document opts
     def open(thing); end
@@ -21,6 +20,18 @@ class API
     def all_screens; end
 
     def running_apps; end
+
+    def listen(event, &blk); end
+        # 'window_created', callback args: (win)
+        # 'window_minimized', callback args: (win)
+        # 'window_unminimized', callback args: (win)
+        # 'window_moved', callback args: (win)
+        # 'window_resized', callback args: (win)
+        # 'app_launched', callback args: (app)
+        # 'app_died', callback args: (app)
+        # 'app_hidden', callback args: (app)
+        # 'app_shown', callback args: (app)
+        # 'screens_changed', callback args: ()
 
   end
 
