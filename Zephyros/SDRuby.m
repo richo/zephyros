@@ -161,7 +161,8 @@ VALUE sd_method_missing(VALUE self, VALUE args) {
     NSMethodSignature* sig = [internalObj methodSignatureForSelector:sel];
     
     if (!sig) {
-        rb_raise(rb_eTypeError, [[NSString stringWithFormat:@"undefined ObjC method = %@", originalSelStr] UTF8String]);
+        NSLog(@"undefined ObjC method = %@", originalSelStr);
+        return Qnil;
     }
     
     NSInvocation* inv = [NSInvocation invocationWithMethodSignature:sig];
