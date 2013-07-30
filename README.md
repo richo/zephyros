@@ -119,17 +119,14 @@ The [wiki home page](https://github.com/sdegutis/zephyros/wiki) has a list of co
     1. better CSS styling in [the Log Window](Zephyros/logwindow.html)
     2. a better app icon (current one is literally a ripoff of [AppGrid's](https://dxezhqhj7t42i.cloudfront.net/image/1e0daca8-3855-4135-a2a1-8569d28e8648))
     3. a better menu bar icon (current one is literally a ripoff of [AppGrid's](http://giantrobotsoftware.com/appgrid/screenshot1-thumb.png))
-* Are you a JS programmer? There's lots of low-hanging fruit!
-    * Better error handling when passing wrong stuff into API functions
-    * Convert more stuff in `api.coffee` to JS types before giving them to people (ugh so tedious though)
-* Are you an ObjC programmer? There's lots of low-hanging fruit!
-    * Get rid of the `NSPasteboard` category and the use of `objc_[g,s]etAssociatedObject`
-    * Check for syntax errors (in raw JS) before evaluating code, and show them in the log window if there are any
-    * Show evaluated (raw JS) code when there are runtime errors
-    * Give a better error message if your config file *actually turns out to be a directory* (sigh)
-    * Add `mouseMoved` event, but coalesce notifications to a reasonable amount (default every 0.5 sec, make it configurable)
-    * Add `api.windowUnderMouse()`
-    * Add `api.screenUnderMouse()`
+
+* Stop using JSCocoa and just use JavaScriptCore directly
+* Better error handling in JS API
+* Check for syntax errors (in raw JS) before evaluating code, and show them in the log window if there are any
+* Show evaluated (raw JS) code when there are runtime errors
+* Give a better error message if your config file *actually turns out to be a directory* (sigh)
+* Add `mouseMoved` event, but coalesce notifications to a reasonable amount (default every 0.5 sec, make it configurable)
+* Add `api.screenUnderMouse()`
 
 ### License
 
