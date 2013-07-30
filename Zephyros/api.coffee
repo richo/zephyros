@@ -1,6 +1,15 @@
 mapToJS = (list, fn) -> _.map __jsc__.toJS(list), fn
 objToJS = (obj) -> __jsc__.toJS obj
 
+SDMinX = (r) -> r.x
+SDMinY = (r) -> r.y
+SDMaxX = (r) -> r.x + r.w
+SDMaxY = (r) -> r.y + r.h
+
+SDRectMake = (x, y, w, h) -> { x: x, y: y, w: w, h: h }
+SDInsetRect = (r, byX, byY) -> { x: r.x + byX, y: r.y + byY, w: r.w - (byX * 2), h: r.h - (byY * 2) }
+SDIntegralRect = (r) -> { x: r.x, y: r.y, w: r.w, h: r.h }
+
 class Screen
   @fromNS: (proxy) -> new Screen proxy
   constructor: (@proxy) ->
@@ -48,25 +57,25 @@ class Window
   getGrid: ->
     winFrame = @frame()
     screenRect = @screen().frameWithoutDockOrMenu()
-    thirdScrenWidth = screenRect.size.width / Window.gridWidth
-    halfScreenHeight = screenRect.size.height / 2.0
+    thirdScrenWidth = screenRect.w / Window.gridWidth
+    halfScreenHeight = screenRect.h / 2.0
     {
-      x: Math.round((winFrame.origin.x - NSMinX(screenRect)) / thirdScrenWidth),
-      y: Math.round((winFrame.origin.y - NSMinY(screenRect)) / halfScreenHeight),
-      w: Math.max(Math.round(winFrame.size.width / thirdScrenWidth), 1),
-      h: Math.max(Math.round(winFrame.size.height / halfScreenHeight), 1)
+      x: Math.round((winFrame.x - SDMinX(screenRect)) / thirdScrenWidth),
+      y: Math.round((winFrame.y - SDMinY(screenRect)) / halfScreenHeight),
+      w: Math.max(Math.round(winFrame.w / thirdScrenWidth), 1),
+      h: Math.max(Math.round(winFrame.h / halfScreenHeight), 1)
     }
   setGrid: (grid, screen) ->
     screen ?= @screen()
     screenRect = screen.frameWithoutDockOrMenu()
-    thirdScrenWidth = screenRect.size.width / Window.gridWidth
-    halfScreenHeight = screenRect.size.height / 2.0
-    newFrame = CGRectMake((grid.x * thirdScrenWidth) + NSMinX(screenRect),
-                          (grid.y * halfScreenHeight) + NSMinY(screenRect),
+    thirdScrenWidth = screenRect.w / Window.gridWidth
+    halfScreenHeight = screenRect.h / 2.0
+    newFrame = SDRectMake((grid.x * thirdScrenWidth) + SDMinX(screenRect),
+                          (grid.y * halfScreenHeight) + SDMinY(screenRect),
                           grid.w * thirdScrenWidth,
                           grid.h * halfScreenHeight)
-    newFrame = NSInsetRect(newFrame, Window.gridMarginX, Window.gridMarginY)
-    newFrame = NSIntegralRect(newFrame)
+    newFrame = SDInsetRect(newFrame, Window.gridMarginX, Window.gridMarginY)
+    newFrame = SDIntegralRect(newFrame)
     @setFrame newFrame
 
 Window.gridWidth ?= 3
