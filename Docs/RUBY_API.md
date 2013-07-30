@@ -59,13 +59,13 @@ class Window
 
   def other_windows_on_same_screen; end
 
-  def frame; end
-  def top_left; end
-  def size; end
+  def frame; end # => returns a Rect
+  def top_left; end # => returns a Point
+  def size; end # => returns a Size
 
-  def frame=(x); end
-  def top_left=(x); end
-  def size=(x); end
+  def frame=(x); end # => takes a Rect
+  def top_left=(x); end # => takes a Point
+  def size=(x); end # => takes a Size
 
   def maximize; end
   def minimize; end
