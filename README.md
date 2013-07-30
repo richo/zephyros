@@ -93,9 +93,9 @@ The [wiki home page](https://github.com/sdegutis/zephyros/wiki) has a list of co
 
 - HEAD
     - JS API changes:
-        - any function that returned a CGRect now returns a hash keys `'x', 'y', 'w', 'h'`
-        - any function that returned a CGPoint now returns a hash keys `'x', 'y'`
-        - any function that returned a CGSize now returns a hash keys `'w', 'h'`
+        - any function that returned a CGRect now returns a hash, keys `'x', 'y', 'w', 'h'`
+        - any function that returned a CGPoint now returns a hash, keys `'x', 'y'`
+        - any function that returned a CGSize now returns a hash, keys `'w', 'h'`
     - Added a fully-working Ruby API, but need to integrate with log window still
 - 2.7
     - Broke the Log window
