@@ -119,7 +119,6 @@ The [wiki home page](https://github.com/sdegutis/zephyros/wiki) has a list of co
     1. better CSS styling in [the Log Window](Zephyros/logwindow.html)
     2. a better app icon (current one is literally a ripoff of [AppGrid's](https://dxezhqhj7t42i.cloudfront.net/image/1e0daca8-3855-4135-a2a1-8569d28e8648))
     3. a better menu bar icon (current one is literally a ripoff of [AppGrid's](http://giantrobotsoftware.com/appgrid/screenshot1-thumb.png))
-
 * Stop using JSCocoa and just use JavaScriptCore directly
 * Better error handling in JS API
 * Check for syntax errors (in raw JS) before evaluating code, and show them in the log window if there are any
