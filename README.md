@@ -96,11 +96,11 @@ The [wiki home page](https://github.com/sdegutis/zephyros/wiki) has a list of co
         - any function that returned a CGRect now returns a hash keys `'x', 'y', 'w', 'h'`
         - any function that returned a CGPoint now returns a hash keys `'x', 'y'`
         - any function that returned a CGSize now returns a hash keys `'w', 'h'`
-    - Added a fully working but super-crashy Ruby API
+    - Added a fully-working Ruby API, but need to integrate with log window still
 - 2.7
     - Broke the Log window
     - Less dumb way of choosing configs (uses UI this time)
-  - Added a non-functioning Ruby option
+    - Added a non-functioning Ruby option
 - 2.6.1
     - Added 'screens_changed' event
 - 2.6
