@@ -99,7 +99,7 @@ The [wiki home page](https://github.com/sdegutis/zephyros/wiki) has a list of co
 ### Change log
 
 - 3.1
-    - Added `choose_from` to Ruby API (it's pretty sweet)
+    - Added a fuzzy-matching `choose_from` method to the Ruby API (it's pretty sweet)
 - 3.0
     - Added a Ruby 2.0 API
     - Changed JS API:
