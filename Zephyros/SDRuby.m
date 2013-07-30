@@ -14,6 +14,7 @@
 #import "SDRubyObject.h"
 
 
+#import "SDConfigLoader.h"
 #import "SDAPI.h"
 #import "SDKeyBinder.h"
 #import "SDWindowProxy.h"
@@ -258,6 +259,15 @@ VALUE SDIntegralize(VALUE self) {
     return self;
 }
 
+VALUE SDGetClipboardContents(VALUE self) {
+    return SDObjcToRubyValue([[NSPasteboard generalPasteboard] stringForType:NSPasteboardTypeString]);
+}
+
+VALUE SDReloadConfig(VALUE self) {
+    [[SDConfigLoader sharedConfigLoader] reloadConfig];
+    return Qnil;
+}
+
 
 
 @implementation SDRuby
@@ -284,6 +294,9 @@ VALUE SDIntegralize(VALUE self) {
     rb_require([[[NSBundle mainBundle] pathForResource:@"api" ofType:@"rb"] UTF8String]);
     
     rb_define_method(rb_eval_string("Rect"), "integral!", SDIntegralize, 0);
+    
+    rb_define_singleton_method(rb_eval_string("API"), "clipboard_contents", SDGetClipboardContents, 0);
+    rb_define_singleton_method(rb_eval_string("API"), "reload_config", SDReloadConfig, 0);
 }
 
 - (void) evalString:(NSString*)code {

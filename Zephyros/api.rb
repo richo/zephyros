@@ -1,16 +1,7 @@
 ### remaining API stuff to port:
 
-#settings: -> SDAPI.settings()
-#clipboardContents: ->
-#  body = NSPasteboard.generalPasteboard().stringForType(NSPasteboardTypeString)
-#  if body
-#    body.toString()
-#  else
-#    null
-# shell = (path, args, options) -> SDAPI.shell_args_options_ path, args, options
-# open = (thing) -> SDAPI.shell_args_options_ "/usr/bin/open", [thing], {}
+# settings: -> SDAPI.settings()
 # log = (str) -> SDLogWindowController.sharedLogWindowController().show_type_ str, "SDLogMessageTypeUser"
-# reloadConfig = -> SDConfigLoader.sharedConfigLoader().reloadConfig()
 
 # listen = (event, fn) ->
 #   trampolineFn = (thing) ->
@@ -31,6 +22,14 @@ class API
 
     def after(sec, &blk)
       $api.doFn_after_ blk, sec
+    end
+
+    def shell(path, args, opts={})
+      $api.shell_args_options_ path, args, opts
+    end
+
+    def open(thing)
+      shell "/usr/bin/open", [thing]
     end
 
     def bind(key, mods, &blk)
