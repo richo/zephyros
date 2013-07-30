@@ -98,6 +98,7 @@ The [wiki home page](https://github.com/sdegutis/zephyros/wiki) has a list of co
 
 - #zephyros on irc.freenode.org
 - [wiki home page](https://github.com/sdegutis/zephyros/wiki), a place to share configs and stuff
+- [Zephyros mailing list (Google Groups)](https://groups.google.com/forum/#!forum/zephyros-app) for sharing ideas and stuff
 
 ### Change log
 
