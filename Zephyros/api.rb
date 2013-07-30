@@ -14,7 +14,37 @@ class API
     def visible_windows; $windowproxy.visibleWindows; end
     def all_windows; $windowproxy.allWindows; end
 
+    def main_screen; $screenproxy.mainScreen; end
+    def all_screens; $screenproxy.allScreens; end
+
+    def running_apps; $appproxy.runningApps; end
+
   end
+
+end
+
+class ScreenProxy
+
+  def frame_including_dock_and_menu; frameIncludingDockAndMenu; end
+  def frame_without_dock_or_menu; frameWithoutDockOrMenu; end
+  def next_screen; nextScreen; end
+  def previous_screen; previousScreen; end
+
+end
+
+class AppProxy
+
+  def all_windows; allWindows; end
+  def visible_windows; visibleWindows; end
+
+  def title; method_missing :title; end
+  def hidden?; isHidden; end
+
+  def show; method_missing :show; end
+  def hide; method_missing :hide; end
+
+  def kill; method_missing :kill; end
+  def kill9; method_missing :kill9; end
 
 end
 
