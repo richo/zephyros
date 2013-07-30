@@ -131,6 +131,33 @@ class Rect
     self.h = 0
   end
 
+  def self.make(x, y, w, h)
+    r = Rect.new
+    r.x = x
+    r.y = y
+    r.w = w
+    r.h = h
+    r
+  end
+
+  def inset!(x, y)
+    self.x += x
+    self.y += y
+    self.w -= (x * 2)
+    self.h -= (y * 2)
+    self
+  end
+
+  def min_x; x; end
+  def min_y; y; end
+  def max_x; x + w; end
+  def max_y; y + h; end
+
+  def integral!
+    method_missing :integralize
+    self
+  end
+
   def x; method_missing(:x); end
   def y; method_missing(:y); end
   def w; method_missing(:w); end
@@ -141,4 +168,13 @@ class Rect
   def w=(n); method_missing(:setW_, n); end
   def h=(n); method_missing(:setH_, n); end
 
+end
+
+
+
+
+
+
+
+class Grid
 end
