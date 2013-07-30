@@ -90,7 +90,7 @@ class Window
 
 end
 
-class Point < Struct.new(:x, :y); end
-class Size < Struct.new(:w, :h); end
-class Rect < Struct.new(:x, :y, :w, :h); end
+Point = Struct.new(:x, :y)
+Size = Struct.new(:w, :h)
+Rect = Struct.new(:x, :y, :w, :h)
 ```
