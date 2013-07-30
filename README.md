@@ -88,9 +88,9 @@ The [wiki home page](https://github.com/sdegutis/zephyros/wiki) has a list of co
 ### Change log
 
 - HEAD
-  - Added a barely-working, mostly-broken Ruby API
-  - Possibly broke some of the JS stuff? maybe not though...
   - Planning to fix the Log window, don't worry
+  - Changed the JS API to stop returning CoreGraphics types (thereby breaking everyone's configs.. sorry)
+  - Added a mostly-working Ruby API
 - 2.7
   - Broke the Log window
   - Less dumb way of choosing configs (uses UI this time)
