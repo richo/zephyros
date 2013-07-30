@@ -107,6 +107,7 @@ The [wiki home page](https://github.com/sdegutis/zephyros/wiki) has a list of co
         - any function that returned a CGRect now returns a hash, keys `'x', 'y', 'w', 'h'`
         - any function that returned a CGPoint now returns a hash, keys `'x', 'y'`
         - any function that returned a CGSize now returns a hash, keys `'w', 'h'`
+        - adds functions `SDMinX`, `SDMinY`, `SDMaxX`, `SDMaxY`, `SDRectMake`, `SDInsetRect`, `SDIntegralRect`
 - 2.7
     - Broke the Log window
     - Less dumb way of choosing configs (uses UI this time)

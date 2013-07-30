@@ -16,6 +16,15 @@ For your convenience, [underscore.js 1.4.4](http://underscorejs.org/) is pre-loa
 ```coffeescript
 property (API) api
 
+- (Number) SDMinX(r) # => r.x
+- (Number) SDMinY(r) # => r.y
+- (Number) SDMaxX(r) # => r.x + r.w
+- (Number) SDMaxY(r) # => r.y + r.h
+
+- (Rect) SDRectMake(x, y, w, h)   # => returns new rect
+- (Rect) SDInsetRect(r, byX, byY) # => modifies and returns r
+- (Rect) SDIntegralRect(r)        # => modifies and returns r
+
 - (void) log(String str)                   # shows up in the log window
 - (void) alert(String str[, Float delay])  # shows in a fancy alert; optional delay is seconds
 
