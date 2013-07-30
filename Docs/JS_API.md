@@ -9,7 +9,7 @@
 * [Other Type](#other-types)
 * [Events](#events)
 
-For your convenience, the JS API comes with [underscore.js](http://underscorejs.org/) 1.4.4 pre-loaded.
+For your convenience, [underscore.js](http://underscorejs.org/) 1.4.4 is pre-loaded.
 
 ### Top Level
 
