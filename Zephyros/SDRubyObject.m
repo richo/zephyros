@@ -44,9 +44,16 @@ VALUE sd_trampoline(VALUE obj) {
 }
 
 + (SDRubyObject*) withRubyValue:(VALUE)val {
+    rb_gc_register_address(&val);
+    
     SDRubyObject* block = [[SDRubyObject alloc] init];
     block.internalValue = val;
     return block;
+}
+
+- (void) dealloc {
+    VALUE val = self.internalValue;
+    rb_gc_unregister_address(&val);
 }
 
 @end
