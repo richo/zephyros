@@ -126,7 +126,7 @@ id SDRubyToObjcValue(VALUE obj) {
         case T_DATA:
             return [SDRubyObject withRubyValue:obj];
         default:
-            rb_raise(rb_eTypeError, [[NSString stringWithFormat:@"not valid value, class = %@", SDRubyToObjcValue(rb_funcall(CLASS_OF(obj), rb_intern("name"), 0))] UTF8String]);
+            NSLog(@"not valid value, class = %@", SDRubyToObjcValue(rb_funcall(CLASS_OF(obj), rb_intern("name"), 0)));
             break;
     }
     
