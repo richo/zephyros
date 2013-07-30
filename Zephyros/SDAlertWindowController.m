@@ -46,7 +46,7 @@
 }
 
 - (void) show:(NSString*)oneLineMsg delay:(NSNumber*)delay {
-    if (delay == nil)
+    if (delay == nil || delay == (id)[NSNull null])
         delay = @([SDAPI settings].alertDisappearDelay);
     
     NSDisableScreenUpdates();

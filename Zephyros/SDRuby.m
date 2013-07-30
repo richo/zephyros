@@ -19,6 +19,7 @@
 #import "SDWindowProxy.h"
 #import "SDScreenProxy.h"
 #import "SDAppProxy.h"
+#import "SDAlertWindowController.h"
 
 
 
@@ -156,7 +157,7 @@ id SDRubyToObjcValue(VALUE obj) {
             VALUE nameObj = rb_funcall(CLASS_OF(obj), rb_intern("name"), 0);
             char* nameCStr = StringValueCStr(nameObj);
             
-            NSLog(@"converting a [%s] object into ObjC", nameCStr);
+//            NSLog(@"converting a [%s] object into ObjC", nameCStr);
             
             if (strcmp(nameCStr, "Rect") == 0 || strcmp(nameCStr, "Point") == 0 || strcmp(nameCStr, "Size") == 0) {
                 void* s;
@@ -263,7 +264,7 @@ VALUE SDIntegralize(VALUE self) {
     VALUE c = rb_define_class("WrappedObject", rb_cObject);
     rb_define_method(c, "method_missing", RUBY_METHOD_FUNC(sd_method_missing), -2);
     
-    for (NSString* name in @[@"Window", @"Screen", @"App", @"API", @"KeyBinder", @"WindowProxy", @"AppProxy", @"ScreenProxy"]) {
+    for (NSString* name in @[@"Window", @"Screen", @"App", @"API", @"KeyBinder", @"WindowProxy", @"AppProxy", @"ScreenProxy", @"AlertWindowController"]) {
         rb_define_class([name UTF8String], rb_eval_string("WrappedObject"));
     }
     
@@ -272,6 +273,7 @@ VALUE SDIntegralize(VALUE self) {
     rb_gv_set("windowproxy", SDWrappedObject([SDWindowProxy self]));
     rb_gv_set("screenproxy", SDWrappedObject([SDScreenProxy self]));
     rb_gv_set("appproxy", SDWrappedObject([SDAppProxy self]));
+    rb_gv_set("alert", SDWrappedObject([SDAlertWindowController sharedAlertWindowController]));
     
     rb_require([[[NSBundle mainBundle] pathForResource:@"api" ofType:@"rb"] UTF8String]);
     
