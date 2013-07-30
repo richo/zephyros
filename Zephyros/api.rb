@@ -1,28 +1,16 @@
 ### remaining API stuff to port:
 
-# api =
-#   settings: -> SDAPI.settings()
-#   runningApps: -> mapToJS SDAppProxy.runningApps(), App.fromNS
-#   allWindows: -> mapToJS SDWindowProxy.allWindows(), Window.fromNS
-#   visibleWindows: -> mapToJS SDWindowProxy.visibleWindows(), Window.fromNS
-#   focusedWindow: -> Window.fromNS SDWindowProxy.focusedWindow()
-#   mainScreen: -> SDScreenProxy.mainScreen()
-#   allScreens: -> mapToJS SDScreenProxy.allScreens(), Screen.fromNS
-#   clipboardContents: ->
-#     body = NSPasteboard.generalPasteboard().stringForType(NSPasteboardTypeString)
-#     if body
-#       body.toString()
-#     else
-#       null
-
+#settings: -> SDAPI.settings()
+#clipboardContents: ->
+#  body = NSPasteboard.generalPasteboard().stringForType(NSPasteboardTypeString)
+#  if body
+#    body.toString()
+#  else
+#    null
 # shell = (path, args, options) -> SDAPI.shell_args_options_ path, args, options
 # open = (thing) -> SDAPI.shell_args_options_ "/usr/bin/open", [thing], {}
-# bind = (key, modifiers, fn) -> SDKeyBinder.sharedKeyBinder().bind_modifiers_fn_ key, modifiers, SDJSCallback.alloc().initWithJavaScriptFn(fn).autorelease()
 # log = (str) -> SDLogWindowController.sharedLogWindowController().show_type_ str, "SDLogMessageTypeUser"
-# require = (file) -> SDConfigLoader.sharedConfigLoader().js().require(file)
-# alert = (str, delay) -> SDAlertWindowController.sharedAlertWindowController().show_delay_ str, delay
 # reloadConfig = -> SDConfigLoader.sharedConfigLoader().reloadConfig()
-# doAfter = (sec, fn) -> SDAPI.doFn_after_ SDJSCallback.alloc().initWithJavaScriptFn(fn).autorelease(), sec
 
 # listen = (event, fn) ->
 #   trampolineFn = (thing) ->
