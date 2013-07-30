@@ -1,5 +1,7 @@
 ## Zephyros Ruby API
 
+Ruby Version: 2.0
+
 ```ruby
 class API
 

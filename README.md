@@ -96,7 +96,7 @@ The [wiki home page](https://github.com/sdegutis/zephyros/wiki) has a list of co
 ### Change log
 
 - 3.0
-    - Added a Ruby API
+    - Added a Ruby 2.0 API
     - Changed JS API:
         - any function that returned a CGRect now returns a hash, keys `'x', 'y', 'w', 'h'`
         - any function that returned a CGPoint now returns a hash, keys `'x', 'y'`
@@ -112,7 +112,6 @@ The [wiki home page](https://github.com/sdegutis/zephyros/wiki) has a list of co
 
 ### Todo
 
-* Better error handling for Ruby
 * Better CSS styling in [the Log Window](Zephyros/logwindow.html)
 * Better app icon
 * Better menu bar icon
