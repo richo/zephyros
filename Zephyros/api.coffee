@@ -6,9 +6,22 @@ SDMinY = (r) -> r.y
 SDMaxX = (r) -> r.x + r.w
 SDMaxY = (r) -> r.y + r.h
 
-SDRectMake = (x, y, w, h) -> { x: x, y: y, w: w, h: h }
-SDInsetRect = (r, byX, byY) -> { x: r.x + byX, y: r.y + byY, w: r.w - (byX * 2), h: r.h - (byY * 2) }
-SDIntegralRect = (r) -> { x: r.x, y: r.y, w: r.w, h: r.h }
+SDRectMake = (x, y, w, h) ->
+  r = SDRect.alloc().init().autorelease()
+  r.x = x
+  r.y = y
+  r.w = w
+  r.h = h
+  r
+
+SDInsetRect = (r, byX, byY) ->
+  r.x += byY
+  r.y += byY
+  r.w -= (byX * 2)
+  r.h -= (byY * 2)
+  r
+
+SDIntegralRect = (r) -> r
 
 class Screen
   @fromNS: (proxy) -> new Screen proxy

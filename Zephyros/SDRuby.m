@@ -202,7 +202,7 @@ VALUE sd_method_missing(VALUE self, VALUE args) {
     VALUE c = rb_define_class("WrappedObject", rb_cObject);
     rb_define_method(c, "method_missing", RUBY_METHOD_FUNC(sd_method_missing), -2);
     
-    for (NSString* name in @[@"Window", @"Screen", @"App", @"API", @"KeyBinder", @"WindowProxy", @"AppProxy", @"ScreenProxy"]) {
+    for (NSString* name in @[@"Window", @"Screen", @"App", @"API", @"KeyBinder", @"WindowProxy", @"AppProxy", @"ScreenProxy", @"Size", @"Point", @"Rect"]) {
         rb_define_class([name UTF8String], rb_eval_string("WrappedObject"));
     }
     

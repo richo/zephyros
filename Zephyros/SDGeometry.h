@@ -8,14 +8,27 @@
 
 #import <Foundation/Foundation.h>
 
-//@interface SDGeometry : NSObject
-//
-//@end
+@interface SDPoint : NSObject
+@property NSNumber* x;
+@property NSNumber* y;
+@end
 
-NSDictionary* SDDictFromRect(CGRect r);
-NSDictionary* SDDictFromPoint(CGPoint r);
-NSDictionary* SDDictFromSize(CGSize r);
+@interface SDSize : NSObject
+@property NSNumber* w;
+@property NSNumber* h;
+@end
 
-CGRect SDRectFromDict(NSDictionary* d);
-CGPoint SDPointFromDict(NSDictionary* d);
-CGSize SDSizeFromDict(NSDictionary* d);
+@interface SDRect : NSObject
+@property NSNumber* x;
+@property NSNumber* y;
+@property NSNumber* w;
+@property NSNumber* h;
+@end
+
+SDRect* SDRectFromCGRect(CGRect r);
+SDPoint* SDPointFromCGPoint(CGPoint r);
+SDSize* SDSizeFromCGSize(CGSize r);
+
+CGRect CGRectFromSDRect(SDRect* d);
+CGPoint CGPointFromSDPoint(SDPoint* d);
+CGSize CGSizeFromSDSize(SDSize* d);

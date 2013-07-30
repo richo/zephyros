@@ -49,3 +49,37 @@ class WindowProxy
   def title; method_missing(:title); end
 
 end
+
+class Point
+
+  def x; method_missing(:x); end
+  def y; method_missing(:y); end
+
+  def x=(n); method_missing(:setX, n); end
+  def y=(n); method_missing(:setY, n); end
+
+end
+
+class Size
+
+  def w; method_missing(:w); end
+  def h; method_missing(:h); end
+
+  def w=(n); method_missing(:setW, n); end
+  def h=(n); method_missing(:setH, n); end
+
+end
+
+class Rect
+
+  def x; method_missing(:x); end
+  def y; method_missing(:y); end
+  def w; method_missing(:w); end
+  def h; method_missing(:h); end
+
+  def x=(n); method_missing(:setX, n); end
+  def y=(n); method_missing(:setY, n); end
+  def w=(n); method_missing(:setW, n); end
+  def h=(n); method_missing(:setH, n); end
+
+end
