@@ -85,6 +85,10 @@ The [wiki home page](https://github.com/sdegutis/zephyros/wiki) has a list of co
 - For [Ruby](Docs/RUBY_API.md) (coming soon)
 - For [Python](Docs/PYTHON_API.md) (coming soon)
 
+### Community
+
+- [#zephyros](irc://irc.freenode.org/#zephyros) on irc.freenode.org
+
 ### Change log
 
 - HEAD
