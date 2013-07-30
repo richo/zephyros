@@ -7,12 +7,16 @@ class API
 
   class << self
 
+    def reload_config; end
+
     def after(sec, &blk); end
     def log(str); end
-    def shell(path, args, opts={}); end # TODO: document opts
-    def open(thing); end
     def bind(key, mods, &blk); end
     def alert(msg); end
+
+    def shell(path, args, opts={}); end # TODO: document opts
+    def open(thing); end
+    def clipboard_contents; end
 
     def choose_from(list, title, &blk); end
         # takes list of strings
@@ -107,7 +111,15 @@ class Window
 
 end
 
-Point = Struct.new(:x, :y)
-Size = Struct.new(:w, :h)
-Rect = Struct.new(:x, :y, :w, :h)
+class Point < Struct.new(:x, :y); end
+
+class Size < Struct.new(:w, :h); end
+
+class Rect < Struct.new(:x, :y, :w, :h)
+
+    def integral!; end
+    def inset!; end
+
+end
+
 ```
