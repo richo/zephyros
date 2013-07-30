@@ -32,7 +32,7 @@
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"configPath": @"~/zephyros.coffee"}];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"configPath": @"~/.zephyros.coffee"}];
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"configType": @"coffee"}];
     
     [self prepareStatusItem];
