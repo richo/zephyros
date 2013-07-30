@@ -177,7 +177,9 @@ id SDRubyToObjcValue(VALUE obj) {
             return [SDRubyObject withRubyValue:&obj];
         }
         default:
-            NSLog(@"not valid value, class = %@", SDRubyToObjcValue(rb_funcall(CLASS_OF(obj), rb_intern("name"), 0)));
+            [[SDLogWindowController sharedLogWindowController] show:[NSString stringWithFormat:@"not valid value, class = %@",
+                                                                     SDRubyToObjcValue(rb_funcall(CLASS_OF(obj), rb_intern("name"), 0))]
+                                                               type:SDLogMessageTypeError];
             break;
     }
     
@@ -212,7 +214,9 @@ VALUE sd_method_missing(VALUE self, VALUE args) {
     NSMethodSignature* sig = [internalObj methodSignatureForSelector:sel];
     
     if (!sig) {
-        NSLog(@"undefined ObjC method = %@", originalSelStr);
+        [[SDLogWindowController sharedLogWindowController] show:[NSString stringWithFormat:@"undefined ObjC method = %@", originalSelStr]
+                                                           type:SDLogMessageTypeError];
+        
         return Qnil;
     }
     
@@ -310,8 +314,12 @@ VALUE SDReloadConfig(VALUE self) {
     if (err) {
         VALUE exception = rb_gv_get("$!");
         VALUE excStr = rb_obj_as_string(exception);
+        
         NSString* exceptionString = [NSString stringWithUTF8String:StringValueCStr(excStr)];
-        return exceptionString;
+        [[SDLogWindowController sharedLogWindowController] show:exceptionString
+                                                           type:SDLogMessageTypeError];
+        
+        return nil;
     }
     
     return [SDRubyToObjcValue(returnVal) description];

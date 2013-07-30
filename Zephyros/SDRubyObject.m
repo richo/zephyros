@@ -10,6 +10,8 @@
 
 #import "SDRuby.h"
 
+#import "SDLogWindowController.h"
+
 @interface SDRubyObject () {
     VALUE* internalValue;
 }
@@ -40,7 +42,9 @@ VALUE sd_trampoline(VALUE obj) {
         VALUE exception = rb_gv_get("$!");
         VALUE excStr = rb_obj_as_string(exception);
         NSString* exceptionString = [NSString stringWithUTF8String:StringValueCStr(excStr)];
-        NSLog(@"crap: %@", exceptionString);
+        
+        [[SDLogWindowController sharedLogWindowController] show:exceptionString
+                                                           type:SDLogMessageTypeError];
     }
 }
 

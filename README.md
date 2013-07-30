@@ -110,6 +110,7 @@ The [wiki home page](https://github.com/sdegutis/zephyros/wiki) has a list of co
 
 #### Want to help?
 
+* Better error handling for Ruby
 * Better CSS styling in [the Log Window](Zephyros/logwindow.html)
 * Better app icon
 * Better menu bar icon

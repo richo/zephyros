@@ -52,8 +52,6 @@
                                                    encoding:NSUTF8StringEncoding
                                                       error:NULL];
     
-    NSLog(@"ok %@", contents);
-    
     if (!contents)
         return NO;
     
