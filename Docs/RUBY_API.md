@@ -14,6 +14,10 @@ class API
     def bind(key, mods, &blk); end
     def alert(msg); end
 
+    def choose_from(list, title, &blk); end
+        # takes list of strings
+        # blk gets index of chosen string, or nil of canceled
+
     def focused_window; end
     def visible_windows; end
     def all_windows; end

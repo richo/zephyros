@@ -13,7 +13,7 @@
 
 *The OS X window manager for hackers*
 
-* Current version: **3.0**
+* Current version: **3.1**
 * Requires: OS X 10.7 and up
 * Download: get [.zip file](https://raw.github.com/sdegutis/zephyros/master/Builds/Zephyros-LATEST.app.tar.gz), unzip, right-click app, choose "Open"
 
@@ -98,6 +98,8 @@ The [wiki home page](https://github.com/sdegutis/zephyros/wiki) has a list of co
 
 ### Change log
 
+- 3.1
+    - Added `choose_from` to Ruby API (it's pretty sweet)
 - 3.0
     - Added a Ruby 2.0 API
     - Changed JS API:
