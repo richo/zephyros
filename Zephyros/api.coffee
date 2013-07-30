@@ -129,4 +129,4 @@ listen = (event, fn) ->
           fn App.fromNS(thing)
     else
       fn()
-  SDEventListener.sharedEventListener().listenForEvent_fn_(event, trampolineFn)
+  SDEventListener.sharedEventListener().listenForEvent_fn_(event, SDJSCallback.alloc().initWithJavaScriptFn(trampolineFn).autorelease())

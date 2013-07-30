@@ -3,18 +3,6 @@
 # settings: -> SDAPI.settings()
 # log = (str) -> SDLogWindowController.sharedLogWindowController().show_type_ str, "SDLogMessageTypeUser"
 
-# listen = (event, fn) ->
-#   trampolineFn = (thing) ->
-#     if thing?
-#       switch thing.className().toString()
-#         when 'SDWindowProxy'
-#           fn Window.fromNS(thing)
-#         when 'SDAppProxy'
-#           fn App.fromNS(thing)
-#     else
-#       fn()
-#   SDEventListener.sharedEventListener().listenForEvent_fn_(event, trampolineFn)
-
 
 class API
 
@@ -22,6 +10,10 @@ class API
 
     def after(sec, &blk)
       $api.doFn_after_ blk, sec
+    end
+
+    def listen(event, &blk)
+      $listener.listenForEvent_fn_(event, blk)
     end
 
     def shell(path, args, opts={})

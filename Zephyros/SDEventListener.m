@@ -8,12 +8,12 @@
 
 #import "SDEventListener.h"
 
-#import "SDJSCallback.h"
+#import "SDCallback.h"
 #import <JSCocoa/JSCocoa.h>
 
 @interface SDEventObserver : NSObject
 @property NSString* eventName;
-@property SDJSCallback* fn;
+@property id<SDCallback> fn;
 @property id realObserver;
 @end
 
@@ -70,10 +70,10 @@
     }
 }
 
-- (void) listenForEvent:(NSString*)name fn:(JSValueRefAndContextRef)fn {
+- (void) listenForEvent:(NSString*)name fn:(id<SDCallback>)fn {
     SDEventObserver* observer = [[SDEventObserver alloc] init];
     observer.eventName = name;
-    observer.fn = [[SDJSCallback alloc] initWithJavaScriptFn:fn];
+    observer.fn = fn;
     
     self.upcomingListeners = [[NSArray arrayWithArray:self.upcomingListeners] arrayByAddingObject:observer];
 }
