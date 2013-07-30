@@ -88,17 +88,19 @@ The [wiki home page](https://github.com/sdegutis/zephyros/wiki) has a list of co
 ### Change log
 
 - HEAD
-  - Planning to fix the Log window, don't worry
-  - Changed the JS API to stop returning CoreGraphics types (thereby breaking everyone's configs.. sorry)
-  - Added a mostly-working Ruby API
+    - JS API changes:
+        - any function that returned a CGRect now returns a hash keys `'x', 'y', 'w', 'h'`
+        - any function that returned a CGPoint now returns a hash keys `'x', 'y'`
+        - any function that returned a CGSize now returns a hash keys `'w', 'h'`
+    - Added a fully working but super-crashy Ruby API
 - 2.7
-  - Broke the Log window
-  - Less dumb way of choosing configs (uses UI this time)
+    - Broke the Log window
+    - Less dumb way of choosing configs (uses UI this time)
   - Added a non-functioning Ruby option
 - 2.6.1
-  - Added 'screens_changed' event
+    - Added 'screens_changed' event
 - 2.6
-  - First version anyone should care about
+    - First version anyone should care about
 
 ### Todo
 
