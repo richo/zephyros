@@ -151,7 +151,18 @@ id SDRubyToObjcValue(VALUE obj) {
             return array;
         }
         case T_DATA:
+        {
+            VALUE nameObj = rb_funcall(CLASS_OF(obj), rb_intern("name"), 0);
+            char* nameCStr = StringValueCStr(nameObj);
+            
+            if (strcmp(nameCStr, "Rect") == 0 || strcmp(nameCStr, "Point") == 0 || strcmp(nameCStr, "Size") == 0) {
+                void* s;
+                Data_Get_Struct(obj, void, s);
+                return (__bridge id)s;
+            }
+            
             return [SDRubyObject withRubyValue:obj];
+        }
         default:
             NSLog(@"not valid value, class = %@", SDRubyToObjcValue(rb_funcall(CLASS_OF(obj), rb_intern("name"), 0)));
             break;

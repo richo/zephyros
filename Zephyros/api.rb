@@ -48,6 +48,10 @@ class AppProxy
 
 end
 
+$window_grid_width = 3
+$window_grid_margin_x = 5
+$window_grid_margin_y = 5
+
 class WindowProxy
 
   def other_windows_on_same_screen; otherWindowsOnSameScreen; end
@@ -77,6 +81,38 @@ class WindowProxy
   def minimized?; isWindowMinimized; end
 
   def title; method_missing(:title); end
+
+  def get_grid
+    win_frame = self.frame
+    screen_rect = self.screen.frame_without_dock_or_menu
+    third_screen_width = screen_rect.w / $window_grid_width
+    half_screen_height = screen_rect.h / 2.0
+    Rect.make(((win_frame.x - screen_rect.min_x) / third_screen_width).round,
+              ((win_frame.y - screen_rect.min_y) / half_screen_height).round,
+              [(win_frame.w.round / third_screen_width).round, 1].max,
+              [(win_frame.h.round / half_screen_height).round, 1].max)
+  end
+
+  def set_grid(g, screen)
+    screen = screen || self.screen
+    screen_rect = screen.frame_without_dock_or_menu
+    third_screen_width = screen_rect.w / $window_grid_width
+    half_screen_height = screen_rect.h / 2.0
+    new_frame = Rect.make((g.x * third_screen_width) + screen_rect.min_x,
+                          (g.y * half_screen_height) + screen_rect.min_y,
+                          g.w * third_screen_width,
+                          g.h * half_screen_height)
+    new_frame.inset!($window_grid_margin_x, $window_grid_margin_y)
+    new_frame.integral!
+
+    p new_frame
+    p new_frame.x
+    p new_frame.y
+    p new_frame.w
+    p new_frame.h
+
+    self.frame = new_frame
+  end
 
 end
 
@@ -168,13 +204,4 @@ class Rect
   def w=(n); method_missing(:setW_, n); end
   def h=(n); method_missing(:setH_, n); end
 
-end
-
-
-
-
-
-
-
-class Grid
 end
