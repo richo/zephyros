@@ -109,7 +109,7 @@ The [wiki home page](https://github.com/sdegutis/zephyros/wiki) has a list of co
         - any function that returned a CGSize now returns a hash, keys `'w', 'h'`
         - adds functions `SDMinX`, `SDMinY`, `SDMaxX`, `SDMaxY`, `SDRectMake`, `SDInsetRect`, `SDIntegralRect`
 - 2.7
-    - Broke the Log window's REPL
+    - Broke the Log window's REPL (fixed in 3.0)
     - Less dumb way of choosing configs (uses UI this time)
     - Added a non-functioning Ruby option
 - 2.6.1
