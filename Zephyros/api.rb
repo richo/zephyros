@@ -109,7 +109,7 @@ class WindowProxy
 
 end
 
-class Point
+class Point < Struct.new(:x, :y)
 
   def self.from_hash(d)
     r = new
@@ -123,10 +123,6 @@ class Point
       'x' => x,
       'y' => y,
     }
-  end
-
-  def self.new
-    $sighfactory.point.tap{|me|me.send :initialize}
   end
 
   def initialize
@@ -134,15 +130,9 @@ class Point
     self.y = 0
   end
 
-  def x; method_missing(:x); end
-  def y; method_missing(:y); end
-
-  def x=(n); method_missing(:setX_, n); end
-  def y=(n); method_missing(:setY_, n); end
-
 end
 
-class Size
+class Size < Struct.new(:w, :h)
 
   def self.from_hash(d)
     r = new
@@ -158,24 +148,14 @@ class Size
     }
   end
 
-  def self.new
-    $sighfactory.size.tap{|me|me.send :initialize}
-  end
-
   def initialize
     self.w = 0
     self.h = 0
   end
 
-  def w; method_missing(:w); end
-  def h; method_missing(:h); end
-
-  def w=(n); method_missing(:setW_, n); end
-  def h=(n); method_missing(:setH_, n); end
-
 end
 
-class Rect
+class Rect < Struct.new(:x, :y, :w, :h)
 
   def self.from_hash(d)
     r = new
@@ -193,10 +173,6 @@ class Rect
       'w' => w,
       'h' => h,
     }
-  end
-
-  def self.new
-    $sighfactory.rect.tap{|me|me.send :initialize}
   end
 
   def initialize
@@ -227,20 +203,5 @@ class Rect
   def min_y; y; end
   def max_x; x + w; end
   def max_y; y + h; end
-
-  def integral!
-    method_missing :integralize
-    self
-  end
-
-  def x; method_missing(:x); end
-  def y; method_missing(:y); end
-  def w; method_missing(:w); end
-  def h; method_missing(:h); end
-
-  def x=(n); method_missing(:setX_, n); end
-  def y=(n); method_missing(:setY_, n); end
-  def w=(n); method_missing(:setW_, n); end
-  def h=(n); method_missing(:setH_, n); end
 
 end

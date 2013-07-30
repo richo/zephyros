@@ -235,15 +235,23 @@ VALUE sd_method_missing(VALUE self, VALUE args) {
 
 
 
-@interface SDGeometry : NSObject
-@end
-@implementation SDGeometry
 
-+ (SDPoint*) point { return [[SDPoint alloc] init]; }
-+ (SDSize*) size { return [[SDSize alloc] init]; }
-+ (SDRect*) rect { return [[SDRect alloc] init]; }
-
-@end
+VALUE SDIntegralize(VALUE self) {
+    NSNumber *x = SDRubyToObjcValue(rb_funcall(self, rb_intern("x"), 0));
+    NSNumber *y = SDRubyToObjcValue(rb_funcall(self, rb_intern("y"), 0));
+    NSNumber *w = SDRubyToObjcValue(rb_funcall(self, rb_intern("w"), 0));
+    NSNumber *h = SDRubyToObjcValue(rb_funcall(self, rb_intern("h"), 0));
+    
+    CGRect r = CGRectMake([x doubleValue], [y doubleValue], [w doubleValue], [h doubleValue]);
+    r = CGRectIntegral(r);
+    
+    rb_funcall(self, rb_intern("x="), 1, SDObjcToRubyValue(@(r.origin.x)));
+    rb_funcall(self, rb_intern("y="), 1, SDObjcToRubyValue(@(r.origin.y)));
+    rb_funcall(self, rb_intern("w="), 1, SDObjcToRubyValue(@(r.size.width)));
+    rb_funcall(self, rb_intern("h="), 1, SDObjcToRubyValue(@(r.size.height)));
+    
+    return self;
+}
 
 
 
@@ -257,11 +265,10 @@ VALUE sd_method_missing(VALUE self, VALUE args) {
     VALUE c = rb_define_class("WrappedObject", rb_cObject);
     rb_define_method(c, "method_missing", RUBY_METHOD_FUNC(sd_method_missing), -2);
     
-    for (NSString* name in @[@"Window", @"Screen", @"App", @"API", @"KeyBinder", @"WindowProxy", @"AppProxy", @"ScreenProxy", @"Size", @"Point", @"Rect", @"Geometry"]) {
+    for (NSString* name in @[@"Window", @"Screen", @"App", @"API", @"KeyBinder", @"WindowProxy", @"AppProxy", @"ScreenProxy"]) {
         rb_define_class([name UTF8String], rb_eval_string("WrappedObject"));
     }
     
-    rb_gv_set("sighfactory", SDWrappedObject([SDGeometry self]));
     rb_gv_set("api", SDWrappedObject([SDAPI self]));
     rb_gv_set("keybinder", SDWrappedObject([SDKeyBinder sharedKeyBinder]));
     rb_gv_set("windowproxy", SDWrappedObject([SDWindowProxy self]));
@@ -269,6 +276,8 @@ VALUE sd_method_missing(VALUE self, VALUE args) {
     rb_gv_set("appproxy", SDWrappedObject([SDAppProxy self]));
     
     rb_require([[[NSBundle mainBundle] pathForResource:@"api" ofType:@"rb"] UTF8String]);
+    
+    rb_define_method(rb_eval_string("Rect"), "integral!", SDIntegralize, 0);
 }
 
 - (void) evalString:(NSString*)code {

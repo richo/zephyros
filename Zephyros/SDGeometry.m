@@ -9,16 +9,6 @@
 #import "SDGeometry.h"
 
 @implementation SDRect
-
-- (void) integralize {
-    CGRect r = CGRectFromSDRect(self);
-    r = CGRectIntegral(r);
-    self.x = @(r.origin.x);
-    self.y = @(r.origin.y);
-    self.w = @(r.size.width);
-    self.h = @(r.size.height);
-}
-
 @end
 
 @implementation SDPoint
