@@ -17,6 +17,12 @@
 		94454B37171B4179003EF64E /* SDAlertWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94454B35171B4179003EF64E /* SDAlertWindowController.m */; };
 		94454B38171B4179003EF64E /* AlertWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94454B36171B4179003EF64E /* AlertWindow.xib */; };
 		94454B3F171B479B003EF64E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94454B3E171B479B003EF64E /* QuartzCore.framework */; };
+		945AD7BD17A8692A00578BEB /* SDFuzzyMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 945AD7B317A8692A00578BEB /* SDFuzzyMatcher.m */; };
+		945AD7BE17A8692A00578BEB /* SDFuzzyMatcherWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 945AD7B417A8692A00578BEB /* SDFuzzyMatcherWindow.xib */; };
+		945AD7BF17A8692A00578BEB /* SDFuzzyMatcherWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 945AD7B617A8692A00578BEB /* SDFuzzyMatcherWindowController.m */; };
+		945AD7C017A8692A00578BEB /* SDChoiceTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 945AD7B817A8692A00578BEB /* SDChoiceTableView.m */; };
+		945AD7C117A8692A00578BEB /* SDChoice.m in Sources */ = {isa = PBXBuildFile; fileRef = 945AD7BA17A8692A00578BEB /* SDChoice.m */; };
+		945AD7C217A8692A00578BEB /* NSString+Score.m in Sources */ = {isa = PBXBuildFile; fileRef = 945AD7BC17A8692A00578BEB /* NSString+Score.m */; };
 		945B18091720FBB40067C834 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 945B18081720FBB40067C834 /* WebKit.framework */; };
 		9463D42817A76EDA00A3E905 /* ruby21 in Resources */ = {isa = PBXBuildFile; fileRef = 9463D42717A76EDA00A3E905 /* ruby21 */; };
 		9463D43417A77E2C00A3E905 /* SDGeometry.m in Sources */ = {isa = PBXBuildFile; fileRef = 9463D43317A77E2C00A3E905 /* SDGeometry.m */; };
@@ -92,6 +98,17 @@
 		94454B35171B4179003EF64E /* SDAlertWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDAlertWindowController.m; sourceTree = "<group>"; };
 		94454B36171B4179003EF64E /* AlertWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlertWindow.xib; sourceTree = "<group>"; };
 		94454B3E171B479B003EF64E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		945AD7B217A8692A00578BEB /* SDFuzzyMatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDFuzzyMatcher.h; sourceTree = "<group>"; };
+		945AD7B317A8692A00578BEB /* SDFuzzyMatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDFuzzyMatcher.m; sourceTree = "<group>"; };
+		945AD7B417A8692A00578BEB /* SDFuzzyMatcherWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SDFuzzyMatcherWindow.xib; sourceTree = "<group>"; };
+		945AD7B517A8692A00578BEB /* SDFuzzyMatcherWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDFuzzyMatcherWindowController.h; sourceTree = "<group>"; };
+		945AD7B617A8692A00578BEB /* SDFuzzyMatcherWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDFuzzyMatcherWindowController.m; sourceTree = "<group>"; };
+		945AD7B717A8692A00578BEB /* SDChoiceTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDChoiceTableView.h; sourceTree = "<group>"; };
+		945AD7B817A8692A00578BEB /* SDChoiceTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDChoiceTableView.m; sourceTree = "<group>"; };
+		945AD7B917A8692A00578BEB /* SDChoice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDChoice.h; sourceTree = "<group>"; };
+		945AD7BA17A8692A00578BEB /* SDChoice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDChoice.m; sourceTree = "<group>"; };
+		945AD7BB17A8692A00578BEB /* NSString+Score.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Score.h"; sourceTree = "<group>"; };
+		945AD7BC17A8692A00578BEB /* NSString+Score.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Score.m"; sourceTree = "<group>"; };
 		945B18081720FBB40067C834 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		9463D42717A76EDA00A3E905 /* ruby21 */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ruby21; path = ThirdParty/ruby21; sourceTree = SOURCE_ROOT; };
 		9463D43217A77E2C00A3E905 /* SDGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDGeometry.h; sourceTree = "<group>"; };
@@ -215,6 +232,24 @@
 			name = Graphics;
 			sourceTree = "<group>";
 		};
+		945AD7A017A866FE00578BEB /* Fuzzy Matching */ = {
+			isa = PBXGroup;
+			children = (
+				945AD7B217A8692A00578BEB /* SDFuzzyMatcher.h */,
+				945AD7B317A8692A00578BEB /* SDFuzzyMatcher.m */,
+				945AD7B417A8692A00578BEB /* SDFuzzyMatcherWindow.xib */,
+				945AD7B517A8692A00578BEB /* SDFuzzyMatcherWindowController.h */,
+				945AD7B617A8692A00578BEB /* SDFuzzyMatcherWindowController.m */,
+				945AD7B717A8692A00578BEB /* SDChoiceTableView.h */,
+				945AD7B817A8692A00578BEB /* SDChoiceTableView.m */,
+				945AD7B917A8692A00578BEB /* SDChoice.h */,
+				945AD7BA17A8692A00578BEB /* SDChoice.m */,
+				945AD7BB17A8692A00578BEB /* NSString+Score.h */,
+				945AD7BC17A8692A00578BEB /* NSString+Score.m */,
+			);
+			name = "Fuzzy Matching";
+			sourceTree = "<group>";
+		};
 		947DC98917A5B6D20082D095 /* JS */ = {
 			isa = PBXGroup;
 			children = (
@@ -318,6 +353,7 @@
 				94873F4217191F40000AC0A6 /* MainMenu.xib */,
 				94873F3F17191F40000AC0A6 /* AppDelegate.h */,
 				94873F4017191F40000AC0A6 /* AppDelegate.m */,
+				945AD7A017A866FE00578BEB /* Fuzzy Matching */,
 				94873F631719223F000AC0A6 /* Third Party */,
 				947DC99517A5BCA90082D095 /* Config Chooser */,
 				947DC99617A5BCD30082D095 /* Log Window */,
@@ -485,6 +521,7 @@
 				947DC9A517A5E1430082D095 /* api.rb in Resources */,
 				9463D42817A76EDA00A3E905 /* ruby21 in Resources */,
 				94779BD117A85CB000649169 /* Licenses in Resources */,
+				945AD7BE17A8692A00578BEB /* SDFuzzyMatcherWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -522,6 +559,11 @@
 				947DC9A317A5D8610082D095 /* SDRuby.m in Sources */,
 				94AC665317A6FDD7007EA74C /* SDRubyObject.m in Sources */,
 				9463D43417A77E2C00A3E905 /* SDGeometry.m in Sources */,
+				945AD7BD17A8692A00578BEB /* SDFuzzyMatcher.m in Sources */,
+				945AD7BF17A8692A00578BEB /* SDFuzzyMatcherWindowController.m in Sources */,
+				945AD7C017A8692A00578BEB /* SDChoiceTableView.m in Sources */,
+				945AD7C117A8692A00578BEB /* SDChoice.m in Sources */,
+				945AD7C217A8692A00578BEB /* NSString+Score.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

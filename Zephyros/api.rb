@@ -11,6 +11,10 @@ class API
       $api.doFn_after_ blk, sec
     end
 
+    def choose_from(list, title, &blk)
+      $api.chooseFrom_title_lines_chars_callback_ list, title, 20, 40, blk
+    end
+
     def listen(event, &blk)
       $listener.listenForEvent_fn_(event, blk)
     end

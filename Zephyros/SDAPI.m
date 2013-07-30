@@ -17,6 +17,8 @@
 #import "SDAlertWindowController.h"
 #import "SDLogWindowController.h"
 
+#import "SDFuzzyMatcher.h"
+
 @implementation SDAPISettings
 
 - (id) init {
@@ -54,6 +56,27 @@
         settings = [[SDAPISettings alloc] init];
     });
     return settings;
+}
+
++ (void) chooseFrom:(NSArray*)list
+              title:(NSString*)title
+              lines:(NSNumber*)linesTall
+              chars:(NSNumber*)charsWide
+           callback:(id<SDCallback>)callback
+{
+    [NSApp activateIgnoringOtherApps:YES];
+    [SDFuzzyMatcher showChoices:list
+                      charsWide:[charsWide intValue]
+                      linesTall:[linesTall intValue]
+                    windowTitle:title
+                  choseCallback:^(long chosenIndex) {
+                      [NSApp hide:self];
+                      [callback call:@[@(chosenIndex)]];
+                  }
+               canceledCallback:^{
+                   [NSApp hide:self];
+                   [callback call:@[]];
+               }];
 }
 
 + (void) doFn:(id<SDCallback>)fn after:(NSNumber*)delayInSeconds {
