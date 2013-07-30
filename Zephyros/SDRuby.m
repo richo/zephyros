@@ -27,10 +27,16 @@
 VALUE SDWrappedObject(id thing) {
     NSString* className = NSStringFromClass([thing class]);
     
-    if ([className hasPrefix:@"SD"])
+    if ([className hasPrefix:@"SD"]) {
         className = [className substringFromIndex:2];
-    else
+        
+        if ([className hasSuffix:@"Proxy"]) {
+            className = [className substringToIndex:[className length] - 5];
+        }
+    }
+    else {
         className = @"WrappedObject";
+    }
     
     return Data_Wrap_Struct(rb_eval_string([className UTF8String]), NULL, NULL, (__bridge void*)thing);
 }
@@ -264,7 +270,7 @@ VALUE SDIntegralize(VALUE self) {
     VALUE c = rb_define_class("WrappedObject", rb_cObject);
     rb_define_method(c, "method_missing", RUBY_METHOD_FUNC(sd_method_missing), -2);
     
-    for (NSString* name in @[@"Window", @"Screen", @"App", @"API", @"KeyBinder", @"WindowProxy", @"AppProxy", @"ScreenProxy", @"AlertWindowController"]) {
+    for (NSString* name in @[@"Window", @"Screen", @"App", @"API", @"KeyBinder", @"Window", @"App", @"Screen", @"AlertWindowController"]) {
         rb_define_class([name UTF8String], rb_eval_string("WrappedObject"));
     }
     

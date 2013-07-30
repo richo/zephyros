@@ -27,7 +27,7 @@ class API
 
 end
 
-class ScreenProxy
+class Screen
 
   def frame_including_dock_and_menu; Rect.from_hash frameIncludingDockAndMenu; end
   def frame_without_dock_or_menu; Rect.from_hash frameWithoutDockOrMenu; end
@@ -36,7 +36,7 @@ class ScreenProxy
 
 end
 
-class AppProxy
+class App
 
   def all_windows; allWindows; end
   def visible_windows; visibleWindows; end
@@ -56,7 +56,7 @@ $window_grid_width = 3
 $window_grid_margin_x = 5
 $window_grid_margin_y = 5
 
-class WindowProxy
+class Window
 
   def other_windows_on_same_screen; otherWindowsOnSameScreen; end
 
