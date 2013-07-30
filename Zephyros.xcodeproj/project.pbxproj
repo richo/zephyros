@@ -699,6 +699,7 @@
 				GCC_PREFIX_HEADER = "Zephyros/Zephyros-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/ThirdParty/ruby21/include/ruby-2.0.0\"",
+					"\"$(SRCROOT)/ThirdParty/ruby21/include/ruby-2.0.0/x86_64-darwin12.4.0\"",
 					"\"$(SRCROOT)/ThirdParty/Nu.framework/Headers\"",
 				);
 				INFOPLIST_FILE = "Zephyros/Zephyros-Info.plist";
@@ -724,6 +725,7 @@
 				GCC_PREFIX_HEADER = "Zephyros/Zephyros-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/ThirdParty/ruby21/include/ruby-2.0.0\"",
+					"\"$(SRCROOT)/ThirdParty/ruby21/include/ruby-2.0.0/x86_64-darwin12.4.0\"",
 					"\"$(SRCROOT)/ThirdParty/Nu.framework/Headers\"",
 				);
 				INFOPLIST_FILE = "Zephyros/Zephyros-Info.plist";
