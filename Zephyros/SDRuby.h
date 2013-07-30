@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#include <ruby/ruby.h>
+#include "ruby/ruby.h"
 
 @interface SDRuby : NSObject
 
