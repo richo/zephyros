@@ -10,8 +10,9 @@
 
 #import "SDRuby.h"
 
-@interface SDRubyObject ()
-@property VALUE internalValue;
+@interface SDRubyObject () {
+    VALUE* internalValue;
+}
 @end
 
 
@@ -29,7 +30,7 @@ VALUE sd_trampoline(VALUE obj) {
     
     VALUE outer_array = rb_ary_new();
     
-    rb_ary_push(outer_array, self.internalValue);
+    rb_ary_push(outer_array, *internalValue);
     rb_ary_push(outer_array, SDObjcToRubyValue(args));
     
     int err;
@@ -43,17 +44,23 @@ VALUE sd_trampoline(VALUE obj) {
     }
 }
 
-+ (SDRubyObject*) withRubyValue:(VALUE)val {
-    rb_gc_register_address(&val);
-    
-    SDRubyObject* block = [[SDRubyObject alloc] init];
-    block.internalValue = val;
-    return block;
++ (SDRubyObject*) withRubyValue:(VALUE*)val {
+    return [[SDRubyObject alloc] initWithRubyValue:val];
 }
 
+- (id) initWithRubyValue:(VALUE*)val {
+    if (self = [super init]) {
+        internalValue = malloc(sizeof(VALUE));
+        *internalValue = *val;
+        rb_gc_register_address(internalValue);
+    }
+    return self;
+}
+
+
 - (void) dealloc {
-    VALUE val = self.internalValue;
-    rb_gc_unregister_address(&val);
+    rb_gc_unregister_address(internalValue);
+    free(internalValue);
 }
 
 @end

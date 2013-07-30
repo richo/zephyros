@@ -10,7 +10,7 @@
 
 @interface SDScreenProxy : NSObject
 
-@property NSScreen* actualScreenObject;
+@property (strong) NSScreen* actualScreenObject;
 
 + (SDScreenProxy*) mainScreen;
 + (NSArray*) allScreens;

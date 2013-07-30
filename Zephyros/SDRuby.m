@@ -21,8 +21,6 @@
 #import "SDAppProxy.h"
 
 
-#import "SDGeometry.h"
-
 
 
 VALUE SDWrappedObject(id thing) {
@@ -166,7 +164,7 @@ id SDRubyToObjcValue(VALUE obj) {
                 return (__bridge id)s;
             }
             
-            return [SDRubyObject withRubyValue:obj];
+            return [SDRubyObject withRubyValue:&obj];
         }
         default:
             NSLog(@"not valid value, class = %@", SDRubyToObjcValue(rb_funcall(CLASS_OF(obj), rb_intern("name"), 0)));

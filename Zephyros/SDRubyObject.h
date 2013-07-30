@@ -13,6 +13,6 @@
 
 @interface SDRubyObject : NSObject
 
-+ (SDRubyObject*) withRubyValue:(VALUE)val;
++ (SDRubyObject*) withRubyValue:(VALUE*)val;
 
 @end
