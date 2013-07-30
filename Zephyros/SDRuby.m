@@ -42,15 +42,42 @@ VALUE SDObjcToRubyValue(id obj) {
         return Qnil;
     }
     if ([obj isKindOfClass:[NSNumber self]]) {
-        if (strcmp([obj objCType], "i") == 0) {
-            return LONG2FIX([obj longValue]);
-        }
-        if (strcmp([obj objCType], "d") == 0) {
-            return rb_float_new([obj doubleValue]);
-        }
+        // B = _Bool
+        
+        // c = char
+        // i = int
+        // s = short
+        // l = long
+        // q = long long
+        
+        // C = unsigned char
+        // I = unsigned int
+        // S = unsigned short
+        // L = unsigned long
+        // Q = unsigned long long
+        
+        // f = float
+        // d = double
+        
+        if (strcmp([obj objCType], "B") == 0) return [obj boolValue] ? Qtrue : Qfalse;
         if (strcmp([obj objCType], "c") == 0) {
-            return ([obj boolValue] ? Qtrue : Qfalse);
+            if ((__bridge void*)obj == kCFBooleanFalse) return Qfalse;
+            if ((__bridge void*)obj == kCFBooleanTrue) return Qtrue;
+            return INT2NUM([obj charValue]);
         }
+        if (strcmp([obj objCType], "i") == 0) return INT2NUM([obj intValue]);
+        if (strcmp([obj objCType], "s") == 0) return INT2NUM([obj shortValue]);
+        if (strcmp([obj objCType], "l") == 0) return INT2NUM([obj longValue]);
+        if (strcmp([obj objCType], "q") == 0) return LL2NUM([obj longLongValue]);
+        
+        if (strcmp([obj objCType], "C") == 0) return UINT2NUM([obj unsignedCharValue]);
+        if (strcmp([obj objCType], "I") == 0) return UINT2NUM([obj unsignedIntValue]);
+        if (strcmp([obj objCType], "S") == 0) return UINT2NUM([obj unsignedShortValue]);
+        if (strcmp([obj objCType], "L") == 0) return UINT2NUM([obj unsignedLongValue]);
+        if (strcmp([obj objCType], "Q") == 0) return ULL2NUM([obj unsignedLongLongValue]);
+        
+        if (strcmp([obj objCType], "f") == 0) return rb_float_new([obj doubleValue]);
+        if (strcmp([obj objCType], "d") == 0) return rb_float_new([obj doubleValue]);
     }
     if ([obj isKindOfClass:[NSString self]]) {
         return rb_str_new2([obj UTF8String]);
