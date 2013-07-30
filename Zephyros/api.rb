@@ -1,4 +1,5 @@
 class API
+
   class << self
 
     def after(sec, &blk)
@@ -9,13 +10,10 @@ class API
       $keybinder.bind_modifiers_fn_ key, mods, blk
     end
 
-    def focused_window
-      $windowproxy.focusedWindow
-    end
-
-    def visible_windows
-      $windowproxy.visibleWindows
-    end
+    def focused_window; $windowproxy.focusedWindow; end
+    def visible_windows; $windowproxy.visibleWindows; end
+    def all_windows; $windowproxy.allWindows; end
 
   end
+
 end
