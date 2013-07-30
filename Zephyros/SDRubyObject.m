@@ -14,16 +14,33 @@
 @property VALUE internalValue;
 @end
 
+
+VALUE sd_trampoline(VALUE obj) {
+    VALUE* ptr = RARRAY_PTR(obj);
+    return rb_apply(ptr[0], rb_intern("call"), ptr[1]);
+}
+
+
 @implementation SDRubyObject
 
 - (void) call:(NSArray*)args {
     if (args == nil)
         args = @[];
     
-    VALUE args2 = SDObjcToRubyValue(args);
-    ID method = rb_intern("call");
+    VALUE outer_array = rb_ary_new();
     
-    rb_apply(self.internalValue, method, args2);
+    rb_ary_push(outer_array, self.internalValue);
+    rb_ary_push(outer_array, SDObjcToRubyValue(args));
+    
+    int err;
+    rb_protect(sd_trampoline, outer_array, &err);
+    
+    if (err) {
+        VALUE exception = rb_gv_get("$!");
+        VALUE excStr = rb_obj_as_string(exception);
+        NSString* exceptionString = [NSString stringWithUTF8String:StringValueCStr(excStr)];
+        NSLog(@"crap: %@", exceptionString);
+    }
 }
 
 + (SDRubyObject*) withRubyValue:(VALUE)val {
