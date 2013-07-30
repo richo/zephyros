@@ -9,7 +9,7 @@
 * [Other Type](#other-types)
 * [Events](#events)
 
-For your convenience, [underscore.js](http://underscorejs.org/) 1.4.4 is pre-loaded.
+For your convenience, [underscore.js 1.4.4](http://underscorejs.org/) is pre-loaded.
 
 ### Top Level
 
