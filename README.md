@@ -88,9 +88,9 @@ The [wiki home page](https://github.com/sdegutis/zephyros/wiki) has a list of co
 
 ### API Docs
 
-- For [JavaScript or CoffeeScript](Docs/JS_API.md)
-- For [Ruby](Docs/RUBY_API.md)
-- For [Python](Docs/PYTHON_API.md) (coming soon)
+- [Ruby](Docs/RUBY_API.md)
+- [JavaScript or CoffeeScript](Docs/JS_API.md)
+- Python (coming soon)
 
 ### Community
 
