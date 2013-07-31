@@ -2,6 +2,8 @@
 
 Ruby Version: 2.0
 
+The function `API.bind` uses [this list](https://github.com/sdegutis/zephyros/blob/master/Zephyros/SDKeyBindingTranslator.m#L148) of key strings.
+
 ```ruby
 class API
 
