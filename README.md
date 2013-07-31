@@ -84,6 +84,14 @@ API.bind "J", mash do
   frame.h /= 2
   win.frame = frame
 end
+
+# example of how to listen for events
+API.listen 'window_created' do |win|
+  if win.normal_window?
+    # win.maximize
+    API.alert win.title
+  end
+end
 ```
 
 #### More configs
