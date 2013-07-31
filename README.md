@@ -25,7 +25,7 @@ At it's core, Zephyros just runs quietly in your menu bar, and runs your config 
 
 - Ruby 2.0
 - JavaScript
-- [CoffeeScript 1.6.2](http://coffeescript.org/)
+- CoffeeScript 1.6.2
 - anything that compiles to JS (see [altjs.org](http://altjs.org/) and [this guy's list](https://github.com/jashkenas/coffee-script/wiki/List-of-languages-that-compile-to-JS))
 
 #### Stuff you can do
