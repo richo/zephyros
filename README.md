@@ -139,7 +139,7 @@ end
 ### Special Thanks
 
 - Kyle
-- jkj, mikeash, whitequark, charliesome, Psy, dirkg
+- jkj, mikeash, whitequark, charliesome, Psy, dirkg, drbrain
 - Matz, Apple
 - and many others
 
