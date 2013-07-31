@@ -92,6 +92,20 @@ API.listen 'window_created' do |win|
     API.alert win.title
   end
 end
+
+# fuzzy-matching task chooser
+API.bind('X', mash) do
+  actions = {
+    'Zephyros' => -> { API.open '/Users/sdegutis/projects/Zephyros/Zephyros.xcodeproj' },
+    'Open email' => -> { 2.times {|i| API.open "https://mail.google.com/mail/u/#{i}/#inbox" } },
+    'Show clipboard' => -> { API.alert API.clipboard_contents },
+  }
+  action_names = actions.keys
+
+  API.choose_from action_names, 'Do Something' do |i|
+    actions[action_names[i]].call if i
+  end
+end
 ```
 
 #### More configs
