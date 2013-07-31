@@ -32,6 +32,11 @@ At it's core, Zephyros just runs quietly in your menu bar, and runs your config 
     - Nu
     - Lua (maybe)
 
+#### API Docs
+
+- [Ruby](Docs/RUBY_API.md)
+- [JavaScript or CoffeeScript](Docs/JS_API.md)
+
 #### Stuff you can do
 
 - find the focused window
@@ -116,11 +121,6 @@ end
 
 * [The author's config](https://github.com/sdegutis/dotfiles/blob/master/home/.zephyros.rb)
 * Look in the [wiki home page](https://github.com/sdegutis/zephyros/wiki) for other people's configs (including a SizeUp emulator)
-
-### API Docs
-
-- [Ruby](Docs/RUBY_API.md)
-- [JavaScript or CoffeeScript](Docs/JS_API.md)
 
 ### Community
 
