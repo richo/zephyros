@@ -1,4 +1,4 @@
-**Update:** There's a really interesting design question in [this github issue](https://github.com/sdegutis/zephyros/issues/14) about how Zephyros should be scripted, and I'd love to hear your thoughts about it.
+**Update:** There's a really interesting design question in [this github issue](https://github.com/sdegutis/zephyros/issues/14) about how Zephyros should be scripted. I'd love to hear your thoughts about it.
 
 # Zephyros
 
