@@ -105,6 +105,8 @@ end
 
 ### Change log
 
+- HEAD
+    - Adds preliminary [Nu (lisp)](http://programming.nu/) support
 - 3.1
     - Added a fuzzy-matching `choose_from` method to the Ruby API (it's pretty sweet)
 - 3.0
