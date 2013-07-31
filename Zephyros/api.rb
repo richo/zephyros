@@ -35,8 +35,8 @@ class API
       $keybinder.bind_modifiers_fn_ key, mods, blk
     end
 
-    def alert(msg)
-      $alert.show_delay_ msg, nil
+    def alert(msg, sec: 2)
+      $alert.show_delay_ msg, sec
     end
 
     def focused_window; $windowproxy.focusedWindow; end
