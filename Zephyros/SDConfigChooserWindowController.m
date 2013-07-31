@@ -62,6 +62,7 @@
 - (NSDictionary*) configTypes {
     return @{@"ruby": @"Ruby",
              @"js" : @"JavaScript",
+             @"nu" : @"Nu",
              @"coffee" : @"CoffeeScript"};
 }
 

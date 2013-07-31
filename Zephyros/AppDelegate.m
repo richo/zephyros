@@ -16,8 +16,6 @@
 #import "SDConfigChooserWindowController.h"
 
 
-//#import "Nu.h"
-
 @interface AppDelegate ()
 
 @property NSStatusItem* statusItem;
@@ -37,12 +35,6 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"configPath": @"~/.zephyros.coffee"}];
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"configType": @"coffee"}];
-    
-    
-//    NuParser* parser = [Nu sharedParser];
-//    NSString* k = [parser parseEval:@"(+ 1 2)"];
-//    NSLog(@"%@", k);
-    
     
     [self prepareStatusItem];
     [[SDConfigLoader sharedConfigLoader] prepareScriptingBridge];

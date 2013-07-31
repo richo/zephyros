@@ -22,6 +22,7 @@
 #import "SDConfigWatcher.h"
 
 
+#import "Nu.h"
 #import "SDJS.h"
 #import "SDRuby.h"
 
@@ -143,6 +144,12 @@
     }
     else if ([type isEqualToString: @"ruby"]) {
         return [self.ruby evalString:str];
+    }
+    else if ([type isEqualToString: @"nu"]) {
+        NuParser* parser = [Nu sharedParser];
+        id code = [parser parse:str];
+        id result = [parser eval:code];
+        return [result description];
     }
     
     return nil;
