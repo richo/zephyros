@@ -86,13 +86,10 @@ API.bind "J", mash do
 end
 ```
 
-#### The author's config file
-
-https://github.com/sdegutis/dotfiles/blob/master/home/.zephyros.rb
-
 #### More configs
 
-The [wiki home page](https://github.com/sdegutis/zephyros/wiki) has a list of configs from users, and configs that replicate other apps (like SizeUp and Divvy).
+* [The author's config](https://github.com/sdegutis/dotfiles/blob/master/home/.zephyros.rb)
+* Look in the [wiki home page](https://github.com/sdegutis/zephyros/wiki) for other people's configs (including a SizeUp emulator)
 
 ### API Docs
 
