@@ -58,6 +58,8 @@
 		94AC665317A6FDD7007EA74C /* SDRubyObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 94AC665217A6FDD7007EA74C /* SDRubyObject.m */; };
 		94C85825171C551B007790F2 /* JSCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94C85824171C551B007790F2 /* JSCocoa.framework */; };
 		94C85826171C55C6007790F2 /* JSCocoa.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 94C85824171C551B007790F2 /* JSCocoa.framework */; };
+		94CC2CFA17A8B8150048190F /* Nu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CC2CF917A8B8150048190F /* Nu.framework */; };
+		94CC2CFB17A8B8170048190F /* Nu.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 94CC2CF917A8B8150048190F /* Nu.framework */; };
 		94D07FB31723741000CF44E9 /* api.coffee in Resources */ = {isa = PBXBuildFile; fileRef = 94D07FB21723741000CF44E9 /* api.coffee */; };
 		94D07FB61723B16900CF44E9 /* SDAppProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 94D07FB51723B16900CF44E9 /* SDAppProxy.m */; };
 		94D07FBA1723BACB00CF44E9 /* SDAppStalker.m in Sources */ = {isa = PBXBuildFile; fileRef = 94D07FB91723BACB00CF44E9 /* SDAppStalker.m */; };
@@ -79,6 +81,7 @@
 			files = (
 				94C85826171C55C6007790F2 /* JSCocoa.framework in CopyFiles */,
 				94E0964C171ED9D6002D8668 /* Sparkle.framework in CopyFiles */,
+				94CC2CFB17A8B8170048190F /* Nu.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,6 +171,7 @@
 		94AC665117A6FDD7007EA74C /* SDRubyObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDRubyObject.h; sourceTree = "<group>"; };
 		94AC665217A6FDD7007EA74C /* SDRubyObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDRubyObject.m; sourceTree = "<group>"; };
 		94C85824171C551B007790F2 /* JSCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JSCocoa.framework; path = ThirdParty/JSCocoa.framework; sourceTree = "<group>"; };
+		94CC2CF917A8B8150048190F /* Nu.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nu.framework; path = ../ThirdParty/Nu.framework; sourceTree = "<group>"; };
 		94D07FB21723741000CF44E9 /* api.coffee */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = api.coffee; sourceTree = "<group>"; };
 		94D07FB41723B16900CF44E9 /* SDAppProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDAppProxy.h; sourceTree = "<group>"; };
 		94D07FB51723B16900CF44E9 /* SDAppProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDAppProxy.m; sourceTree = "<group>"; };
@@ -196,6 +200,7 @@
 				94873F2E17191F40000AC0A6 /* Cocoa.framework in Frameworks */,
 				94C85825171C551B007790F2 /* JSCocoa.framework in Frameworks */,
 				94E0964B171ED905002D8668 /* Sparkle.framework in Frameworks */,
+				94CC2CFA17A8B8150048190F /* Nu.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -418,6 +423,7 @@
 		94873F631719223F000AC0A6 /* Third Party */ = {
 			isa = PBXGroup;
 			children = (
+				94CC2CF917A8B8150048190F /* Nu.framework */,
 				9463D42717A76EDA00A3E905 /* ruby21 */,
 				94873F5E1719209B000AC0A6 /* Global Shortcuts */,
 			);
@@ -461,6 +467,7 @@
 				94873F2717191F40000AC0A6 /* Frameworks */,
 				94873F2817191F40000AC0A6 /* Resources */,
 				94873F4C17192016000AC0A6 /* CopyFiles */,
+				94CC2CFC17A8B81B0048190F /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -526,6 +533,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		94CC2CFC17A8B81B0048190F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "install_name_tool -change \"Nu.framework/Versions/A/Nu\" \"@executable_path/../Frameworks/Nu.framework/Versions/A/Nu\" \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\"";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		94873F2617191F40000AC0A6 /* Sources */ = {
@@ -656,10 +679,14 @@
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/ThirdParty\"",
+					"\"$(SRCROOT)/Zephyros\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Zephyros/Zephyros-Prefix.pch";
-				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/ThirdParty/ruby21/include/ruby-2.0.0\"";
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/ThirdParty/ruby21/include/ruby-2.0.0\"",
+					"\"$(SRCROOT)/ThirdParty/Nu.framework/Headers\"",
+				);
 				INFOPLIST_FILE = "Zephyros/Zephyros-Info.plist";
 				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/ThirdParty/ruby21/lib\"";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
@@ -677,10 +704,14 @@
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/ThirdParty\"",
+					"\"$(SRCROOT)/Zephyros\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Zephyros/Zephyros-Prefix.pch";
-				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/ThirdParty/ruby21/include/ruby-2.0.0\"";
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/ThirdParty/ruby21/include/ruby-2.0.0\"",
+					"\"$(SRCROOT)/ThirdParty/Nu.framework/Headers\"",
+				);
 				INFOPLIST_FILE = "Zephyros/Zephyros-Info.plist";
 				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/ThirdParty/ruby21/lib\"";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
