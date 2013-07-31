@@ -1,3 +1,5 @@
+**Update:** There's a really interesting design question in [this github issue](https://github.com/sdegutis/zephyros/issues/14) about how Zephyros should be scripted, and I'd love to hear your thoughts about it.
+
 # Zephyros
 
 > As Odysseus climbed onto the shore, he opened up his MBP and began to write an email to a mailing list about how terrible his adventure had been, and how he'd almost been drowned by the sea, and how beautiful yet deadly was the sound of the Sirens.
