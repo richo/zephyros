@@ -60,6 +60,7 @@
 		94D307FD1719FF0F00D392B1 /* SDOpenAtLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 94D307FC1719FF0F00D392B1 /* SDOpenAtLogin.m */; };
 		94DAFB511719B98500526003 /* SDLogWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DAFB501719B98500526003 /* SDLogWindowController.m */; };
 		94DAFB531719B99A00526003 /* LogWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94DAFB521719B99A00526003 /* LogWindow.xib */; };
+		94E02EE417AB2496005AE3E8 /* libs in Resources */ = {isa = PBXBuildFile; fileRef = 94E02EE317AB2496005AE3E8 /* libs */; };
 		94E0964B171ED905002D8668 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E0964A171ED905002D8668 /* Sparkle.framework */; };
 		94E0964C171ED9D6002D8668 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 94E0964A171ED905002D8668 /* Sparkle.framework */; };
 		94E0964E171EDBA6002D8668 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 94E0964D171EDBA6002D8668 /* dsa_pub.pem */; };
@@ -168,6 +169,7 @@
 		94DAFB4F1719B98500526003 /* SDLogWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDLogWindowController.h; sourceTree = "<group>"; };
 		94DAFB501719B98500526003 /* SDLogWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDLogWindowController.m; sourceTree = "<group>"; };
 		94DAFB521719B99A00526003 /* LogWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LogWindow.xib; sourceTree = "<group>"; };
+		94E02EE317AB2496005AE3E8 /* libs */ = {isa = PBXFileReference; lastKnownFileType = folder; path = libs; sourceTree = SOURCE_ROOT; };
 		94E0964A171ED905002D8668 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = ThirdParty/Sparkle.framework; sourceTree = "<group>"; };
 		94E0964D171EDBA6002D8668 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dsa_pub.pem; path = AutoUpdating/dsa_pub.pem; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -309,6 +311,7 @@
 		94873F3317191F40000AC0A6 /* Zephyros */ = {
 			isa = PBXGroup;
 			children = (
+				94E02EE317AB2496005AE3E8 /* libs */,
 				94873F631719223F000AC0A6 /* Third Party */,
 				94873F4217191F40000AC0A6 /* MainMenu.xib */,
 				94873F3F17191F40000AC0A6 /* AppDelegate.h */,
@@ -510,6 +513,7 @@
 				947DC9A517A5E1430082D095 /* api.rb in Resources */,
 				94779BD117A85CB000649169 /* Licenses in Resources */,
 				945AD7BE17A8692A00578BEB /* SDFuzzyMatcherWindow.xib in Resources */,
+				94E02EE417AB2496005AE3E8 /* libs in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

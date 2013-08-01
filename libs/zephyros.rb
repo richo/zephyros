@@ -75,8 +75,6 @@ class Zeph
 
 end
 
-$zeph = Zeph.new
-
 
 module ZephProxy
 
@@ -209,6 +207,14 @@ class Rect < Struct.new(:x, :y, :w, :h)
     self
   end
 
+  def integral!
+    self.x = self.x.floor
+    self.y = self.y.floor
+    self.w = self.w.ceil
+    self.h = self.h.ceil
+    self
+  end
+
   def min_x; x; end
   def min_y; y; end
   def max_x; x + w; end
@@ -334,75 +340,4 @@ class App < ZephObject
 
 end
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-# 10.times do |i|
-
-#   if i == 5
-#   end
-
-
-# API.bind 'd', ['cmd', 'shift'] do
-#   puts 'ok'
-# end
-
-# p win = API.focused_window
-# p win.title
-
-
-# list = ['a', 'b']
-# API.choose_from list, 'stuff', 20, 20 do |idx|
-#   API.alert list[idx], 3
-# end
-
-app = API.running_apps[-10]
-
-p app
-p app.title
-p app.visible_windows
-p app.all_windows
-p app.hidden?
-# p app.show
-# p app.hide
-
-# win2 = API.focused_window
-# p win.title
-# puts 'done'
-
-# p win2.title
-# p win
-# p win2
-
-
-
-
-# end
-
-# API.alert 'sup', 3
-
-
-# win = Window.new(3)
-# win.frame = Rect.new
-
-
-
-
-
-
-#### TODO
-
-# Rect#integral!
-# clipboard_contents
-
-# send [0, _kill, objid] when done with callbacks or something
+$zeph = Zeph.new
