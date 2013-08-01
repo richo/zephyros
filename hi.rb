@@ -58,9 +58,7 @@ class Zeph
 
   def get
     size = @sock.gets
-    puts "size is #{size.inspect}"
     msg = @sock.read(size.to_i)
-    puts "msg is #{msg.inspect}"
     JSON.load(msg)
   end
 
