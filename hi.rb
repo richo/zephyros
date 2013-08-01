@@ -18,41 +18,45 @@ end
 class HashQueue
 
   def initialize
-    @que = {}
-    @waiting = []
-    @que.taint          # enable tainted communication
-    @waiting.taint
-    self.taint
-    @mutex = Mutex.new
+    @que = Queue.new
   end
 
-  def pop(key, non_block=false)
-    @mutex.synchronize{
-      while true
-        if @que.has_key?(key) && !@que.empty?
-          val = @que[key].pop
-          @que.delete(key) if @que[key].empty?
-          return val
-        else
-          raise ThreadError, "queue empty" if non_block
-          @waiting.push Thread.current
-          @mutex.sleep
-        end
-      end
-    }
+  def pop(key)
+    val = @que.pop(true)
+    # puts "VAL is #{val.inspect}"
+    return val
+  rescue ThreadError
+    # puts "crap #{val.inspect}"
+    retry
+
+    # @mutex.synchronize{
+    #   while true
+    #     if @que.has_key?(key) && !@que.empty?
+    #       val = @que[key].pop
+    #       @que.delete(key) if @que[key].empty?
+    #       return val
+    #     else
+    #       raise ThreadError, "queue empty" if non_block
+    #       @waiting.push Thread.current
+    #       @mutex.sleep
+    #     end
+    #   end
+    # }
   end
 
   def push(key, obj)
-    @mutex.synchronize{
-      @que[key] ||= []
-      @que[key].push obj
-      begin
-        t = @waiting.shift
-        t.wakeup if t
-      rescue ThreadError
-        retry
-      end
-    }
+    @que.push obj
+
+    # @mutex.synchronize{
+    #   @que[key] ||= []
+    #   @que[key].push obj
+    #   begin
+    #     t = @waiting.shift
+    #     t.wakeup if t
+    #   rescue ThreadError
+    #     retry
+    #   end
+    # }
   end
 
 end
