@@ -41,7 +41,7 @@ class Zeph
   def write(type, data)
     id = @id += 1
     @queues[id] = Queue.new
-    json = ['request', id].concat(data).to_json
+    json = [type, id].concat(data).to_json
     @sock.write "#{json.size}\n#{json}"
     return id
   end
@@ -56,8 +56,20 @@ class Zeph
     end
   end
 
+  def read_until_newline
+    chars = ""
+    loop do
+      char = @sock.read(1)
+      if char == "\n"
+        return chars
+      else
+        chars << char
+      end
+    end
+  end
+
   def get
-    size = @sock.gets
+    size = read_until_newline
     puts "size is #{size.inspect}"
     msg = @sock.read(size.to_i)
     puts "msg is #{msg.inspect}"
@@ -69,12 +81,13 @@ end
 
 $zeph = Zeph.new
 
-10.times do |i|
-
-  if i == 5
     $zeph.register 'bind', 'mash+d' do |args|
       p args
     end
+
+10.times do |i|
+
+  if i == 5
   end
 
   val = $zeph.send 'set_title', 'woot'

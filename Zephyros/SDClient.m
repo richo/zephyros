@@ -8,11 +8,13 @@
 
 #import "SDClient.h"
 
+#define FOREVER (60*60*24*365)
+
 @implementation SDClient
 
 - (void) waitForNewMessage {
     [self.sock readDataToData:[@"\n" dataUsingEncoding:NSUTF8StringEncoding]
-                  withTimeout:3
+                  withTimeout:FOREVER
                           tag:0];
 }
 
@@ -22,7 +24,7 @@
         NSInteger size = [str integerValue];
         
         [self.sock readDataToLength:size
-                        withTimeout:3
+                        withTimeout:FOREVER
                                 tag:1];
     }
     else if (tag == 1) {
@@ -44,7 +46,15 @@
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
             [self sendMessage:msg];
+            [self sendMessage:msg];
+            
+            double delayInSeconds = 2.0;
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                [self sendMessage:msg];
+            });
         });
+        return;
     }
     
     [self sendMessage:msg];
