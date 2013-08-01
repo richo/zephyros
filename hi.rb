@@ -20,7 +20,7 @@ class Zeph
   def initialize
     @sock = TCPSocket.new 'localhost', 1235
     @id = 0
-    @queue = Queue.new
+    @queues = {}
 
     trap("SIGINT") { exit }
     thread = listen_forever
@@ -28,32 +28,20 @@ class Zeph
   end
 
   def pop_by_id(id)
-    q = Queue.new
-
-    Thread.new do
-      loop do
-        obj = @queue.pop
-        if obj[0] == id
-          q.push obj
-          break
-        else
-          @queue.push obj
-        end
-      end
-    end
-
-    obj = q.pop
-    return obj[1].converted
+    o = @queues[id].pop
+    o[1].converted
   end
 
   def send_message(data, &blk)
     id = send_raw data
 
     if blk.nil?
-      pop_by_id(id)
+      o = pop_by_id(id)
+      @queues.delete(id)
+      return o
     else
       Thread.new do
-        num_future_calls = pop_by_id(id) # dumb protocol
+        num_future_calls = pop_by_id(id)
 
         loopblk = lambda do
           event = pop_by_id(id)
@@ -65,6 +53,8 @@ class Zeph
         else
           loop { loopblk.call }
         end
+
+        @queues.delete(id)
       end
       return nil
     end
@@ -74,6 +64,7 @@ class Zeph
 
   def send_raw(data)
     id = @id += 1
+    @queues[id] = Queue.new
     json = [id].concat(data).to_json
     @sock.write "#{json.size}\n#{json}"
     return id
@@ -84,7 +75,9 @@ class Zeph
       loop do
         size = @sock.gets
         msg = @sock.read(size.to_i)
-        @queue.push JSON.load(msg)
+        obj = JSON.load(msg)
+        id = obj[0]
+        @queues[id].push obj
       end
     end
   end
