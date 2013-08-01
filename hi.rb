@@ -5,14 +5,18 @@ require 'thread'
 @s = TCPSocket.new 'localhost', 1235
 
 @id = 0
+@queues = {}
+
+@queues[12] = Queue.new
 
 def send(*data)
   @id += 1
+  @queues[@id] = Queue.new
   json = ['request', @id].concat(data).to_json
-  s = "#{json.size}\n#{json}"
-  @s.write s
-
-  get_message(@id)
+  @s.write "#{json.size}\n#{json}"
+  val = @queues[@id].pop
+  @queues.delete @id
+  val
 end
 
 def get
@@ -21,22 +25,11 @@ def get
   JSON.load(msg)
 end
 
-@queue = Queue.new
-
 @thread = Thread.new do
-  loop { @queue << get }
-end
-
-@responses = []
-
-def get_message(id)
   loop do
-    r = @queue.pop
-    if r[1] == id
-      return r
-    else
-      @responses << r
-    end
+    val = get
+    id = val[1]
+    @queues[id] << val
   end
 end
 
@@ -45,7 +38,7 @@ end
   p val
 end
 
-p @responses
+p @queues[12].pop
 
 @thread.join
 

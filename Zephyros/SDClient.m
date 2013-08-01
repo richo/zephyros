@@ -39,9 +39,8 @@
 - (void) handleMessage:(id)msg {
     NSLog(@"new msg: %@", msg);
     
-    if ([[msg objectAtIndex:1
-          ] isEqual:@3])
-        [self sendMessage:[@[@"foobar", @12] mutableCopy]];
+    if ([[msg objectAtIndex:1] isEqual:@3])
+        [self sendMessage:[@[@"calback", @12] mutableCopy]];
     
     [self sendMessage:msg];
 }
