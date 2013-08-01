@@ -366,8 +366,9 @@ p win = API.focused_window
 p win.title
 
 
-API.choose_from ['a', 'b'], 'stuff', 20, 20 do |idx|
-  p idx
+list = ['a', 'b']
+API.choose_from list, 'stuff', 20, 20 do |idx|
+  API.alert list[idx], 3
 end
 
 

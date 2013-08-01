@@ -105,7 +105,6 @@
 		9463D43317A77E2C00A3E905 /* SDGeometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDGeometry.m; sourceTree = "<group>"; };
 		946B3AAE1721C5C800FB05F3 /* logwindow.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = logwindow.html; sourceTree = "<group>"; };
 		94779BD017A85CB000649169 /* Licenses */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Licenses; sourceTree = SOURCE_ROOT; };
-		947DC98A17A5B6FF0082D095 /* SDCallback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SDCallback.h; sourceTree = "<group>"; };
 		947DC99017A5BC990082D095 /* SDConfigChooserWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDConfigChooserWindowController.h; sourceTree = "<group>"; };
 		947DC99117A5BC990082D095 /* SDConfigChooserWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDConfigChooserWindowController.m; sourceTree = "<group>"; };
 		947DC99217A5BC990082D095 /* SDConfigChooserWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SDConfigChooserWindow.xib; sourceTree = "<group>"; };
@@ -192,15 +191,12 @@
 		943921B41719AF5900F63073 /* API */ = {
 			isa = PBXGroup;
 			children = (
-				947DC98A17A5B6FF0082D095 /* SDCallback.h */,
 				947E9956171CEFB5006F30AC /* SDAPI.h */,
 				947E9957171CEFB5006F30AC /* SDAPI.m */,
 				947E9959171CF9DE006F30AC /* SDConfigLoader.h */,
 				947E995A171CF9DE006F30AC /* SDConfigLoader.m */,
 				947DC99B17A5D0940082D095 /* SDConfigWatcher.h */,
 				947DC99C17A5D0940082D095 /* SDConfigWatcher.m */,
-				94873F65171929A0000AC0A6 /* SDHotKey.h */,
-				94873F66171929A0000AC0A6 /* SDHotKey.m */,
 				9463D43217A77E2C00A3E905 /* SDGeometry.h */,
 				9463D43317A77E2C00A3E905 /* SDGeometry.m */,
 			);
@@ -313,8 +309,7 @@
 		94873F3317191F40000AC0A6 /* Zephyros */ = {
 			isa = PBXGroup;
 			children = (
-				94B255A117A9AE0E008CFD26 /* GCDAsyncSocket.h */,
-				94B255A217A9AE0E008CFD26 /* GCDAsyncSocket.m */,
+				94873F631719223F000AC0A6 /* Third Party */,
 				94873F4217191F40000AC0A6 /* MainMenu.xib */,
 				94873F3F17191F40000AC0A6 /* AppDelegate.h */,
 				94873F4017191F40000AC0A6 /* AppDelegate.m */,
@@ -323,11 +318,11 @@
 				94B255A917A9B5E2008CFD26 /* SDClient.h */,
 				94B255AA17A9B5E2008CFD26 /* SDClient.m */,
 				945AD7A017A866FE00578BEB /* Fuzzy Matching */,
-				94873F631719223F000AC0A6 /* Third Party */,
 				947DC99517A5BCA90082D095 /* Config Chooser */,
 				947DC99617A5BCD30082D095 /* Log Window */,
 				94873F611719222D000AC0A6 /* Alert Window */,
 				94D07FB71723BAAE00CF44E9 /* Proxies */,
+				94E02EE017AB1B14005AE3E8 /* Hot keys */,
 				947DC98B17A5B9400082D095 /* Events */,
 				943921B41719AF5900F63073 /* API */,
 				94873F6417192987000AC0A6 /* Helpers */,
@@ -385,6 +380,7 @@
 		94873F631719223F000AC0A6 /* Third Party */ = {
 			isa = PBXGroup;
 			children = (
+				94E02EE117AB1BAF005AE3E8 /* AsyncSocket */,
 				94873F5E1719209B000AC0A6 /* Global Shortcuts */,
 			);
 			name = "Third Party";
@@ -414,6 +410,24 @@
 				94D07FB51723B16900CF44E9 /* SDAppProxy.m */,
 			);
 			name = Proxies;
+			sourceTree = "<group>";
+		};
+		94E02EE017AB1B14005AE3E8 /* Hot keys */ = {
+			isa = PBXGroup;
+			children = (
+				94873F65171929A0000AC0A6 /* SDHotKey.h */,
+				94873F66171929A0000AC0A6 /* SDHotKey.m */,
+			);
+			name = "Hot keys";
+			sourceTree = "<group>";
+		};
+		94E02EE117AB1BAF005AE3E8 /* AsyncSocket */ = {
+			isa = PBXGroup;
+			children = (
+				94B255A117A9AE0E008CFD26 /* GCDAsyncSocket.h */,
+				94B255A217A9AE0E008CFD26 /* GCDAsyncSocket.m */,
+			);
+			name = AsyncSocket;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

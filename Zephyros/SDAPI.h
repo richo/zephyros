@@ -11,8 +11,6 @@
 #import "SDWindowProxy.h"
 #import "SDScreenProxy.h"
 
-#import "SDCallback.h"
-
 
 @interface SDAPISettings : NSObject
 
@@ -26,7 +24,6 @@
 @interface SDAPI : NSObject
 
 + (SDAPISettings*) settings;
-+ (void) doFn:(id<SDCallback>)fn after:(NSNumber*)delayInSeconds;
 + (NSDictionary*) shell:(NSString*)cmd args:(NSArray*)args options:(NSDictionary *)options;
 
 + (void) chooseFrom:(NSArray*)list

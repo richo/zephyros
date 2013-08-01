@@ -78,13 +78,6 @@
                }];
 }
 
-+ (void) doFn:(id<SDCallback>)fn after:(NSNumber*)delayInSeconds {
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)([delayInSeconds doubleValue] * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^{
-        [fn call:nil];
-    });
-}
-
 + (NSDictionary*) shell:(NSString*)cmd args:(NSArray*)args options:(NSDictionary *)options {
     BOOL doNotWait = NO;
     NSPipe* outPipe = [NSPipe pipe];

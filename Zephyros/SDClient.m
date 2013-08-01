@@ -13,6 +13,7 @@
 #import "SDAPI.h"
 #import "SDHotKey.h"
 #import "SDLogWindowController.h"
+#import "SDAlertWindowController.h"
 
 @interface SDClient ()
 
@@ -171,6 +172,11 @@
                             },
                             @"focused_window": ^id(SDClient* client, NSNumber* msgID, id recv, NSArray* args) {
                                 return [SDWindowProxy focusedWindow];
+                            },
+                            @"alert": ^id(SDClient* client, NSNumber* msgID, id recv, NSArray* args) {
+                                [[SDAlertWindowController sharedAlertWindowController] show:[args objectAtIndex:0]
+                                                                                      delay:[args objectAtIndex:1]];
+                                return nil;
                             },
                             @"choose_from": ^id(SDClient* client, NSNumber* msgID, id recv, NSArray* args) {
                                 [SDAPI chooseFrom:[args objectAtIndex:0]

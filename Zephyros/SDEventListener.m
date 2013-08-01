@@ -8,12 +8,11 @@
 
 #import "SDEventListener.h"
 
-#import "SDCallback.h"
 //#import <JSCocoa/JSCocoa.h>
 
 @interface SDEventObserver : NSObject
 @property NSString* eventName;
-@property id<SDCallback> fn;
+//@property id<SDCallback> fn;
 @property id realObserver;
 @end
 
@@ -25,9 +24,9 @@
                                                       object:nil
                                                        queue:nil
                                                   usingBlock:^(NSNotification *note) {
-                                                      id thing = [[note userInfo] objectForKey:@"thing"];
-                                                      NSArray* args = (thing ? @[thing] : nil);
-                                                      [self.fn call:args];
+//                                                      id thing = [[note userInfo] objectForKey:@"thing"];
+//                                                      NSArray* args = (thing ? @[thing] : nil);
+//                                                      [self.fn call:args];
                                                   }];
 }
 
@@ -70,12 +69,12 @@
     }
 }
 
-- (void) listenForEvent:(NSString*)name fn:(id<SDCallback>)fn {
-    SDEventObserver* observer = [[SDEventObserver alloc] init];
-    observer.eventName = name;
-    observer.fn = fn;
-    
-    self.upcomingListeners = [[NSArray arrayWithArray:self.upcomingListeners] arrayByAddingObject:observer];
-}
+//- (void) listenForEvent:(NSString*)name fn:(id<SDCallback>)fn {
+//    SDEventObserver* observer = [[SDEventObserver alloc] init];
+//    observer.eventName = name;
+//    observer.fn = fn;
+//    
+//    self.upcomingListeners = [[NSArray arrayWithArray:self.upcomingListeners] arrayByAddingObject:observer];
+//}
 
 @end
