@@ -96,7 +96,6 @@ module API
     extend ZephProxy
     define_method(:id) { 0 }
     forward_methods [:choose_from,
-                     :alert,
                      :log,
 
                      :bind,
@@ -112,6 +111,10 @@ module API
                      :running_apps,
 
                      :clipboard_contents]
+
+    def alert(msg, sec=2)
+      $zeph.send_message([id, :alert, msg, sec])
+    end
 
   end
 
@@ -283,7 +286,7 @@ class Window < ZephObject
   def get_grid
     win_frame = self.frame
     screen_rect = self.screen.frame_without_dock_or_menu
-    third_screen_width = screen_rect.w / $window_grid_width
+    third_screen_width = screen_rect.w / $window_grid_width.to_f
     half_screen_height = screen_rect.h / 2.0
     Rect.make(((win_frame.x - screen_rect.min_x) / third_screen_width).round,
               ((win_frame.y - screen_rect.min_y) / half_screen_height).round,
@@ -294,13 +297,13 @@ class Window < ZephObject
   def set_grid(g, screen)
     screen = screen || self.screen
     screen_rect = screen.frame_without_dock_or_menu
-    third_screen_width = screen_rect.w / $window_grid_width
+    third_screen_width = screen_rect.w / $window_grid_width.to_f
     half_screen_height = screen_rect.h / 2.0
     new_frame = Rect.make((g.x * third_screen_width) + screen_rect.min_x,
                           (g.y * half_screen_height) + screen_rect.min_y,
                           g.w * third_screen_width,
                           g.h * half_screen_height)
-    new_frame.inset!($window_grid_margin_x, $window_grid_margin_y)
+    new_frame.inset!($window_grid_margin_x.to_f, $window_grid_margin_y.to_f)
     new_frame.integral!
     self.frame = new_frame
   end
