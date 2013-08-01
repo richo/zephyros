@@ -32,4 +32,7 @@
               chars:(NSNumber*)charsWide
            callback:(void(^)(id idx))callback;
 
+//+ (NSDictionary*) shell:(NSString*)cmd args:(NSArray*)args options:(NSDictionary *)options;
+// this is already in python, go, node.js, ruby. what lang doesnt have it? do we even need it?
+
 @end

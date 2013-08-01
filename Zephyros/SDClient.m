@@ -170,12 +170,39 @@
                                 
                                 return @-1;
                             },
+                            @"listen": ^id(SDClient* client, NSNumber* msgID, id recv, NSArray* args) {
+                                // .....
+                                return nil;
+                            },
+                            @"clipboard_contents": ^id(SDClient* client, NSNumber* msgID, id recv, NSArray* args) {
+                                return [[NSPasteboard generalPasteboard] stringForType:NSPasteboardTypeString];
+                            },
                             @"focused_window": ^id(SDClient* client, NSNumber* msgID, id recv, NSArray* args) {
                                 return [SDWindowProxy focusedWindow];
+                            },
+                            @"visible_windows": ^id(SDClient* client, NSNumber* msgID, id recv, NSArray* args) {
+                                return [SDWindowProxy visibleWindows];
+                            },
+                            @"all_windows": ^id(SDClient* client, NSNumber* msgID, id recv, NSArray* args) {
+                                return [SDWindowProxy allWindows];
+                            },
+                            @"main_screen": ^id(SDClient* client, NSNumber* msgID, id recv, NSArray* args) {
+                                return [SDScreenProxy mainScreen];
+                            },
+                            @"all_screens": ^id(SDClient* client, NSNumber* msgID, id recv, NSArray* args) {
+                                return [SDScreenProxy allScreens];
+                            },
+                            @"running_apps": ^id(SDClient* client, NSNumber* msgID, id recv, NSArray* args) {
+                                return [SDAppProxy runningApps];
                             },
                             @"alert": ^id(SDClient* client, NSNumber* msgID, id recv, NSArray* args) {
                                 [[SDAlertWindowController sharedAlertWindowController] show:[args objectAtIndex:0]
                                                                                       delay:[args objectAtIndex:1]];
+                                return nil;
+                            },
+                            @"log": ^id(SDClient* client, NSNumber* msgID, id recv, NSArray* args) {
+                                [[SDLogWindowController sharedLogWindowController] show:[args objectAtIndex:0]
+                                                                                   type:SDLogMessageTypeUser];
                                 return nil;
                             },
                             @"choose_from": ^id(SDClient* client, NSNumber* msgID, id recv, NSArray* args) {
@@ -188,12 +215,120 @@
                                          }];
                                 return @1;
                             },
+                            @"_kill": ^id(SDClient* client, NSNumber* msgID, id recv, NSArray* args) {
+                                id objID = [args objectAtIndex:0];
+                                [client.returnedObjects removeObjectForKey:objID];
+                                return nil;
+                            },
                             },
                     @"window": @{
                             @"title": ^id(SDClient* client, NSNumber* msgID, SDWindowProxy* recv, NSArray* args) {
                                 return [recv title];
                             },
-                            }};
+                            @"set_frame": ^id(SDClient* client, NSNumber* msgID, SDWindowProxy* recv, NSArray* args) {
+                                [recv setFrame:[args objectAtIndex:0]];
+                                return nil;
+                            },
+                            @"set_top_left": ^id(SDClient* client, NSNumber* msgID, SDWindowProxy* recv, NSArray* args) {
+                                [recv setTopLeft:[args objectAtIndex:0]];
+                                return nil;
+                            },
+                            @"set_size": ^id(SDClient* client, NSNumber* msgID, SDWindowProxy* recv, NSArray* args) {
+                                [recv setSize:[args objectAtIndex:0]];
+                                return nil;
+                            },
+                            @"frame": ^id(SDClient* client, NSNumber* msgID, SDWindowProxy* recv, NSArray* args) {
+                                return [recv frame];
+                            },
+                            @"top_left": ^id(SDClient* client, NSNumber* msgID, SDWindowProxy* recv, NSArray* args) {
+                                return [recv topLeft];
+                            },
+                            @"size": ^id(SDClient* client, NSNumber* msgID, SDWindowProxy* recv, NSArray* args) {
+                                return [recv size];
+                            },
+                            @"maximize": ^id(SDClient* client, NSNumber* msgID, SDWindowProxy* recv, NSArray* args) {
+                                [recv maximize];
+                                return nil;
+                            },
+                            @"minimize": ^id(SDClient* client, NSNumber* msgID, SDWindowProxy* recv, NSArray* args) {
+                                [recv minimize];
+                                return nil;
+                            },
+                            @"un_minimize": ^id(SDClient* client, NSNumber* msgID, SDWindowProxy* recv, NSArray* args) {
+                                [recv unMinimize];
+                                return nil;
+                            },
+                            @"app": ^id(SDClient* client, NSNumber* msgID, SDWindowProxy* recv, NSArray* args) {
+                                return [recv app];
+                            },
+                            @"screen": ^id(SDClient* client, NSNumber* msgID, SDWindowProxy* recv, NSArray* args) {
+                                return [recv screen];
+                            },
+                            @"focus_window": ^id(SDClient* client, NSNumber* msgID, SDWindowProxy* recv, NSArray* args) {
+                                return [recv focusWindow];
+                            },
+                            @"focus_window_left": ^id(SDClient* client, NSNumber* msgID, SDWindowProxy* recv, NSArray* args) {
+                                [recv focusWindowLeft];
+                                return nil;
+                            },
+                            @"focus_window_right": ^id(SDClient* client, NSNumber* msgID, SDWindowProxy* recv, NSArray* args) {
+                                [recv focusWindowRight];
+                                return nil;
+                            },
+                            @"focus_window_up": ^id(SDClient* client, NSNumber* msgID, SDWindowProxy* recv, NSArray* args) {
+                                [recv focusWindowUp];
+                                return nil;
+                            },
+                            @"focus_window_down": ^id(SDClient* client, NSNumber* msgID, SDWindowProxy* recv, NSArray* args) {
+                                [recv focusWindowDown];
+                                return nil;
+                            },
+                            @"normal_window?": ^id(SDClient* client, NSNumber* msgID, SDWindowProxy* recv, NSArray* args) {
+                                return [recv isNormalWindow];
+                            },
+                            @"minimized?": ^id(SDClient* client, NSNumber* msgID, SDWindowProxy* recv, NSArray* args) {
+                                return [recv isWindowMinimized];
+                            },
+                            },
+                    @"app": @{
+                            @"all_windows": ^id(SDClient* client, NSNumber* msgID, SDAppProxy* recv, NSArray* args) {
+                                return [recv allWindows];
+                            },
+                            @"visible_windows": ^id(SDClient* client, NSNumber* msgID, SDAppProxy* recv, NSArray* args) {
+                                return [recv visibleWindows];
+                            },
+                            @"title": ^id(SDClient* client, NSNumber* msgID, SDAppProxy* recv, NSArray* args) {
+                                return [recv title];
+                            },
+                            @"hidden?": ^id(SDClient* client, NSNumber* msgID, SDAppProxy* recv, NSArray* args) {
+                                return [recv isHidden];
+                            },
+                            @"show": ^id(SDClient* client, NSNumber* msgID, SDAppProxy* recv, NSArray* args) {
+                                [recv show];
+                                return nil;
+                            },
+                            @"hide": ^id(SDClient* client, NSNumber* msgID, SDAppProxy* recv, NSArray* args) {
+                                [recv hide];
+                                return nil;
+                            },
+                            @"kill": ^id(SDClient* client, NSNumber* msgID, SDAppProxy* recv, NSArray* args) {
+                                [recv kill];
+                                return nil;
+                            },
+                            @"kill9": ^id(SDClient* client, NSNumber* msgID, SDAppProxy* recv, NSArray* args) {
+                                [recv kill9];
+                                return nil;
+                            },
+                            },
+                    @"screen": @{
+                            @"frame_including_dock_and_menu": ^id(SDClient* client, NSNumber* msgID, SDScreenProxy* recv, NSArray* args) {
+                                return [recv frameIncludingDockAndMenu];
+                            },
+                            @"frame_without_dock_or_menu": ^id(SDClient* client, NSNumber* msgID, SDScreenProxy* recv, NSArray* args) {
+                                return [recv frameWithoutDockOrMenu];
+                            },
+                            },
+                    };
     });
     return methods;
 }

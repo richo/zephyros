@@ -54,9 +54,6 @@
     [self.clients addObject:client];
     
     [client waitForNewMessage];
-    
-//    [client sendMessage:@[@"hello", @3]];
-//    [client sendMessage:@{@"a" : @2}];
 }
 
 @end

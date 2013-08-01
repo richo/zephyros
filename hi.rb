@@ -101,9 +101,6 @@ module API
                      :alert,
                      :log,
 
-                     :clipboard_contents,
-                     :reload_config,
-
                      :bind,
                      :listen,
 
@@ -114,7 +111,9 @@ module API
                      :main_screen,
                      :all_screens,
 
-                     :running_apps]
+                     :running_apps,
+
+                     :clipboard_contents]
 
   end
 
@@ -232,10 +231,6 @@ class Window < ZephObject
 
   extend ZephProxy
   forward_methods [:other_windows_on_same_screen,
-
-                   :frame=,
-                   :top_left=,
-                   :size=,
 
                    :maximize,
                    :minimize,
@@ -358,27 +353,36 @@ end
 #   end
 
 
-API.bind 'd', ['cmd', 'shift'] do
-  puts 'ok'
-end
+# API.bind 'd', ['cmd', 'shift'] do
+#   puts 'ok'
+# end
 
-p win = API.focused_window
-p win.title
-
-
-list = ['a', 'b']
-API.choose_from list, 'stuff', 20, 20 do |idx|
-  API.alert list[idx], 3
-end
+# p win = API.focused_window
+# p win.title
 
 
-win2 = API.focused_window
-p win.title
-puts 'done'
+# list = ['a', 'b']
+# API.choose_from list, 'stuff', 20, 20 do |idx|
+#   API.alert list[idx], 3
+# end
 
-p win2.title
-p win
-p win2
+app = API.running_apps[-10]
+
+p app
+p app.title
+p app.visible_windows
+p app.all_windows
+p app.hidden?
+# p app.show
+# p app.hide
+
+# win2 = API.focused_window
+# p win.title
+# puts 'done'
+
+# p win2.title
+# p win
+# p win2
 
 
 
@@ -400,3 +404,5 @@ p win2
 
 # Rect#integral!
 # clipboard_contents
+
+# send [0, _kill, objid] when done with callbacks or something

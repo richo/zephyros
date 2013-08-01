@@ -313,10 +313,7 @@
 				94873F4217191F40000AC0A6 /* MainMenu.xib */,
 				94873F3F17191F40000AC0A6 /* AppDelegate.h */,
 				94873F4017191F40000AC0A6 /* AppDelegate.m */,
-				94B255A617A9B5D8008CFD26 /* SDClientListener.h */,
-				94B255A717A9B5D8008CFD26 /* SDClientListener.m */,
-				94B255A917A9B5E2008CFD26 /* SDClient.h */,
-				94B255AA17A9B5E2008CFD26 /* SDClient.m */,
+				94E02EE217AB1D19005AE3E8 /* Clients */,
 				945AD7A017A866FE00578BEB /* Fuzzy Matching */,
 				947DC99517A5BCA90082D095 /* Config Chooser */,
 				947DC99617A5BCD30082D095 /* Log Window */,
@@ -428,6 +425,17 @@
 				94B255A217A9AE0E008CFD26 /* GCDAsyncSocket.m */,
 			);
 			name = AsyncSocket;
+			sourceTree = "<group>";
+		};
+		94E02EE217AB1D19005AE3E8 /* Clients */ = {
+			isa = PBXGroup;
+			children = (
+				94B255A617A9B5D8008CFD26 /* SDClientListener.h */,
+				94B255A717A9B5D8008CFD26 /* SDClientListener.m */,
+				94B255A917A9B5E2008CFD26 /* SDClient.h */,
+				94B255AA17A9B5E2008CFD26 /* SDClient.m */,
+			);
+			name = Clients;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
