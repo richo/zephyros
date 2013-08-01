@@ -56,6 +56,10 @@
 		9495B457171959B4002C9EF5 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9495B456171959B4002C9EF5 /* JavaScriptCore.framework */; };
 		9495B45A17197396002C9EF5 /* SDUniversalAccessHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9495B45917197396002C9EF5 /* SDUniversalAccessHelper.m */; };
 		94AC665317A6FDD7007EA74C /* SDRubyObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 94AC665217A6FDD7007EA74C /* SDRubyObject.m */; };
+		94B255A317A9AE0E008CFD26 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B255A217A9AE0E008CFD26 /* GCDAsyncSocket.m */; };
+		94B255A517A9AF2A008CFD26 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94B255A417A9AF2A008CFD26 /* Security.framework */; };
+		94B255A817A9B5D8008CFD26 /* SDClientListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B255A717A9B5D8008CFD26 /* SDClientListener.m */; };
+		94B255AB17A9B5E2008CFD26 /* SDClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B255AA17A9B5E2008CFD26 /* SDClient.m */; };
 		94C85825171C551B007790F2 /* JSCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94C85824171C551B007790F2 /* JSCocoa.framework */; };
 		94C85826171C55C6007790F2 /* JSCocoa.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 94C85824171C551B007790F2 /* JSCocoa.framework */; };
 		94CC2CFA17A8B8150048190F /* Nu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CC2CF917A8B8150048190F /* Nu.framework */; };
@@ -171,6 +175,13 @@
 		9495B45917197396002C9EF5 /* SDUniversalAccessHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDUniversalAccessHelper.m; sourceTree = "<group>"; };
 		94AC665117A6FDD7007EA74C /* SDRubyObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDRubyObject.h; sourceTree = "<group>"; };
 		94AC665217A6FDD7007EA74C /* SDRubyObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDRubyObject.m; sourceTree = "<group>"; };
+		94B255A117A9AE0E008CFD26 /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncSocket.h; sourceTree = "<group>"; };
+		94B255A217A9AE0E008CFD26 /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncSocket.m; sourceTree = "<group>"; };
+		94B255A417A9AF2A008CFD26 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		94B255A617A9B5D8008CFD26 /* SDClientListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDClientListener.h; sourceTree = "<group>"; };
+		94B255A717A9B5D8008CFD26 /* SDClientListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDClientListener.m; sourceTree = "<group>"; };
+		94B255A917A9B5E2008CFD26 /* SDClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDClient.h; sourceTree = "<group>"; };
+		94B255AA17A9B5E2008CFD26 /* SDClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDClient.m; sourceTree = "<group>"; };
 		94C85824171C551B007790F2 /* JSCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JSCocoa.framework; path = ThirdParty/JSCocoa.framework; sourceTree = "<group>"; };
 		94CC2CF917A8B8150048190F /* Nu.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nu.framework; path = ../ThirdParty/Nu.framework; sourceTree = "<group>"; };
 		94CC2CFE17A8BE710048190F /* NuBlock+Callback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NuBlock+Callback.h"; sourceTree = "<group>"; };
@@ -196,6 +207,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94B255A517A9AF2A008CFD26 /* Security.framework in Frameworks */,
 				945B18091720FBB40067C834 /* WebKit.framework in Frameworks */,
 				94454B3F171B479B003EF64E /* QuartzCore.framework in Frameworks */,
 				9495B457171959B4002C9EF5 /* JavaScriptCore.framework in Frameworks */,
@@ -314,6 +326,7 @@
 		94873F2117191F40000AC0A6 = {
 			isa = PBXGroup;
 			children = (
+				94B255A417A9AF2A008CFD26 /* Security.framework */,
 				94873F3517191F40000AC0A6 /* Zephyros-Info.plist */,
 				947E995E171D18B6006F30AC /* Credits.rtf */,
 				94873F3317191F40000AC0A6 /* Zephyros */,
@@ -358,9 +371,15 @@
 		94873F3317191F40000AC0A6 /* Zephyros */ = {
 			isa = PBXGroup;
 			children = (
+				94B255A117A9AE0E008CFD26 /* GCDAsyncSocket.h */,
+				94B255A217A9AE0E008CFD26 /* GCDAsyncSocket.m */,
 				94873F4217191F40000AC0A6 /* MainMenu.xib */,
 				94873F3F17191F40000AC0A6 /* AppDelegate.h */,
 				94873F4017191F40000AC0A6 /* AppDelegate.m */,
+				94B255A617A9B5D8008CFD26 /* SDClientListener.h */,
+				94B255A717A9B5D8008CFD26 /* SDClientListener.m */,
+				94B255A917A9B5E2008CFD26 /* SDClient.h */,
+				94B255AA17A9B5E2008CFD26 /* SDClient.m */,
 				945AD7A017A866FE00578BEB /* Fuzzy Matching */,
 				94873F631719223F000AC0A6 /* Third Party */,
 				947DC99517A5BCA90082D095 /* Config Chooser */,
@@ -601,6 +620,9 @@
 				945AD7C117A8692A00578BEB /* SDChoice.m in Sources */,
 				945AD7C217A8692A00578BEB /* NSString+Score.m in Sources */,
 				94CC2D0017A8BE710048190F /* NuBlock+Callback.m in Sources */,
+				94B255A317A9AE0E008CFD26 /* GCDAsyncSocket.m in Sources */,
+				94B255A817A9B5D8008CFD26 /* SDClientListener.m in Sources */,
+				94B255AB17A9B5E2008CFD26 /* SDClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

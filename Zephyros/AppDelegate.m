@@ -16,6 +16,9 @@
 #import "SDConfigChooserWindowController.h"
 
 
+#import "SDClientListener.h"
+
+
 @interface AppDelegate ()
 
 @property NSStatusItem* statusItem;
@@ -25,6 +28,8 @@
 @implementation AppDelegate
 
 - (void) prepareStatusItem {
+    [[SDClientListener sharedListener] startListening];
+    
     self.statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
     self.statusItem.image = [NSImage imageNamed:@"statusitem"];
     self.statusItem.alternateImage = [NSImage imageNamed:@"statusitem_pressed"];
