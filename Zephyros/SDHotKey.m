@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Giant Robot Software. All rights reserved.
 //
 
-#import "SDKeyBinder.h"
+#import "SDHotKey.h"
 
 #import "MASShortcut+Monitoring.h"
 #import "SDKeyBindingTranslator.h"

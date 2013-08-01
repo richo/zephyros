@@ -11,7 +11,7 @@
 #define FOREVER (60*60*24*365)
 
 #import "SDAPI.h"
-#import "SDKeyBinder.h"
+#import "SDHotKey.h"
 #import "SDLogWindowController.h"
 
 @interface SDClient ()

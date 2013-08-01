@@ -12,7 +12,6 @@
 #import "SDScreenProxy.h"
 
 #import "SDConfigLoader.h"
-#import "SDKeyBinder.h"
 
 #import "SDAlertWindowController.h"
 #import "SDLogWindowController.h"

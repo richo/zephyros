@@ -45,7 +45,7 @@
 		94873F5C17192096000AC0A6 /* MASShortcutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94873F5617192096000AC0A6 /* MASShortcutView.m */; };
 		94873F5D17192096000AC0A6 /* MASShortcutView+UserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 94873F5817192096000AC0A6 /* MASShortcutView+UserDefaults.m */; };
 		94873F60171920B4000AC0A6 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94873F5F171920B4000AC0A6 /* Carbon.framework */; };
-		94873F67171929A0000AC0A6 /* SDKeyBinder.m in Sources */ = {isa = PBXBuildFile; fileRef = 94873F66171929A0000AC0A6 /* SDKeyBinder.m */; };
+		94873F67171929A0000AC0A6 /* SDHotKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 94873F66171929A0000AC0A6 /* SDHotKey.m */; };
 		94873F6A17193270000AC0A6 /* SDKeyBindingTranslator.m in Sources */ = {isa = PBXBuildFile; fileRef = 94873F6917193270000AC0A6 /* SDKeyBindingTranslator.m */; };
 		94873F6D171937BC000AC0A6 /* SDWindowProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 94873F6C171937BC000AC0A6 /* SDWindowProxy.m */; };
 		9495B45A17197396002C9EF5 /* SDUniversalAccessHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9495B45917197396002C9EF5 /* SDUniversalAccessHelper.m */; };
@@ -142,8 +142,8 @@
 		94873F5717192096000AC0A6 /* MASShortcutView+UserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MASShortcutView+UserDefaults.h"; sourceTree = "<group>"; };
 		94873F5817192096000AC0A6 /* MASShortcutView+UserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MASShortcutView+UserDefaults.m"; sourceTree = "<group>"; };
 		94873F5F171920B4000AC0A6 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
-		94873F65171929A0000AC0A6 /* SDKeyBinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDKeyBinder.h; sourceTree = "<group>"; };
-		94873F66171929A0000AC0A6 /* SDKeyBinder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDKeyBinder.m; sourceTree = "<group>"; };
+		94873F65171929A0000AC0A6 /* SDHotKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDHotKey.h; sourceTree = "<group>"; };
+		94873F66171929A0000AC0A6 /* SDHotKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDHotKey.m; sourceTree = "<group>"; };
 		94873F6817193270000AC0A6 /* SDKeyBindingTranslator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDKeyBindingTranslator.h; sourceTree = "<group>"; };
 		94873F6917193270000AC0A6 /* SDKeyBindingTranslator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDKeyBindingTranslator.m; sourceTree = "<group>"; };
 		94873F6B171937BC000AC0A6 /* SDWindowProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWindowProxy.h; sourceTree = "<group>"; };
@@ -199,8 +199,8 @@
 				947E995A171CF9DE006F30AC /* SDConfigLoader.m */,
 				947DC99B17A5D0940082D095 /* SDConfigWatcher.h */,
 				947DC99C17A5D0940082D095 /* SDConfigWatcher.m */,
-				94873F65171929A0000AC0A6 /* SDKeyBinder.h */,
-				94873F66171929A0000AC0A6 /* SDKeyBinder.m */,
+				94873F65171929A0000AC0A6 /* SDHotKey.h */,
+				94873F66171929A0000AC0A6 /* SDHotKey.m */,
 				9463D43217A77E2C00A3E905 /* SDGeometry.h */,
 				9463D43317A77E2C00A3E905 /* SDGeometry.m */,
 			);
@@ -521,7 +521,7 @@
 				94873F5B17192096000AC0A6 /* MASShortcut+UserDefaults.m in Sources */,
 				94873F5C17192096000AC0A6 /* MASShortcutView.m in Sources */,
 				94873F5D17192096000AC0A6 /* MASShortcutView+UserDefaults.m in Sources */,
-				94873F67171929A0000AC0A6 /* SDKeyBinder.m in Sources */,
+				94873F67171929A0000AC0A6 /* SDHotKey.m in Sources */,
 				94873F6A17193270000AC0A6 /* SDKeyBindingTranslator.m in Sources */,
 				94873F6D171937BC000AC0A6 /* SDWindowProxy.m in Sources */,
 				9495B45A17197396002C9EF5 /* SDUniversalAccessHelper.m in Sources */,

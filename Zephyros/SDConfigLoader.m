@@ -15,7 +15,6 @@
 #import "SDAPI.h"
 
 #import "SDEventListener.h"
-#import "SDKeyBinder.h"
 #import "SDAlertWindowController.h"
 #import "SDLogWindowController.h"
 
