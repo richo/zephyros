@@ -10,8 +10,8 @@ class Object
   def converted
     if is_a?(Array)
       map(&:converted)
-    elsif is_a?(Hash) && has_key?('_class')
-      klass = Kernel.const_get(self['_class'])
+    elsif is_a?(Hash) && has_key?('_type')
+      klass = Kernel.const_get(self['_type'])
       klass.new(self['_id'])
     else
       self
@@ -35,17 +35,16 @@ class Zeph
 
     val = @queues[id].pop
     @queues.delete id
-    return val.converted
+    return val[1].converted
   end
 
   def register(data, blk)
-    p data
     id = send_raw data
 
     Thread.new do
       loop do
         event = @queues[id].pop
-        blk.call event
+        blk.call event[1].converted
       end
     end
   end
