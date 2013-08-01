@@ -90,9 +90,7 @@ module API
   class << self
 
     extend ZephProxy
-
     define_method(:id) { 0 }
-
     forward_methods [:choose_from,
                      :alert,
                      :log,
@@ -107,8 +105,7 @@ module API
                      :main_screen,
                      :all_screens,
 
-                     :running_apps,
-                    ]
+                     :running_apps]
 
   end
 
@@ -117,24 +114,60 @@ end
 class Window < Struct.new(:id)
 
   extend ZephProxy
+  forward_methods [:other_windows_on_same_screen,
 
-  forward_methods [:title]
+                   :frame,
+                   :top_left,
+                   :size,
+
+                   :frame=,
+                   :top_left=,
+                   :size=,
+
+                   :maximize,
+                   :minimize,
+                   :un_minimize,
+
+                   :screen,
+                   :app,
+
+                   :focus_window,
+                   :focus_window_left,
+                   :focus_window_right,
+                   :focus_window_up,
+                   :focus_window_down,
+
+                   :normal_window?,
+                   :minimized?,
+
+                   :title]
 
 end
 
 class Screen < Struct.new(:id)
 
   extend ZephProxy
-
-  forward_methods []
+  forward_methods [:frame_including_dock_and_menu,
+                   :frame_without_dock_or_menu,
+                   :next_screen,
+                   :previous_screen]
 
 end
 
 class App < Struct.new(:id)
 
   extend ZephProxy
+  forward_methods [:all_windows,
+                   :visible_windows,
 
-  forward_methods []
+                   :title,
+                   :hidden?,
+
+                   :show,
+                   :hide,
+
+                   :kill,
+                   :kill9]
 
 end
 
