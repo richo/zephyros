@@ -40,29 +40,12 @@
 
 - (void) handleMessage:(id)msg {
     NSLog(@"new msg: %@", msg);
-    
-    if ([[msg objectAtIndex:0] isEqual:@"register"]) {
-        double delayInSeconds = 2.0;
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            [self sendMessage:msg];
-            [self sendMessage:msg];
-            
-            double delayInSeconds = 2.0;
-            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                [self sendMessage:msg];
-            });
-        });
-        return;
-    }
-    
     [self sendMessage:msg];
 }
 
 - (void) sendMessage:(id)msg {
-    [msg replaceObjectAtIndex:0 withObject:@"response"];
     NSLog(@"sending [%@]", msg);
+    msg = @[[msg objectAtIndex:0], @"ok"];
     
     NSData* data = [NSJSONSerialization dataWithJSONObject:msg options:0 error:NULL];
     NSString* len = [NSString stringWithFormat:@"%ld", [data length]];

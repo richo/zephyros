@@ -2,6 +2,23 @@ require 'socket'
 require 'json'
 require 'thread'
 
+Window = Struct.new(:id)
+Screen = Struct.new(:id)
+App = Struct.new(:id)
+
+class Object
+  def converted
+    if is_a?(Array)
+      map(&:converted)
+    elsif is_a?(Hash) && has_key?('_class')
+      klass = Kernel.const_get(self['_class'])
+      klass.new(self['_id'])
+    else
+      self
+    end
+  end
+end
+
 class Zeph
 
   def initialize
@@ -13,16 +30,17 @@ class Zeph
     at_exit { thread.join }
   end
 
-  def request(*data)
-    id = send_raw 'request', data
+  def request(data)
+    id = send_raw data
 
     val = @queues[id].pop
     @queues.delete id
-    return val
+    return val.converted
   end
 
-  def register(*data, &blk)
-    id = send_raw 'register', data
+  def register(data, blk)
+    p data
+    id = send_raw data
 
     Thread.new do
       loop do
@@ -34,10 +52,10 @@ class Zeph
 
   private
 
-  def send_raw(type, data)
+  def send_raw(data)
     id = @id += 1
     @queues[id] = Queue.new
-    json = [type, id].concat(data).to_json
+    json = [id].concat(data).to_json
     @sock.write "#{json.size}\n#{json}"
     return id
   end
@@ -48,7 +66,7 @@ class Zeph
         size = @sock.gets
         msg = @sock.read(size.to_i)
         val = JSON.load(msg)
-        id = val[1]
+        id = val[0]
         @queues[id] << val
       end
     end
@@ -56,17 +74,36 @@ class Zeph
 
 end
 
-
 $zeph = Zeph.new
+
+
+
+class API
+
+  class << self
+
+    def all_windows
+      $zeph.request [0, 'all_windows']
+    end
+
+    def bind(key, mods, &blk)
+      $zeph.register [0, 'bind', key, mods], blk
+    end
+
+  end
+
+end
+
+
 
 10.times do |i|
 
   if i == 5
-    $zeph.register 'bind', 'mash+d' do |args|
+    API.bind 'd', ['cmd', 'opt'] do |args|
       p args
     end
   end
 
-  val = $zeph.request 'set_title', 'woot'
-  p val
+  p API.all_windows
+
 end
