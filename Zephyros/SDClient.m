@@ -39,8 +39,13 @@
 - (void) handleMessage:(id)msg {
     NSLog(@"new msg: %@", msg);
     
-//    if ([[msg objectAtIndex:1] isEqual:@3])
-//        [self sendMessage:[@[@"calback", @12] mutableCopy]];
+    if ([[msg objectAtIndex:0] isEqual:@"register"]) {
+        double delayInSeconds = 2.0;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [self sendMessage:msg];
+        });
+    }
     
     [self sendMessage:msg];
 }

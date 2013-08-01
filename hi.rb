@@ -9,9 +9,9 @@ class Zeph
     @id = 0
     @queues = {}
 
-    listen_forever
+    thread = listen_forever
     at_exit do
-      @thread.join
+      thread.join
       @s.close
     end
   end
@@ -27,10 +27,13 @@ class Zeph
   def register(*data, &blk)
     id = write 'register', data
 
-    loop do
-      event = @queues[id].pop
-      blk.call event
+    thread = Thread.new do
+      loop do
+        event = @queues[id].pop
+        blk.call event
+      end
     end
+    at_exit { thread.join }
   end
 
   private
@@ -44,7 +47,7 @@ class Zeph
   end
 
   def listen_forever
-    @thread = Thread.new do
+    Thread.new do
       loop do
         val = get
         id = val[1]
@@ -64,10 +67,14 @@ end
 
 $z = Zeph.new
 
+10.times do |i|
 
-10.times do
+  if i == 5
+    $z.register 'bind', 'mash+d' do |args|
+      p args
+    end
+  end
+
   val = $z.send 'set_title', 'woot'
   p val
 end
-
-# p @queues[12].pop
