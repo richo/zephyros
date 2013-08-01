@@ -27,24 +27,22 @@ class Zeph
     at_exit { thread.join }
   end
 
-  def pop_by_id(id)
-    o = @queues[id].pop
-    o[1].converted
-  end
-
   def send_message(data, &blk)
-    id = send_raw data
+    id = @id += 1
+    @queues[id] = Queue.new
+    json = [id].concat(data).to_json
+    @sock.write "#{json.size}\n#{json}"
 
     if blk.nil?
-      o = pop_by_id(id)
+      o = @queues[id].pop
       @queues.delete(id)
       return o
     else
       Thread.new do
-        num_future_calls = pop_by_id(id)
+        num_future_calls = @queues[id].pop
 
         loopblk = lambda do
-          event = pop_by_id(id)
+          event = @queues[id].pop
           blk.call event
         end
 
@@ -62,21 +60,14 @@ class Zeph
 
   private
 
-  def send_raw(data)
-    id = @id += 1
-    @queues[id] = Queue.new
-    json = [id].concat(data).to_json
-    @sock.write "#{json.size}\n#{json}"
-    return id
-  end
-
   def listen_forever
     Thread.new do
       loop do
         size = @sock.gets
         msg = @sock.read(size.to_i)
-        obj = JSON.load(msg)
-        id = obj[0]
+        j = JSON.load(msg)
+        id = j[0]
+        obj = j[1].converted
         @queues[id].push obj
       end
     end
