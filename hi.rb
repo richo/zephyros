@@ -15,79 +15,49 @@ class Object
   end
 end
 
-class HashQueue
-
-  def initialize
-    @que = Queue.new
-  end
-
-  def pop(key)
-    val = @que.pop(true)
-    # puts "VAL is #{val.inspect}"
-    return val
-  rescue ThreadError
-    # puts "crap #{val.inspect}"
-    retry
-
-    # @mutex.synchronize{
-    #   while true
-    #     if @que.has_key?(key) && !@que.empty?
-    #       val = @que[key].pop
-    #       @que.delete(key) if @que[key].empty?
-    #       return val
-    #     else
-    #       raise ThreadError, "queue empty" if non_block
-    #       @waiting.push Thread.current
-    #       @mutex.sleep
-    #     end
-    #   end
-    # }
-  end
-
-  def push(key, obj)
-    @que.push obj
-
-    # @mutex.synchronize{
-    #   @que[key] ||= []
-    #   @que[key].push obj
-    #   begin
-    #     t = @waiting.shift
-    #     t.wakeup if t
-    #   rescue ThreadError
-    #     retry
-    #   end
-    # }
-  end
-
-end
-
 class Zeph
 
   def initialize
     @sock = TCPSocket.new 'localhost', 1235
     @id = 0
-    @queues = HashQueue.new
+    @queue = Queue.new
 
     trap("SIGINT") { exit }
     thread = listen_forever
     at_exit { thread.join }
   end
 
+  def pop_by_id(id)
+    q = Queue.new
+
+    Thread.new do
+      loop do
+        obj = @queue.pop
+        if obj[0] == id
+          q.push obj
+          break
+        else
+          @queue.push obj
+        end
+      end
+    end
+
+    obj = q.pop
+    return obj[1].converted
+  end
+
   def send_message(data, &blk)
     id = send_raw data
 
     if blk.nil?
-      val = @queues.pop(id)
-      return val[1].converted
+      pop_by_id(id)
     else
       Thread.new do
-        times = @queues.pop(id) # dumb protocol
-
-        num_future_calls = times[1]
+        num_future_calls = pop_by_id(id) # dumb protocol
 
         loopblk = lambda do
-          event = @queues.pop(id)
-          blk.call event[1].converted
+          event = pop_by_id(id)
+          blk.call event
         end
 
         if num_future_calls > 0
@@ -114,9 +84,7 @@ class Zeph
       loop do
         size = @sock.gets
         msg = @sock.read(size.to_i)
-        val = JSON.load(msg)
-        id = val[0]
-        @queues.push(id, val)
+        @queue.push JSON.load(msg)
       end
     end
   end
@@ -406,27 +374,29 @@ end
 #   end
 
 
-puts 'waiting'
 API.bind 'd', ['cmd', 'shift'] do
   puts 'ok'
 end
-puts 'done 1'
-win = API.focused_window
-puts 'done 2'
+
+p win = API.focused_window
 p win.title
-puts 'done 3'
-win2 = API.focused_window
-puts 'done 4'
-p win.title
-puts 'done'
+
+
 API.choose_from ['a', 'b'], 'stuff', 20, 20 do |idx|
   p idx
 end
+
+
+win2 = API.focused_window
+p win.title
 puts 'done'
 
 p win2.title
 p win
 p win2
+
+
+
 
 # end
 

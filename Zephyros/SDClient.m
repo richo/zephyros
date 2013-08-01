@@ -141,6 +141,7 @@
                                 [[SDKeyBinder sharedKeyBinder] bind:[args objectAtIndex:0]
                                                           modifiers:[args objectAtIndex:1]
                                                                  fn:^{
+                                                                     NSLog(@"bind");
                                                                      [client sendResponse:nil forID:msgID];
                                                                  }];
                                 [[SDKeyBinder sharedKeyBinder] finalizeNewKeyBindings];
