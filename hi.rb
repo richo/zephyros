@@ -252,11 +252,11 @@ class Window < Struct.new(:id)
   end
 
   def frame=(arg)
-    Rect.from_hash $zeph.request([id, :set_frame, arg.to_hash])
+    $zeph.request([id, :set_frame, arg.to_hash])
   end
 
   def top_left=(arg)
-    Point.from_hash $zeph.request([id, :set_top_left, arg.to_hash])
+    $zeph.request([id, :set_top_left, arg.to_hash])
   end
 
   def size=(arg)
@@ -351,5 +351,5 @@ end
 API.alert 'sup', 3
 
 
-win = Window.new(3)
-p win.title
+# win = Window.new(3)
+# win.frame = Rect.new
