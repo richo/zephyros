@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		940BF5E9171FA49B0041089B /* SDJSCallback.m in Sources */ = {isa = PBXBuildFile; fileRef = 940BF5E8171FA49B0041089B /* SDJSCallback.m */; };
 		943921BA1719B1EE00F63073 /* statusitem.png in Resources */ = {isa = PBXBuildFile; fileRef = 943921B61719B1EE00F63073 /* statusitem.png */; };
 		943921BB1719B1EE00F63073 /* statusitem_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 943921B71719B1EE00F63073 /* statusitem_pressed.png */; };
 		943921BC1719B1EE00F63073 /* statusitem_pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 943921B81719B1EE00F63073 /* statusitem_pressed@2x.png */; };
@@ -23,16 +22,12 @@
 		945AD7C017A8692A00578BEB /* SDChoiceTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 945AD7B817A8692A00578BEB /* SDChoiceTableView.m */; };
 		945AD7C117A8692A00578BEB /* SDChoice.m in Sources */ = {isa = PBXBuildFile; fileRef = 945AD7BA17A8692A00578BEB /* SDChoice.m */; };
 		945AD7C217A8692A00578BEB /* NSString+Score.m in Sources */ = {isa = PBXBuildFile; fileRef = 945AD7BC17A8692A00578BEB /* NSString+Score.m */; };
-		945B18091720FBB40067C834 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 945B18081720FBB40067C834 /* WebKit.framework */; };
-		9463D42817A76EDA00A3E905 /* ruby21 in Resources */ = {isa = PBXBuildFile; fileRef = 9463D42717A76EDA00A3E905 /* ruby21 */; };
 		9463D43417A77E2C00A3E905 /* SDGeometry.m in Sources */ = {isa = PBXBuildFile; fileRef = 9463D43317A77E2C00A3E905 /* SDGeometry.m */; };
 		946B3AAF1721C5C800FB05F3 /* logwindow.html in Resources */ = {isa = PBXBuildFile; fileRef = 946B3AAE1721C5C800FB05F3 /* logwindow.html */; };
 		94779BD117A85CB000649169 /* Licenses in Resources */ = {isa = PBXBuildFile; fileRef = 94779BD017A85CB000649169 /* Licenses */; };
 		947DC99317A5BC990082D095 /* SDConfigChooserWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 947DC99117A5BC990082D095 /* SDConfigChooserWindowController.m */; };
 		947DC99417A5BC990082D095 /* SDConfigChooserWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 947DC99217A5BC990082D095 /* SDConfigChooserWindow.xib */; };
 		947DC99D17A5D0940082D095 /* SDConfigWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 947DC99C17A5D0940082D095 /* SDConfigWatcher.m */; };
-		947DC9A017A5D3B50082D095 /* SDJS.m in Sources */ = {isa = PBXBuildFile; fileRef = 947DC99F17A5D3B50082D095 /* SDJS.m */; };
-		947DC9A317A5D8610082D095 /* SDRuby.m in Sources */ = {isa = PBXBuildFile; fileRef = 947DC9A217A5D8610082D095 /* SDRuby.m */; };
 		947DC9A517A5E1430082D095 /* api.rb in Resources */ = {isa = PBXBuildFile; fileRef = 947DC9A417A5E1430082D095 /* api.rb */; };
 		947E9955171CA9A9006F30AC /* coffee-script.js in Resources */ = {isa = PBXBuildFile; fileRef = 947E9953171CA99C006F30AC /* coffee-script.js */; };
 		947E9958171CEFB5006F30AC /* SDAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 947E9957171CEFB5006F30AC /* SDAPI.m */; };
@@ -53,18 +48,11 @@
 		94873F67171929A0000AC0A6 /* SDKeyBinder.m in Sources */ = {isa = PBXBuildFile; fileRef = 94873F66171929A0000AC0A6 /* SDKeyBinder.m */; };
 		94873F6A17193270000AC0A6 /* SDKeyBindingTranslator.m in Sources */ = {isa = PBXBuildFile; fileRef = 94873F6917193270000AC0A6 /* SDKeyBindingTranslator.m */; };
 		94873F6D171937BC000AC0A6 /* SDWindowProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 94873F6C171937BC000AC0A6 /* SDWindowProxy.m */; };
-		9495B457171959B4002C9EF5 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9495B456171959B4002C9EF5 /* JavaScriptCore.framework */; };
 		9495B45A17197396002C9EF5 /* SDUniversalAccessHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9495B45917197396002C9EF5 /* SDUniversalAccessHelper.m */; };
-		94AC665317A6FDD7007EA74C /* SDRubyObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 94AC665217A6FDD7007EA74C /* SDRubyObject.m */; };
 		94B255A317A9AE0E008CFD26 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B255A217A9AE0E008CFD26 /* GCDAsyncSocket.m */; };
 		94B255A517A9AF2A008CFD26 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94B255A417A9AF2A008CFD26 /* Security.framework */; };
 		94B255A817A9B5D8008CFD26 /* SDClientListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B255A717A9B5D8008CFD26 /* SDClientListener.m */; };
 		94B255AB17A9B5E2008CFD26 /* SDClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B255AA17A9B5E2008CFD26 /* SDClient.m */; };
-		94C85825171C551B007790F2 /* JSCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94C85824171C551B007790F2 /* JSCocoa.framework */; };
-		94C85826171C55C6007790F2 /* JSCocoa.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 94C85824171C551B007790F2 /* JSCocoa.framework */; };
-		94CC2CFA17A8B8150048190F /* Nu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CC2CF917A8B8150048190F /* Nu.framework */; };
-		94CC2CFB17A8B8170048190F /* Nu.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 94CC2CF917A8B8150048190F /* Nu.framework */; };
-		94CC2D0017A8BE710048190F /* NuBlock+Callback.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CC2CFF17A8BE710048190F /* NuBlock+Callback.m */; };
 		94D07FB31723741000CF44E9 /* api.coffee in Resources */ = {isa = PBXBuildFile; fileRef = 94D07FB21723741000CF44E9 /* api.coffee */; };
 		94D07FB61723B16900CF44E9 /* SDAppProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 94D07FB51723B16900CF44E9 /* SDAppProxy.m */; };
 		94D07FBA1723BACB00CF44E9 /* SDAppStalker.m in Sources */ = {isa = PBXBuildFile; fileRef = 94D07FB91723BACB00CF44E9 /* SDAppStalker.m */; };
@@ -84,17 +72,13 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				94C85826171C55C6007790F2 /* JSCocoa.framework in CopyFiles */,
 				94E0964C171ED9D6002D8668 /* Sparkle.framework in CopyFiles */,
-				94CC2CFB17A8B8170048190F /* Nu.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		940BF5E7171FA49B0041089B /* SDJSCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDJSCallback.h; sourceTree = "<group>"; };
-		940BF5E8171FA49B0041089B /* SDJSCallback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDJSCallback.m; sourceTree = "<group>"; };
 		943921B61719B1EE00F63073 /* statusitem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = statusitem.png; sourceTree = "<group>"; };
 		943921B71719B1EE00F63073 /* statusitem_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = statusitem_pressed.png; sourceTree = "<group>"; };
 		943921B81719B1EE00F63073 /* statusitem_pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "statusitem_pressed@2x.png"; sourceTree = "<group>"; };
@@ -117,8 +101,6 @@
 		945AD7BA17A8692A00578BEB /* SDChoice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDChoice.m; sourceTree = "<group>"; };
 		945AD7BB17A8692A00578BEB /* NSString+Score.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Score.h"; sourceTree = "<group>"; };
 		945AD7BC17A8692A00578BEB /* NSString+Score.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Score.m"; sourceTree = "<group>"; };
-		945B18081720FBB40067C834 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
-		9463D42717A76EDA00A3E905 /* ruby21 */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ruby21; path = ThirdParty/ruby21; sourceTree = SOURCE_ROOT; };
 		9463D43217A77E2C00A3E905 /* SDGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDGeometry.h; sourceTree = "<group>"; };
 		9463D43317A77E2C00A3E905 /* SDGeometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDGeometry.m; sourceTree = "<group>"; };
 		946B3AAE1721C5C800FB05F3 /* logwindow.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = logwindow.html; sourceTree = "<group>"; };
@@ -129,10 +111,6 @@
 		947DC99217A5BC990082D095 /* SDConfigChooserWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SDConfigChooserWindow.xib; sourceTree = "<group>"; };
 		947DC99B17A5D0940082D095 /* SDConfigWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDConfigWatcher.h; sourceTree = "<group>"; };
 		947DC99C17A5D0940082D095 /* SDConfigWatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDConfigWatcher.m; sourceTree = "<group>"; };
-		947DC99E17A5D3B50082D095 /* SDJS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDJS.h; sourceTree = "<group>"; };
-		947DC99F17A5D3B50082D095 /* SDJS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDJS.m; sourceTree = "<group>"; };
-		947DC9A117A5D8610082D095 /* SDRuby.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDRuby.h; sourceTree = "<group>"; };
-		947DC9A217A5D8610082D095 /* SDRuby.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDRuby.m; sourceTree = "<group>"; };
 		947DC9A417A5E1430082D095 /* api.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = api.rb; sourceTree = "<group>"; };
 		947E9953171CA99C006F30AC /* coffee-script.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "coffee-script.js"; sourceTree = "<group>"; };
 		947E9956171CEFB5006F30AC /* SDAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDAPI.h; sourceTree = "<group>"; };
@@ -170,11 +148,8 @@
 		94873F6917193270000AC0A6 /* SDKeyBindingTranslator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDKeyBindingTranslator.m; sourceTree = "<group>"; };
 		94873F6B171937BC000AC0A6 /* SDWindowProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWindowProxy.h; sourceTree = "<group>"; };
 		94873F6C171937BC000AC0A6 /* SDWindowProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDWindowProxy.m; sourceTree = "<group>"; };
-		9495B456171959B4002C9EF5 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		9495B45817197396002C9EF5 /* SDUniversalAccessHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDUniversalAccessHelper.h; sourceTree = "<group>"; };
 		9495B45917197396002C9EF5 /* SDUniversalAccessHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDUniversalAccessHelper.m; sourceTree = "<group>"; };
-		94AC665117A6FDD7007EA74C /* SDRubyObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDRubyObject.h; sourceTree = "<group>"; };
-		94AC665217A6FDD7007EA74C /* SDRubyObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDRubyObject.m; sourceTree = "<group>"; };
 		94B255A117A9AE0E008CFD26 /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncSocket.h; sourceTree = "<group>"; };
 		94B255A217A9AE0E008CFD26 /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncSocket.m; sourceTree = "<group>"; };
 		94B255A417A9AF2A008CFD26 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -182,10 +157,6 @@
 		94B255A717A9B5D8008CFD26 /* SDClientListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDClientListener.m; sourceTree = "<group>"; };
 		94B255A917A9B5E2008CFD26 /* SDClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDClient.h; sourceTree = "<group>"; };
 		94B255AA17A9B5E2008CFD26 /* SDClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDClient.m; sourceTree = "<group>"; };
-		94C85824171C551B007790F2 /* JSCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JSCocoa.framework; path = ThirdParty/JSCocoa.framework; sourceTree = "<group>"; };
-		94CC2CF917A8B8150048190F /* Nu.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nu.framework; path = ../ThirdParty/Nu.framework; sourceTree = "<group>"; };
-		94CC2CFE17A8BE710048190F /* NuBlock+Callback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NuBlock+Callback.h"; sourceTree = "<group>"; };
-		94CC2CFF17A8BE710048190F /* NuBlock+Callback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NuBlock+Callback.m"; sourceTree = "<group>"; };
 		94D07FB21723741000CF44E9 /* api.coffee */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = api.coffee; sourceTree = "<group>"; };
 		94D07FB41723B16900CF44E9 /* SDAppProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDAppProxy.h; sourceTree = "<group>"; };
 		94D07FB51723B16900CF44E9 /* SDAppProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDAppProxy.m; sourceTree = "<group>"; };
@@ -208,14 +179,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				94B255A517A9AF2A008CFD26 /* Security.framework in Frameworks */,
-				945B18091720FBB40067C834 /* WebKit.framework in Frameworks */,
 				94454B3F171B479B003EF64E /* QuartzCore.framework in Frameworks */,
-				9495B457171959B4002C9EF5 /* JavaScriptCore.framework in Frameworks */,
 				94873F60171920B4000AC0A6 /* Carbon.framework in Frameworks */,
 				94873F2E17191F40000AC0A6 /* Cocoa.framework in Frameworks */,
-				94C85825171C551B007790F2 /* JSCocoa.framework in Frameworks */,
 				94E0964B171ED905002D8668 /* Sparkle.framework in Frameworks */,
-				94CC2CFA17A8B8150048190F /* Nu.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,17 +237,6 @@
 			name = "Fuzzy Matching";
 			sourceTree = "<group>";
 		};
-		947DC98917A5B6D20082D095 /* JS */ = {
-			isa = PBXGroup;
-			children = (
-				940BF5E7171FA49B0041089B /* SDJSCallback.h */,
-				940BF5E8171FA49B0041089B /* SDJSCallback.m */,
-				947DC99E17A5D3B50082D095 /* SDJS.h */,
-				947DC99F17A5D3B50082D095 /* SDJS.m */,
-			);
-			name = JS;
-			sourceTree = "<group>";
-		};
 		947DC98B17A5B9400082D095 /* Events */ = {
 			isa = PBXGroup;
 			children = (
@@ -290,17 +246,6 @@
 				94D07FBC1723C61C00CF44E9 /* SDEventListener.m */,
 			);
 			name = Events;
-			sourceTree = "<group>";
-		};
-		947DC98F17A5BADE0082D095 /* Ruby */ = {
-			isa = PBXGroup;
-			children = (
-				947DC9A117A5D8610082D095 /* SDRuby.h */,
-				947DC9A217A5D8610082D095 /* SDRuby.m */,
-				94AC665117A6FDD7007EA74C /* SDRubyObject.h */,
-				94AC665217A6FDD7007EA74C /* SDRubyObject.m */,
-			);
-			name = Ruby;
 			sourceTree = "<group>";
 		};
 		947DC99517A5BCA90082D095 /* Config Chooser */ = {
@@ -346,11 +291,8 @@
 		94873F2C17191F40000AC0A6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				945B18081720FBB40067C834 /* WebKit.framework */,
 				94E0964A171ED905002D8668 /* Sparkle.framework */,
-				94C85824171C551B007790F2 /* JSCocoa.framework */,
 				94454B3E171B479B003EF64E /* QuartzCore.framework */,
-				9495B456171959B4002C9EF5 /* JavaScriptCore.framework */,
 				94873F5F171920B4000AC0A6 /* Carbon.framework */,
 				94873F2D17191F40000AC0A6 /* Cocoa.framework */,
 				94873F2F17191F40000AC0A6 /* Other Frameworks */,
@@ -386,9 +328,6 @@
 				947DC99617A5BCD30082D095 /* Log Window */,
 				94873F611719222D000AC0A6 /* Alert Window */,
 				94D07FB71723BAAE00CF44E9 /* Proxies */,
-				94CC2CFD17A8BD9E0048190F /* Nu */,
-				947DC98F17A5BADE0082D095 /* Ruby */,
-				947DC98917A5B6D20082D095 /* JS */,
 				947DC98B17A5B9400082D095 /* Events */,
 				943921B41719AF5900F63073 /* API */,
 				94873F6417192987000AC0A6 /* Helpers */,
@@ -446,8 +385,6 @@
 		94873F631719223F000AC0A6 /* Third Party */ = {
 			isa = PBXGroup;
 			children = (
-				94CC2CF917A8B8150048190F /* Nu.framework */,
-				9463D42717A76EDA00A3E905 /* ruby21 */,
 				94873F5E1719209B000AC0A6 /* Global Shortcuts */,
 			);
 			name = "Third Party";
@@ -464,15 +401,6 @@
 				94D307FC1719FF0F00D392B1 /* SDOpenAtLogin.m */,
 			);
 			name = Helpers;
-			sourceTree = "<group>";
-		};
-		94CC2CFD17A8BD9E0048190F /* Nu */ = {
-			isa = PBXGroup;
-			children = (
-				94CC2CFE17A8BE710048190F /* NuBlock+Callback.h */,
-				94CC2CFF17A8BE710048190F /* NuBlock+Callback.m */,
-			);
-			name = Nu;
 			sourceTree = "<group>";
 		};
 		94D07FB71723BAAE00CF44E9 /* Proxies */ = {
@@ -558,7 +486,6 @@
 				94D07FB31723741000CF44E9 /* api.coffee in Resources */,
 				947DC99417A5BC990082D095 /* SDConfigChooserWindow.xib in Resources */,
 				947DC9A517A5E1430082D095 /* api.rb in Resources */,
-				9463D42817A76EDA00A3E905 /* ruby21 in Resources */,
 				94779BD117A85CB000649169 /* Licenses in Resources */,
 				945AD7BE17A8692A00578BEB /* SDFuzzyMatcherWindow.xib in Resources */,
 			);
@@ -604,22 +531,17 @@
 				94454B37171B4179003EF64E /* SDAlertWindowController.m in Sources */,
 				947E9958171CEFB5006F30AC /* SDAPI.m in Sources */,
 				947E995B171CF9DE006F30AC /* SDConfigLoader.m in Sources */,
-				940BF5E9171FA49B0041089B /* SDJSCallback.m in Sources */,
 				94D07FB61723B16900CF44E9 /* SDAppProxy.m in Sources */,
 				94D07FBA1723BACB00CF44E9 /* SDAppStalker.m in Sources */,
 				94D07FBD1723C61C00CF44E9 /* SDEventListener.m in Sources */,
 				947DC99317A5BC990082D095 /* SDConfigChooserWindowController.m in Sources */,
 				947DC99D17A5D0940082D095 /* SDConfigWatcher.m in Sources */,
-				947DC9A017A5D3B50082D095 /* SDJS.m in Sources */,
-				947DC9A317A5D8610082D095 /* SDRuby.m in Sources */,
-				94AC665317A6FDD7007EA74C /* SDRubyObject.m in Sources */,
 				9463D43417A77E2C00A3E905 /* SDGeometry.m in Sources */,
 				945AD7BD17A8692A00578BEB /* SDFuzzyMatcher.m in Sources */,
 				945AD7BF17A8692A00578BEB /* SDFuzzyMatcherWindowController.m in Sources */,
 				945AD7C017A8692A00578BEB /* SDChoiceTableView.m in Sources */,
 				945AD7C117A8692A00578BEB /* SDChoice.m in Sources */,
 				945AD7C217A8692A00578BEB /* NSString+Score.m in Sources */,
-				94CC2D0017A8BE710048190F /* NuBlock+Callback.m in Sources */,
 				94B255A317A9AE0E008CFD26 /* GCDAsyncSocket.m in Sources */,
 				94B255A817A9B5D8008CFD26 /* SDClientListener.m in Sources */,
 				94B255AB17A9B5E2008CFD26 /* SDClient.m in Sources */,
@@ -719,14 +641,8 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Zephyros/Zephyros-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"\"$(SRCROOT)/ThirdParty/ruby21/include/ruby-2.0.0\"",
-					"\"$(SRCROOT)/ThirdParty/Nu.framework/Headers\"",
-				);
 				INFOPLIST_FILE = "Zephyros/Zephyros-Info.plist";
-				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/ThirdParty/ruby21/lib\"";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				OTHER_LDFLAGS = "-lruby-static";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -744,14 +660,8 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Zephyros/Zephyros-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"\"$(SRCROOT)/ThirdParty/ruby21/include/ruby-2.0.0\"",
-					"\"$(SRCROOT)/ThirdParty/Nu.framework/Headers\"",
-				);
 				INFOPLIST_FILE = "Zephyros/Zephyros-Info.plist";
-				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/ThirdParty/ruby21/lib\"";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				OTHER_LDFLAGS = "-lruby-static";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

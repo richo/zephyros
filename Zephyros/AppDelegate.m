@@ -42,8 +42,8 @@
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"configType": @"coffee"}];
     
     [self prepareStatusItem];
-    [[SDConfigLoader sharedConfigLoader] prepareScriptingBridge];
-    [[SDConfigLoader sharedConfigLoader] reloadConfig];
+//    [[SDConfigLoader sharedConfigLoader] prepareScriptingBridge];
+//    [[SDConfigLoader sharedConfigLoader] reloadConfig];
     [[SDAppStalker sharedAppStalker] beginStalking];
 }
 
@@ -53,7 +53,7 @@
 }
 
 - (IBAction) reloadConfig:(id)sender {
-    [[SDConfigLoader sharedConfigLoader] reloadConfig];
+//    [[SDConfigLoader sharedConfigLoader] reloadConfig];
 }
 
 - (void) menuNeedsUpdate:(NSMenu *)menu {

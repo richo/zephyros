@@ -389,3 +389,13 @@ p win2
 
 # win = Window.new(3)
 # win.frame = Rect.new
+
+
+
+
+
+
+#### TODO
+
+# Rect#integral!
+# clipboard_contents

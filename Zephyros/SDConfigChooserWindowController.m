@@ -44,7 +44,7 @@
     
     [self close];
     
-    [[SDConfigLoader sharedConfigLoader] reloadConfig];
+//    [[SDConfigLoader sharedConfigLoader] reloadConfig];
 }
 
 - (IBAction) whateverIGiveUp:(id)sender {

@@ -9,7 +9,7 @@
 #import "SDEventListener.h"
 
 #import "SDCallback.h"
-#import <JSCocoa/JSCocoa.h>
+//#import <JSCocoa/JSCocoa.h>
 
 @interface SDEventObserver : NSObject
 @property NSString* eventName;
