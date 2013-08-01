@@ -16,6 +16,7 @@
 #import "SDConfigChooserWindowController.h"
 
 
+#import "SDAlertWindowController.h"
 #import "SDClientListener.h"
 
 
@@ -45,6 +46,9 @@
 //    [[SDConfigLoader sharedConfigLoader] prepareScriptingBridge];
 //    [[SDConfigLoader sharedConfigLoader] reloadConfig];
     [[SDAppStalker sharedAppStalker] beginStalking];
+    
+    [[SDAlertWindowController sharedAlertWindowController] show:@"Zephyros power, activate!"
+                                                          delay:@1.5];
 }
 
 - (IBAction) chooseConfig:(id)sender {
