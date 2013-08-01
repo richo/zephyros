@@ -28,7 +28,7 @@
                                 tag:1];
     }
     else if (tag == 1) {
-        id obj = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:0];
+        id obj = [NSJSONSerialization JSONObjectWithData:data options:0 error:0];
         [self handleMessage:obj];
         [self waitForNewMessage];
     }

@@ -2,10 +2,6 @@ require 'socket'
 require 'json'
 require 'thread'
 
-Window = Struct.new(:id)
-Screen = Struct.new(:id)
-App = Struct.new(:id)
-
 class Object
   def converted
     if is_a?(Array)
@@ -76,22 +72,82 @@ end
 $zeph = Zeph.new
 
 
+module ZephProxy
 
-class API
+  def forward_methods(methods)
+    methods.each do |method_name|
+      define_method(method_name) do |*args, &blk|
+        $zeph.request [id, method_name, *args], &blk
+      end
+    end
+  end
+
+end
+
+
+module API
 
   class << self
 
-    def all_windows
-      $zeph.request [0, 'all_windows']
-    end
+    extend ZephProxy
 
-    def bind(key, mods, &blk)
-      $zeph.register [0, 'bind', key, mods], blk
-    end
+    define_method(:id) { 0 }
+
+    forward_methods [:choose_from,
+                     :alert,
+                     :log,
+
+                     :bind,
+                     :listen,
+
+                     :focused_window,
+                     :visible_windows,
+                     :all_windows,
+
+                     :main_screen,
+                     :all_screens,
+
+                     :running_apps,
+                    ]
 
   end
 
 end
+
+class Window < Struct.new(:id)
+
+  extend ZephProxy
+
+  forward_methods [:title]
+
+end
+
+class Screen < Struct.new(:id)
+
+  extend ZephProxy
+
+  forward_methods []
+
+end
+
+class App < Struct.new(:id)
+
+  extend ZephProxy
+
+  forward_methods []
+
+end
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -106,3 +162,9 @@ end
   p API.all_windows
 
 end
+
+API.alert 'sup', 3
+
+
+win = Window.new(3)
+p win.title
