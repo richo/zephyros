@@ -7,7 +7,7 @@ class Object
     if is_a?(Array)
       map(&:converted)
     elsif is_a?(Hash) && has_key?('_type')
-      klass = Kernel.const_get(self['_type'])
+      klass = Kernel.const_get(self['_type'].capitalize)
       klass.new(self['_id'])
     else
       self
@@ -15,33 +15,84 @@ class Object
   end
 end
 
+class HashQueue
+
+  def initialize
+    @que = {}
+    @waiting = []
+    @que.taint          # enable tainted communication
+    @waiting.taint
+    self.taint
+    @mutex = Mutex.new
+  end
+
+  def pop(key, non_block=false)
+    @mutex.synchronize{
+      while true
+        if @que.has_key?(key) && !@que.empty?
+          val = @que[key].pop
+          @que.delete(key) if @que[key].empty?
+          return val
+        else
+          raise ThreadError, "queue empty" if non_block
+          @waiting.push Thread.current
+          @mutex.sleep
+        end
+      end
+    }
+  end
+
+  def push(key, obj)
+    @mutex.synchronize{
+      @que[key] ||= []
+      @que[key].push obj
+      begin
+        t = @waiting.shift
+        t.wakeup if t
+      rescue ThreadError
+        retry
+      end
+    }
+  end
+
+end
+
 class Zeph
 
   def initialize
     @sock = TCPSocket.new 'localhost', 1235
     @id = 0
-    @queues = {}
+    @queues = HashQueue.new
 
+    trap("SIGINT") { exit }
     thread = listen_forever
     at_exit { thread.join }
   end
 
-  def request(data)
+  def send_message(data, &blk)
     id = send_raw data
 
-    val = @queues[id].pop
-    @queues.delete id
-    return val[1].converted
-  end
+    if blk.nil?
+      val = @queues.pop(id)
+      return val[1].converted
+    else
+      Thread.new do
+        times = @queues.pop(id) # dumb protocol
 
-  def register(data, blk)
-    id = send_raw data
+        num_future_calls = times[1]
 
-    Thread.new do
-      loop do
-        event = @queues[id].pop
-        blk.call event[1].converted
+        loopblk = lambda do
+          event = @queues.pop(id)
+          blk.call event[1].converted
+        end
+
+        if num_future_calls > 0
+          num_future_calls.times { loopblk.call }
+        else
+          loop { loopblk.call }
+        end
       end
+      return nil
     end
   end
 
@@ -49,7 +100,6 @@ class Zeph
 
   def send_raw(data)
     id = @id += 1
-    @queues[id] = Queue.new
     json = [id].concat(data).to_json
     @sock.write "#{json.size}\n#{json}"
     return id
@@ -62,7 +112,7 @@ class Zeph
         msg = @sock.read(size.to_i)
         val = JSON.load(msg)
         id = val[0]
-        @queues[id] << val
+        @queues.push(id, val)
       end
     end
   end
@@ -77,7 +127,7 @@ module ZephProxy
   def forward_methods(methods)
     methods.each do |method_name|
       define_method(method_name) do |*args, &blk|
-        $zeph.request [id, method_name, *args], &blk
+        $zeph.send_message [id, method_name, *args], &blk
       end
     end
   end
@@ -94,6 +144,9 @@ module API
     forward_methods [:choose_from,
                      :alert,
                      :log,
+
+                     :clipboard_contents,
+                     :reload_config,
 
                      :bind,
                      :listen,
@@ -212,7 +265,14 @@ $window_grid_width = 3
 $window_grid_margin_x = 5
 $window_grid_margin_y = 5
 
-class Window < Struct.new(:id)
+class ZephObject
+  attr_accessor :id
+  def initialize(id)
+    self.id = id
+  end
+end
+
+class Window < ZephObject
 
   extend ZephProxy
   forward_methods [:other_windows_on_same_screen,
@@ -240,27 +300,27 @@ class Window < Struct.new(:id)
                    :title]
 
   def frame
-    Rect.from_hash $zeph.request([id, :frame])
+    Rect.from_hash $zeph.send_message([id, :frame])
   end
 
   def top_left
-    Point.from_hash $zeph.request([id, :top_left])
+    Point.from_hash $zeph.send_message([id, :top_left])
   end
 
   def size
-    Size.from_hash $zeph.request([id, :size])
+    Size.from_hash $zeph.send_message([id, :size])
   end
 
   def frame=(arg)
-    $zeph.request([id, :set_frame, arg.to_hash])
+    $zeph.send_message([id, :set_frame, arg.to_hash])
   end
 
   def top_left=(arg)
-    $zeph.request([id, :set_top_left, arg.to_hash])
+    $zeph.send_message([id, :set_top_left, arg.to_hash])
   end
 
   def size=(arg)
-    $zeph.request([id, :set_size, arg.to_hash])
+    $zeph.send_message([id, :set_size, arg.to_hash])
   end
 
   def get_grid
@@ -290,23 +350,23 @@ class Window < Struct.new(:id)
 
 end
 
-class Screen < Struct.new(:id)
+class Screen < ZephObject
 
   extend ZephProxy
   forward_methods [:next_screen,
                    :previous_screen]
 
   def frame_including_dock_and_menu
-    Rect.from_hash $zeph.request([id, :frame_including_dock_and_menu])
+    Rect.from_hash $zeph.send_message([id, :frame_including_dock_and_menu])
   end
 
   def frame_without_dock_or_menu
-    Rect.from_hash $zeph.request([id, :frame_without_dock_or_menu])
+    Rect.from_hash $zeph.send_message([id, :frame_without_dock_or_menu])
   end
 
 end
 
-class App < Struct.new(:id)
+class App < ZephObject
 
   extend ZephProxy
   forward_methods [:all_windows,
@@ -336,19 +396,31 @@ end
 
 
 
-10.times do |i|
+# 10.times do |i|
 
-  if i == 5
-    API.bind 'd', ['cmd', 'opt'] do |args|
-      p args
-    end
-  end
+#   if i == 5
+#     API.bind 'd', ['cmd', 'opt'] do |args|
+#       p args
+#     end
+#   end
 
-  p API.all_windows
 
+win = API.focused_window
+p win.title
+win2 = API.focused_window
+p win.title
+
+API.choose_from ['a', 'b'], 'stuff', 20, 20 do |idx|
+  p idx
 end
 
-API.alert 'sup', 3
+p win2.title
+p win
+p win2
+
+# end
+
+# API.alert 'sup', 3
 
 
 # win = Window.new(3)

@@ -62,7 +62,7 @@
               title:(NSString*)title
               lines:(NSNumber*)linesTall
               chars:(NSNumber*)charsWide
-           callback:(id<SDCallback>)callback
+           callback:(void(^)(id idx))callback
 {
     [NSApp activateIgnoringOtherApps:YES];
     [SDFuzzyMatcher showChoices:list
@@ -71,11 +71,11 @@
                     windowTitle:title
                   choseCallback:^(long chosenIndex) {
                       [NSApp hide:self];
-                      [callback call:@[@(chosenIndex)]];
+                      callback(@(chosenIndex));
                   }
                canceledCallback:^{
                    [NSApp hide:self];
-                   [callback call:@[]];
+                   callback([NSNull null]);
                }];
 }
 

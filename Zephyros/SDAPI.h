@@ -28,5 +28,11 @@
 + (SDAPISettings*) settings;
 + (void) doFn:(id<SDCallback>)fn after:(NSNumber*)delayInSeconds;
 + (NSDictionary*) shell:(NSString*)cmd args:(NSArray*)args options:(NSDictionary *)options;
-    
+
++ (void) chooseFrom:(NSArray*)list
+              title:(NSString*)title
+              lines:(NSNumber*)linesTall
+              chars:(NSNumber*)charsWide
+           callback:(void(^)(id idx))callback;
+
 @end
