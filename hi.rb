@@ -56,20 +56,8 @@ class Zeph
     end
   end
 
-  def read_until_newline
-    chars = ""
-    loop do
-      char = @sock.read(1)
-      if char == "\n"
-        return chars
-      else
-        chars << char
-      end
-    end
-  end
-
   def get
-    size = read_until_newline
+    size = @sock.gets
     puts "size is #{size.inspect}"
     msg = @sock.read(size.to_i)
     puts "msg is #{msg.inspect}"
@@ -81,13 +69,12 @@ end
 
 $zeph = Zeph.new
 
-    $zeph.register 'bind', 'mash+d' do |args|
-      p args
-    end
-
 10.times do |i|
 
   if i == 5
+    $zeph.register 'bind', 'mash+d' do |args|
+      p args
+    end
   end
 
   val = $zeph.send 'set_title', 'woot'
