@@ -12,10 +12,10 @@
 #import "SDKeyBindingTranslator.h"
 
 
-@interface SDHotKey : NSObject
-@property NSArray* modifiers;
-@property NSString* key;
-@property (copy) dispatch_block_t fn;
+@interface SDHotKey ()
+
+@property id internalHandler;
+
 @end
 
 @implementation SDHotKey
@@ -33,65 +33,15 @@
             self.key];
 }
 
-- (id) bindAndReturnHandler {
-    return [MASShortcut addGlobalHotkeyMonitorWithShortcut:[self shortcutObject] handler:^{
+- (BOOL) bind {
+    self.internalHandler = [MASShortcut addGlobalHotkeyMonitorWithShortcut:[self shortcutObject] handler:^{
         self.fn();
     }];
+    return self.internalHandler != nil;
 }
 
-@end
-
-
-
-@interface SDKeyBinder ()
-
-@property NSArray* upcomingHotKeys;
-@property NSArray* globalHandlers;
-
-@end
-
-@implementation SDKeyBinder
-
-+ (SDKeyBinder*) sharedKeyBinder {
-    static SDKeyBinder* sharedKeyBinder;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        sharedKeyBinder = [[SDKeyBinder alloc] init];
-    });
-    return sharedKeyBinder;
-}
-
-- (void) bind:(NSString*)key modifiers:(NSArray*)mods fn:(dispatch_block_t)fn {
-    SDHotKey* hotkey = [[SDHotKey alloc] init];
-    hotkey.key = key;
-    hotkey.modifiers = mods;
-    hotkey.fn = fn;
-    
-    self.upcomingHotKeys = [[NSArray arrayWithArray:self.upcomingHotKeys] arrayByAddingObject:hotkey];
-}
-
-- (void) removeKeyBindings {
-    for (id oldHandler in self.globalHandlers) {
-        [MASShortcut removeGlobalHotkeyMonitor:oldHandler];
-    }
-}
-
-- (NSArray*) finalizeNewKeyBindings {
-    NSMutableArray* handlers = [NSMutableArray array];
-    NSMutableArray* failures = [NSMutableArray array];
-    
-    for (SDHotKey* hotkey in self.upcomingHotKeys) {
-        id binding = [hotkey bindAndReturnHandler];
-        if (binding)
-            [handlers addObject:binding];
-        else
-            [failures addObject:[hotkey hotKeyDescription]];
-    }
-    
-    self.globalHandlers = handlers;
-    self.upcomingHotKeys = nil;
-    
-    return failures;
+- (void) unbind {
+    [MASShortcut removeGlobalHotkeyMonitor:self.internalHandler];
 }
 
 @end

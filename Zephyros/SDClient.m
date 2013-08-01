@@ -12,16 +12,26 @@
 
 #import "SDAPI.h"
 #import "SDKeyBinder.h"
+#import "SDLogWindowController.h"
 
 @interface SDClient ()
 
 @property int64_t maxRespObjID;
 @property NSMutableDictionary* returnedObjects;
 
+@property NSMutableArray* hotkeys;
+
 @end
 
 
 @implementation SDClient
+
+- (id) init {
+    if (self = [super init]) {
+        self.hotkeys = [NSMutableArray array];
+    }
+    return self;
+}
 
 - (void) waitForNewMessage {
     [self.sock readDataToData:[@"\n" dataUsingEncoding:NSUTF8StringEncoding]
@@ -137,14 +147,22 @@
         methods = @{
                     @"api": @{
                             @"bind": ^id(SDClient* client, NSNumber* msgID, id recv, NSArray* args) {
-                                [[SDKeyBinder sharedKeyBinder] removeKeyBindings];
-                                [[SDKeyBinder sharedKeyBinder] bind:[args objectAtIndex:0]
-                                                          modifiers:[args objectAtIndex:1]
-                                                                 fn:^{
-                                                                     NSLog(@"bind");
-                                                                     [client sendResponse:nil forID:msgID];
-                                                                 }];
-                                [[SDKeyBinder sharedKeyBinder] finalizeNewKeyBindings];
+                                SDHotKey* hotkey = [[SDHotKey alloc] init];
+                                hotkey.key = [args objectAtIndex:0];
+                                hotkey.modifiers = [args objectAtIndex:1];
+                                hotkey.fn = ^{
+                                    [client sendResponse:nil forID:msgID];
+                                };
+                                
+                                if ([hotkey bind]) {
+                                    [client.hotkeys addObject:hotkey];
+                                }
+                                else {
+                                    NSString* str = [@"Couldn't bind this: " stringByAppendingString: [hotkey hotKeyDescription]];
+                                    [[SDLogWindowController sharedLogWindowController] show:str
+                                                                                       type:SDLogMessageTypeError];
+                                }
+                                
                                 return @-1;
                             },
                             @"focused_window": ^id(SDClient* client, NSNumber* msgID, id recv, NSArray* args) {

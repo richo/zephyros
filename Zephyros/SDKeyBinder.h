@@ -8,15 +8,14 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import "SDCallback.h"
+@interface SDHotKey : NSObject
 
-@interface SDKeyBinder : NSObject
+@property NSArray* modifiers;
+@property NSString* key;
+@property (copy) dispatch_block_t fn;
 
-+ (SDKeyBinder*) sharedKeyBinder;
-
-- (void) bind:(NSString*)key modifiers:(NSArray*)mods fn:(dispatch_block_t)fn;
-
-- (void) removeKeyBindings;
-- (NSArray*) finalizeNewKeyBindings;
+- (BOOL) bind;
+- (void) unbind;
+- (NSString*) hotKeyDescription;
 
 @end
