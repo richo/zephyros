@@ -10,14 +10,11 @@ class Zeph
     @queues = {}
 
     thread = listen_forever
-    at_exit do
-      thread.join
-      @sock.close
-    end
+    at_exit { thread.join }
   end
 
-  def send(*data)
-    id = write 'request', data
+  def request(*data)
+    id = send_raw 'request', data
 
     val = @queues[id].pop
     @queues.delete id
@@ -25,20 +22,19 @@ class Zeph
   end
 
   def register(*data, &blk)
-    id = write 'register', data
+    id = send_raw 'register', data
 
-    thread = Thread.new do
+    Thread.new do
       loop do
         event = @queues[id].pop
         blk.call event
       end
     end
-    at_exit { thread.join }
   end
 
   private
 
-  def write(type, data)
+  def send_raw(type, data)
     id = @id += 1
     @queues[id] = Queue.new
     json = [type, id].concat(data).to_json
@@ -49,17 +45,13 @@ class Zeph
   def listen_forever
     Thread.new do
       loop do
-        val = get
+        size = @sock.gets
+        msg = @sock.read(size.to_i)
+        val = JSON.load(msg)
         id = val[1]
         @queues[id] << val
       end
     end
-  end
-
-  def get
-    size = @sock.gets
-    msg = @sock.read(size.to_i)
-    JSON.load(msg)
   end
 
 end
@@ -75,6 +67,6 @@ $zeph = Zeph.new
     end
   end
 
-  val = $zeph.send 'set_title', 'woot'
+  val = $zeph.request 'set_title', 'woot'
   p val
 end
