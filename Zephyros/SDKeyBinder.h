@@ -14,7 +14,7 @@
 
 + (SDKeyBinder*) sharedKeyBinder;
 
-- (void) bind:(NSString*)key modifiers:(NSArray*)mods fn:(id<SDCallback>)fn;
+- (void) bind:(NSString*)key modifiers:(NSArray*)mods fn:(dispatch_block_t)fn;
 
 - (void) removeKeyBindings;
 - (NSArray*) finalizeNewKeyBindings;

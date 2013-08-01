@@ -15,7 +15,7 @@
 @interface SDHotKey : NSObject
 @property NSArray* modifiers;
 @property NSString* key;
-@property id<SDCallback> fn;
+@property (copy) dispatch_block_t fn;
 @end
 
 @implementation SDHotKey
@@ -35,7 +35,7 @@
 
 - (id) bindAndReturnHandler {
     return [MASShortcut addGlobalHotkeyMonitorWithShortcut:[self shortcutObject] handler:^{
-        [self.fn call:nil];
+        self.fn();
     }];
 }
 
@@ -61,7 +61,7 @@
     return sharedKeyBinder;
 }
 
-- (void) bind:(NSString*)key modifiers:(NSArray*)mods fn:(id<SDCallback>)fn {
+- (void) bind:(NSString*)key modifiers:(NSArray*)mods fn:(dispatch_block_t)fn {
     SDHotKey* hotkey = [[SDHotKey alloc] init];
     hotkey.key = key;
     hotkey.modifiers = mods;

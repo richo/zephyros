@@ -399,20 +399,26 @@ end
 # 10.times do |i|
 
 #   if i == 5
-#     API.bind 'd', ['cmd', 'opt'] do |args|
-#       p args
-#     end
 #   end
 
 
+puts 'waiting'
+API.bind 'd', ['cmd', 'shift'] do
+  puts 'ok'
+end
+puts 'done 1'
 win = API.focused_window
+puts 'done 2'
 p win.title
+puts 'done 3'
 win2 = API.focused_window
+puts 'done 4'
 p win.title
-
+puts 'done'
 API.choose_from ['a', 'b'], 'stuff', 20, 20 do |idx|
   p idx
 end
+puts 'done'
 
 p win2.title
 p win

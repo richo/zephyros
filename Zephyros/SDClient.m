@@ -11,7 +11,7 @@
 #define FOREVER (60*60*24*365)
 
 #import "SDAPI.h"
-
+#import "SDKeyBinder.h"
 
 @interface SDClient ()
 
@@ -136,6 +136,16 @@
     dispatch_once(&onceToken, ^{
         methods = @{
                     @"api": @{
+                            @"bind": ^id(SDClient* client, NSNumber* msgID, id recv, NSArray* args) {
+                                [[SDKeyBinder sharedKeyBinder] removeKeyBindings];
+                                [[SDKeyBinder sharedKeyBinder] bind:[args objectAtIndex:0]
+                                                          modifiers:[args objectAtIndex:1]
+                                                                 fn:^{
+                                                                     [client sendResponse:nil forID:msgID];
+                                                                 }];
+                                [[SDKeyBinder sharedKeyBinder] finalizeNewKeyBindings];
+                                return @-1;
+                            },
                             @"focused_window": ^id(SDClient* client, NSNumber* msgID, id recv, NSArray* args) {
                                 return [SDWindowProxy focusedWindow];
                             },
