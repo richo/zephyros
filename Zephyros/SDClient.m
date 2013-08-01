@@ -52,6 +52,7 @@
 
 - (void) sendMessage:(id)msg {
     [msg replaceObjectAtIndex:0 withObject:@"response"];
+    NSLog(@"sending [%@]", msg);
     
     NSData* data = [NSJSONSerialization dataWithJSONObject:msg options:0 error:NULL];
     NSString* len = [NSString stringWithFormat:@"%ld", [data length]];

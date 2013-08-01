@@ -5,14 +5,14 @@ require 'thread'
 class Zeph
 
   def initialize
-    @s = TCPSocket.new 'localhost', 1235
+    @sock = TCPSocket.new 'localhost', 1235
     @id = 0
     @queues = {}
 
     thread = listen_forever
     at_exit do
       thread.join
-      @s.close
+      @sock.close
     end
   end
 
@@ -42,7 +42,7 @@ class Zeph
     id = @id += 1
     @queues[id] = Queue.new
     json = ['request', id].concat(data).to_json
-    @s.write "#{json.size}\n#{json}"
+    @sock.write "#{json.size}\n#{json}"
     return id
   end
 
@@ -57,24 +57,26 @@ class Zeph
   end
 
   def get
-    size = @s.gets
-    msg = @s.readpartial(size.to_i)
+    size = @sock.gets
+    puts "size is #{size.inspect}"
+    msg = @sock.read(size.to_i)
+    puts "msg is #{msg.inspect}"
     JSON.load(msg)
   end
 
 end
 
 
-$z = Zeph.new
+$zeph = Zeph.new
 
 10.times do |i|
 
   if i == 5
-    $z.register 'bind', 'mash+d' do |args|
+    $zeph.register 'bind', 'mash+d' do |args|
       p args
     end
   end
 
-  val = $z.send 'set_title', 'woot'
+  val = $zeph.send 'set_title', 'woot'
   p val
 end
