@@ -56,6 +56,10 @@
 }
 
 - (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err {
+    for (SDHotKey* hotkey in self.hotkeys) {
+        [hotkey unbind];
+    }
+    
     self.disconnectedHandler(self);
 }
 
