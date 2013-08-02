@@ -40,6 +40,9 @@ void fsEventsCallback(ConstFSEventStreamRef streamRef, void *clientCallBackInfo,
 - (void) startWatching:(NSArray*)pathsToWatch {
     [self stopWatching];
     
+    if ([pathsToWatch count] == 0)
+        return;
+    
     self.watching = YES;
     
     FSEventStreamContext context;

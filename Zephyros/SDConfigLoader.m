@@ -11,6 +11,8 @@
 #import "SDPreferencesWindowController.h"
 #import "SDConfigWatcher.h"
 
+#import "SDLogWindowController.h"
+#import "SDAlertWindowController.h"
 
 @interface SDConfigLoader ()
 
@@ -34,7 +36,8 @@
 
 - (void) launchConfigMaybe {
     dispatch_async(dispatch_get_main_queue(), ^{
-        BOOL shouldLaunchConfig = [[NSUserDefaults standardUserDefaults] boolForKey:SDRunMyScriptDefaultsKey];
+        NSString* cmd = [[NSUserDefaults standardUserDefaults] stringForKey:SDLaunchCommandDefaultsKey];
+        BOOL shouldLaunchConfig = [[NSUserDefaults standardUserDefaults] boolForKey:SDRunMyScriptDefaultsKey] && [cmd length] > 0;
         
         if (shouldLaunchConfig) {
             if ([self isLaunched])
@@ -70,7 +73,50 @@
 
 - (void) launch {
     NSString* cmd = [[NSUserDefaults standardUserDefaults] stringForKey:SDLaunchCommandDefaultsKey];
-    self.launchedTask = [NSTask launchedTaskWithLaunchPath:@"/bin/bash" arguments:@[@"-l", @"-c", cmd]];
+    
+    NSPipe* stdoutPipe = [NSPipe pipe];
+    NSPipe* stderrPipe = [NSPipe pipe];
+    
+    self.launchedTask = [[NSTask alloc] init];
+    
+    [self.launchedTask setLaunchPath:@"/bin/bash"];
+    [self.launchedTask setArguments:@[@"-l", @"-c", cmd]];
+    
+    [self.launchedTask setStandardOutput:stdoutPipe];
+    [self.launchedTask setStandardError:stderrPipe];
+    
+    [stdoutPipe fileHandleForReading].readabilityHandler = ^(NSFileHandle* handle) {
+        NSData* data = [handle availableData];
+        NSString* str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[SDLogWindowController sharedLogWindowController] show:str
+                                                               type:SDLogMessageTypeUser];
+        });
+    };
+    
+    [stderrPipe fileHandleForReading].readabilityHandler = ^(NSFileHandle* handle) {
+        NSData* data = [handle availableData];
+        NSString* str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[SDLogWindowController sharedLogWindowController] show:str
+                                                               type:SDLogMessageTypeError];
+        });
+    };
+    
+    [self.launchedTask launch];
+    
+    NSLog(@"ok");
+    
+    static BOOL firstTime = YES;
+    if (firstTime) {
+        firstTime = NO;
+    }
+    else {
+        [[SDAlertWindowController sharedAlertWindowController] show:@"Relaunched Config"
+                                                              delay:nil];
+    }
 }
 
 - (void) unlaunch {
@@ -81,17 +127,6 @@
 - (BOOL) isLaunched {
     return self.launchedTask != nil;
 }
-
-
-//            NSString* str = [@"The following hot keys could not be bound:\n\n" stringByAppendingString: [failures componentsJoinedByString:@"\n"]];
-//            [[SDLogWindowController sharedLogWindowController] show:str
-//                                                               type:SDLogMessageTypeError];
-
-
-
-//            [[SDAlertWindowController sharedAlertWindowController]
-//             show:@"Launched Config"
-//             delay:nil];
 
 
 
