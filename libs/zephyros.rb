@@ -1,8 +1,3 @@
-
-
-
-
-
 require 'socket'
 require 'json'
 require 'thread'
@@ -66,31 +61,6 @@ class Zeph
   end
 
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -202,9 +172,9 @@ class Rect < Struct.new(:x, :y, :w, :h)
 
 end
 
-# $window_grid_width = 3
-# $window_grid_margin_x = 5
-# $window_grid_margin_y = 5
+$window_grid_width = 3
+$window_grid_margin_x = 5
+$window_grid_margin_y = 5
 
 class ZephObject
   attr_accessor :id
@@ -212,80 +182,6 @@ class ZephObject
     self.id = id
   end
 end
-
-# class Window < ZephObject
-
-#   extend ZephProxy
-#   forward_methods [:other_windows_on_same_screen,
-
-#                    :maximize,
-#                    :minimize,
-#                    :un_minimize,
-
-#                    :screen,
-#                    :app,
-
-#                    :focus_window,
-#                    :focus_window_left,
-#                    :focus_window_right,
-#                    :focus_window_up,
-#                    :focus_window_down,
-
-#                    :normal_window?,
-#                    :minimized?,
-
-#                    :title]
-
-#   def frame
-#     Rect.from_hash $zeph.send_message([id, :frame])
-#   end
-
-#   def top_left
-#     Point.from_hash $zeph.send_message([id, :top_left])
-#   end
-
-#   def size
-#     Size.from_hash $zeph.send_message([id, :size])
-#   end
-
-#   def frame=(arg)
-#     $zeph.send_message([id, :set_frame, arg.to_hash])
-#   end
-
-#   def top_left=(arg)
-#     $zeph.send_message([id, :set_top_left, arg.to_hash])
-#   end
-
-#   def size=(arg)
-#     $zeph.send_message([id, :set_size, arg.to_hash])
-#   end
-
-#   def get_grid
-#     win_frame = self.frame
-#     screen_rect = self.screen.frame_without_dock_or_menu
-#     third_screen_width = screen_rect.w / $window_grid_width.to_f
-#     half_screen_height = screen_rect.h / 2.0
-#     Rect.make(((win_frame.x - screen_rect.min_x) / third_screen_width).round,
-#               ((win_frame.y - screen_rect.min_y) / half_screen_height).round,
-#               [(win_frame.w.round / third_screen_width).round, 1].max,
-#               [(win_frame.h.round / half_screen_height).round, 1].max)
-#   end
-
-#   def set_grid(g, screen)
-#     screen = screen || self.screen
-#     screen_rect = screen.frame_without_dock_or_menu
-#     third_screen_width = screen_rect.w / $window_grid_width.to_f
-#     half_screen_height = screen_rect.h / 2.0
-#     new_frame = Rect.make((g.x * third_screen_width) + screen_rect.min_x,
-#                           (g.y * half_screen_height) + screen_rect.min_y,
-#                           g.w * third_screen_width,
-#                           g.h * half_screen_height)
-#     new_frame.inset!($window_grid_margin_x.to_f, $window_grid_margin_y.to_f)
-#     new_frame.integral!
-#     self.frame = new_frame
-#   end
-
-# end
 
 $zeph = Zeph.new
 
@@ -377,8 +273,6 @@ class API
 
     patch_return(:running_apps, -> { map { |o| App.new o } })
 
-    # patch_args(:titles) { upcase }
-
     def alert(msg, sec=2)
       super(msg, sec)
     end
@@ -389,7 +283,8 @@ end
 
 class App < ZephObject
 
-  extend ZephProxy
+  include ZephProxy
+  extend PatchAdams
 
   patch_return(:all_windows, -> { map { |o| Window.new o } })
   patch_return(:visible_windows, -> { map { |o| Window.new o } })
@@ -398,13 +293,67 @@ end
 
 class Screen < ZephObject
 
-  extend ZephProxy
+  include ZephProxy
+  extend PatchAdams
 
   patch_return(:next_screen, -> { Screen.new self })
   patch_return(:previous_screen, -> { Screen.new self })
 
   patch_return(:frame_including_dock_and_menu, -> { Rect.from_hash self })
   patch_return(:frame_without_dock_or_menu, -> { Rect.from_hash self })
+
+end
+
+class Window < ZephObject
+
+  include ZephProxy
+  extend PatchAdams
+
+  patch_return(:frame, -> { Rect.from_hash self })
+  patch_return(:top_left, -> { Point.from_hash self })
+  patch_return(:size, -> { Size.from_hash self })
+
+  patch_return(:screen, -> { Screen.new self })
+  patch_return(:app, -> { App.new self })
+
+  patch_return(:other_windows_on_same_screen, -> { map { |o| Window.new o } })
+
+  def frame=(arg)
+    # $zeph.send_message([id, :set_frame, arg.to_hash])
+  end
+
+  def top_left=(arg)
+    # $zeph.send_message([id, :set_top_left, arg.to_hash])
+  end
+
+  def size=(arg)
+    # $zeph.send_message([id, :set_size, arg.to_hash])
+  end
+
+  def get_grid
+    win_frame = self.frame
+    screen_rect = self.screen.frame_without_dock_or_menu
+    third_screen_width = screen_rect.w / $window_grid_width.to_f
+    half_screen_height = screen_rect.h / 2.0
+    Rect.make(((win_frame.x - screen_rect.min_x) / third_screen_width).round,
+              ((win_frame.y - screen_rect.min_y) / half_screen_height).round,
+              [(win_frame.w.round / third_screen_width).round, 1].max,
+              [(win_frame.h.round / half_screen_height).round, 1].max)
+  end
+
+  def set_grid(g, screen)
+    screen = screen || self.screen
+    screen_rect = screen.frame_without_dock_or_menu
+    third_screen_width = screen_rect.w / $window_grid_width.to_f
+    half_screen_height = screen_rect.h / 2.0
+    new_frame = Rect.make((g.x * third_screen_width) + screen_rect.min_x,
+                          (g.y * half_screen_height) + screen_rect.min_y,
+                          g.w * third_screen_width,
+                          g.h * half_screen_height)
+    new_frame.inset!($window_grid_margin_x.to_f, $window_grid_margin_y.to_f)
+    new_frame.integral!
+    self.frame = new_frame
+  end
 
 end
 
