@@ -95,7 +95,7 @@
     });
 }
 
-- (NSDictionary*) storeObj:(id)obj ofType:(NSString*)type {
+- (NSNumber*) storeObj:(id)obj {
     if (!self.returnedObjects)
         self.returnedObjects = [NSMutableDictionary dictionary];
     
@@ -111,7 +111,7 @@
         [self.returnedObjects removeObjectForKey:newMaxID];
     });
     
-    return @{@"_type": type, @"_id": newMaxID};
+    return newMaxID;
 }
 
 - (id) convertObj:(id)obj {
@@ -127,14 +127,8 @@
         
         return newArray;
     }
-    else if ([obj isKindOfClass:[SDWindowProxy self]]) {
-        return [self storeObj:obj ofType:@"window"];
-    }
-    else if ([obj isKindOfClass:[SDScreenProxy self]]) {
-        return [self storeObj:obj ofType:@"screen"];
-    }
-    else if ([obj isKindOfClass:[SDAppProxy self]]) {
-        return [self storeObj:obj ofType:@"app"];
+    else if ([obj isKindOfClass:[SDWindowProxy self]] || [obj isKindOfClass:[SDScreenProxy self]] || [obj isKindOfClass:[SDAppProxy self]]) {
+        return [self storeObj:obj];
     }
     
     return obj;
