@@ -81,8 +81,17 @@
     NSNumber* recv = [self receiverForID:recvID];
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        id result = [self callMethod:meth on:recv args:args msgID:msgID];
-        [self sendResponse:result forID:msgID];
+        id result = nil;
+        @try {
+            result = [self callMethod:meth on:recv args:args msgID:msgID];
+        }
+        @catch (NSException *exception) {
+            [[SDLogWindowController sharedLogWindowController] show:[exception description]
+                                                               type:SDLogMessageTypeError];
+        }
+        @finally {
+            [self sendResponse:result forID:msgID];
+        }
     });
 }
 
