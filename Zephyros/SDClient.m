@@ -15,12 +15,15 @@
 #import "SDLogWindowController.h"
 #import "SDAlertWindowController.h"
 
+#import "SDEventListener.h"
+
 @interface SDClient ()
 
 @property int64_t maxRespObjID;
 @property NSMutableDictionary* returnedObjects;
 
 @property NSMutableArray* hotkeys;
+@property NSMutableArray* listeners;
 
 @end
 
@@ -30,6 +33,7 @@
 - (id) init {
     if (self = [super init]) {
         self.hotkeys = [NSMutableArray array];
+        self.listeners = [NSMutableArray array];
     }
     return self;
 }
@@ -59,6 +63,10 @@
 - (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err {
     for (SDHotKey* hotkey in self.hotkeys) {
         [hotkey unbind];
+    }
+    
+    for (SDEventListener* listener in self.listeners) {
+        [listener stopListening];
     }
     
     self.disconnectedHandler(self);
@@ -163,7 +171,7 @@
                                     [client.hotkeys addObject:hotkey];
                                 }
                                 else {
-                                    NSString* str = [@"Couldn't bind this: " stringByAppendingString: [hotkey hotKeyDescription]];
+                                    NSString* str = [@"Can't bind: " stringByAppendingString: [hotkey hotKeyDescription]];
                                     [[SDLogWindowController sharedLogWindowController] show:str
                                                                                        type:SDLogMessageTypeError];
                                 }
@@ -171,7 +179,15 @@
                                 return @-1;
                             },
                             @"listen": ^id(SDClient* client, NSNumber* msgID, id recv, NSArray* args) {
-                                // .....
+                                SDEventListener* listener = [[SDEventListener alloc] init];
+                                listener.eventName = [args objectAtIndex:0];
+                                listener.fn = ^(id thing) {
+                                    [client sendResponse:thing forID:msgID];
+                                };
+                                
+                                [listener startListening];
+                                [client.listeners addObject:listener];
+                                
                                 return nil;
                             },
                             @"clipboard_contents": ^id(SDClient* client, NSNumber* msgID, id recv, NSArray* args) {

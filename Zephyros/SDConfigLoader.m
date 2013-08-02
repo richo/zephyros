@@ -107,8 +107,6 @@
     
     [self.launchedTask launch];
     
-    NSLog(@"ok");
-    
     static BOOL firstTime = YES;
     if (firstTime) {
         firstTime = NO;

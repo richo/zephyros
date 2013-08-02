@@ -10,9 +10,10 @@
 
 @interface SDEventListener : NSObject
 
-+ (SDEventListener*) sharedEventListener;
+@property NSString* eventName;
+@property (copy) void(^fn)(id thing);
 
-- (void) removeListeners;
-- (void) finalizeNewListeners;
+- (void) startListening;
+- (void) stopListening;
 
 @end
