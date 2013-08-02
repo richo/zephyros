@@ -239,11 +239,6 @@
                                          }];
                                 return @1;
                             },
-                            @"_kill": ^id(SDClient* client, NSNumber* msgID, id recv, NSArray* args) {
-                                id objID = [args objectAtIndex:0];
-                                [client.returnedObjects removeObjectForKey:objID];
-                                return nil;
-                            },
                             },
                     @"window": @{
                             @"title": ^id(SDClient* client, NSNumber* msgID, SDWindowProxy* recv, NSArray* args) {
