@@ -25,10 +25,8 @@ class Zeph
     json = [id].concat(data).to_json
     @sock.write "#{json.size}\n#{json}"
 
-    p ["blk is", blk]
     if blk.nil?
       o = @queues[id].pop
-      p ["object is", o]
       @queues.delete(id)
       return o
     else
@@ -60,7 +58,6 @@ class Zeph
         size = @sock.gets
         msg = @sock.read(size.to_i)
         j = JSON.load(msg)
-        p ["message is", j]
         id = j[0]
         obj = j[1]
         @queues[id].push obj
@@ -94,171 +91,127 @@ end
 
 
 
-# module ZephProxy
-
-#   def forward_methods(methods)
-#     methods.each do |method_name|
-#       define_method(method_name) do |*args, &blk|
-#         $zeph.send_message [id, method_name, *args], &blk
-#       end
-#     end
-#   end
-
-# end
 
 
 
 
 
 
+class Point < Struct.new(:x, :y)
 
-# module API
+  def self.from_hash(d)
+    r = new
+    r.x = d['x']
+    r.y = d['y']
+    r
+  end
 
-#   class << self
+  def to_hash
+    {
+      'x' => x,
+      'y' => y,
+    }
+  end
 
-#     extend ZephProxy
-#     define_method(:id) { 0 }
-#     forward_methods [:choose_from,
-#                      :log,
+  def initialize
+    self.x = 0
+    self.y = 0
+  end
 
-#                      :bind,
-#                      :listen,
-#                      :relaunch_config,
+end
 
-#                      :focused_window,
-#                      :visible_windows,
-#                      :all_windows,
+class Size < Struct.new(:w, :h)
 
-#                      :main_screen,
-#                      :all_screens,
+  def self.from_hash(d)
+    r = new
+    r.w = d['w']
+    r.h = d['h']
+    r
+  end
 
-#                      :running_apps,
+  def to_hash
+    {
+      'w' => w,
+      'h' => h,
+    }
+  end
 
-#                      :clipboard_contents]
+  def initialize
+    self.w = 0
+    self.h = 0
+  end
 
-#     def alert(msg, sec=2)
-#       $zeph.send_message([id, :alert, msg, sec])
-#     end
+end
 
-#   end
+class Rect < Struct.new(:x, :y, :w, :h)
 
-# end
+  def self.from_hash(d)
+    r = new
+    r.x = d['x']
+    r.y = d['y']
+    r.w = d['w']
+    r.h = d['h']
+    r
+  end
 
-# class Point < Struct.new(:x, :y)
+  def to_hash
+    {
+      'x' => x,
+      'y' => y,
+      'w' => w,
+      'h' => h,
+    }
+  end
 
-#   def self.from_hash(d)
-#     r = new
-#     r.x = d['x']
-#     r.y = d['y']
-#     r
-#   end
+  def initialize
+    self.x = 0
+    self.y = 0
+    self.w = 0
+    self.h = 0
+  end
 
-#   def to_hash
-#     {
-#       'x' => x,
-#       'y' => y,
-#     }
-#   end
+  def self.make(x, y, w, h)
+    r = Rect.new
+    r.x = x
+    r.y = y
+    r.w = w
+    r.h = h
+    r
+  end
 
-#   def initialize
-#     self.x = 0
-#     self.y = 0
-#   end
+  def inset!(x, y)
+    self.x += x
+    self.y += y
+    self.w -= (x * 2)
+    self.h -= (y * 2)
+    self
+  end
 
-# end
+  def integral!
+    self.x = self.x.floor
+    self.y = self.y.floor
+    self.w = self.w.ceil
+    self.h = self.h.ceil
+    self
+  end
 
-# class Size < Struct.new(:w, :h)
+  def min_x; x; end
+  def min_y; y; end
+  def max_x; x + w; end
+  def max_y; y + h; end
 
-#   def self.from_hash(d)
-#     r = new
-#     r.w = d['w']
-#     r.h = d['h']
-#     r
-#   end
-
-#   def to_hash
-#     {
-#       'w' => w,
-#       'h' => h,
-#     }
-#   end
-
-#   def initialize
-#     self.w = 0
-#     self.h = 0
-#   end
-
-# end
-
-# class Rect < Struct.new(:x, :y, :w, :h)
-
-#   def self.from_hash(d)
-#     r = new
-#     r.x = d['x']
-#     r.y = d['y']
-#     r.w = d['w']
-#     r.h = d['h']
-#     r
-#   end
-
-#   def to_hash
-#     {
-#       'x' => x,
-#       'y' => y,
-#       'w' => w,
-#       'h' => h,
-#     }
-#   end
-
-#   def initialize
-#     self.x = 0
-#     self.y = 0
-#     self.w = 0
-#     self.h = 0
-#   end
-
-#   def self.make(x, y, w, h)
-#     r = Rect.new
-#     r.x = x
-#     r.y = y
-#     r.w = w
-#     r.h = h
-#     r
-#   end
-
-#   def inset!(x, y)
-#     self.x += x
-#     self.y += y
-#     self.w -= (x * 2)
-#     self.h -= (y * 2)
-#     self
-#   end
-
-#   def integral!
-#     self.x = self.x.floor
-#     self.y = self.y.floor
-#     self.w = self.w.ceil
-#     self.h = self.h.ceil
-#     self
-#   end
-
-#   def min_x; x; end
-#   def min_y; y; end
-#   def max_x; x + w; end
-#   def max_y; y + h; end
-
-# end
+end
 
 # $window_grid_width = 3
 # $window_grid_margin_x = 5
 # $window_grid_margin_y = 5
 
-# class ZephObject
-#   attr_accessor :id
-#   def initialize(id)
-#     self.id = id
-#   end
-# end
+class ZephObject
+  attr_accessor :id
+  def initialize(id)
+    self.id = id
+  end
+end
 
 # class Window < ZephObject
 
@@ -334,39 +287,6 @@ end
 
 # end
 
-# class Screen < ZephObject
-
-#   extend ZephProxy
-#   forward_methods [:next_screen,
-#                    :previous_screen]
-
-#   def frame_including_dock_and_menu
-#     Rect.from_hash $zeph.send_message([id, :frame_including_dock_and_menu])
-#   end
-
-#   def frame_without_dock_or_menu
-#     Rect.from_hash $zeph.send_message([id, :frame_without_dock_or_menu])
-#   end
-
-# end
-
-# class App < ZephObject
-
-#   extend ZephProxy
-#   forward_methods [:all_windows,
-#                    :visible_windows,
-
-#                    :title,
-#                    :hidden?,
-
-#                    :show,
-#                    :hide,
-
-#                    :kill,
-#                    :kill9]
-
-# end
-
 $zeph = Zeph.new
 
 
@@ -407,9 +327,9 @@ $zeph = Zeph.new
 
 module PatchAdams
 
-  def patch_return(name, &blk)
+  def patch_return(name, interceptor, &blk)
     define_method(name) do |*args|
-      super(*args).instance_exec(&blk)
+      super(*args, &blk).instance_exec(&interceptor)
     end
   end
 
@@ -421,22 +341,22 @@ module PatchAdams
 
 end
 
-module MyProxy
+module ZephProxy
 
   def method_missing(*args, &blk)
-    10.times {
-      blk.call}
-    p ["OK BLOCK IS", args, blk]
-    val = $zeph.send_message [id, *args], &blk
-    p [id, *args, blk]
-    val
+    $zeph.send_message [id, *args], &blk
   end
 
 end
 
 
-class Window < Struct.new(:id)
-  include MyProxy
+
+
+
+
+
+class Window < ZephObject
+  include ZephProxy
 end
 
 class API
@@ -445,21 +365,56 @@ class API
 
     define_method(:id) { 0 }
 
-    include MyProxy
+    include ZephProxy
     extend PatchAdams
 
-    patch_return(:focused_window) { p self; Window.new self }
+    patch_return(:focused_window, -> { Window.new self })
+    patch_return(:visible_windows, -> { map { |o| Window.new o } })
+    patch_return(:all_windows, -> { map { |o| Window.new o } })
+
+    patch_return(:main_screen, -> { Screen.new self })
+    patch_return(:all_screens, -> { map { |o| Screen.new o } })
+
+    patch_return(:running_apps, -> { map { |o| App.new o } })
+
     # patch_args(:titles) { upcase }
+
+    def alert(msg, sec=2)
+      super(msg, sec)
+    end
 
   end
 
 end
 
+class App < ZephObject
+
+  extend ZephProxy
+
+  patch_return(:all_windows, -> { map { |o| Window.new o } })
+  patch_return(:visible_windows, -> { map { |o| Window.new o } })
+
+end
+
+class Screen < ZephObject
+
+  extend ZephProxy
+
+  patch_return(:next_screen, -> { Screen.new self })
+  patch_return(:previous_screen, -> { Screen.new self })
+
+  patch_return(:frame_including_dock_and_menu, -> { Rect.from_hash self })
+  patch_return(:frame_without_dock_or_menu, -> { Rect.from_hash self })
+
+end
+
+
+
+
 
 API.bind('d', ['cmd', 'shift']) do
   win = API.focused_window
-  p win
-  # API.alert(win.title, 2)
+  API.alert(win.title, 2)
 end
 
 
