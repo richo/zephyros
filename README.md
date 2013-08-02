@@ -134,6 +134,7 @@ end
     - Temporarily removes JS support
     - Adds support for *any language that speaks TCP*
     - Includes Ruby lib
+    <!-- - Includes Go lib -->
     - Ruby API now requires `require '~/Applications/Zephyros.app/Contents/Resources/libs/zephyros.rb'`
     - Slight UI upgrade
     - Log REPL is broken too
