@@ -1,134 +1,97 @@
-module PatchAdams
 
-  def patch_return(name, &blk)
-    define_method(name) do |*args|
-      super(*args).instance_exec(&blk)
+
+
+
+
+require 'socket'
+require 'json'
+require 'thread'
+
+class Zeph
+
+  def initialize
+    @sock = TCPSocket.new 'localhost', 1235
+    @id = 0
+    @queues = {}
+
+    trap("SIGINT") { exit }
+    thread = listen_forever
+    at_exit { thread.join }
+  end
+
+  def send_message(data, &blk)
+    id = @id += 1
+    @queues[id] = Queue.new
+    json = [id].concat(data).to_json
+    @sock.write "#{json.size}\n#{json}"
+
+    p ["blk is", blk]
+    if blk.nil?
+      o = @queues[id].pop
+      p ["object is", o]
+      @queues.delete(id)
+      return o
+    else
+      Thread.new do
+        num_future_calls = @queues[id].pop
+
+        loopblk = lambda do
+          event = @queues[id].pop
+          blk.call event
+        end
+
+        if num_future_calls > 0
+          num_future_calls.times { loopblk.call }
+        else
+          loop { loopblk.call }
+        end
+
+        @queues.delete(id)
+      end
+      return nil
     end
   end
 
-  def patch_args(name, &blk)
-    define_method(name) do |*args|
-      super(*args.map{|arg| arg.instance_exec(&blk)})
+  private
+
+  def listen_forever
+    Thread.new do
+      loop do
+        size = @sock.gets
+        msg = @sock.read(size.to_i)
+        j = JSON.load(msg)
+        p ["message is", j]
+        id = j[0]
+        obj = j[1]
+        @queues[id].push obj
+      end
     end
   end
 
 end
 
-module MyProxy
-
-  def method_missing(*args)
-    ["response", *args]
-  end
-
-end
-
-
-class Window < Struct.new(:id)
-
-  def title; "this"; end
-
-end
-
-class API
-
-  class << self
-
-    include MyProxy
-    extend PatchAdams
-
-    patch_return(:focused_window) { self.map{|o| Window.new o} }
-
-    patch_args(:titles) { upcase }
-
-  end
-
-end
-
-
-win = API.titles('foo', 'bar')
-p win
-# p win.title
 
 
 
 
 
-# require 'socket'
-# require 'json'
-# require 'thread'
 
-# class Object
-#   def converted
-#     if is_a?(Array)
-#       map(&:converted)
-#     elsif is_a?(Hash) && has_key?('_type')
-#       klass = Kernel.const_get(self['_type'].capitalize)
-#       klass.new(self['_id'])
-#     else
-#       self
-#     end
-#   end
-# end
 
-# class Zeph
 
-#   def initialize
-#     @sock = TCPSocket.new 'localhost', 1235
-#     @id = 0
-#     @queues = {}
 
-#     trap("SIGINT") { exit }
-#     thread = listen_forever
-#     at_exit { thread.join }
-#   end
 
-#   def send_message(data, &blk)
-#     id = @id += 1
-#     @queues[id] = Queue.new
-#     json = [id].concat(data).to_json
-#     @sock.write "#{json.size}\n#{json}"
 
-#     if blk.nil?
-#       o = @queues[id].pop
-#       @queues.delete(id)
-#       return o
-#     else
-#       Thread.new do
-#         num_future_calls = @queues[id].pop
 
-#         loopblk = lambda do
-#           event = @queues[id].pop
-#           blk.call event
-#         end
 
-#         if num_future_calls > 0
-#           num_future_calls.times { loopblk.call }
-#         else
-#           loop { loopblk.call }
-#         end
 
-#         @queues.delete(id)
-#       end
-#       return nil
-#     end
-#   end
 
-#   private
 
-#   def listen_forever
-#     Thread.new do
-#       loop do
-#         size = @sock.gets
-#         msg = @sock.read(size.to_i)
-#         j = JSON.load(msg)
-#         id = j[0]
-#         obj = j[1].converted
-#         @queues[id].push obj
-#       end
-#     end
-#   end
 
-# end
+
+
+
+
+
 
 
 # module ZephProxy
@@ -404,4 +367,103 @@ p win
 
 # end
 
-# $zeph = Zeph.new
+$zeph = Zeph.new
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+module PatchAdams
+
+  def patch_return(name, &blk)
+    define_method(name) do |*args|
+      super(*args).instance_exec(&blk)
+    end
+  end
+
+  def patch_args(name, &blk)
+    define_method(name) do |*args|
+      super(*args.map{|arg| arg.instance_exec(&blk)})
+    end
+  end
+
+end
+
+module MyProxy
+
+  def method_missing(*args, &blk)
+    10.times {
+      blk.call}
+    p ["OK BLOCK IS", args, blk]
+    val = $zeph.send_message [id, *args], &blk
+    p [id, *args, blk]
+    val
+  end
+
+end
+
+
+class Window < Struct.new(:id)
+  include MyProxy
+end
+
+class API
+
+  class << self
+
+    define_method(:id) { 0 }
+
+    include MyProxy
+    extend PatchAdams
+
+    patch_return(:focused_window) { p self; Window.new self }
+    # patch_args(:titles) { upcase }
+
+  end
+
+end
+
+
+API.bind('d', ['cmd', 'shift']) do
+  win = API.focused_window
+  p win
+  # API.alert(win.title, 2)
+end
+
+
+# API.alert('hello world', 2)
+
+# p win
+# p win.title
