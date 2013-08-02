@@ -13,24 +13,25 @@
 
 *The OS X window manager for hackers*
 
-* Current version: **3.1**
+* Current version: **4.0**
 * Requires: OS X 10.7 and up
 * Download: get [.zip file](https://raw.github.com/sdegutis/zephyros/master/Builds/Zephyros-LATEST.app.tar.gz), unzip, right-click app, choose "Open"
 
 #### Basics
 
-At it's core, Zephyros just runs quietly in your menu bar, and runs your config script. You typically use this script to bind global hot keys to do stuff, often window-manager-type things.
+At it's core, Zephyros just runs quietly in your menu bar, and runs your script. You typically use this script to bind global hot keys to do stuff, often window-manager-type things.
 
 #### Supported languages
 
+As of version 4.0, scripts can be written in **any language** that can talk JSON over TCP.
+
+The app comes packaged with convenience libs for these languages:
+
 - Ruby 2.0
-- JavaScript
-- CoffeeScript 1.6.2
-- anything that compiles to JS (see [altjs.org](http://altjs.org/) and [this guy's list](https://github.com/jashkenas/coffee-script/wiki/List-of-languages-that-compile-to-JS))
-- coming soon:
-    - Python
-    - Nu
-    - Lua (maybe)
+- Go
+- Clojure
+- Python
+- node.js
 
 #### API Docs
 
@@ -61,9 +62,11 @@ Note: If reloading your config file fails, your key bindings will be un-bound as
 
 ### Example Configs
 
-Here's a sample Ruby config to get you started:
+Here's a sample Ruby script to get you started:
 
 ```ruby
+require '~/Applications/Zephyros.app/Contents/Resources/libs/zephyros.rb' # or wherever you put it
+
 mash = ["cmd", "alt", "ctrl"]
 
 # useful for testing
@@ -130,7 +133,7 @@ end
 
 ### Change log
 
-- HEAD
+- 4.0
     - Temporarily removes JS support
     - Adds support for *any language that speaks TCP*
     - Includes Ruby lib
