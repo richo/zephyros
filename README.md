@@ -135,6 +135,7 @@ end
     - Includes Ruby lib
     - Ruby API now requires `require '~/Applications/Zephyros.app/Contents/Resources/libs/zephyros.rb'`
     - Slight UI upgrade
+    - Log REPL is broken too
 - 3.1
     - Added a fuzzy-matching `choose_from` method to the Ruby API (it's pretty sweet)
 - 3.0
