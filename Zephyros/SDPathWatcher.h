@@ -10,7 +10,6 @@
 
 @interface SDPathWatcher : NSObject
 
-- (void) stopWatching;
-- (void) startWatching:(NSArray*)pathsToWatch;
++ (SDPathWatcher*) watcherFor:(NSArray*)pathsToWatch;
 
 @end

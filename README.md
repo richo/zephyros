@@ -56,7 +56,8 @@ Note: If reloading your config file fails, your key bindings will be un-bound as
 
 #### Auto-reloading configs
 
-You can tell Zephyros to automatically reload your config file whenver it changes. You can also bind a global hot key to reloading it. I'm also considering having it always watch `~/.zephyros/` (recursively), and reload when it sees a change. But I need your feedback on if that would be useful. Open an issue about it if you want this feature.
+* Automatically reload your config file whenever it (or anything you choose) changes.
+* Bind a global hot key to reloading it.
 
 ### Example Configs
 

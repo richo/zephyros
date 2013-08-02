@@ -12,7 +12,6 @@
 
 @interface SDPathWatcher ()
 
-@property BOOL watching;
 @property FSEventStreamRef stream;
 
 @end
@@ -28,22 +27,21 @@ void fsEventsCallback(ConstFSEventStreamRef streamRef, void *clientCallBackInfo,
 
 @implementation SDPathWatcher
 
-- (void) stopWatching {
-    if (!self.watching)
-        return;
-    
-    FSEventStreamStop(self.stream);
-    FSEventStreamInvalidate(self.stream);
-    FSEventStreamRelease(self.stream);
+- (void) dealloc {
+    if (self.stream) {
+        FSEventStreamStop(self.stream);
+        FSEventStreamInvalidate(self.stream);
+        FSEventStreamRelease(self.stream);
+    }
 }
 
-- (void) startWatching:(NSArray*)pathsToWatch {
-    [self stopWatching];
++ (SDPathWatcher*) watcherFor:(NSArray*)pathsToWatch {
+    SDPathWatcher* watcher = [[SDPathWatcher alloc] init];
     
     if ([pathsToWatch count] == 0)
-        return;
+        return nil;
     
-    self.watching = YES;
+    pathsToWatch = [pathsToWatch valueForKeyPath:@"stringByStandardizingPath"];
     
     FSEventStreamContext context;
     context.info = NULL;
@@ -51,15 +49,17 @@ void fsEventsCallback(ConstFSEventStreamRef streamRef, void *clientCallBackInfo,
     context.retain = NULL;
     context.release = NULL;
     context.copyDescription = NULL;
-    self.stream = FSEventStreamCreate(NULL,
-                                      fsEventsCallback,
-                                      &context,
-                                      (__bridge CFArrayRef)pathsToWatch,
-                                      kFSEventStreamEventIdSinceNow,
-                                      0.4,
-                                      kFSEventStreamCreateFlagWatchRoot | kFSEventStreamCreateFlagNoDefer | kFSEventStreamCreateFlagFileEvents);
-    FSEventStreamScheduleWithRunLoop(self.stream, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode);
-    FSEventStreamStart(self.stream);
+    watcher.stream = FSEventStreamCreate(NULL,
+                                         fsEventsCallback,
+                                         &context,
+                                         (__bridge CFArrayRef)pathsToWatch,
+                                         kFSEventStreamEventIdSinceNow,
+                                         0.4,
+                                         kFSEventStreamCreateFlagWatchRoot | kFSEventStreamCreateFlagNoDefer | kFSEventStreamCreateFlagFileEvents);
+    FSEventStreamScheduleWithRunLoop(watcher.stream, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode);
+    FSEventStreamStart(watcher.stream);
+    
+    return watcher;
 }
 
 @end

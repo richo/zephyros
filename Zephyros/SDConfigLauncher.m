@@ -47,7 +47,7 @@
         }
         else {
             [self unlaunch];
-            [self.configWatcher stopWatching];
+            self.configWatcher = nil;
         }
         
         [self watchPathsMaybe];
@@ -61,10 +61,10 @@
     if (shouldLaunchConfig && shouldWatchPaths) {
         NSString* pathsStr = [[NSUserDefaults standardUserDefaults] stringForKey:SDRelaunchPathsDefaultsKey];
         NSArray* paths = [pathsStr componentsSeparatedByString:@"\n"];
-        [self.configWatcher startWatching:paths];
+        self.configWatcher = [SDPathWatcher watcherFor:paths];
     }
     else {
-        [self.configWatcher stopWatching];
+        self.configWatcher = nil;
     }
 }
 

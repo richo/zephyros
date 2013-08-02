@@ -100,6 +100,7 @@ module API
 
                      :bind,
                      :listen,
+                     :relaunch_config,
 
                      :focused_window,
                      :visible_windows,

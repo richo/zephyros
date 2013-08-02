@@ -14,7 +14,7 @@
 #import "SDHotKey.h"
 #import "SDLogWindowController.h"
 #import "SDAlertWindowController.h"
-
+#import "SDConfigLauncher.h"
 #import "SDEventListener.h"
 
 @interface SDClient ()
@@ -197,6 +197,10 @@
                                 [client.listeners addObject:listener];
                                 
                                 return @-1;
+                            },
+                            @"relaunch_config": ^id(SDClient* client, NSNumber* msgID, id recv, NSArray* args) {
+                                [[SDConfigLauncher sharedConfigLauncher] launchConfigMaybe];
+                                return nil;
                             },
                             @"clipboard_contents": ^id(SDClient* client, NSNumber* msgID, id recv, NSArray* args) {
                                 return [[NSPasteboard generalPasteboard] stringForType:NSPasteboardTypeString];
