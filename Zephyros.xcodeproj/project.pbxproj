@@ -28,12 +28,9 @@
 		947DC99317A5BC990082D095 /* SDPreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 947DC99117A5BC990082D095 /* SDPreferencesWindowController.m */; };
 		947DC99417A5BC990082D095 /* SDPreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 947DC99217A5BC990082D095 /* SDPreferencesWindow.xib */; };
 		947DC99D17A5D0940082D095 /* SDConfigWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 947DC99C17A5D0940082D095 /* SDConfigWatcher.m */; };
-		947DC9A517A5E1430082D095 /* api.rb in Resources */ = {isa = PBXBuildFile; fileRef = 947DC9A417A5E1430082D095 /* api.rb */; };
-		947E9955171CA9A9006F30AC /* coffee-script.js in Resources */ = {isa = PBXBuildFile; fileRef = 947E9953171CA99C006F30AC /* coffee-script.js */; };
 		947E9958171CEFB5006F30AC /* SDAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 947E9957171CEFB5006F30AC /* SDAPI.m */; };
 		947E995B171CF9DE006F30AC /* SDConfigLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 947E995A171CF9DE006F30AC /* SDConfigLoader.m */; };
 		947E995F171D18B6006F30AC /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 947E995E171D18B6006F30AC /* Credits.rtf */; };
-		94867DAC1719E5A200027457 /* underscore-min.js in Resources */ = {isa = PBXBuildFile; fileRef = 94867DAA1719E56600027457 /* underscore-min.js */; };
 		94873F2E17191F40000AC0A6 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94873F2D17191F40000AC0A6 /* Cocoa.framework */; };
 		94873F3817191F40000AC0A6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 94873F3617191F40000AC0A6 /* InfoPlist.strings */; };
 		94873F3A17191F40000AC0A6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 94873F3917191F40000AC0A6 /* main.m */; };
@@ -53,7 +50,6 @@
 		94B255A517A9AF2A008CFD26 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94B255A417A9AF2A008CFD26 /* Security.framework */; };
 		94B255A817A9B5D8008CFD26 /* SDClientListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B255A717A9B5D8008CFD26 /* SDClientListener.m */; };
 		94B255AB17A9B5E2008CFD26 /* SDClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 94B255AA17A9B5E2008CFD26 /* SDClient.m */; };
-		94D07FB31723741000CF44E9 /* api.coffee in Resources */ = {isa = PBXBuildFile; fileRef = 94D07FB21723741000CF44E9 /* api.coffee */; };
 		94D07FB61723B16900CF44E9 /* SDAppProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 94D07FB51723B16900CF44E9 /* SDAppProxy.m */; };
 		94D07FBA1723BACB00CF44E9 /* SDAppStalker.m in Sources */ = {isa = PBXBuildFile; fileRef = 94D07FB91723BACB00CF44E9 /* SDAppStalker.m */; };
 		94D07FBD1723C61C00CF44E9 /* SDEventListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 94D07FBC1723C61C00CF44E9 /* SDEventListener.m */; };
@@ -114,14 +110,11 @@
 		947DC99217A5BC990082D095 /* SDPreferencesWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SDPreferencesWindow.xib; sourceTree = "<group>"; };
 		947DC99B17A5D0940082D095 /* SDConfigWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDConfigWatcher.h; sourceTree = "<group>"; };
 		947DC99C17A5D0940082D095 /* SDConfigWatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDConfigWatcher.m; sourceTree = "<group>"; };
-		947DC9A417A5E1430082D095 /* api.rb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.ruby; path = api.rb; sourceTree = "<group>"; };
-		947E9953171CA99C006F30AC /* coffee-script.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "coffee-script.js"; sourceTree = "<group>"; };
 		947E9956171CEFB5006F30AC /* SDAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDAPI.h; sourceTree = "<group>"; };
 		947E9957171CEFB5006F30AC /* SDAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDAPI.m; sourceTree = "<group>"; };
 		947E9959171CF9DE006F30AC /* SDConfigLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDConfigLoader.h; sourceTree = "<group>"; };
 		947E995A171CF9DE006F30AC /* SDConfigLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDConfigLoader.m; sourceTree = "<group>"; };
 		947E995E171D18B6006F30AC /* Credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; name = Credits.rtf; path = Zephyros/Credits.rtf; sourceTree = "<group>"; };
-		94867DAA1719E56600027457 /* underscore-min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "underscore-min.js"; sourceTree = "<group>"; };
 		94873F2A17191F40000AC0A6 /* Zephyros.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zephyros.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94873F2D17191F40000AC0A6 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		94873F3017191F40000AC0A6 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -160,7 +153,6 @@
 		94B255A717A9B5D8008CFD26 /* SDClientListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDClientListener.m; sourceTree = "<group>"; };
 		94B255A917A9B5E2008CFD26 /* SDClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDClient.h; sourceTree = "<group>"; };
 		94B255AA17A9B5E2008CFD26 /* SDClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDClient.m; sourceTree = "<group>"; };
-		94D07FB21723741000CF44E9 /* api.coffee */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = api.coffee; sourceTree = "<group>"; };
 		94D07FB41723B16900CF44E9 /* SDAppProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDAppProxy.h; sourceTree = "<group>"; };
 		94D07FB51723B16900CF44E9 /* SDAppProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDAppProxy.m; sourceTree = "<group>"; };
 		94D07FB81723BACB00CF44E9 /* SDAppStalker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDAppStalker.h; sourceTree = "<group>"; };
@@ -346,10 +338,6 @@
 				94779BD017A85CB000649169 /* Licenses */,
 				946B3AAE1721C5C800FB05F3 /* logwindow.html */,
 				94E0964D171EDBA6002D8668 /* dsa_pub.pem */,
-				94D07FB21723741000CF44E9 /* api.coffee */,
-				947DC9A417A5E1430082D095 /* api.rb */,
-				947E9953171CA99C006F30AC /* coffee-script.js */,
-				94867DAA1719E56600027457 /* underscore-min.js */,
 				94873F3617191F40000AC0A6 /* InfoPlist.strings */,
 				94873F3917191F40000AC0A6 /* main.m */,
 				94873F3B17191F40000AC0A6 /* Zephyros-Prefix.pch */,
@@ -531,15 +519,11 @@
 				943921BD1719B1EE00F63073 /* statusitem@2x.png in Resources */,
 				943921BF1719B66C00F63073 /* windows.icns in Resources */,
 				94DAFB531719B99A00526003 /* LogWindow.xib in Resources */,
-				94867DAC1719E5A200027457 /* underscore-min.js in Resources */,
-				947E9955171CA9A9006F30AC /* coffee-script.js in Resources */,
 				94454B38171B4179003EF64E /* AlertWindow.xib in Resources */,
 				947E995F171D18B6006F30AC /* Credits.rtf in Resources */,
 				94E0964E171EDBA6002D8668 /* dsa_pub.pem in Resources */,
 				946B3AAF1721C5C800FB05F3 /* logwindow.html in Resources */,
-				94D07FB31723741000CF44E9 /* api.coffee in Resources */,
 				947DC99417A5BC990082D095 /* SDPreferencesWindow.xib in Resources */,
-				947DC9A517A5E1430082D095 /* api.rb in Resources */,
 				94779BD117A85CB000649169 /* Licenses in Resources */,
 				945AD7BE17A8692A00578BEB /* SDFuzzyMatcherWindow.xib in Resources */,
 				94E02EE417AB2496005AE3E8 /* libs in Resources */,
