@@ -9,13 +9,13 @@
 #import "AppDelegate.h"
 
 #import "SDOpenAtLogin.h"
-#import "SDConfigLoader.h"
+#import "SDConfigLauncher.h"
 #import "SDAppStalker.h"
 
 #import "SDLogWindowController.h"
 #import "SDPreferencesWindowController.h"
 
-#import "SDConfigLoader.h"
+#import "SDConfigLauncher.h"
 
 #import "SDAlertWindowController.h"
 #import "SDClientListener.h"
@@ -42,7 +42,7 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     [self prepareStatusItem];
     
-    [[SDConfigLoader sharedConfigLoader] launchConfigMaybe];
+    [[SDConfigLauncher sharedConfigLauncher] launchConfigMaybe];
     [[SDAppStalker sharedAppStalker] beginStalking];
     
     [[SDAlertWindowController sharedAlertWindowController] show:@"Zephyros power, activate!"
@@ -55,7 +55,7 @@
 }
 
 - (IBAction) relaunchConfig:(id)sender {
-    [[SDConfigLoader sharedConfigLoader] launchConfigMaybe];
+    [[SDConfigLauncher sharedConfigLauncher] launchConfigMaybe];
 }
 
 - (void) menuNeedsUpdate:(NSMenu *)menu {

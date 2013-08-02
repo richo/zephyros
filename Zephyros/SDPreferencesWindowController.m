@@ -8,7 +8,7 @@
 
 #import "SDPreferencesWindowController.h"
 
-#import "SDConfigLoader.h"
+#import "SDConfigLauncher.h"
 
 #import "SDWatchedPathsWindowController.h"
 
@@ -39,11 +39,11 @@
 }
 
 - (IBAction) changeIfRunsScript:(id)sender {
-    [[SDConfigLoader sharedConfigLoader] launchConfigMaybe];
+    [[SDConfigLauncher sharedConfigLauncher] launchConfigMaybe];
 }
 
 - (IBAction) changeWhetherWatchingPaths:(id)sender {
-    [[SDConfigLoader sharedConfigLoader] watchPathsMaybe];
+    [[SDConfigLauncher sharedConfigLauncher] watchPathsMaybe];
 }
 
 - (BOOL)control:(NSControl *)control textView:(NSTextView *)textView doCommandBySelector:(SEL)command {
@@ -70,7 +70,7 @@
         [[NSUserDefaults standardUserDefaults] setObject:self.pathsController.pathsToWatch
                                                   forKey:SDRelaunchPathsDefaultsKey];
         
-        [[SDConfigLoader sharedConfigLoader] watchPathsMaybe];
+        [[SDConfigLauncher sharedConfigLauncher] watchPathsMaybe];
     }
     
     self.pathsController = nil;

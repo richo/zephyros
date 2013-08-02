@@ -8,15 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@interface SDConfigLoader : NSObject
+@interface SDConfigLauncher : NSObject
 
-+ (SDConfigLoader*) sharedConfigLoader;
-
-//- (void) prepareScriptingBridge;
-//- (void) reloadConfig;
-//- (void) reloadConfigIfWatchEnabled;
-//
-//- (NSString*) evalString:(NSString*)str;
++ (SDConfigLauncher*) sharedConfigLauncher;
 
 - (void) launchConfigMaybe;
 - (void) watchPathsMaybe;

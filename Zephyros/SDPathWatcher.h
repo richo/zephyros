@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface SDConfigWatcher : NSObject
+@interface SDPathWatcher : NSObject
 
 - (void) stopWatching;
 - (void) startWatching:(NSArray*)pathsToWatch;

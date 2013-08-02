@@ -6,32 +6,32 @@
 //  Copyright (c) 2013 Giant Robot Software. All rights reserved.
 //
 
-#import "SDConfigLoader.h"
+#import "SDConfigLauncher.h"
 
 #import "SDPreferencesWindowController.h"
-#import "SDConfigWatcher.h"
+#import "SDPathWatcher.h"
 
 #import "SDLogWindowController.h"
 #import "SDAlertWindowController.h"
 
-@interface SDConfigLoader ()
+@interface SDConfigLauncher ()
 
-@property SDConfigWatcher* configWatcher;
+@property SDPathWatcher* configWatcher;
 @property NSTask* launchedTask;
 
 @end
 
 
-@implementation SDConfigLoader
+@implementation SDConfigLauncher
 
-+ (SDConfigLoader*) sharedConfigLoader {
-    static SDConfigLoader* sharedConfigLoader;
++ (SDConfigLauncher*) sharedConfigLauncher {
+    static SDConfigLauncher* sharedConfigLauncher;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sharedConfigLoader = [[SDConfigLoader alloc] init];
-        sharedConfigLoader.configWatcher = [[SDConfigWatcher alloc] init];
+        sharedConfigLauncher = [[SDConfigLauncher alloc] init];
+        sharedConfigLauncher.configWatcher = [[SDPathWatcher alloc] init];
     });
-    return sharedConfigLoader;
+    return sharedConfigLauncher;
 }
 
 - (void) launchConfigMaybe {

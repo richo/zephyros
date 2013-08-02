@@ -6,11 +6,11 @@
 //  Copyright (c) 2013 Giant Robot Software. All rights reserved.
 //
 
-#import "SDConfigWatcher.h"
+#import "SDPathWatcher.h"
 
-#import "SDConfigLoader.h"
+#import "SDConfigLauncher.h"
 
-@interface SDConfigWatcher ()
+@interface SDPathWatcher ()
 
 @property BOOL watching;
 @property FSEventStreamRef stream;
@@ -21,12 +21,12 @@
 
 void fsEventsCallback(ConstFSEventStreamRef streamRef, void *clientCallBackInfo, size_t numEvents, void *eventPaths, const FSEventStreamEventFlags eventFlags[], const FSEventStreamEventId eventIds[])
 {
-    [[SDConfigLoader sharedConfigLoader] launchConfigMaybe];
+    [[SDConfigLauncher sharedConfigLauncher] launchConfigMaybe];
 }
 
 
 
-@implementation SDConfigWatcher
+@implementation SDPathWatcher
 
 - (void) stopWatching {
     if (!self.watching)

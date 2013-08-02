@@ -27,9 +27,9 @@
 		94779BD117A85CB000649169 /* Licenses in Resources */ = {isa = PBXBuildFile; fileRef = 94779BD017A85CB000649169 /* Licenses */; };
 		947DC99317A5BC990082D095 /* SDPreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 947DC99117A5BC990082D095 /* SDPreferencesWindowController.m */; };
 		947DC99417A5BC990082D095 /* SDPreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 947DC99217A5BC990082D095 /* SDPreferencesWindow.xib */; };
-		947DC99D17A5D0940082D095 /* SDConfigWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 947DC99C17A5D0940082D095 /* SDConfigWatcher.m */; };
+		947DC99D17A5D0940082D095 /* SDPathWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 947DC99C17A5D0940082D095 /* SDPathWatcher.m */; };
 		947E9958171CEFB5006F30AC /* SDAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 947E9957171CEFB5006F30AC /* SDAPI.m */; };
-		947E995B171CF9DE006F30AC /* SDConfigLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 947E995A171CF9DE006F30AC /* SDConfigLoader.m */; };
+		947E995B171CF9DE006F30AC /* SDConfigLauncher.m in Sources */ = {isa = PBXBuildFile; fileRef = 947E995A171CF9DE006F30AC /* SDConfigLauncher.m */; };
 		947E995F171D18B6006F30AC /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 947E995E171D18B6006F30AC /* Credits.rtf */; };
 		94873F2E17191F40000AC0A6 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94873F2D17191F40000AC0A6 /* Cocoa.framework */; };
 		94873F3817191F40000AC0A6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 94873F3617191F40000AC0A6 /* InfoPlist.strings */; };
@@ -108,12 +108,12 @@
 		947DC99017A5BC990082D095 /* SDPreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDPreferencesWindowController.h; sourceTree = "<group>"; };
 		947DC99117A5BC990082D095 /* SDPreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDPreferencesWindowController.m; sourceTree = "<group>"; };
 		947DC99217A5BC990082D095 /* SDPreferencesWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SDPreferencesWindow.xib; sourceTree = "<group>"; };
-		947DC99B17A5D0940082D095 /* SDConfigWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDConfigWatcher.h; sourceTree = "<group>"; };
-		947DC99C17A5D0940082D095 /* SDConfigWatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDConfigWatcher.m; sourceTree = "<group>"; };
+		947DC99B17A5D0940082D095 /* SDPathWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDPathWatcher.h; sourceTree = "<group>"; };
+		947DC99C17A5D0940082D095 /* SDPathWatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDPathWatcher.m; sourceTree = "<group>"; };
 		947E9956171CEFB5006F30AC /* SDAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDAPI.h; sourceTree = "<group>"; };
 		947E9957171CEFB5006F30AC /* SDAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDAPI.m; sourceTree = "<group>"; };
-		947E9959171CF9DE006F30AC /* SDConfigLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDConfigLoader.h; sourceTree = "<group>"; };
-		947E995A171CF9DE006F30AC /* SDConfigLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDConfigLoader.m; sourceTree = "<group>"; };
+		947E9959171CF9DE006F30AC /* SDConfigLauncher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDConfigLauncher.h; sourceTree = "<group>"; };
+		947E995A171CF9DE006F30AC /* SDConfigLauncher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDConfigLauncher.m; sourceTree = "<group>"; };
 		947E995E171D18B6006F30AC /* Credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; name = Credits.rtf; path = Zephyros/Credits.rtf; sourceTree = "<group>"; };
 		94873F2A17191F40000AC0A6 /* Zephyros.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zephyros.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94873F2D17191F40000AC0A6 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -213,7 +213,7 @@
 			name = Graphics;
 			sourceTree = "<group>";
 		};
-		945AD7A017A866FE00578BEB /* Fuzzy Matching */ = {
+		945AD7A017A866FE00578BEB /* Fuzzy Matcher */ = {
 			isa = PBXGroup;
 			children = (
 				945AD7B217A8692A00578BEB /* SDFuzzyMatcher.h */,
@@ -228,7 +228,7 @@
 				945AD7BB17A8692A00578BEB /* NSString+Score.h */,
 				945AD7BC17A8692A00578BEB /* NSString+Score.m */,
 			);
-			name = "Fuzzy Matching";
+			name = "Fuzzy Matcher";
 			sourceTree = "<group>";
 		};
 		947DC98B17A5B9400082D095 /* Events */ = {
@@ -242,7 +242,7 @@
 			name = Events;
 			sourceTree = "<group>";
 		};
-		947DC99517A5BCA90082D095 /* Config Chooser */ = {
+		947DC99517A5BCA90082D095 /* Preferences */ = {
 			isa = PBXGroup;
 			children = (
 				947DC99217A5BC990082D095 /* SDPreferencesWindow.xib */,
@@ -252,7 +252,7 @@
 				94E02EE917AB4F7C005AE3E8 /* SDWatchedPathsWindowController.h */,
 				94E02EEA17AB4F7C005AE3E8 /* SDWatchedPathsWindowController.m */,
 			);
-			name = "Config Chooser";
+			name = Preferences;
 			sourceTree = "<group>";
 		};
 		947DC99617A5BCD30082D095 /* Log Window */ = {
@@ -310,24 +310,24 @@
 		94873F3317191F40000AC0A6 /* Zephyros */ = {
 			isa = PBXGroup;
 			children = (
-				94E02EE317AB2496005AE3E8 /* libs */,
-				94873F631719223F000AC0A6 /* Third Party */,
 				94873F4217191F40000AC0A6 /* MainMenu.xib */,
 				94873F3F17191F40000AC0A6 /* AppDelegate.h */,
 				94873F4017191F40000AC0A6 /* AppDelegate.m */,
 				94E02EE217AB1D19005AE3E8 /* Clients */,
-				945AD7A017A866FE00578BEB /* Fuzzy Matching */,
-				947DC99517A5BCA90082D095 /* Config Chooser */,
+				945AD7A017A866FE00578BEB /* Fuzzy Matcher */,
+				947DC99517A5BCA90082D095 /* Preferences */,
 				947DC99617A5BCD30082D095 /* Log Window */,
 				94873F611719222D000AC0A6 /* Alert Window */,
 				94D07FB71723BAAE00CF44E9 /* Proxies */,
 				94E02EE017AB1B14005AE3E8 /* Hot keys */,
 				947DC98B17A5B9400082D095 /* Events */,
-				94E02EEE17AB536D005AE3E8 /* Configs */,
+				94E02EEE17AB536D005AE3E8 /* Launcher */,
 				943921B41719AF5900F63073 /* API */,
 				94873F6417192987000AC0A6 /* Helpers */,
 				943921B51719B1E600F63073 /* Graphics */,
+				94873F631719223F000AC0A6 /* Third Party */,
 				94873F3417191F40000AC0A6 /* Supporting Files */,
+				94E02EE317AB2496005AE3E8 /* libs */,
 			);
 			path = Zephyros;
 			sourceTree = "<group>";
@@ -447,15 +447,15 @@
 			name = "Inset Horizontal Line";
 			sourceTree = "<group>";
 		};
-		94E02EEE17AB536D005AE3E8 /* Configs */ = {
+		94E02EEE17AB536D005AE3E8 /* Launcher */ = {
 			isa = PBXGroup;
 			children = (
-				947E9959171CF9DE006F30AC /* SDConfigLoader.h */,
-				947E995A171CF9DE006F30AC /* SDConfigLoader.m */,
-				947DC99B17A5D0940082D095 /* SDConfigWatcher.h */,
-				947DC99C17A5D0940082D095 /* SDConfigWatcher.m */,
+				947E9959171CF9DE006F30AC /* SDConfigLauncher.h */,
+				947E995A171CF9DE006F30AC /* SDConfigLauncher.m */,
+				947DC99B17A5D0940082D095 /* SDPathWatcher.h */,
+				947DC99C17A5D0940082D095 /* SDPathWatcher.m */,
 			);
-			name = Configs;
+			name = Launcher;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -570,12 +570,12 @@
 				94454B33171B31AC003EF64E /* SDScreenProxy.m in Sources */,
 				94454B37171B4179003EF64E /* SDAlertWindowController.m in Sources */,
 				947E9958171CEFB5006F30AC /* SDAPI.m in Sources */,
-				947E995B171CF9DE006F30AC /* SDConfigLoader.m in Sources */,
+				947E995B171CF9DE006F30AC /* SDConfigLauncher.m in Sources */,
 				94D07FB61723B16900CF44E9 /* SDAppProxy.m in Sources */,
 				94D07FBA1723BACB00CF44E9 /* SDAppStalker.m in Sources */,
 				94D07FBD1723C61C00CF44E9 /* SDEventListener.m in Sources */,
 				947DC99317A5BC990082D095 /* SDPreferencesWindowController.m in Sources */,
-				947DC99D17A5D0940082D095 /* SDConfigWatcher.m in Sources */,
+				947DC99D17A5D0940082D095 /* SDPathWatcher.m in Sources */,
 				9463D43417A77E2C00A3E905 /* SDGeometry.m in Sources */,
 				945AD7BD17A8692A00578BEB /* SDFuzzyMatcher.m in Sources */,
 				945AD7BF17A8692A00578BEB /* SDFuzzyMatcherWindowController.m in Sources */,

@@ -10,7 +10,7 @@
 
 #import <WebKit/WebKit.h>
 
-#import "SDConfigLoader.h"
+#import "SDConfigLauncher.h"
 
 @interface SDLogWindowController ()
 
