@@ -149,18 +149,13 @@ end
 - 2.6
     - First version anyone should care about
 
-### Todo
+### Help Needed
+
+Are you great at stuff? We could use these things:
 
 * Better CSS styling in [the Log Window](Zephyros/logwindow.html)
 * Better app icon
 * Better menu bar icon
-* Stop using JSCocoa and just use JavaScriptCore directly
-* Better error handling in JS API
-* Check for syntax errors (in raw JS) before evaluating code, and show them in the log window if there are any
-* Show evaluated (raw JS) code when there are runtime errors
-* Give a better error message if your config file *actually turns out to be a directory* (sigh)
-* Add `mouseMoved` event, but coalesce notifications to a reasonable amount (default every 0.5 sec, make it configurable)
-* Add `api.screenUnderMouse()`
 
 ### Special Thanks
 
