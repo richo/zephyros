@@ -33,6 +33,13 @@
 @end
 
 
+
+//NSTask* task = [NSTask launchedTaskWithLaunchPath:@"/bin/bash" arguments:@[@"-l", @"-c", @"echo $PATH > /Users/sdegutis/Desktop/hi.txt"]];
+//[task waitUntilExit];
+//
+//NSLog(@"%d", [task terminationStatus]);
+
+
 @implementation SDConfigLoader
 //
 //+ (SDConfigLoader*) sharedConfigLoader {

@@ -13,7 +13,7 @@
 #import "SDAppStalker.h"
 
 #import "SDLogWindowController.h"
-#import "SDConfigChooserWindowController.h"
+#import "SDPreferencesWindowController.h"
 
 
 #import "SDAlertWindowController.h"
@@ -39,10 +39,10 @@
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"configPath": @"~/.zephyros.coffee"}];
-    [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"configType": @"coffee"}];
-    
     [self prepareStatusItem];
+    
+    
+    
 //    [[SDConfigLoader sharedConfigLoader] prepareScriptingBridge];
 //    [[SDConfigLoader sharedConfigLoader] reloadConfig];
     [[SDAppStalker sharedAppStalker] beginStalking];
@@ -51,12 +51,12 @@
                                                           delay:@1.5];
 }
 
-- (IBAction) chooseConfig:(id)sender {
+- (IBAction) showPreferencesWindow:(id)sender {
     [NSApp activateIgnoringOtherApps:YES];
-    [[SDConfigChooserWindowController sharedConfigChooserWindowController] show];
+    [[SDPreferencesWindowController sharedConfigChooserWindowController] show];
 }
 
-- (IBAction) reloadConfig:(id)sender {
+- (IBAction) relaunchConfig:(id)sender {
 //    [[SDConfigLoader sharedConfigLoader] reloadConfig];
 }
 
