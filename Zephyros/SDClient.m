@@ -79,9 +79,11 @@
     NSString* meth = [msg objectAtIndex:2];
     NSArray* args = [msg subarrayWithRange:NSMakeRange(3, [msg count] - 3)];
     NSNumber* recv = [self receiverForID:recvID];
-    id result = [self callMethod:meth on:recv args:args msgID:msgID];
     
-    [self sendResponse:result forID:msgID];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        id result = [self callMethod:meth on:recv args:args msgID:msgID];
+        [self sendResponse:result forID:msgID];
+    });
 }
 
 - (NSDictionary*) storeObj:(id)obj ofType:(NSString*)type {
@@ -188,7 +190,7 @@
                                 [listener startListening];
                                 [client.listeners addObject:listener];
                                 
-                                return nil;
+                                return @-1;
                             },
                             @"clipboard_contents": ^id(SDClient* client, NSNumber* msgID, id recv, NSArray* args) {
                                 return [[NSPasteboard generalPasteboard] stringForType:NSPasteboardTypeString];
