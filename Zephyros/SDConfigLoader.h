@@ -10,12 +10,15 @@
 
 @interface SDConfigLoader : NSObject
 
-//+ (SDConfigLoader*) sharedConfigLoader;
-//
++ (SDConfigLoader*) sharedConfigLoader;
+
 //- (void) prepareScriptingBridge;
 //- (void) reloadConfig;
 //- (void) reloadConfigIfWatchEnabled;
 //
 //- (NSString*) evalString:(NSString*)str;
+
+- (void) launchConfigMaybe;
+- (void) watchPathsMaybe;
 
 @end

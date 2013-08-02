@@ -21,7 +21,7 @@
 
 void fsEventsCallback(ConstFSEventStreamRef streamRef, void *clientCallBackInfo, size_t numEvents, void *eventPaths, const FSEventStreamEventFlags eventFlags[], const FSEventStreamEventId eventIds[])
 {
-//    [[SDConfigLoader sharedConfigLoader] reloadConfigIfWatchEnabled];
+    [[SDConfigLoader sharedConfigLoader] launchConfigMaybe];
 }
 
 

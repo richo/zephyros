@@ -38,6 +38,14 @@
     [self showWindow:self];
 }
 
+- (IBAction) changeIfRunsScript:(id)sender {
+    [[SDConfigLoader sharedConfigLoader] launchConfigMaybe];
+}
+
+- (IBAction) changeWhetherWatchingPaths:(id)sender {
+    [[SDConfigLoader sharedConfigLoader] watchPathsMaybe];
+}
+
 - (BOOL)control:(NSControl *)control textView:(NSTextView *)textView doCommandBySelector:(SEL)command {
     if (command == @selector(insertNewline:)) {
         [textView insertNewlineIgnoringFieldEditor:self];

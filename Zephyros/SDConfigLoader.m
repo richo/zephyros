@@ -8,27 +8,13 @@
 
 #import "SDConfigLoader.h"
 
-//#import <JSCocoa/JSCocoa.h>
-
-#import "SDWindowProxy.h"
-#import "SDScreenProxy.h"
-#import "SDAPI.h"
-
-#import "SDEventListener.h"
-#import "SDAlertWindowController.h"
-#import "SDLogWindowController.h"
-
+#import "SDPreferencesWindowController.h"
 #import "SDConfigWatcher.h"
-
-
 
 
 @interface SDConfigLoader ()
 
-//@property SDConfigWatcher* configWatcher;
-
-//@property SDJS* js;
-//@property SDRuby* ruby;
+@property SDConfigWatcher* configWatcher;
 
 @end
 
@@ -41,17 +27,27 @@
 
 
 @implementation SDConfigLoader
-//
-//+ (SDConfigLoader*) sharedConfigLoader {
-//    static SDConfigLoader* sharedConfigLoader;
-//    static dispatch_once_t onceToken;
-//    dispatch_once(&onceToken, ^{
-//        sharedConfigLoader = [[SDConfigLoader alloc] init];
-//        sharedConfigLoader.configWatcher = [[SDConfigWatcher alloc] init];
-//    });
-//    return sharedConfigLoader;
-//}
-//
+
++ (SDConfigLoader*) sharedConfigLoader {
+    static SDConfigLoader* sharedConfigLoader;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedConfigLoader = [[SDConfigLoader alloc] init];
+        sharedConfigLoader.configWatcher = [[SDConfigWatcher alloc] init];
+    });
+    return sharedConfigLoader;
+}
+
+- (void) launchConfigMaybe {
+    BOOL should = [[NSUserDefaults standardUserDefaults] boolForKey:SDRunMyScriptDefaultsKey];
+    NSLog(@"launch? %d", should);
+}
+
+- (void) watchPathsMaybe {
+    BOOL should = [[NSUserDefaults standardUserDefaults] boolForKey:SDUseRelaunchPathsDefaultsKey];
+    NSLog(@"watch? %d", should);
+}
+
 //- (void) prepareScriptingBridge {
 //    self.js = [[SDJS alloc] init];
 //    [self.js setup];
