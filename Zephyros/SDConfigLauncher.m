@@ -71,7 +71,21 @@
 
 
 
+- (void) prelaunchMaybe {
+    BOOL shouldPrelaunch = [[NSUserDefaults standardUserDefaults] boolForKey:SDRunCommandFirstDefaultsKey];
+    
+    if (!shouldPrelaunch)
+        return;
+    
+    NSString* prelaunchCmd = [[NSUserDefaults standardUserDefaults] stringForKey:SDPrerunCommandDefaultsKey];
+    
+    NSTask* task = [NSTask launchedTaskWithLaunchPath:@"/bin/bash" arguments:@[@"-l", @"-c", prelaunchCmd]];
+    [task waitUntilExit];
+}
+
 - (void) launch {
+    [self prelaunchMaybe];
+    
     NSString* cmd = [[NSUserDefaults standardUserDefaults] stringForKey:SDLaunchCommandDefaultsKey];
     
     NSPipe* stdoutPipe = [NSPipe pipe];
