@@ -11,6 +11,6 @@
 @interface SDConfigWatcher : NSObject
 
 - (void) stopWatching;
-- (void) startWatching:(NSString*)path;
+- (void) startWatching:(NSArray*)pathsToWatch;
 
 @end

@@ -37,10 +37,11 @@ void fsEventsCallback(ConstFSEventStreamRef streamRef, void *clientCallBackInfo,
     FSEventStreamRelease(self.stream);
 }
 
-- (void) startWatching:(NSString*)path {
+- (void) startWatching:(NSArray*)pathsToWatch {
+    [self stopWatching];
+    
     self.watching = YES;
     
-    NSArray *pathsToWatch = @[path];
     FSEventStreamContext context;
     context.info = NULL;
     context.version = 0;

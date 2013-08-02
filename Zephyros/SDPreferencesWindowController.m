@@ -69,6 +69,8 @@
     if (returnCode) {
         [[NSUserDefaults standardUserDefaults] setObject:self.pathsController.pathsToWatch
                                                   forKey:SDRelaunchPathsDefaultsKey];
+        
+        [[SDConfigLoader sharedConfigLoader] watchPathsMaybe];
     }
     
     self.pathsController = nil;

@@ -15,15 +15,9 @@
 @interface SDConfigLoader ()
 
 @property SDConfigWatcher* configWatcher;
+@property NSTask* launchedTask;
 
 @end
-
-
-
-//NSTask* task = [NSTask launchedTaskWithLaunchPath:@"/bin/bash" arguments:@[@"-l", @"-c", @"echo $PATH > /Users/sdegutis/Desktop/hi.txt"]];
-//[task waitUntilExit];
-//
-//NSLog(@"%d", [task terminationStatus]);
 
 
 @implementation SDConfigLoader
@@ -39,88 +33,68 @@
 }
 
 - (void) launchConfigMaybe {
-    BOOL should = [[NSUserDefaults standardUserDefaults] boolForKey:SDRunMyScriptDefaultsKey];
-    NSLog(@"launch? %d", should);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        BOOL shouldLaunchConfig = [[NSUserDefaults standardUserDefaults] boolForKey:SDRunMyScriptDefaultsKey];
+        
+        if (shouldLaunchConfig) {
+            if ([self isLaunched])
+                [self unlaunch];
+            
+            [self launch];
+        }
+        else {
+            [self unlaunch];
+            [self.configWatcher stopWatching];
+        }
+        
+        [self watchPathsMaybe];
+    });
 }
 
 - (void) watchPathsMaybe {
-    BOOL should = [[NSUserDefaults standardUserDefaults] boolForKey:SDUseRelaunchPathsDefaultsKey];
-    NSLog(@"watch? %d", should);
+    BOOL shouldLaunchConfig = [[NSUserDefaults standardUserDefaults] boolForKey:SDRunMyScriptDefaultsKey];
+    BOOL shouldWatchPaths = [[NSUserDefaults standardUserDefaults] boolForKey:SDUseRelaunchPathsDefaultsKey];
+    
+    if (shouldLaunchConfig && shouldWatchPaths) {
+        NSString* pathsStr = [[NSUserDefaults standardUserDefaults] stringForKey:SDRelaunchPathsDefaultsKey];
+        NSArray* paths = [pathsStr componentsSeparatedByString:@"\n"];
+        [self.configWatcher startWatching:paths];
+    }
+    else {
+        [self.configWatcher stopWatching];
+    }
 }
 
-//- (void) prepareScriptingBridge {
-//    self.js = [[SDJS alloc] init];
-//    [self.js setup];
-//    
-//    self.ruby = [[SDRuby alloc] init];
-//    [self.ruby setup];
-//}
-//
-//- (void) reloadConfigIfWatchEnabled {
-//    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"AutoReloadConfigs"]) {
-//        // this (hopefully?) guards against there sometimes being 2 notifications in a row
-//        [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(reloadConfig) object:nil];
-//        [self performSelector:@selector(reloadConfig) withObject:nil afterDelay:0.1];
-//    }
-//}
-//
-//- (void) reloadConfig {
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        [self.configWatcher stopWatching];
-//        
-//        NSString* file = [[NSUserDefaults standardUserDefaults] stringForKey:@"configPath"];
-//        
-//        if (!file) {
-//            [[SDAlertWindowController sharedAlertWindowController]
-//             show:[NSString stringWithFormat:@"Um, %@ doesn't seem to exist", file]
-//             delay:@7.0];
-//            return;
-//        }
-//        
-//        [[SDKeyBinder sharedKeyBinder] removeKeyBindings];
-//        [[SDEventListener sharedEventListener] removeListeners];
-//        
-//        if (![self load:file])
-//            return;
-//        
-//        [[SDEventListener sharedEventListener] finalizeNewListeners];
-//        
-//        NSArray* failures = [[SDKeyBinder sharedKeyBinder] finalizeNewKeyBindings];
-//        
-//        if ([failures count] > 0) {
+
+
+
+- (void) launch {
+    NSString* cmd = [[NSUserDefaults standardUserDefaults] stringForKey:SDLaunchCommandDefaultsKey];
+    self.launchedTask = [NSTask launchedTaskWithLaunchPath:@"/bin/bash" arguments:@[@"-l", @"-c", cmd]];
+}
+
+- (void) unlaunch {
+    [self.launchedTask terminate];
+    self.launchedTask = nil;
+}
+
+- (BOOL) isLaunched {
+    return self.launchedTask != nil;
+}
+
+
 //            NSString* str = [@"The following hot keys could not be bound:\n\n" stringByAppendingString: [failures componentsJoinedByString:@"\n"]];
 //            [[SDLogWindowController sharedLogWindowController] show:str
 //                                                               type:SDLogMessageTypeError];
-//        }
-//        else {
-//            static BOOL loaded;
+
+
+
 //            [[SDAlertWindowController sharedAlertWindowController]
-//             show:[NSString stringWithFormat:@"%s %@", (loaded ? "Reloaded" : "Loaded"), file]
+//             show:@"Launched Config"
 //             delay:nil];
-//            loaded = YES;
-//        }
-//        
-//        [self.configWatcher startWatching:[[[NSUserDefaults standardUserDefaults] stringForKey:@"configPath"] stringByStandardizingPath]];
-//    });
-//}
-//
-//- (BOOL) load:(NSString*)filename {
-//    NSString* contents = [NSString stringWithContentsOfFile:[filename stringByStandardizingPath]
-//                                                   encoding:NSUTF8StringEncoding
-//                                                      error:NULL];
-//    
-//    if (!contents)
-//        return NO;
-//    
-//    [self eval:contents];
-//    
-//    return YES;
-//}
-//
-//- (NSString*) evalString:(NSString*)str {
-//    return [self eval:str];
-//}
-//
+
+
+
 //- (id) eval:(NSString*)str {
 //    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"configShouldPreprocess"]) {
 //        NSString* preprocessor = [[NSUserDefaults standardUserDefaults] stringForKey:@"configConverter"];
@@ -132,26 +106,6 @@
 //            str = [result objectForKey:@"stdout"];
 //        }
 //    }
-//    
-//    NSString* type = [[NSUserDefaults standardUserDefaults] stringForKey:@"configType"];
-//    
-//    if ([type isEqualToString: @"js"]) {
-//        return [self.js evalString:str asCoffee:NO];
-//    }
-//    else if ([type isEqualToString: @"coffee"]) {
-//        return [self.js evalString:str asCoffee:YES];
-//    }
-//    else if ([type isEqualToString: @"ruby"]) {
-//        return [self.ruby evalString:str];
-//    }
-//    else if ([type isEqualToString: @"nu"]) {
-//        NuParser* parser = [Nu sharedParser];
-//        id code = [parser parse:str];
-//        id result = [parser eval:code];
-//        return [result description];
-//    }
-//    
-//    return nil;
-//}
+
 
 @end

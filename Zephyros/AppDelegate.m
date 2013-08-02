@@ -43,7 +43,6 @@
     [self prepareStatusItem];
     
     [[SDConfigLoader sharedConfigLoader] launchConfigMaybe];
-    [[SDConfigLoader sharedConfigLoader] watchPathsMaybe];
     [[SDAppStalker sharedAppStalker] beginStalking];
     
     [[SDAlertWindowController sharedAlertWindowController] show:@"Zephyros power, activate!"
