@@ -5,17 +5,17 @@ import (
 	"reflect"
 )
 
-type api float64
-var API api = 0
+type TopLevelApi float64
+var API TopLevelApi = 0
 
 
 
-func (self api) Bind(key string, mods []string, fn func()) {
+func (self TopLevelApi) Bind(key string, mods []string, fn func()) {
 	wrapFn := func(bytes []byte) { fn() }
 	send(float64(self), wrapFn, true, "bind", key, mods)
 }
 
-func (self api) ChooseFrom(list []string, title string, linesTall int, charsWide int, fn func(i int)) {
+func (self TopLevelApi) ChooseFrom(list []string, title string, linesTall int, charsWide int, fn func(i int)) {
 	wrapFn := func(bytes []byte) {
 		var obj *float64
 		json.Unmarshal(bytes, &obj)
@@ -28,7 +28,9 @@ func (self api) ChooseFrom(list []string, title string, linesTall int, charsWide
 	send(float64(self), wrapFn, true, "choose_from", list, title, linesTall, charsWide)
 }
 
-func (self api) Listen(event string, fn interface{}) {
+// Function 'fn' will be called with the proper arg and
+// type (or no args) depending on the event type.
+func (self TopLevelApi) Listen(event string, fn interface{}) {
 	fnValue := reflect.ValueOf(fn)
 	fnType := fnValue.Type()
 
@@ -52,61 +54,61 @@ func (self api) Listen(event string, fn interface{}) {
 	send(float64(self), wrapFn, true, "listen", event)
 }
 
-func (self api) Alert(msg string, dur int) {
+func (self TopLevelApi) Alert(msg string, dur int) {
 	send(float64(self), nil, false, "alert", msg, dur)
 }
 
-func (self api) Log(msg string) {
+func (self TopLevelApi) Log(msg string) {
 	send(float64(self), nil, false, "log", msg)
 }
 
-func (self api) RelaunchConfig() {
+func (self TopLevelApi) RelaunchConfig() {
 	send(float64(self), nil, false, "relaunch_config")
 }
 
-func (self api) ClipboardContents() string {
+func (self TopLevelApi) ClipboardContents() string {
 	var buf string
 	bytes := send(float64(self), nil, false, "clipboard_contents")
 	json.Unmarshal(bytes, &buf)
 	return buf
 }
 
-func (self api) FocusedWindow() Window {
+func (self TopLevelApi) FocusedWindow() Window {
 	var buf Window
 	bytes := send(float64(self), nil, false, "focused_window")
 	json.Unmarshal(bytes, &buf)
 	return buf
 }
 
-func (self api) VisibleWindows() []Window {
+func (self TopLevelApi) VisibleWindows() []Window {
 	var buf []Window
 	bytes := send(float64(self), nil, false, "visible_windows")
 	json.Unmarshal(bytes, &buf)
 	return buf
 }
 
-func (self api) AllWindows() []Window {
+func (self TopLevelApi) AllWindows() []Window {
 	var buf []Window
 	bytes := send(float64(self), nil, false, "all_windows")
 	json.Unmarshal(bytes, &buf)
 	return buf
 }
 
-func (self api) MainScreen() Screen {
+func (self TopLevelApi) MainScreen() Screen {
 	var buf Screen
 	bytes := send(float64(self), nil, false, "main_screen")
 	json.Unmarshal(bytes, &buf)
 	return buf
 }
 
-func (self api) AllScreens() []Screen {
+func (self TopLevelApi) AllScreens() []Screen {
 	var buf []Screen
 	bytes := send(float64(self), nil, false, "all_screens")
 	json.Unmarshal(bytes, &buf)
 	return buf
 }
 
-func (self api) RunningApps() []App {
+func (self TopLevelApi) RunningApps() []App {
 	var buf []App
 	bytes := send(float64(self), nil, false, "running_apps")
 	json.Unmarshal(bytes, &buf)
