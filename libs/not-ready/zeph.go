@@ -29,11 +29,14 @@ func listenForCallbacks() {
 		buf := make([]byte, i)
 		io.ReadFull(reader, buf)
 
+		// fmt.Println(string(buf))
+
 		var msg []interface{}
 		json.Unmarshal(buf, &msg)
 
-		id := msg[0]
-		respChans[id.(float64)] <- buf
+		id, obj := msg[0].(float64), msg[1]
+		bytes, _ := json.Marshal(obj)
+		respChans[id] <- bytes
 	}
 }
 
@@ -91,6 +94,9 @@ func send(recv float64, fn func([]byte), infinite bool, method string, args ...i
 type api float64
 type window float64
 
+
+
+
 func (self api) bind(key string, mods []string, fn func()) {
 	wrapFn := func(b []byte) { fn() }
 	send(float64(self), wrapFn, true, "bind", key, mods)
@@ -101,13 +107,20 @@ func (self api) alert(msg string, dur int) {
 }
 
 func (self api) focusedWindow() window {
-	var buf struct {
-		id float64
-		val float64
-	}
+	var buf float64
 	bytes := send(float64(self), nil, false, "focused_window")
 	json.Unmarshal(bytes, &buf)
-	return window(buf.val)
+	return window(buf)
+}
+
+
+
+
+func (self window) title() string {
+	var buf string
+	bytes := send(float64(self), nil, false, "title")
+	json.Unmarshal(bytes, &buf)
+	return buf
 }
 
 var API api = 0
@@ -117,8 +130,8 @@ func main() {
 	API.bind("d", []string{"cmd", "shift"}, func() {
 		API.alert("LIKE", 1)
 
-		win := api.focusedWindow()
-		fmt.Println(win)
+		win := API.focusedWindow()
+		fmt.Println(win.title())
 
 		// win := send(API, "visible_windows")
 		// title := send(win.([]interface{})[0].(float64), "title")
