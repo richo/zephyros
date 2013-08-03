@@ -42,4 +42,22 @@ minimized?          |              | bool
 
 #### App
 
+Name            | Args | Return value
+----------------|------|--------------------
+visible_windows |      | [id, ...]
+all_windows     |      | [id, ...]
+title           |      | string
+hidden?         |      | bool
+show            |      | nil
+hide            |      | nil
+kill            |      | nil
+kill9           |      | nil
+
 #### Screen
+
+Name                | Args    | Return value
+--------------------|---------|--------------------
+frame_including_dock_and_menu | {x, y, w, h} | nil
+frame_without_dock_or_menu    | {x, y, w, h} | nil
+prev_screen                   |              | id
+next_screen                   |              | id
