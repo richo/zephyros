@@ -19,40 +19,12 @@
       (recur in (concat bytes-so-far [b])))))
 
 (defn conn-handler [conn]
-  ;; (println "ready.")
   (while (nil? (:exit @conn))
     (let [msg-size (Integer/parseInt (own-rolled-readline (:in @conn) []))
-          _ (println "waiting for" msg-size "bytes")
-          i (atom 0)
-
-          msg-str (do
-
-                    (let [buf (java.nio.ByteBuffer/allocate 30)
-                          _ (dotimes [_ msg-size]
-                              (let [i (.read (:in @conn))]
-                                (println "i =" i)
-                                (.putInt buf i)))
-                          s (String. (.array buf) "UTF-8")]
-
-                      (println s)
-
-                      s
-                      )
-
-
-
-                    )
-          _ (prn msg-str)
-
-
-          ;; msg (take msg-size (repeatedly #(do
-          ;;                                   (println "waiting for byte #" (swap! i inc))
-          ;;                                   (let [b (.read (:in @conn))]
-          ;;                                     (println "byte =" b)
-          ;;                                     (println "byte =" (char b))
-          ;;                                     (println "byte =" (byte b))
-          ;;                                     b))))
-          ;; msg-str (String. (byte-array (map byte msg)) "UTF-8")
+          msg-bytes (take msg-size (repeatedly #(let [buf (byte-array [(byte 0)])
+                                                      num-read (.read (:in @conn) buf)]
+                                                  ((vec buf) 0))))
+          msg-str (String. (byte-array msg-bytes) "UTF-8")
           json (json/read-str msg-str)
           ;; _ (println "GOT" json)
           msg-id (json 0)
