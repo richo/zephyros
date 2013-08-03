@@ -119,7 +119,7 @@ func main() {
 - 4.0
     - Security update
         - This auto-updater won't actually work because of it
-        - [Download Zephyros 4.0](https://raw.github.com/sdegutis/zephyros/master/Builds/Zephyros-LATEST.app.tar.gz) at this link instead
+        - Instead, [download Zephyros 4.0](https://raw.github.com/sdegutis/zephyros/master/Builds/Zephyros-LATEST.app.tar.gz) at this link
         - See [this github issue](https://github.com/sdegutis/zephyros/pull/21) for details
     - *Way* more stable
     - Includes new Clojure API
