@@ -28,8 +28,8 @@
         in (BufferedReader. (InputStreamReader. (.getInputStream socket) "UTF-8"))
         out (PrintWriter. (.getOutputStream socket))
         conn (ref {:in in :out out :socket socket})]
-    (safely-do-in-background (conn-handler conn))
-    conn))
+    [(safely-do-in-background (conn-handler conn))
+     conn]))
 
 (defn write [conn msg]
   (doto (:out @conn)
@@ -37,8 +37,10 @@
     (.flush)))
 
 (def zephyros-server {:name "localhost" :port 1235})
-(def conn (connect zephyros-server))
 (def max-msg-id (atom 0))
+(let [[listener tmp-conn] (connect zephyros-server)]
+  (def conn tmp-conn)
+  (def listen-for-callbacks listener))
 
 (defn send-msg [args]
   (let [msg-id (swap! max-msg-id inc)

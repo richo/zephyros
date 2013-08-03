@@ -7,4 +7,4 @@
       (fn []
         (alert "hello world" 1)))
 
-(while true)
+@listen-for-callbacks

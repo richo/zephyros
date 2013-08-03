@@ -16,7 +16,7 @@
       (fn []
         (alert "hello world" 1)))
 
-(while true) ;; necessary when you use (bind) or (listen)
+@listen-for-callbacks ;; necessary when you use (bind) or (listen)
 ```
 
 #### Running it
