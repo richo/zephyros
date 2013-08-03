@@ -59,7 +59,7 @@ Note: If reloading your config file fails, your key bindings will be un-bound as
 
 ### Example Configs
 
-Ruby:
+#### Ruby
 
 ```ruby
 require '~/Applications/Zephyros.app/Contents/Resources/libs/zephyros.rb' # or wherever you put it
@@ -73,7 +73,7 @@ API.bind "K", ["cmd", "alt", "ctrl"] do
 end
 ```
 
-Clojure:
+#### Clojure
 
 ```clojure
 (ns zephyros.core
