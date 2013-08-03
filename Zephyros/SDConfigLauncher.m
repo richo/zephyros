@@ -42,10 +42,13 @@
         BOOL shouldLaunchConfig = [[NSUserDefaults standardUserDefaults] boolForKey:SDRunMyScriptDefaultsKey] && [cmd length] > 0;
         
         if (shouldLaunchConfig) {
-            if ([self isLaunched])
-                [self unlaunch];
+            [self unlaunch];
             
-            [self launch];
+            double delayInSeconds = 0.15;
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                [self launch];
+            });
         }
         else {
             [self unlaunch];
@@ -86,6 +89,7 @@
 }
 
 - (void) launch {
+    NSLog(@"launching");
     [self prelaunchMaybe];
     
     NSString* cmd = [[NSUserDefaults standardUserDefaults] stringForKey:SDLaunchCommandDefaultsKey];
@@ -123,12 +127,9 @@
 }
 
 - (void) unlaunch {
+    NSLog(@"killing");
     [self.launchedTask kill];
     self.launchedTask = nil;
-}
-
-- (BOOL) isLaunched {
-    return self.launchedTask != nil;
 }
 
 @end

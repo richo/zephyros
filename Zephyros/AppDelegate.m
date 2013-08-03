@@ -39,7 +39,7 @@
                                                           firstTime = NO;
                                                       }
                                                       else {
-                                                          [[SDAlertWindowController sharedAlertWindowController] show:@"Relaunched Zephyros Script"
+                                                          [[SDAlertWindowController sharedAlertWindowController] show:@"Launched Zephyros Script"
                                                                                                                 delay:nil];
                                                       }
                                                   }];

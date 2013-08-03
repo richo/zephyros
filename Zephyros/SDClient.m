@@ -61,6 +61,7 @@
 }
 
 - (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err {
+    NSLog(@"unbinding");
     for (SDHotKey* hotkey in self.hotkeys) {
         [hotkey unbind];
     }
@@ -68,6 +69,7 @@
     for (SDEventListener* listener in self.listeners) {
         [listener stopListening];
     }
+    NSLog(@"done unbinding");
     
     self.disconnectedHandler(self);
 }

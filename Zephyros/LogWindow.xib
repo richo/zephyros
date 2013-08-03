@@ -88,16 +88,15 @@
 							<bool key="UseBackForwardList">YES</bool>
 							<bool key="AllowsUndo">YES</bool>
 						</object>
-						<object class="NSButton" id="64259893">
+						<object class="NSButton" id="573165749">
 							<reference key="NSNextResponder" ref="1006"/>
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{374, 2}, {52, 17}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:22</string>
 							<bool key="NSEnabled">YES</bool>
-							<object class="NSButtonCell" key="NSCell" id="67463298">
+							<object class="NSButtonCell" key="NSCell" id="115974450">
 								<int key="NSCellFlags">-2080374784</int>
 								<int key="NSCellFlags2">134479872</int>
 								<string key="NSContents">Clear Log</string>
@@ -107,7 +106,7 @@
 									<int key="NSfFlags">3614</int>
 								</object>
 								<string key="NSCellIdentifier">_NS:22</string>
-								<reference key="NSControlView" ref="64259893"/>
+								<reference key="NSControlView" ref="573165749"/>
 								<int key="NSButtonFlags">-2038153216</int>
 								<int key="NSButtonFlags2">163</int>
 								<string key="NSAlternateContents"/>
@@ -151,6 +150,14 @@
 						<reference key="destination" ref="1021585706"/>
 					</object>
 					<int key="connectionID">24</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">clearLog:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="573165749"/>
+					</object>
+					<int key="connectionID">50</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -200,7 +207,7 @@
 						<reference key="object" ref="1006"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="1021585706"/>
-							<reference ref="64259893"/>
+							<reference ref="573165749"/>
 						</array>
 						<reference key="parent" ref="1005"/>
 					</object>
@@ -216,16 +223,16 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">48</int>
-						<reference key="object" ref="64259893"/>
+						<reference key="object" ref="573165749"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="67463298"/>
+							<reference ref="115974450"/>
 						</array>
 						<reference key="parent" ref="1006"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">49</int>
-						<reference key="object" ref="67463298"/>
-						<reference key="parent" ref="64259893"/>
+						<reference key="object" ref="115974450"/>
+						<reference key="parent" ref="573165749"/>
 					</object>
 				</array>
 			</object>
@@ -246,13 +253,27 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">49</int>
+			<int key="maxID">50</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<object class="IBPartialClassDescription">
 					<string key="className">SDLogWindowController</string>
 					<string key="superclassName">NSWindowController</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="clearLog:">id</string>
+						<string key="evalFromRepl:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="clearLog:">
+							<string key="name">clearLog:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="evalFromRepl:">
+							<string key="name">evalFromRepl:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="replTextField">NSTextField</string>
 						<string key="webView">WebView</string>
