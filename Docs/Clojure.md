@@ -10,7 +10,9 @@
 #### Letting Zephyros run it for you
 
 Put this as your launch path inside Zephyros:
-* `cd path/to/zephyros-clj && lein run`
+```bash
+cd path/to/zephyros-clj && lein run
+```
 
 #### Editing the script
 
