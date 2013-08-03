@@ -1,4 +1,4 @@
-package main
+package zephyros_go
 
 import (
 	"fmt"
@@ -10,6 +10,7 @@ import (
 	"io"
 )
 
+
 func connect() net.Conn {
 	conn, _ := net.Dial("tcp", "localhost:1235")
 	return conn
@@ -19,7 +20,7 @@ var c net.Conn = connect()
 
 var respChans = make(map[float64]chan []byte)
 
-func listenForCallbacks() {
+func ListenForCallbacks() {
 	reader := bufio.NewReader(c)
 	for {
 		numBytes, _ := reader.ReadString('\n')
@@ -97,16 +98,16 @@ type window float64
 
 
 
-func (self api) bind(key string, mods []string, fn func()) {
+func (self api) Bind(key string, mods []string, fn func()) {
 	wrapFn := func(b []byte) { fn() }
 	send(float64(self), wrapFn, true, "bind", key, mods)
 }
 
-func (self api) alert(msg string, dur int) {
+func (self api) Alert(msg string, dur int) {
 	send(float64(self), nil, false, "alert", msg, dur)
 }
 
-func (self api) focusedWindow() window {
+func (self api) FocusedWindow() window {
 	var buf float64
 	bytes := send(float64(self), nil, false, "focused_window")
 	json.Unmarshal(bytes, &buf)
@@ -116,7 +117,7 @@ func (self api) focusedWindow() window {
 
 
 
-func (self window) title() string {
+func (self window) Title() string {
 	var buf string
 	bytes := send(float64(self), nil, false, "title")
 	json.Unmarshal(bytes, &buf)
@@ -124,34 +125,3 @@ func (self window) title() string {
 }
 
 var API api = 0
-
-
-func main() {
-	API.bind("d", []string{"cmd", "shift"}, func() {
-		API.alert("LIKE", 1)
-
-		win := API.focusedWindow()
-		fmt.Println(win.title())
-
-		// win := send(API, "visible_windows")
-		// title := send(win.([]interface{})[0].(float64), "title")
-		// fmt.Println(title)
-
-		// {
-		// 	win := send(API, "focused_window")
-		// 	frame := send(win.(float64), "frame").(map[string]interface{})
-		// 	w := frame["w"].(float64)
-		// 	w -= 10
-		// 	frame["w"] = w
-		// 	send(win.(float64), "set_frame", frame)
-
-		// 	fmt.Println(frame)
-		// }
-
-		// send(API, "choose_from", []string{"foo", "bar"}, "title", 20, 20, func(i interface{}) {
-		// 	fmt.Println("inner!", i)
-		// })
-	})
-
-	listenForCallbacks()
-}
