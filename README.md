@@ -21,13 +21,15 @@
 
 At it's core, Zephyros just runs quietly in your menu bar, and listens for your script. You typically write a script that binds global hot keys to do stuff, often window-manager-type things.
 
-#### Supported languages
+#### Some languages you can use
 
 - [Using Clojure](Docs/Clojure.md)
 - [Using Ruby](Docs/Ruby.md)
 - [Using Python](Docs/Python.md)
 - [Using Go](Docs/Go.md)
 - [Using node.js](Docs/Nodejs.md)
+
+#### Other languages
 
 You can script Zephyros from **any language** that can talk JSON over TCP.
 
