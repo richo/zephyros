@@ -117,14 +117,12 @@ func main() {
 ### Change log
 
 - 4.0
-    - **Adds support for any language that speaks TCP**
-    - Temporarily removes JS support
-    - Includes Ruby lib
-    - Includes Clojure lib
-    - Includes Go lib (partially done)
-    - Ruby API now requires `require '~/Applications/Zephyros.app/Contents/Resources/libs/zephyros.rb'`
-    - Slight UI upgrade
-    - Internal REPL is broken again
+    - *Way* more stable
+    - **Adds support for any language that can speak JSON over TCP**
+    - Removes JS api (so don't upgrade if you don't want to rewrite your config in something else)
+    - Slight API changes to Ruby lib
+    - Includes new Clojure lib
+    - Includes new Go lib
 - 3.1
     - Added a fuzzy-matching `choose_from` method to the Ruby API (it's pretty sweet)
 - 3.0
