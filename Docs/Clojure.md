@@ -11,7 +11,9 @@
 
 (load-file "~/Applications/Zephyros.app/Contents/Resources/libs/zephyros.clj")
 
-(alert "ok done" 1)
+(bind "D" ["Cmd" "Shift"]
+      (fn []
+        (alert "hello world" 1)))
 
 (while true) ;; necessary when you use (bind) or (listen)
 ```
@@ -21,75 +23,77 @@ Then do: `lein run path/to/my-zeph.clj`
 #### API
 
 ```clojure
-(defn bind "" [key mods f] (do-callback-indefinitely (fn [_] (f)) 0 "bind" key mods))
-(defn listen "" [event f] (do-callback-indefinitely #(f %) 0 "listen" event))
+;; top level
 
-(defn get-focused-window "" [] (get-one-value 0 "focused_window"))
-(defn get-visible-windows "" [] (get-one-value 0 "visible_windows"))
-(defn get-all-windows "" [] (get-one-value 0 "all_windows"))
+(defn bind [key mods f])
+(defn listen [event f])
 
-(defn get-main-screen "" [] (get-one-value 0 "main_screen"))
-(defn get-all-screens "" [] (get-one-value 0 "all_screens"))
+(defn get-focused-window [])
+(defn get-visible-windows [])
+(defn get-all-windows [])
 
-(defn get-running-apps "" [] (get-one-value 0 "running_apps"))
+(defn get-main-screen [])
+(defn get-all-screens [])
 
-(defn alert "" [msg duration] (get-one-value 0 "alert" msg duration))
-(defn log "" [msg] (get-one-value 0 "log" msg))
-(defn choose-from "" [list title f] (do-callback-once f 0 "choose_from" list title 20 10))
+(defn get-running-apps [])
 
-(defn relaunch-config "" [] (get-one-value 0 "relaunch_config"))
-(defn get-clipboard-contents "" [] (get-one-value 0 "clipboard_contents"))
+(defn alert [msg duration])
+(defn log [msg])
+(defn choose-from [list title f])
+
+(defn relaunch-config [])
+(defn get-clipboard-contents [])
 
 
 ;; window
 
-(defn get-window-title "" [window] (get-one-value window "title"))
+(defn get-window-title [window])
 
-(defn get-frame "Takes {:x, :y, :w, :h}" [window] (keywordize (get-one-value window "frame")))
-(defn get-size "Takes {:w, :h}" [window] (keywordize (get-one-value window "size")))
-(defn get-top-left "Takes {:w, :h}" [window] (keywordize (get-one-value window "top_left")))
+(defn get-frame [window])       ;; Takes {:x, :y, :w, :h}
+(defn get-size [window])        ;; Takes {:w, :h}
+(defn get-top-left [window])    ;; Takes {:w, :h}
 
-(defn set-frame "Returns {:x, :y, :w, :h}" [window f] (get-one-value window "set_frame" f))
-(defn set-size "Returns {:w, :h}" [window s] (get-one-value window "set_size" s))
-(defn set-top-left "Returns {:x, :y}" [window tl] (get-one-value window "set_top_left" tl))
+(defn set-frame [window f])     ;; Returns {:x, :y, :w, :h}
+(defn set-size [window s])      ;; Returns {:w, :h}
+(defn set-top-left [window tl]) ;; Returns {:x, :y}
 
-(defn minimize "" [window] (get-one-value window "minimize"))
-(defn maximize "" [window] (get-one-value window "maximize"))
-(defn un-minimize "" [window] (get-one-value window "un_minimize"))
+(defn minimize [window])
+(defn maximize [window])
+(defn un-minimize [window])
 
-(defn get-app-for-window "" [window] (get-one-value window "app"))
-(defn get-screen-for-window "" [window] (get-one-value window "screen"))
+(defn get-app-for-window [window])
+(defn get-screen-for-window [window])
 
-(defn focus-window "" [window] (get-one-value window "focus_window"))
-(defn focus-window-left "" [window] (get-one-value window "focus_window_left"))
-(defn focus-window-right "" [window] (get-one-value window "focus_window_right"))
-(defn focus-window-up "" [window] (get-one-value window "focus_window_up"))
-(defn focus-window-down "" [window] (get-one-value window "focus_window_down"))
+(defn focus-window [window])
+(defn focus-window-left [window])
+(defn focus-window-right [window])
+(defn focus-window-up [window])
+(defn focus-window-down [window])
 
-(defn normal-window? "" [window] (get-one-value window "normal_window?"))
-(defn minimized? "" [window] (get-one-value window "minimized?"))
+(defn normal-window? [window])
+(defn minimized? [window])
 
 
 ;; app
 
-(defn visible-windows-for-app "" [app] (get-one-value app "visible_windows"))
-(defn all-windows-for-app "" [app] (get-one-value app "all_windows"))
+(defn visible-windows-for-app [app])
+(defn all-windows-for-app [app])
 
-(defn get-app-title "" [app] (get-one-value app "title"))
-(defn app-hidden? "" [app] (get-one-value app "hidden?"))
+(defn get-app-title [app])
+(defn app-hidden? [app])
 
-(defn show-app "" [app] (get-one-value app "show"))
-(defn hide-app "" [app] (get-one-value app "hide"))
+(defn show-app [app])
+(defn hide-app [app])
 
-(defn kill-app "" [app] (get-one-value app "kill"))
-(defn kill9-app "" [app] (get-one-value app "kill9"))
+(defn kill-app [app])
+(defn kill9-app [app])
 
 
-;; screen
+;; screeen
 
-(defn screen-frame-including-dock-and-menu "" [screen] (keywordize (get-one-value screen "frame_including_dock_and_menu")))
-(defn screen-frame-without-dock-or-menu "" [screen] (keywordize (get-one-value screen "frame_without_dock_or_menu")))
+(defn screen-frame-including-dock-and-menu [screen])
+(defn screen-frame-without-dock-or-menu [screen])
 
-(defn next-screen "" [screen] (get-one-value screen "next_screen"))
-(defn previous-screen "" [screen] (get-one-value screen "previous_screen"))
+(defn next-screen [screen])
+(defn previous-screen [screen])
 ```
