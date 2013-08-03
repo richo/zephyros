@@ -1,6 +1,20 @@
 ## Zephyros Ruby API
 
-Ruby Version: 2.0
+#### Setup
+
+Add this to the top of your ruby script:
+```ruby
+require '~/Applications/Zephyros.app/Contents/Resources/libs/zephyros.rb'
+```
+
+#### Auto-running
+
+Change your auto-launch-command inside Zephyros to:
+```shell
+ruby path/to/zephyros.rb
+```
+
+#### API
 
 The function `API.bind` uses [this list](https://github.com/sdegutis/zephyros/blob/master/Zephyros/SDKeyBindingTranslator.m#L148) of key strings.
 

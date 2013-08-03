@@ -9,7 +9,7 @@
 
 #### Letting Zephyros run it for you
 
-Put this as your launch path inside Zephyros:
+Put this as your auto-launch-command inside Zephyros:
 ```bash
 cd path/to/zephyros-clj && lein run
 ```
