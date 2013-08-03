@@ -50,8 +50,6 @@ Don't see your favorite language here? Why not [write a Zephyros lib](Docs/TCP.m
 
 Is the API missing something you need? File an issue and let me know!
 
-Note: If reloading your config file fails, your key bindings will be un-bound as a precaution, presuming that your config file is in an unpredictable state. They will be re-bound again next time your config file is successfully loaded. Same with events you're registered to.
-
 #### Auto-reloading configs
 
 * Automatically reload your config file whenever it (or anything you choose) changes.
