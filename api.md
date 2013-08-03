@@ -4,19 +4,19 @@
 
 Name               | Args                                | Return value
 -------------------|-------------------------------------|--------------------
-bind               | key, mods                           | nil, callback, ...
-listen             | event_name                          | 0, callback, ...
+bind               | key, mods                           | nil, followed by: callback, ...
+listen             | event_name                          | 0, followed by: callback, ...
 relaunch_config    |                                     | nil
 clipboard_contents |                                     | string
-focused_window     |                                     | id
-visible_windows    |                                     | array of ids
-all_windows        |                                     | array of ids
-main_screen        |                                     | id
-all_screens        |                                     | array of ids
-running_apps       |                                     | array of ids
+focused_window     |                                     | [window_id](#window)
+visible_windows    |                                     | [[window_id](#window), ...]
+all_windows        |                                     | [[window_id](#window), ...]
+main_screen        |                                     | [screen_id](#screen)
+all_screens        |                                     | [[screen_id](#screen), ...]
+running_apps       |                                     | [[app_id](#app), ...]
 alert              | msg, duration_sec                   | nil
 log                | msg                                 | nil
-choose_from        | list, title, lines_tall, chars_wide | 0, idx
+choose_from        | list, title, lines_tall, chars_wide | 0, followed by: chosen index or nil if canceled
 
 #### Window
 
@@ -32,8 +32,8 @@ size                |              | {w, h}
 maximize            |              | nil
 minimize            |              | nil
 un_minimize         |              | nil
-app                 |              | id
-screen              |              | id
+app                 |              | [app_id](#app)
+screen              |              | [screen_id](#screen)
 focus_window        |              | nil
 focus_window_left   |              | nil
 focus_window_right  |              | nil
@@ -46,8 +46,8 @@ minimized?          |              | bool
 
 Name            | Args | Return value
 ----------------|------|--------------------
-visible_windows |      | [id, ...]
-all_windows     |      | [id, ...]
+visible_windows |      | [[window_id](#window), ...]
+all_windows     |      | [[window_id](#window), ...]
 title           |      | string
 hidden?         |      | bool
 show            |      | nil
@@ -61,8 +61,8 @@ Name                | Args    | Return value
 --------------------|---------|--------------------
 frame_including_dock_and_menu | {x, y, w, h} | nil
 frame_without_dock_or_menu    | {x, y, w, h} | nil
-prev_screen                   |              | id
-next_screen                   |              | id
+prev_screen                   |              | [screen_id](#screen)
+next_screen                   |              | [screen_id](#screen)
 
 
 ### Protocol
