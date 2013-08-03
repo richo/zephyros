@@ -1,4 +1,6 @@
 from twisted.internet import reactor, protocol
+from Queue import Queue
+from threading import Thread
 import json
 
 setupper = None
@@ -7,7 +9,21 @@ setupper = None
 class API:
     def __init__(self, zeph):
         self.zeph = zeph
+
+    def bind(self, key, mods, f):
+        def tempFn(arg):
+            f()
+        self.zeph.sendMsg([0, 'bind', key, mods], fn = tempFn)
+
+
+class ZephClient(protocol.Protocol):
+    def connectionMade(self):
         self.reifiedMsgIdGen = self.msgIdGen()
+        self.buf = ''
+        self.readingSize = None
+        self.api = API(self)
+        self.queues = {}
+        setupper(self.api)
 
     def msgIdGen(self):
         i = 0
@@ -15,21 +31,30 @@ class API:
             i += 1
             yield i
 
-    def bind(self, key, mods, f):
+    def sendMsg(self, msg, infinite=True, fn=None):
         msgid = self.reifiedMsgIdGen.next()
-        self.zeph.sendMsg([msgid, 0, 'bind', key, mods])
-
-
-class ZephClient(protocol.Protocol):
-    def connectionMade(self):
-        self.buf = ''
-        self.readingSize = None
-        self.api = API(self)
-        setupper(self.api)
-
-    def sendMsg(self, msg):
+        self.queues[msgid] = Queue(10)
+        msg.insert(0, msgid)
         msgStr = json.dumps(msg)
         self.transport.write(str(len(msgStr)) + '\n' + msgStr)
+
+        if fn is not None:
+            def tmpFn():
+                val = self.queues[msgid].get()
+                if infinite:
+                    while True:
+                        val = self.queues[msgid].get()
+                        fn(val)
+                else:
+                    val = self.queues[msgid].get()
+                    fn(val)
+                del self.queues[msgid]
+            t = Thread(target = tmpFn)
+            t.start()
+        else:
+            val = self.queues[msgid].get()
+            del self.queues[msgid]
+            return val
 
     def dataReceived(self, data):
         self.buf += data
@@ -37,7 +62,9 @@ class ZephClient(protocol.Protocol):
             pass
 
     def handleMessage(self, msg):
-        print 'msg:', msg
+        msgid = msg[0]
+        self.queues[msgid].put(msg[1])
+        # print 'msg:', msgid, msg
 
     def processIncomingData(self):
         if self.readingSize:
