@@ -25,15 +25,18 @@ func ListenForCallbacks() {
 	for {
 		numBytes, _ := reader.ReadString('\n')
 		numBytes = strings.Trim(numBytes, "\n")
+		// fmt.Println("bytes", numBytes)
 		i, _ := strconv.ParseUint(numBytes, 10, 64)
 
 		buf := make([]byte, i)
 		io.ReadFull(reader, buf)
 
-		// fmt.Println(string(buf))
+		// fmt.Printf("%#v\n", string(buf))
 
 		var msg []interface{}
 		json.Unmarshal(buf, &msg)
+
+		// fmt.Println(msg)
 
 		id, obj := msg[0].(float64), msg[1]
 		bytes, _ := json.Marshal(obj)
@@ -95,6 +98,26 @@ func send(recv float64, fn func([]byte), infinite bool, method string, args ...i
 type api float64
 type window float64
 
+var API api = 0
+
+type Rect struct {
+	X float64 `json:"x"`
+	Y float64 `json:"y"`
+	W float64 `json:"w"`
+	H float64 `json:"h"`
+}
+
+type Size struct {
+	W float64 `json:"w"`
+	H float64 `json:"h"`
+}
+
+type TopLeft struct {
+	X float64 `json:"x"`
+	Y float64 `json:"y"`
+}
+
+
 
 
 
@@ -124,4 +147,35 @@ func (self window) Title() string {
 	return buf
 }
 
-var API api = 0
+func (self window) Frame() Rect {
+	var buf Rect
+	bytes := send(float64(self), nil, false, "frame")
+	json.Unmarshal(bytes, &buf)
+	return buf
+}
+
+func (self window) SetFrame(f Rect) {
+	send(float64(self), nil, false, "set_frame", f)
+}
+
+func (self window) Size() Size {
+	var buf Size
+	bytes := send(float64(self), nil, false, "size")
+	json.Unmarshal(bytes, &buf)
+	return buf
+}
+
+func (self window) SetSize(f Size) {
+	send(float64(self), nil, false, "set_size", f)
+}
+
+func (self window) TopLeft() TopLeft {
+	var buf TopLeft
+	bytes := send(float64(self), nil, false, "top_left")
+	json.Unmarshal(bytes, &buf)
+	return buf
+}
+
+func (self window) SetTopLeft(f TopLeft) {
+	send(float64(self), nil, false, "set_top_left", f)
+}

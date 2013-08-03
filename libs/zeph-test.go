@@ -12,6 +12,12 @@ func main() {
 		win := API.FocusedWindow()
 		fmt.Println(win.Title())
 
+		f := win.TopLeft()
+		f.X += 10
+		win.SetTopLeft(f)
+
+		// fmt.Println(win.Frame())
+
 		// win := send(API, "visible_windows")
 		// title := send(win.([]interface{})[0].(float64), "title")
 		// fmt.Println(title)
