@@ -1,3 +1,7 @@
+# Know Python? I could use some help with this. :)
+
+
+
 from twisted.internet import reactor, protocol
 from Queue import Queue
 from threading import Thread
