@@ -10,7 +10,7 @@ require '~/Applications/Zephyros.app/Contents/Resources/libs/zephyros.rb'
 #### Auto-running
 
 Change your auto-launch-command inside Zephyros to:
-```shell
+```bash
 ruby path/to/zephyros.rb
 ```
 
