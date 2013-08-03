@@ -128,7 +128,7 @@ func main() {
     - Includes new Go API
     - Adds support for any language that can speak JSON over TCP
     - Removes JavaScript/CoffeeScript API (will probably be re-added in an upcoming version)
-    - Slight API changes to Ruby lib
+    - Slight changes to Ruby API
 - 3.1
     - Added a fuzzy-matching `choose_from` method to the Ruby API (it's pretty sweet)
 - 3.0
