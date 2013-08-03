@@ -47,7 +47,7 @@ lein run path/to/my-zeph.clj
 
 (defn alert [msg duration])
 (defn log [msg])
-(defn choose-from [list title f])
+(defn choose-from [list title f]) ;; f receives chosen idx or nil if canceled
 
 (defn relaunch-config [])
 (defn get-clipboard-contents [])
