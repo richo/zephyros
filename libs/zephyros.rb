@@ -188,9 +188,9 @@ module PatchAdams
     end
   end
 
-  def patch_args(name, &blk)
+  def patch_args(name, interceptor, &blk)
     define_method(name) do |*args|
-      super(*args.map{|arg| arg.instance_exec(&blk)})
+      super(*args.map{|arg| arg.instance_exec(&interceptor)}, &blk)
     end
   end
 
@@ -202,10 +202,6 @@ end
 
 
 
-
-$window_grid_width = 3
-$window_grid_margin_x = 5
-$window_grid_margin_y = 5
 
 class API
 
@@ -256,6 +252,11 @@ class Screen < Struct.new(:id)
 
 end
 
+$window_grid_width = 3
+$window_grid_height = 2
+$window_grid_margin_x = 5
+$window_grid_margin_y = 5
+
 class Window < Struct.new(:id)
 
   include ZephProxy
@@ -270,23 +271,15 @@ class Window < Struct.new(:id)
 
   patch_return(:other_windows_on_same_screen, -> { map { |o| Window.new o } })
 
-  def frame=(arg)
-    $zeph.send_message([id, :set_frame, arg.to_hash])
-  end
-
-  def top_left=(arg)
-    $zeph.send_message([id, :set_top_left, arg.to_hash])
-  end
-
-  def size=(arg)
-    $zeph.send_message([id, :set_size, arg.to_hash])
-  end
+  define_method(:frame=) { |f| set_frame f.to_hash }
+  define_method(:top_left=) { |f| set_top_left f.to_hash }
+  define_method(:size=) { |f| set_size f.to_hash }
 
   def get_grid
     win_frame = self.frame
     screen_rect = self.screen.frame_without_dock_or_menu
     third_screen_width = screen_rect.w / $window_grid_width.to_f
-    half_screen_height = screen_rect.h / 2.0
+    half_screen_height = screen_rect.h / $window_grid_height.to_f
     Rect.make(((win_frame.x - screen_rect.min_x) / third_screen_width).round,
               ((win_frame.y - screen_rect.min_y) / half_screen_height).round,
               [(win_frame.w.round / third_screen_width).round, 1].max,
@@ -297,7 +290,7 @@ class Window < Struct.new(:id)
     screen = screen || self.screen
     screen_rect = screen.frame_without_dock_or_menu
     third_screen_width = screen_rect.w / $window_grid_width.to_f
-    half_screen_height = screen_rect.h / 2.0
+    half_screen_height = screen_rect.h / $window_grid_height.to_f
     new_frame = Rect.make((g.x * third_screen_width) + screen_rect.min_x,
                           (g.y * half_screen_height) + screen_rect.min_y,
                           g.w * third_screen_width,
