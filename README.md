@@ -60,7 +60,6 @@ Is the API missing something you need? File an issue and let me know!
 #### Ruby
 
 ```ruby
-# make sure to adjust this path as necessary!
 require '/Applications/Zephyros.app/Contents/Resources/libs/zephyros.rb'
 
 # push to top half of screen
