@@ -41,7 +41,7 @@
 			<object class="NSWindowTemplate" id="1005">
 				<int key="NSWindowStyleMask">7</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{1103, 673}, {480, 374}}</string>
+				<string key="NSWindowRect">{{1103, 673}, {444, 374}}</string>
 				<int key="NSWTFlags">544735232</int>
 				<string key="NSWindowTitle">Preferences</string>
 				<string key="NSWindowClass">NSWindow</string>
@@ -54,7 +54,7 @@
 						<object class="NSTextField" id="979320332">
 							<reference key="NSNextResponder" ref="1006"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{166, 310}, {294, 22}}</string>
+							<string key="NSFrame">{{126, 310}, {298, 22}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="471487329"/>
@@ -96,7 +96,7 @@
 						<object class="NSTextField" id="853180749">
 							<reference key="NSNextResponder" ref="1006"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{57, 312}, {104, 17}}</string>
+							<string key="NSFrame">{{17, 312}, {104, 17}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="979320332"/>
@@ -130,7 +130,7 @@
 						<object class="NSTextField" id="538335402">
 							<reference key="NSNextResponder" ref="1006"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{166, 225}, {294, 22}}</string>
+							<string key="NSFrame">{{126, 225}, {298, 22}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="638642647"/>
@@ -152,7 +152,7 @@
 						<object class="NSTextField" id="624114142">
 							<reference key="NSNextResponder" ref="1006"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{17, 227}, {144, 17}}</string>
+							<string key="NSFrame">{{17, 227}, {104, 17}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="538335402"/>
@@ -161,7 +161,7 @@
 							<object class="NSTextFieldCell" key="NSCell" id="298441323">
 								<int key="NSCellFlags">68157504</int>
 								<int key="NSCellFlags2">272630784</int>
-								<string key="NSContents">Pre-launch command:</string>
+								<string key="NSContents">Bash command:</string>
 								<reference key="NSSupport" ref="980810543"/>
 								<string key="NSCellIdentifier">_NS:1535</string>
 								<reference key="NSControlView" ref="624114142"/>
@@ -173,7 +173,7 @@
 						<object class="NSTextField" id="198337076">
 							<reference key="NSNextResponder" ref="1006"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{61, 142}, {100, 17}}</string>
+							<string key="NSFrame">{{78, 142}, {43, 17}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="660615481"/>
@@ -182,7 +182,7 @@
 							<object class="NSTextFieldCell" key="NSCell" id="64256449">
 								<int key="NSCellFlags">68157504</int>
 								<int key="NSCellFlags2">272630784</int>
-								<string key="NSContents">Paths to watch:</string>
+								<string key="NSContents">Paths:</string>
 								<reference key="NSSupport" ref="980810543"/>
 								<string key="NSCellIdentifier">_NS:1535</string>
 								<reference key="NSControlView" ref="198337076"/>
@@ -194,7 +194,7 @@
 						<object class="NSButton" id="684457507">
 							<reference key="NSNextResponder" ref="1006"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{164, 253}, {258, 18}}</string>
+							<string key="NSFrame">{{124, 253}, {222, 18}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="624114142"/>
@@ -203,7 +203,7 @@
 							<object class="NSButtonCell" key="NSCell" id="169314804">
 								<int key="NSCellFlags">-2080374784</int>
 								<int key="NSCellFlags2">268435456</int>
-								<string key="NSContents">Run bash command before launching</string>
+								<string key="NSContents">Do something before launching</string>
 								<reference key="NSSupport" ref="980810543"/>
 								<string key="NSCellIdentifier">_NS:9</string>
 								<reference key="NSControlView" ref="684457507"/>
@@ -226,7 +226,7 @@
 						<object class="NSButton" id="814117594">
 							<reference key="NSNextResponder" ref="1006"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{164, 338}, {155, 18}}</string>
+							<string key="NSFrame">{{124, 338}, {204, 18}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="853180749"/>
@@ -235,7 +235,7 @@
 							<object class="NSButtonCell" key="NSCell" id="1006611059">
 								<int key="NSCellFlags">-2080374784</int>
 								<int key="NSCellFlags2">268435456</int>
-								<string key="NSContents">Run my script for me</string>
+								<string key="NSContents">Run and keep my script alive</string>
 								<reference key="NSSupport" ref="980810543"/>
 								<string key="NSCellIdentifier">_NS:9</string>
 								<reference key="NSControlView" ref="814117594"/>
@@ -253,7 +253,7 @@
 						<object class="NSButton" id="561608775">
 							<reference key="NSNextResponder" ref="1006"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{164, 168}, {298, 18}}</string>
+							<string key="NSFrame">{{124, 168}, {302, 18}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="198337076"/>
@@ -262,7 +262,7 @@
 							<object class="NSButtonCell" key="NSCell" id="713855623">
 								<int key="NSCellFlags">-2080374784</int>
 								<int key="NSCellFlags2">268435456</int>
-								<string key="NSContents">Relaunch configs when these paths change:</string>
+								<string key="NSContents">Re-run command when these paths change:</string>
 								<reference key="NSSupport" ref="980810543"/>
 								<string key="NSCellIdentifier">_NS:9</string>
 								<reference key="NSControlView" ref="561608775"/>
@@ -280,7 +280,7 @@
 						<object class="NSBox" id="638642647">
 							<reference key="NSNextResponder" ref="1006"/>
 							<int key="NSvFlags">12</int>
-							<string key="NSFrame">{{20, 202}, {440, 5}}</string>
+							<string key="NSFrame">{{20, 202}, {404, 5}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="561608775"/>
@@ -305,7 +305,7 @@
 						<object class="NSBox" id="471487329">
 							<reference key="NSNextResponder" ref="1006"/>
 							<int key="NSvFlags">12</int>
-							<string key="NSFrame">{{20, 287}, {440, 5}}</string>
+							<string key="NSFrame">{{20, 287}, {404, 5}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="684457507"/>
@@ -330,7 +330,7 @@
 						<object class="NSTextField" id="660615481">
 							<reference key="NSNextResponder" ref="1006"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{166, 49}, {294, 113}}</string>
+							<string key="NSFrame">{{126, 49}, {298, 113}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="495677993"/>
@@ -353,7 +353,7 @@
 						<object class="NSButton" id="495677993">
 							<reference key="NSNextResponder" ref="1006"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{281, 13}, {185, 32}}</string>
+							<string key="NSFrame">{{245, 13}, {185, 32}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView"/>
@@ -376,7 +376,7 @@
 							<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						</object>
 					</array>
-					<string key="NSFrameSize">{480, 374}</string>
+					<string key="NSFrameSize">{444, 374}</string>
 					<reference key="NSSuperview"/>
 					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="814117594"/>
@@ -722,16 +722,16 @@
 						<reference key="object" ref="1006"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="979320332"/>
+							<reference ref="853180749"/>
 							<reference ref="538335402"/>
 							<reference ref="624114142"/>
+							<reference ref="198337076"/>
 							<reference ref="684457507"/>
+							<reference ref="814117594"/>
 							<reference ref="561608775"/>
 							<reference ref="638642647"/>
 							<reference ref="471487329"/>
-							<reference ref="814117594"/>
 							<reference ref="660615481"/>
-							<reference ref="853180749"/>
-							<reference ref="198337076"/>
 							<reference ref="495677993"/>
 						</array>
 						<reference key="parent" ref="1005"/>
@@ -936,25 +936,6 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">SDPreferencesWindowController</string>
 					<string key="superclassName">NSWindowController</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="changeIfRunsScript:">id</string>
-						<string key="changePaths:">id</string>
-						<string key="changeWhetherWatchingPaths:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="changeIfRunsScript:">
-							<string key="name">changeIfRunsScript:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="changePaths:">
-							<string key="name">changePaths:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="changeWhetherWatchingPaths:">
-							<string key="name">changeWhetherWatchingPaths:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/SDPreferencesWindowController.h</string>
