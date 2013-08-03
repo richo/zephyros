@@ -12,16 +12,47 @@
        (catch Exception e#
          (.printStackTrace e#)))))
 
+(defn own-rolled-readline [in bytes-so-far]
+  (let [b (.read in)]
+    (if (= \newline (char b))
+      (String. (byte-array (map byte bytes-so-far)) "UTF-8")
+      (recur in (concat bytes-so-far [b])))))
+
 (defn conn-handler [conn]
   ;; (println "ready.")
   (while (nil? (:exit @conn))
-    (let [msg-size (Integer/parseInt (.readLine (:in @conn)))
+    (let [msg-size (Integer/parseInt (own-rolled-readline (:in @conn) []))
           _ (println "waiting for" msg-size "bytes")
           i (atom 0)
-          msg (take msg-size (repeatedly #(do
-                                            (println "waiting for byte #" (swap! i inc))
-                                            (.read (:in @conn)))))
-          msg-str (apply str (map char msg))
+
+          msg-str (do
+
+                    (let [buf (java.nio.ByteBuffer/allocate 30)
+                          _ (dotimes [_ msg-size]
+                              (let [i (.read (:in @conn))]
+                                (println "i =" i)
+                                (.putInt buf i)))
+                          s (String. (.array buf) "UTF-8")]
+
+                      (println s)
+
+                      s
+                      )
+
+
+
+                    )
+          _ (prn msg-str)
+
+
+          ;; msg (take msg-size (repeatedly #(do
+          ;;                                   (println "waiting for byte #" (swap! i inc))
+          ;;                                   (let [b (.read (:in @conn))]
+          ;;                                     (println "byte =" b)
+          ;;                                     (println "byte =" (char b))
+          ;;                                     (println "byte =" (byte b))
+          ;;                                     b))))
+          ;; msg-str (String. (byte-array (map byte msg)) "UTF-8")
           json (json/read-str msg-str)
           ;; _ (println "GOT" json)
           msg-id (json 0)
@@ -30,7 +61,7 @@
 
 (defn connect [server]
   (let [socket (Socket. (:name server) (:port server))
-        in (BufferedReader. (InputStreamReader. (.getInputStream socket) "UTF-8"))
+        in (.getInputStream socket)
         out (PrintWriter. (.getOutputStream socket))
         conn (ref {:in in :out out :socket socket})]
     [(safely-do-in-background (conn-handler conn))
