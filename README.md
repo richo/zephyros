@@ -118,10 +118,10 @@ func main() {
 
 - 4.0
     - *Way* more stable
-    - Includes new Clojure lib
-    - Includes new Go lib
+    - Includes new Clojure API
+    - Includes new Go API
     - Adds support for any language that can speak JSON over TCP
-    - Removes JS api
+    - Removes JavaScript/CoffeeScript API
     - Slight API changes to Ruby lib
 - 3.1
     - Added a fuzzy-matching `choose_from` method to the Ruby API (it's pretty sweet)
