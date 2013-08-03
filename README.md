@@ -134,7 +134,7 @@ end
 
 ### Help Needed
 
-Are you great at stuff? We could use these things:
+Are you good at stuff? We could use these things:
 
 * Better CSS styling in [the Log Window](Zephyros/logwindow.html)
 * Better app icon
