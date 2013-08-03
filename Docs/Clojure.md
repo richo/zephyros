@@ -16,5 +16,5 @@ cd path/to/zephyros-clj && lein run
 
 #### Editing the script
 
-* Edit `src/zephyros/core.clj`
-* See `src/zephyros/api.clj`
+* Edit your [src/zephyros/core.clj](libs/zephyros-clj/src/zephyros/core.clj)
+* See your [src/zephyros/api.clj](libs/zephyros-clj/src/zephyros/api.clj)
