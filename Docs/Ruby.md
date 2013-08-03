@@ -4,7 +4,7 @@
 
 Add this to the top of your ruby script:
 ```ruby
-require '~/Applications/Zephyros.app/Contents/Resources/libs/zephyros.rb'
+require '/Applications/Zephyros.app/Contents/Resources/libs/zephyros.rb'
 ```
 
 #### Auto-running
