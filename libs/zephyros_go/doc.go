@@ -1,34 +1,32 @@
 /*
+	Example script:
 
-Example script:
+	import (
+		"fmt"
+		. "./zephyros_go"
+	)
 
-import (
-	"fmt"
-	. "./zephyros_go"
-)
+	func main() {
+		API.Bind("d", []string{"cmd", "shift"}, func() {
+			API.Alert("LIKE", 1)
 
-func main() {
-	API.Bind("d", []string{"cmd", "shift"}, func() {
-		API.Alert("LIKE", 1)
+			win := API.FocusedWindow()
+			fmt.Println(win.Title())
 
-		win := API.FocusedWindow()
-		fmt.Println(win.Title())
+			f := win.TopLeft()
+			f.X += 10
+			win.SetTopLeft(f)
 
-		f := win.TopLeft()
-		f.X += 10
-		win.SetTopLeft(f)
-
-		API.ChooseFrom([]string{"foo", "bar"}, "title", 20, 20, func(i int) {
-			fmt.Println(i)
+			API.ChooseFrom([]string{"foo", "bar"}, "title", 20, 20, func(i int) {
+				fmt.Println(i)
+			})
 		})
-	})
 
-	API.Listen("app_launched", func(app App) {
-		API.Alert(app.Title(), 1)
-	})
+		API.Listen("app_launched", func(app App) {
+			API.Alert(app.Title(), 1)
+		})
 
-	ListenForCallbacks()
-}
-
+		ListenForCallbacks()
+	}
 */
 package zephyros_go
