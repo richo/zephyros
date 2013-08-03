@@ -118,7 +118,7 @@ func main() {
 
 - 4.0
     - *Way* more stable
-    - **Adds support for any language that can speak JSON over TCP**
+    - Adds support for any language that can speak JSON over TCP
     - Removes JS api (so don't upgrade if you don't want to rewrite your config in something else)
     - Slight API changes to Ruby lib
     - Includes new Clojure lib
