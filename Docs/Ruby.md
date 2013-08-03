@@ -7,11 +7,10 @@ Add this to the top of your ruby script:
 require '/Applications/Zephyros.app/Contents/Resources/libs/zephyros.rb'
 ```
 
-#### Auto-running
+#### Run
 
-Change your auto-launch-command inside Zephyros to:
 ```bash
-ruby path/to/zephyros.rb
+ruby path/to/my-script.rb
 ```
 
 #### API
