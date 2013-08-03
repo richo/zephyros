@@ -172,11 +172,12 @@ class Rect < Struct.new(:x, :y, :w, :h)
 
 end
 
-class ZephObject
-  attr_accessor :id
-  def initialize(id)
-    self.id = id
+module ZephProxy
+
+  def method_missing(*args, &blk)
+    $zeph.send_message [id, *args], &blk
   end
+
 end
 
 module PatchAdams
@@ -195,13 +196,6 @@ module PatchAdams
 
 end
 
-module ZephProxy
-
-  def method_missing(*args, &blk)
-    $zeph.send_message [id, *args], &blk
-  end
-
-end
 
 
 
@@ -239,7 +233,7 @@ class API
 
 end
 
-class App < ZephObject
+class App < Struct.new(:id)
 
   include ZephProxy
   extend PatchAdams
@@ -249,7 +243,7 @@ class App < ZephObject
 
 end
 
-class Screen < ZephObject
+class Screen < Struct.new(:id)
 
   include ZephProxy
   extend PatchAdams
@@ -262,7 +256,7 @@ class Screen < ZephObject
 
 end
 
-class Window < ZephObject
+class Window < Struct.new(:id)
 
   include ZephProxy
   extend PatchAdams
