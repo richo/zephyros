@@ -22,9 +22,9 @@ func main() {
 		// })
 	})
 
-	API.Listen("app_launched", func(obj Window) {
-		fmt.Printf("launched %v %#v\n", obj, obj)
-	})
+	// API.Listen("app_launched", func(app App) {
+	// 	API.Alert(app.Title(), 1)
+	// })
 
 	ListenForCallbacks()
 }

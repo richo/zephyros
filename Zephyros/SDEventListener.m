@@ -23,8 +23,7 @@
                                                        queue:nil
                                                   usingBlock:^(NSNotification *note) {
                                                       id thing = [[note userInfo] objectForKey:@"thing"];
-                                                      NSArray* args = (thing ? @[thing] : nil);
-                                                      self.fn(args);
+                                                      self.fn(thing);
                                                   }];
 }
 

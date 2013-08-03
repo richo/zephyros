@@ -165,7 +165,7 @@
     if ([recv isKindOfClass:[SDWindowProxy self]]) return @"window";
     if ([recv isKindOfClass:[SDScreenProxy self]]) return @"screen";
     if ([recv isKindOfClass:[SDAppProxy self]]) return @"app";
-    @throw [NSException exceptionWithName:@"crap" reason:@"uhh" userInfo:nil];
+    @throw [NSException exceptionWithName:@"crap" reason:@"couldn't figure out type for receiver" userInfo:nil];
 }
 
 + (NSDictionary*) methods {

@@ -27,7 +27,7 @@ func (self api) Listen(event string, fn interface{}) {
 		} else {
 			inType := fnType.In(0)
 
-			var obj interface{}
+			var obj float64
 			json.Unmarshal(bytes, &obj)
 
 			objValue := reflect.ValueOf(obj)
