@@ -3,11 +3,7 @@
 #### Setup
 
 * Add this to ~/.lein/profiles.clj: `{:user {:plugins [[lein-exec "0.3.0"]]}}`
-
-
-#### Example
-
-Put this in `my-zeph.clj` somewhere:
+* Put this in `my-zeph.clj` somewhere:
 
 ```clojure
 (use '[leiningen.exec :only (deps)])
