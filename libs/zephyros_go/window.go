@@ -20,19 +20,11 @@ func (self Window) Frame() Rect {
 	return buf
 }
 
-func (self Window) SetFrame(f Rect) {
-	send(float64(self), nil, false, "set_frame", f)
-}
-
 func (self Window) Size() Size {
 	var buf Size
 	bytes := send(float64(self), nil, false, "size")
 	json.Unmarshal(bytes, &buf)
 	return buf
-}
-
-func (self Window) SetSize(f Size) {
-	send(float64(self), nil, false, "set_size", f)
 }
 
 func (self Window) TopLeft() TopLeft {
@@ -42,6 +34,77 @@ func (self Window) TopLeft() TopLeft {
 	return buf
 }
 
+func (self Window) SetFrame(f Rect) {
+	send(float64(self), nil, false, "set_frame", f)
+}
+
+func (self Window) SetSize(f Size) {
+	send(float64(self), nil, false, "set_size", f)
+}
+
 func (self Window) SetTopLeft(f TopLeft) {
 	send(float64(self), nil, false, "set_top_left", f)
+}
+
+func (self Window) Maximize() {
+	send(float64(self), nil, false, "maximize")
+}
+
+func (self Window) Minimize() {
+	send(float64(self), nil, false, "minimize")
+}
+
+func (self Window) UnMinimize() {
+	send(float64(self), nil, false, "un_minimize")
+}
+
+func (self Window) App() App {
+	var buf App
+	bytes := send(float64(self), nil, false, "app")
+	json.Unmarshal(bytes, &buf)
+	return buf
+}
+
+func (self Window) Screen() Screen {
+	var buf Screen
+	bytes := send(float64(self), nil, false, "screen")
+	json.Unmarshal(bytes, &buf)
+	return buf
+}
+
+func (self Window) FocusWindow() bool {
+	var buf bool
+	bytes := send(float64(self), nil, false, "focus_window")
+	json.Unmarshal(bytes, &buf)
+	return buf
+}
+
+func (self Window) FocusWindowDown() {
+	send(float64(self), nil, false, "focus_window_down")
+}
+
+func (self Window) FocusWindowUp() {
+	send(float64(self), nil, false, "focus_window_up")
+}
+
+func (self Window) FocusWindowLeft() {
+	send(float64(self), nil, false, "focus_window_left")
+}
+
+func (self Window) FocusWindowRight() {
+	send(float64(self), nil, false, "focus_window_right")
+}
+
+func (self Window) IsNormal() bool {
+	var buf bool
+	bytes := send(float64(self), nil, false, "normal_window?")
+	json.Unmarshal(bytes, &buf)
+	return buf
+}
+
+func (self Window) IsMinimized() bool {
+	var buf bool
+	bytes := send(float64(self), nil, false, "minimized?")
+	json.Unmarshal(bytes, &buf)
+	return buf
 }
