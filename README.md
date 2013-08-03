@@ -69,6 +69,8 @@ API.bind "K", ["cmd", "alt", "ctrl"] do
   frame.h /= 2
   win.frame = frame
 end
+
+wait_on_callbacks
 ```
 
 #### Clojure

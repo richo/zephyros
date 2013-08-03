@@ -7,6 +7,19 @@ Add this to the top of your ruby script:
 require '/Applications/Zephyros.app/Contents/Resources/libs/zephyros.rb'
 ```
 
+#### Sample
+
+```ruby
+require '/Applications/Zephyros.app/Contents/Resources/libs/zephyros.rb'
+
+# push to top half of screen
+API.bind "D", ["Cmd", "Shift"] do
+  API.alert 'hello world'
+end
+
+wait_on_callbacks
+```
+
 #### Run
 
 ```bash
