@@ -4,11 +4,22 @@ from threading import Thread
 import json
 
 setupper = None
-ONEYEAR = 365 * 24 * 60 * 60
+# ONEYEAR = 365 * 24 * 60 * 60
+
+def interruptable_get(q):
+    return q.get()
+    # while True:
+    #     try:
+    #         return q.get(timeout=1000)
+    #     except Queue.Empty:
+            # pass
 
 class API:
     def __init__(self, zeph):
         self.zeph = zeph
+
+    def alert(self, msg, dur = 1):
+        self.zeph.sendMsg([0, 'alert', msg, dur])
 
     def bind(self, key, mods, f):
         def tempFn(arg):
@@ -23,7 +34,10 @@ class ZephClient(protocol.Protocol):
         self.readingSize = None
         self.api = API(self)
         self.queues = {}
-        setupper(self.api)
+        def tmpFn():
+            setupper(self.api)
+        t = Thread(target = tmpFn)
+        t.start()
 
     def msgIdGen(self):
         i = 0
@@ -34,39 +48,55 @@ class ZephClient(protocol.Protocol):
     def sendMsg(self, msg, infinite=True, fn=None):
         msgid = self.reifiedMsgIdGen.next()
         self.queues[msgid] = Queue(10)
+
         msg.insert(0, msgid)
+
+        print "sending", msg
+
         msgStr = json.dumps(msg)
         self.transport.write(str(len(msgStr)) + '\n' + msgStr)
 
         if fn is not None:
             def tmpFn():
-                val = self.queues[msgid].get(True, ONEYEAR)
+                val = self.queues[msgid].interruptable_get()
                 if infinite:
                     while True:
-                        val = self.queues[msgid].get(True, ONEYEAR)
+                        val = self.queues[msgid].interruptable_get()
                         fn(val)
                 else:
-                    val = self.queues[msgid].get(True, ONEYEAR)
+                    val = self.queues[msgid].interruptable_get()
                     fn(val)
                 del self.queues[msgid]
             t = Thread(target = tmpFn)
             t.start()
         else:
-            val = self.queues[msgid].get()
-            del self.queues[msgid]
-            return val
+            q = self.queues[msgid]
+            print "about to get from", q
+            # val = q.get()
+            print "just got"
+            # del self.queues[msgid]
+            # return val
 
     def dataReceived(self, data):
+        print "data recv"
         self.buf += data
         while self.processIncomingData():
             pass
 
     def handleMessage(self, msg):
-        msgid = msg[0]
-        self.queues[msgid].put(msg[1])
+        print "about to send"
+        def tmpFn():
+            msgid = msg[0]
+            obj = msg[1]
+            q = self.queues[msgid]
+            print "sending", q, msgid, obj
+            q.put(obj)
+        t = Thread(target = tmpFn)
+        t.start()
         # print 'msg:', msgid, msg
 
     def processIncomingData(self):
+        print "read data", self.buf
         if self.readingSize:
             l = len(self.buf)
             if l >= self.readingSize:
@@ -85,9 +115,6 @@ class ZephClient(protocol.Protocol):
 
 class ZephClientFactory(protocol.ClientFactory):
     protocol = ZephClient
-
-    def startedConnecting(self, connector):
-        print connector
 
 
 def zephyros(f):
