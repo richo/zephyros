@@ -8,4 +8,3 @@ def stuff(zeph):
     def it():
         pass
     zeph.bind('d', ['cmd', 'shift'], it)
-    # zeph.sendMsg([0, 0, 'bind', 'd', ['cmd', 'shift']])
