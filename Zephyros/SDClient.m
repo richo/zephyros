@@ -143,10 +143,14 @@
 //    NSLog(@"sending [%@]", msg);
     
     NSData* data = [NSJSONSerialization dataWithJSONObject:msg options:0 error:NULL];
-    NSString* len = [NSString stringWithFormat:@"%ld", [data length]];
+    
+    NSString* tempStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSString* len = [NSString stringWithFormat:@"%ld", [tempStr length]];
+//    NSLog(@"len = %@", len);
+//    NSLog(@"data = %@", tempStr);
     [self.sock writeData:[len dataUsingEncoding:NSUTF8StringEncoding] withTimeout:3 tag:0];
     [self.sock writeData:[GCDAsyncSocket LFData] withTimeout:3 tag:0];
-    [self.sock writeData:data withTimeout:3 tag:0];
+    [self.sock writeData:[tempStr dataUsingEncoding:NSUTF8StringEncoding] withTimeout:3 tag:0];
 }
 
 - (id) receiverForID:(NSNumber*)recvID {
