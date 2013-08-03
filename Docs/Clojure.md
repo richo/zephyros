@@ -10,7 +10,7 @@
 (use '[leiningen.exec :only (deps)])
 (deps '[[org.clojure/data.json "0.2.2"]])
 
-(load-file "~/Applications/Zephyros.app/Contents/Resources/libs/zephyros.clj")
+(load-file "/Applications/Zephyros.app/Contents/Resources/libs/zephyros.clj")
 
 (bind "D" ["Cmd" "Shift"]
       (fn []
