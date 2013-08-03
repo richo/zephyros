@@ -4,7 +4,7 @@ from threading import Thread
 import json
 
 setupper = None
-
+ONEYEAR = 365 * 24 * 60 * 60
 
 class API:
     def __init__(self, zeph):
@@ -40,13 +40,13 @@ class ZephClient(protocol.Protocol):
 
         if fn is not None:
             def tmpFn():
-                val = self.queues[msgid].get()
+                val = self.queues[msgid].get(True, ONEYEAR)
                 if infinite:
                     while True:
-                        val = self.queues[msgid].get()
+                        val = self.queues[msgid].get(True, ONEYEAR)
                         fn(val)
                 else:
-                    val = self.queues[msgid].get()
+                    val = self.queues[msgid].get(True, ONEYEAR)
                     fn(val)
                 del self.queues[msgid]
             t = Thread(target = tmpFn)
