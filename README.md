@@ -131,14 +131,14 @@ end
 ### Change log
 
 - 4.0
+    - **Adds support for any language that speaks TCP**
     - Temporarily removes JS support
-    - Adds support for *any language that speaks TCP*
     - Includes Ruby lib
     - Includes Clojure lib
     - Includes Go lib (partially done)
     - Ruby API now requires `require '~/Applications/Zephyros.app/Contents/Resources/libs/zephyros.rb'`
     - Slight UI upgrade
-    - Log REPL is broken too
+    - Internal REPL is broken again
 - 3.1
     - Added a fuzzy-matching `choose_from` method to the Ruby API (it's pretty sweet)
 - 3.0
