@@ -172,54 +172,12 @@ class Rect < Struct.new(:x, :y, :w, :h)
 
 end
 
-$window_grid_width = 3
-$window_grid_margin_x = 5
-$window_grid_margin_y = 5
-
 class ZephObject
   attr_accessor :id
   def initialize(id)
     self.id = id
   end
 end
-
-$zeph = Zeph.new
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 module PatchAdams
 
@@ -251,9 +209,9 @@ end
 
 
 
-class Window < ZephObject
-  include ZephProxy
-end
+$window_grid_width = 3
+$window_grid_margin_x = 5
+$window_grid_margin_y = 5
 
 class API
 
@@ -319,15 +277,15 @@ class Window < ZephObject
   patch_return(:other_windows_on_same_screen, -> { map { |o| Window.new o } })
 
   def frame=(arg)
-    # $zeph.send_message([id, :set_frame, arg.to_hash])
+    $zeph.send_message([id, :set_frame, arg.to_hash])
   end
 
   def top_left=(arg)
-    # $zeph.send_message([id, :set_top_left, arg.to_hash])
+    $zeph.send_message([id, :set_top_left, arg.to_hash])
   end
 
   def size=(arg)
-    # $zeph.send_message([id, :set_size, arg.to_hash])
+    $zeph.send_message([id, :set_size, arg.to_hash])
   end
 
   def get_grid
@@ -361,13 +319,9 @@ end
 
 
 
-API.bind('d', ['cmd', 'shift']) do
-  win = API.focused_window
-  API.alert(win.title, 2)
-end
 
 
-# API.alert('hello world', 2)
 
-# p win
-# p win.title
+
+
+$zeph = Zeph.new
