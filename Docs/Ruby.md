@@ -1,4 +1,4 @@
-## Zephyros Ruby API
+## Zephyros - Ruby API
 
 #### Setup
 

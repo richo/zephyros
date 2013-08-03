@@ -1,4 +1,4 @@
-## Clojure API
+## Zephyros - Clojure API
 
 #### Running the script manually
 

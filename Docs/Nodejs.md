@@ -1,4 +1,4 @@
-## Zephyros JS API
+## Zephyros - Node.js API
 
 * [Top Level](#top-level)
 * [Type "API"](#type-api)

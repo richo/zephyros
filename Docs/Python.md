@@ -1,3 +1,3 @@
-## Zephyros Python API
+## Zephyros - Python API
 
 Coming soon.

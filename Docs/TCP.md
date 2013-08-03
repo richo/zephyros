@@ -1,4 +1,4 @@
-### Protocol
+### Zephyros Protocol
 
 * Clients connect to Zephyros via TCP
 * All messages are simple JSON arrays
