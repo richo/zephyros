@@ -2,6 +2,7 @@
 
 #### Setup
 
+* Install leiningen if need be: `brew install leiningen`
 * Add this to ~/.lein/profiles.clj: `{:user {:plugins [[lein-exec "0.3.0"]]}}`
 * Put this in `my-zeph.clj` somewhere:
 
