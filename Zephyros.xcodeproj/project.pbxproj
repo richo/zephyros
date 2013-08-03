@@ -56,6 +56,7 @@
 		94D307FD1719FF0F00D392B1 /* SDOpenAtLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 94D307FC1719FF0F00D392B1 /* SDOpenAtLogin.m */; };
 		94DAFB511719B98500526003 /* SDLogWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DAFB501719B98500526003 /* SDLogWindowController.m */; };
 		94DAFB531719B99A00526003 /* LogWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94DAFB521719B99A00526003 /* LogWindow.xib */; };
+		94DC5FDD17ADAC3700274A92 /* SDShellCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DC5FDC17ADAC3700274A92 /* SDShellCommand.m */; };
 		94E02EE417AB2496005AE3E8 /* libs in Resources */ = {isa = PBXBuildFile; fileRef = 94E02EE317AB2496005AE3E8 /* libs */; };
 		94E02EE817AB462A005AE3E8 /* SDInsetHorizontalLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E02EE717AB462A005AE3E8 /* SDInsetHorizontalLine.m */; };
 		94E02EEC17AB4F7C005AE3E8 /* SDWatchedPathsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E02EEA17AB4F7C005AE3E8 /* SDWatchedPathsWindowController.m */; };
@@ -164,6 +165,8 @@
 		94DAFB4F1719B98500526003 /* SDLogWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDLogWindowController.h; sourceTree = "<group>"; };
 		94DAFB501719B98500526003 /* SDLogWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDLogWindowController.m; sourceTree = "<group>"; };
 		94DAFB521719B99A00526003 /* LogWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LogWindow.xib; sourceTree = "<group>"; };
+		94DC5FDB17ADAC3700274A92 /* SDShellCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDShellCommand.h; sourceTree = "<group>"; };
+		94DC5FDC17ADAC3700274A92 /* SDShellCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDShellCommand.m; sourceTree = "<group>"; };
 		94E02EE317AB2496005AE3E8 /* libs */ = {isa = PBXFileReference; lastKnownFileType = folder; path = libs; sourceTree = SOURCE_ROOT; };
 		94E02EE617AB462A005AE3E8 /* SDInsetHorizontalLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDInsetHorizontalLine.h; sourceTree = "<group>"; };
 		94E02EE717AB462A005AE3E8 /* SDInsetHorizontalLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDInsetHorizontalLine.m; sourceTree = "<group>"; };
@@ -454,6 +457,8 @@
 				947E995A171CF9DE006F30AC /* SDConfigLauncher.m */,
 				947DC99B17A5D0940082D095 /* SDPathWatcher.h */,
 				947DC99C17A5D0940082D095 /* SDPathWatcher.m */,
+				94DC5FDB17ADAC3700274A92 /* SDShellCommand.h */,
+				94DC5FDC17ADAC3700274A92 /* SDShellCommand.m */,
 			);
 			name = Launcher;
 			sourceTree = "<group>";
@@ -587,6 +592,7 @@
 				94B255AB17A9B5E2008CFD26 /* SDClient.m in Sources */,
 				94E02EE817AB462A005AE3E8 /* SDInsetHorizontalLine.m in Sources */,
 				94E02EEC17AB4F7C005AE3E8 /* SDWatchedPathsWindowController.m in Sources */,
+				94DC5FDD17ADAC3700274A92 /* SDShellCommand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

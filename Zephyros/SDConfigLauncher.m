@@ -14,10 +14,12 @@
 #import "SDLogWindowController.h"
 #import "SDAlertWindowController.h"
 
+#import "SDShellCommand.h"
+
 @interface SDConfigLauncher ()
 
 @property SDPathWatcher* configWatcher;
-@property NSTask* launchedTask;
+@property SDShellCommand* launchedTask;
 
 @end
 
@@ -88,18 +90,9 @@
     
     NSString* cmd = [[NSUserDefaults standardUserDefaults] stringForKey:SDLaunchCommandDefaultsKey];
     
-    NSPipe* stdoutPipe = [NSPipe pipe];
-    NSPipe* stderrPipe = [NSPipe pipe];
-    
-    self.launchedTask = [[NSTask alloc] init];
-    
-    [self.launchedTask setLaunchPath:@"/bin/bash"];
-    [self.launchedTask setArguments:@[@"-l", @"-c", cmd]];
-    
-    [self.launchedTask setStandardOutput:stdoutPipe];
-    [self.launchedTask setStandardError:stderrPipe];
-    
-    [stdoutPipe fileHandleForReading].readabilityHandler = ^(NSFileHandle* handle) {
+    self.launchedTask = [[SDShellCommand alloc] init];
+    self.launchedTask.cmd = cmd;
+    self.launchedTask.gotStdout = ^(NSFileHandle* handle) {
         NSData* data = [handle availableData];
         NSString* str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         
@@ -108,8 +101,7 @@
                                                                type:SDLogMessageTypeUser];
         });
     };
-    
-    [stderrPipe fileHandleForReading].readabilityHandler = ^(NSFileHandle* handle) {
+    self.launchedTask.gotStderr = ^(NSFileHandle* handle) {
         NSData* data = [handle availableData];
         NSString* str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         
@@ -119,40 +111,24 @@
         });
     };
     
+    __weak SDConfigLauncher* punyself = self;
+    self.launchedTask.died = ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:SDScriptDiedNotification object:nil];
+        punyself.launchedTask = nil;
+    };
+    
     [self.launchedTask launch];
     
-    static BOOL firstTime = YES;
-    if (firstTime) {
-        firstTime = NO;
-    }
-    else {
-        [[SDAlertWindowController sharedAlertWindowController] show:@"Relaunched Config"
-                                                              delay:nil];
-    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:SDScriptLaunchedNotification object:nil];
 }
 
 - (void) unlaunch {
-    [self.launchedTask terminate];
+    [self.launchedTask kill];
     self.launchedTask = nil;
 }
 
 - (BOOL) isLaunched {
     return self.launchedTask != nil;
 }
-
-
-
-//- (id) eval:(NSString*)str {
-//    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"configShouldPreprocess"]) {
-//        NSString* preprocessor = [[NSUserDefaults standardUserDefaults] stringForKey:@"configConverter"];
-//        if (preprocessor) {
-//            preprocessor = [preprocessor stringByStandardizingPath];
-//            NSDictionary* result = [SDAPI shell:@"/bin/bash"
-//                                           args:@[@"-lc", preprocessor]
-//                                        options:@{@"input": str, @"pwd":[preprocessor stringByDeletingLastPathComponent]}];
-//            str = [result objectForKey:@"stdout"];
-//        }
-//    }
-
 
 @end

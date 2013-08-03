@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+#define SDScriptLaunchedNotification @"SDScriptLaunchedNotification"
+#define SDScriptDiedNotification @"SDScriptDiedNotification"
+
 @interface SDConfigLauncher : NSObject
 
 + (SDConfigLauncher*) sharedConfigLauncher;

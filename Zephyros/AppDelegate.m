@@ -30,6 +30,28 @@
 @implementation AppDelegate
 
 - (void) prepareStatusItem {
+    [[NSNotificationCenter defaultCenter] addObserverForName:SDScriptLaunchedNotification
+                                                      object:nil
+                                                       queue:nil
+                                                  usingBlock:^(NSNotification *note) {
+                                                      static BOOL firstTime = YES;
+                                                      if (firstTime) {
+                                                          firstTime = NO;
+                                                      }
+                                                      else {
+                                                          [[SDAlertWindowController sharedAlertWindowController] show:@"Relaunched Zephyros Script"
+                                                                                                                delay:nil];
+                                                      }
+                                                  }];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:SDScriptDiedNotification
+                                                      object:nil
+                                                       queue:nil
+                                                  usingBlock:^(NSNotification *note) {
+                                                      [[SDAlertWindowController sharedAlertWindowController] show:@"Zephyros Script Ended"
+                                                                                                            delay:nil];
+                                                  }];
+    
     [[SDClientListener sharedListener] startListening];
     
     self.statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
