@@ -23,20 +23,17 @@ At it's core, Zephyros just runs quietly in your menu bar, and runs your script.
 
 #### Supported languages
 
-As of version 4.0, scripts can be written in **any language** that can talk JSON over TCP.
+You can script Zephyros from **any language** that can talk JSON over TCP.
 
-The app comes packaged with convenience libs for these languages:
+Here are some built-in ways to script it:
 
-- Ruby 2.0
-- Go
-- Clojure
-- Python
-- node.js
+- [Using Ruby](Docs/Ruby.md)
+- [Using Go](Docs/Go.md)
+- [Using Clojure](Docs/Clojure.md)
+- [Using Python](Docs/Python.md)
+- [Using node.js](Docs/Nodejs.md)
 
-#### API Docs
-
-- [Ruby](Docs/RUBY_API.md)
-- [JavaScript or CoffeeScript](Docs/JS_API.md)
+Don't see your favorite language? You can write a client for it that talks to Zephyros [over TCP](Docs/TCP.md)!
 
 #### Stuff you can do
 
@@ -137,7 +134,8 @@ end
     - Temporarily removes JS support
     - Adds support for *any language that speaks TCP*
     - Includes Ruby lib
-    <!-- - Includes Go lib -->
+    - Includes Clojure lib
+    - Includes Go lib (partially done)
     - Ruby API now requires `require '~/Applications/Zephyros.app/Contents/Resources/libs/zephyros.rb'`
     - Slight UI upgrade
     - Log REPL is broken too
