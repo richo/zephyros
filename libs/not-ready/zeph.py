@@ -1,5 +1,6 @@
-# Know Python? I could use some help with this. :)
-
+#
+# Do you know Python? I could use some help with this. :)
+#
 
 
 from twisted.internet import reactor, protocol

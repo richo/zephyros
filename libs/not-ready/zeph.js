@@ -1,5 +1,6 @@
-// Know node.js? I could use some help with this. :)
-
+//
+// Do you know node.js? I could use some help with this. :)
+//
 
 
 var net = require("net");
