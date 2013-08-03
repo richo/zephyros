@@ -140,6 +140,11 @@ Are you great at stuff? We could use these things:
 * Better app icon
 * Better menu bar icon
 
+### Special Thanks
+
+- Everyone.
+    - You're great!
+
 ### License
 
 > Released under MIT license.
