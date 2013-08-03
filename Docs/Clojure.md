@@ -18,7 +18,11 @@
 (while true) ;; necessary when you use (bind) or (listen)
 ```
 
-Then do: `lein run path/to/my-zeph.clj`
+#### Running it
+
+```bash
+lein run path/to/my-zeph.clj
+```
 
 #### API
 
