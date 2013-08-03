@@ -23,17 +23,15 @@ At it's core, Zephyros just runs quietly in your menu bar, and runs your script.
 
 #### Supported languages
 
-You can script Zephyros from **any language** that can talk JSON over TCP.
-
-Here are some built-in ways to script it:
-
-- [Using Ruby](Docs/Ruby.md)
-- [Using Go](Docs/Go.md)
 - [Using Clojure](Docs/Clojure.md)
+- [Using Ruby](Docs/Ruby.md)
 - [Using Python](Docs/Python.md)
+- [Using Go](Docs/Go.md)
 - [Using node.js](Docs/Nodejs.md)
 
-Don't see your favorite language? You can write a client for it that talks to Zephyros [over TCP](Docs/TCP.md)!
+You can script Zephyros from **any language** that can talk JSON over TCP.
+
+Don't see your favorite language? Why not write one for it using [this protocol](Docs/TCP.md)!
 
 #### Stuff you can do
 
