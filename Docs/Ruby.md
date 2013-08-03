@@ -75,6 +75,7 @@ class App
 end
 
 $window_grid_width = 3
+$window_grid_height = 2
 $window_grid_margin_x = 5
 $window_grid_margin_y = 5
 
