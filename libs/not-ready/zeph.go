@@ -17,7 +17,7 @@ func connect() net.Conn {
 
 var c net.Conn = connect()
 
-var respChans = make(map[float64]chan interface{})
+var respChans = make(map[float64]chan []byte)
 
 func listenForCallbacks() {
 	reader := bufio.NewReader(c)
@@ -32,8 +32,8 @@ func listenForCallbacks() {
 		var msg []interface{}
 		json.Unmarshal(buf, &msg)
 
-		id, obj := msg[0], msg[1]
-		respChans[id.(float64)] <- obj
+		id := msg[0]
+		respChans[id.(float64)] <- buf
 	}
 }
 
@@ -54,156 +54,60 @@ func init() {
 
 
 
-func send(recv float64, method string, args ...interface{}) interface{} {
-	hasFn := false
-	var takesArgs bool
-	var f1 func()
-	var f2 func(interface{})
+func send(recv float64, fn func([]byte), infinite bool, method string, args ...interface{}) []byte {
+	msgid := <- msgidChan
 
-	if len(args) > 0 {
-		lastarg := args[len(args)-1]
-		var isf1, isf2 bool
-		f1, isf1 = lastarg.(func())
-		f2, isf2 = lastarg.(func(interface{}))
-		hasFn = isf1 || isf2
-		if hasFn {
-			args = args[:len(args) - 1]
-			takesArgs = isf2
-		}
+	ch := make(chan []byte, 10) // probably enough
+	respChans[msgid] = ch
+
+	msg := []interface{}{msgid, recv, method}
+	val, _ := json.Marshal(append(msg, args...))
+	jsonstr := string(val)
+	fmt.Fprintf(c, "%v\n%v", len(jsonstr), jsonstr)
+
+	if fn == nil {
+		resp := <-ch
+		delete(respChans, msgid)
+		return resp
 	}
 
-	msgid := <- msgidChan
+ 	go func() {
+		<-ch // ignore
 
-	ch := make(chan interface{}, 10) // probably enough
-	respChans[msgid] = ch
-
-	msg := []interface{}{msgid, recv, method}
-	val, _ := json.Marshal(append(msg, args...))
-	jsonstr := string(val)
-	fmt.Fprintf(c, "%v\n%v", len(jsonstr), jsonstr)
-
-	if hasFn {
-		go func() {
-			val := <-ch
-			numTimes := val.(float64)
-			times := int(numTimes)
-
-			blk := func() {
-				val := <-ch
-
-				if takesArgs {
-					f2(val)
-				} else {
-					f1()
-				}
-			}
-
-			if numTimes > 0 {
-				for i :=0; i<times; i++ { blk() }
-			} else {
-				for { blk() }
-			}
-
-			delete(respChans, msgid)
-		}()
-		return nil
-	}
-
-	resp := <-ch
-	delete(respChans, msgid)
-	return resp
-}
-
-func sendSync(recv float64, method string, args ...interface{}) interface{} {
-	msgid := <- msgidChan
-
-	ch := make(chan interface{}, 10) // probably enough
-	respChans[msgid] = ch
-
-	msg := []interface{}{msgid, recv, method}
-	val, _ := json.Marshal(append(msg, args...))
-	jsonstr := string(val)
-	fmt.Fprintf(c, "%v\n%v", len(jsonstr), jsonstr)
-
-	resp := <-ch
-	delete(respChans, msgid)
-	return resp
-}
-
-func sendAsync0(recv float64, method string, fn func(), args ...interface{}) interface{} {
-	msgid := <- msgidChan
-
-	ch := make(chan interface{}, 10) // probably enough
-	respChans[msgid] = ch
-
-	msg := []interface{}{msgid, recv, method}
-	val, _ := json.Marshal(append(msg, args...))
-	jsonstr := string(val)
-	fmt.Fprintf(c, "%v\n%v", len(jsonstr), jsonstr)
-
-	go func() {
-		val := <-ch
-		numTimes := val.(float64)
-		times := int(numTimes)
-
-		blk := func() {
-			<-ch
-			fn()
-		}
-
-		if numTimes > 0 {
-			for i :=0; i<times; i++ { blk() }
+		if infinite {
+			for { fn(<-ch) }
 		} else {
-			for { blk() }
+			fn(<-ch)
 		}
 
 		delete(respChans, msgid)
 	}()
-	return nil
-}
 
-func sendAsync1(recv float64, method string, fn func(interface{}), args ...interface{}) interface{} {
-	msgid := <- msgidChan
-
-	ch := make(chan interface{}, 10) // probably enough
-	respChans[msgid] = ch
-
-	msg := []interface{}{msgid, recv, method}
-	val, _ := json.Marshal(append(msg, args...))
-	jsonstr := string(val)
-	fmt.Fprintf(c, "%v\n%v", len(jsonstr), jsonstr)
-
-	go func() {
-		val := <-ch
-		numTimes := val.(float64)
-		times := int(numTimes)
-
-		blk := func() {
-			val := <-ch
-			fn(val)
-		}
-
-		if numTimes > 0 {
-			for i :=0; i<times; i++ { blk() }
-		} else {
-			for { blk() }
-		}
-
-		delete(respChans, msgid)
-	}()
 	return nil
 }
 
 
 
 type api float64
+type window float64
 
 func (self api) bind(key string, mods []string, fn func()) {
-	send(float64(self), "bind", key, mods, fn)
+	wrapFn := func(b []byte) { fn() }
+	send(float64(self), wrapFn, true, "bind", key, mods)
 }
 
 func (self api) alert(msg string, dur int) {
-	send(float64(self), "alert", msg, dur)
+	send(float64(self), nil, false, "alert", msg, dur)
+}
+
+func (self api) focusedWindow() window {
+	var buf struct {
+		id float64
+		val float64
+	}
+	bytes := send(float64(self), nil, false, "focused_window")
+	json.Unmarshal(bytes, &buf)
+	return window(buf.val)
 }
 
 var API api = 0
@@ -212,6 +116,9 @@ var API api = 0
 func main() {
 	API.bind("d", []string{"cmd", "shift"}, func() {
 		API.alert("LIKE", 1)
+
+		win := api.focusedWindow()
+		fmt.Println(win)
 
 		// win := send(API, "visible_windows")
 		// title := send(win.([]interface{})[0].(float64), "title")
