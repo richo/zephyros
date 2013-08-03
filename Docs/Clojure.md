@@ -22,7 +22,7 @@
 @listen-for-callbacks ;; necessary when you use (bind) or (listen)
 ```
 
-#### Running it
+#### Run
 
 ```bash
 lein run path/to/my-zeph.clj
