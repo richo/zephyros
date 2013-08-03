@@ -4,21 +4,19 @@ import json
 setupper = None
 
 
-def msgIdGen():
-    i = 0
-    while True:
-        i += 1
-        yield i
-reifiedMsgIdGen = msgIdGen()
-
-
 class API:
     def __init__(self, zeph):
         self.zeph = zeph
-        pass
+        self.reifiedMsgIdGen = self.msgIdGen()
 
-    def bind(key, mods, f):
-        msgid = reifiedMsgIdGen.next()
+    def msgIdGen(self):
+        i = 0
+        while True:
+            i += 1
+            yield i
+
+    def bind(self, key, mods, f):
+        msgid = self.reifiedMsgIdGen.next()
         self.zeph.sendMsg([msgid, 0, 'bind', key, mods])
 
 
@@ -27,7 +25,7 @@ class ZephClient(protocol.Protocol):
         self.buf = ''
         self.readingSize = None
         self.api = API(self)
-        setupper(self)
+        setupper(self.api)
 
     def sendMsg(self, msg):
         msgStr = json.dumps(msg)
