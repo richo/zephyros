@@ -59,8 +59,3 @@ def zephyros(f):
     factory = ZephClientFactory()
     reactor.connectTCP("localhost", 1235, factory)
     reactor.run()
-
-
-@zephyros
-def stuff(zeph):
-    zeph.sendMsg([0, 0, 'bind', 'd', ['cmd', 'shift']])
