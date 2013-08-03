@@ -57,11 +57,11 @@ kill9           |      |
 
 #### Screen
 
-Name                | Args    | Return value
---------------------|---------|--------------------
+Name                          | Args         | Return value
+------------------------------|--------------|--------------
 frame_including_dock_and_menu | {x, y, w, h} |
 frame_without_dock_or_menu    | {x, y, w, h} |
-prev_screen                   |              | [screen_id](#screen)
+previous_screen               |              | [screen_id](#screen)
 next_screen                   |              | [screen_id](#screen)
 
 
