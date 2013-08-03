@@ -13,9 +13,14 @@
          (.printStackTrace e#)))))
 
 (defn conn-handler [conn]
+  ;; (println "ready.")
   (while (nil? (:exit @conn))
     (let [msg-size (Integer/parseInt (.readLine (:in @conn)))
-          msg (take msg-size (repeatedly #(.read (:in @conn))))
+          _ (println "waiting for" msg-size "bytes")
+          i (atom 0)
+          msg (take msg-size (repeatedly #(do
+                                            (println "waiting for byte #" (swap! i inc))
+                                            (.read (:in @conn)))))
           msg-str (apply str (map char msg))
           json (json/read-str msg-str)
           ;; _ (println "GOT" json)
