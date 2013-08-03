@@ -81,13 +81,7 @@ end
   (:require [zephyros.api :refer :all]))
 
 (defn -main []
-
-  (bind "m" ["cmd" "shift"]
-        (fn []
-          (let [win (get-focused-window)]
-            (maximize win))))
-
-  (bind "d" ["cmd" "shift"]
+  (bind "D" ["cmd" "shift"]
         (fn []
           (let [win (get-focused-window)]
             (set-frame win
