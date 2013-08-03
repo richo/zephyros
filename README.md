@@ -61,7 +61,7 @@ Is the API missing something you need? File an issue and let me know!
 
 ```ruby
 # make sure to adjust this path as necessary!
-require '~/Applications/Zephyros.app/Contents/Resources/libs/zephyros.rb'
+require '/Applications/Zephyros.app/Contents/Resources/libs/zephyros.rb'
 
 # push to top half of screen
 API.bind "K", ["cmd", "alt", "ctrl"] do
@@ -75,20 +75,34 @@ end
 #### Clojure
 
 ```clojure
-(ns zephyros.core
-  (:require [zephyros.api :refer :all]))
+(use '[leiningen.exec :only (deps)])
+(deps '[[org.clojure/data.json "0.2.2"]])
 
-(defn -main []
-  (bind "D" ["cmd" "shift"]
-        (fn []
-          (let [win (get-focused-window)]
-            (set-frame win
-                       (-> (get-frame win)
-                           (update-in [:x] + 20)
-                           (update-in [:y] + 20)
-                           (update-in [:w] - 40)
-                           (update-in [:h] - 40)))
-            (alert (get-window-title win) 1)))))
+(load-file "/Applications/Zephyros.app/Contents/Resources/libs/zephyros.clj")
+
+(bind "D" ["Cmd" "Shift"]
+      (fn []
+        (alert "hello world" 1)))
+
+@listen-for-callbacks ;; necessary when you use (bind) or (listen)
+```
+
+#### Go
+
+```go
+package main
+
+import (
+	. "../../Applications/Zephyros.app/Contents/Resources/libs/zephyros_go"
+)
+
+func main() {
+	API.Bind("D", []string{"Cmd", "Shift"}, func() {
+		API.Alert("hello world", 1)
+	})
+
+	ListenForCallbacks()
+}
 ```
 
 #### More configs
