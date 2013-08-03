@@ -57,13 +57,13 @@ lein run path/to/my-zeph.clj
 
 (defn get-window-title [window])
 
-(defn get-frame [window])       ;; Takes {:x, :y, :w, :h}
-(defn get-size [window])        ;; Takes {:w, :h}
-(defn get-top-left [window])    ;; Takes {:w, :h}
+(defn get-frame [window])       ;; takes {:x, :y, :w, :h}
+(defn get-size [window])        ;; takes {:w, :h}
+(defn get-top-left [window])    ;; takes {:w, :h}
 
-(defn set-frame [window f])     ;; Returns {:x, :y, :w, :h}
-(defn set-size [window s])      ;; Returns {:w, :h}
-(defn set-top-left [window tl]) ;; Returns {:x, :y}
+(defn set-frame [window f])     ;; returns {:x, :y, :w, :h}
+(defn set-size [window s])      ;; returns {:w, :h}
+(defn set-top-left [window tl]) ;; returns {:x, :y}
 
 (defn minimize [window])
 (defn maximize [window])
@@ -72,7 +72,7 @@ lein run path/to/my-zeph.clj
 (defn get-app-for-window [window])
 (defn get-screen-for-window [window])
 
-(defn focus-window [window])
+(defn focus-window [window]) ;; returns bool
 (defn focus-window-left [window])
 (defn focus-window-right [window])
 (defn focus-window-up [window])
@@ -99,8 +99,8 @@ lein run path/to/my-zeph.clj
 
 ;; screeen
 
-(defn screen-frame-including-dock-and-menu [screen])
-(defn screen-frame-without-dock-or-menu [screen])
+(defn screen-frame-including-dock-and-menu [screen]) ;; returns {:x, :y, :w, :h}
+(defn screen-frame-without-dock-or-menu [screen])    ;; returns {:x, :y, :w, :h}
 
 (defn next-screen [screen])
 (defn previous-screen [screen])
