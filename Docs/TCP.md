@@ -14,7 +14,7 @@
     * Each resource is garbage-collected by Zephyros after 30 seconds
 
 
-### Client API
+### API
 
 #### Top level
 
