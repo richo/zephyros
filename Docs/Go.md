@@ -1,3 +1,3 @@
-## Zephyros - Clojure API
+## Zephyros - Go API
 
 Coming soon.
