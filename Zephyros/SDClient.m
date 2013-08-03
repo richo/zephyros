@@ -353,6 +353,12 @@
                             @"frame_without_dock_or_menu": ^id(SDClient* client, NSNumber* msgID, SDScreenProxy* recv, NSArray* args) {
                                 return [recv frameWithoutDockOrMenu];
                             },
+                            @"next_screen": ^id(SDClient* client, NSNumber* msgID, SDScreenProxy* recv, NSArray* args) {
+                                return [recv nextScreen];
+                            },
+                            @"previous_screen": ^id(SDClient* client, NSNumber* msgID, SDScreenProxy* recv, NSArray* args) {
+                                return [recv previousScreen];
+                            },
                             },
                     };
     });
