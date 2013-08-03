@@ -62,7 +62,8 @@ Note: If reloading your config file fails, your key bindings will be un-bound as
 #### Ruby
 
 ```ruby
-require '~/Applications/Zephyros.app/Contents/Resources/libs/zephyros.rb' # or wherever you put it
+require '~/Applications/Zephyros.app/Contents/Resources/libs/zephyros.rb'
+# make sure to adjust this path as necessary!
 
 # push to top half of screen
 API.bind "K", ["cmd", "alt", "ctrl"] do
