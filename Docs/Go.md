@@ -1,12 +1,12 @@
 ## Zephyros - Go API
 
-Sample file:
+#### Sample script
 
 ```go
 package main
 
 import (
-	. "../..//Applications/Zephyros.app/Contents/Resources/libs/zephyros_go"
+	. "../../Applications/Zephyros.app/Contents/Resources/libs/zephyros_go"
 )
 
 func main() {
@@ -18,4 +18,12 @@ func main() {
 }
 ```
 
-Run: `go run myscript.go`
+#### Run
+
+```bash
+go run myscript.go
+```
+
+#### API Docs
+
+[Here.](http://godoc.org/github.com/sdegutis/zephyros/libs/zephyros_go)
