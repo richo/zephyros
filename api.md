@@ -34,7 +34,7 @@ minimize            |              |
 un_minimize         |              |
 app                 |              | [app_id](#app)
 screen              |              | [screen_id](#screen)
-focus_window        |              |
+focus_window        |              | bool
 focus_window_left   |              |
 focus_window_right  |              |
 focus_window_up     |              |
