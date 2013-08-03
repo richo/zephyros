@@ -1,4 +1,6 @@
-#### Top level API
+### Client API
+
+#### Top level
 
 Name               | Args                                | Return value
 -------------------|-------------------------------------|--------------------
@@ -61,3 +63,17 @@ frame_including_dock_and_menu | {x, y, w, h} | nil
 frame_without_dock_or_menu    | {x, y, w, h} | nil
 prev_screen                   |              | id
 next_screen                   |              | id
+
+
+### Protocol
+
+* Clients connect to Zeph via TCP
+* All messages are simple JSON arrays
+* Messages in both directions are encoded as `json.length.to_s + "\n" + json`
+* Each message to Zeph will be [msg_id, receiver_id, method, *args]
+* Each response from Zeph will be [msg_id, value]
+* Every message will get at least one response
+* All methods at the top level take 0 as the receiver_id
+* Any resource (Window, Screen, App) within responses will be returned as a number uniquely identifying this resource:
+    * This number should be sent as the receiver for method calls to this object
+    * Each resource is garbage-collected by Zeph after 30 seconds
