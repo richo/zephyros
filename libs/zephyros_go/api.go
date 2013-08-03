@@ -11,8 +11,21 @@ var API api = 0
 
 
 func (self api) Bind(key string, mods []string, fn func()) {
-	wrapFn := func(b []byte) { fn() }
+	wrapFn := func(bytes []byte) { fn() }
 	send(float64(self), wrapFn, true, "bind", key, mods)
+}
+
+func (self api) ChooseFrom(list []string, title string, linesTall int, charsWide int, fn func(i int)) {
+	wrapFn := func(bytes []byte) {
+		var obj *float64
+		json.Unmarshal(bytes, &obj)
+		if obj == nil {
+			fn(-1)
+		} else {
+			fn(int(*obj))
+		}
+	}
+	send(float64(self), wrapFn, true, "choose_from", list, title, linesTall, charsWide)
 }
 
 func (self api) Listen(event string, fn interface{}) {
@@ -43,6 +56,10 @@ func (self api) Alert(msg string, dur int) {
 	send(float64(self), nil, false, "alert", msg, dur)
 }
 
+func (self api) Log(msg string) {
+	send(float64(self), nil, false, "log", msg)
+}
+
 func (self api) RelaunchConfig() {
 	send(float64(self), nil, false, "relaunch_config")
 }
@@ -71,6 +88,27 @@ func (self api) VisibleWindows() []Window {
 func (self api) AllWindows() []Window {
 	var buf []Window
 	bytes := send(float64(self), nil, false, "all_windows")
+	json.Unmarshal(bytes, &buf)
+	return buf
+}
+
+func (self api) MainScreen() Screen {
+	var buf Screen
+	bytes := send(float64(self), nil, false, "main_screen")
+	json.Unmarshal(bytes, &buf)
+	return buf
+}
+
+func (self api) AllScreens() []Screen {
+	var buf []Screen
+	bytes := send(float64(self), nil, false, "all_screens")
+	json.Unmarshal(bytes, &buf)
+	return buf
+}
+
+func (self api) RunningApps() []App {
+	var buf []App
+	bytes := send(float64(self), nil, false, "running_apps")
 	json.Unmarshal(bytes, &buf)
 	return buf
 }

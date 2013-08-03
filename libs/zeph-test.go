@@ -17,6 +17,10 @@ func main() {
 		win.SetTopLeft(f)
 
 
+		API.ChooseFrom([]string{"foo", "bar"}, "title", 20, 20, func(i int) {
+			fmt.Println(i)
+		})
+
 		// send(API, "choose_from", []string{"foo", "bar"}, "title", 20, 20, func(i interface{}) {
 		// 	fmt.Println("inner!", i)
 		// })
