@@ -6,8 +6,7 @@ Sample file:
 package main
 
 import (
-	"fmt"
-	. "/Applications/Zephyros.app/Contents/Resources/libs/zephyros_go"
+	. "../..//Applications/Zephyros.app/Contents/Resources/libs/zephyros_go"
 )
 
 func main() {
