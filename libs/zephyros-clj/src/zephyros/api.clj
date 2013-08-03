@@ -8,15 +8,17 @@
 
 ;; top level
 
-(defn get-focused-window [] (get-one-value 0 "focused_window"))
 (defn bind [key mods f] (do-callback-indefinitely (fn [_] (f)) 0 "bind" key mods))
 (defn listen [event f] (do-callback-indefinitely #(f %) 0 "listen" event))
 
-(defn get-all-screens [] (get-one-value 0 "all_screens"))
-(defn get-running-apps [] (get-one-value 0 "running_apps"))
+(defn get-focused-window [] (get-one-value 0 "focused_window"))
 (defn get-visible-windows [] (get-one-value 0 "visible_windows"))
 (defn get-all-windows [] (get-one-value 0 "all_windows"))
+
 (defn get-main-screen [] (get-one-value 0 "main_screen"))
+(defn get-all-screens [] (get-one-value 0 "all_screens"))
+
+(defn get-running-apps [] (get-one-value 0 "running_apps"))
 
 (defn alert [msg duration] (get-one-value 0 "alert" msg duration))
 (defn log [msg] (get-one-value 0 "log" msg))
