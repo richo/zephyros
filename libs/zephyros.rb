@@ -2,6 +2,10 @@ require 'socket'
 require 'json'
 require 'thread'
 
+def wait_on_callbacks
+  $zeph.wait_on_callbacks
+end
+
 class Zeph
 
   def initialize
@@ -10,8 +14,11 @@ class Zeph
     @queues = {}
 
     trap("SIGINT") { exit }
-    thread = listen_forever
-    at_exit { thread.join }
+    @listen_thread = listen_forever
+  end
+
+  def wait_on_callbacks
+    @listen_thread.join
   end
 
   def send_message(data, &blk)
