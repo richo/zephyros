@@ -89,7 +89,7 @@
 }
 
 - (void) launch {
-    NSLog(@"launching");
+//    NSLog(@"launching");
     [self prelaunchMaybe];
     
     NSString* cmd = [[NSUserDefaults standardUserDefaults] stringForKey:SDLaunchCommandDefaultsKey];
@@ -127,7 +127,7 @@
 }
 
 - (void) unlaunch {
-    NSLog(@"killing");
+//    NSLog(@"killing");
     [self.launchedTask kill];
     self.launchedTask = nil;
 }
