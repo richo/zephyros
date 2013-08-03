@@ -59,63 +59,43 @@ Note: If reloading your config file fails, your key bindings will be un-bound as
 
 ### Example Configs
 
-Here's a sample Ruby script to get you started:
+Ruby:
 
 ```ruby
 require '~/Applications/Zephyros.app/Contents/Resources/libs/zephyros.rb' # or wherever you put it
 
-mash = ["cmd", "alt", "ctrl"]
-
-# useful for testing
-API.bind("R", mash) { API. reload_config }
-
-# maximize window (the hard way)
-API.bind "M", mash do
-  win = API.focused_window
-  f = win.screen.frame_without_dock_or_menu
-  f.inset! 10, 10 # give the window-shadows a little breathing room
-  win.frame = f
-  # note: we could have just done win.maximize, but this is more flexible
-end
-
 # push to top half of screen
-API.bind "K", mash do
+API.bind "K", ["cmd", "alt", "ctrl"] do
   win = API.focused_window
   frame = win.screen.frame_without_dock_or_menu
   frame.h /= 2
   win.frame = frame
 end
+```
 
-# push to bottom half of screen
-API.bind "J", mash do
-  win = API.focused_window
-  frame = win.screen.frame_without_dock_or_menu
-  frame.y += frame.h / 2
-  frame.h /= 2
-  win.frame = frame
-end
+Clojure:
 
-# example of how to listen for events
-API.listen 'window_created' do |win|
-  if win.normal_window?
-    # win.maximize
-    API.alert win.title
-  end
-end
+```clojure
+(ns zephyros.core
+  (:require [zephyros.api :refer :all]))
 
-# fuzzy-matching task chooser
-API.bind('X', mash) do
-  actions = {
-    'Zephyros' => -> { API.open '/Users/sdegutis/projects/Zephyros/Zephyros.xcodeproj' },
-    'Open email' => -> { 2.times {|i| API.open "https://mail.google.com/mail/u/#{i}/#inbox" } },
-    'Show clipboard' => -> { API.alert API.clipboard_contents },
-  }
-  action_names = actions.keys
+(defn -main []
 
-  API.choose_from action_names, 'Do Something' do |i|
-    actions[action_names[i]].call if i
-  end
-end
+  (bind "m" ["cmd" "shift"]
+        (fn []
+          (let [win (get-focused-window)]
+            (maximize win))))
+
+  (bind "d" ["cmd" "shift"]
+        (fn []
+          (let [win (get-focused-window)]
+            (set-frame win
+                       (-> (get-frame win)
+                           (update-in [:x] + 20)
+                           (update-in [:y] + 20)
+                           (update-in [:w] - 40)
+                           (update-in [:h] - 40)))
+            (alert (get-window-title win) 1)))))
 ```
 
 #### More configs
