@@ -142,7 +142,7 @@ Are you great at stuff? We could use these things:
 
 ### Special Thanks
 
-- Everyone.
+- To everyone.
     - You're great!
 
 ### License
