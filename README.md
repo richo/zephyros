@@ -119,14 +119,15 @@ func main() {
 ### Change log
 
 - 4.0
-    - Security update
+    - Removes JavaScript/CoffeeScript API (will probably be re-added in an upcoming version)
+        - **Do NOT upgrade** if your configs are written in JS (or anything that compiles to JS)
+    - Security update (fixes [this issue](https://github.com/sdegutis/zephyros/pull/21))
         - This auto-updater won't actually work because of it
         - [Download Zephyros-4.0.zip](https://raw.github.com/sdegutis/zephyros/master/Builds/Zephyros-LATEST.app.tar.gz) instead
         - See [this github issue](https://github.com/sdegutis/zephyros/pull/21) for details
     - Includes new Clojure API
     - Includes new Go API
     - Adds support for any language that can speak JSON over TCP
-    - Removes JavaScript/CoffeeScript API temporaril [(see this issue for details)](https://github.com/sdegutis/zephyros/issues/22#issuecomment-22066420)
     - Slight changes to Ruby API
 - 3.1
     - Added a fuzzy-matching `choose_from` method to the Ruby API (it's pretty sweet)
