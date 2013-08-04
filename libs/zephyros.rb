@@ -232,6 +232,10 @@ class API
       super(msg, sec)
     end
 
+    # ### Just realized we never coerce the arg into a Ruby class. Oops.
+    # def listen(event, &blk)
+    # end
+
   end
 
 end
