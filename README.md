@@ -127,7 +127,7 @@ func main() {
     - Includes new Clojure API
     - Includes new Go API
     - Adds support for any language that can speak JSON over TCP
-    - Removes JavaScript/CoffeeScript API (will probably be re-added in an upcoming version)
+    - Removes JavaScript/CoffeeScript API temporaril [(see this issue for details)](https://github.com/sdegutis/zephyros/issues/22#issuecomment-22066420)
     - Slight changes to Ruby API
 - 3.1
     - Added a fuzzy-matching `choose_from` method to the Ruby API (it's pretty sweet)
