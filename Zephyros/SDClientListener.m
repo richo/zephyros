@@ -41,7 +41,7 @@
 }
 
 - (void) startListening {
-    [self.sock acceptOnPort:1235 error:NULL];
+    [self.sock acceptOnInterface:@"localhost" port:1235 error:NULL];
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didAcceptNewSocket:(GCDAsyncSocket *)newSocket {
