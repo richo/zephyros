@@ -89,7 +89,7 @@ NSString* sd_js_api();
     return sharedClient;
 }
 
-- (void) sendRawMessage:(id)msg infinite:(BOOL)isInfinite callback:(void(^)(id obj))callback {
+- (void) sendAsyncMessage:(id)msg responses:(int)responses callback:(void(^)(id obj))callback {
     uint64_t msgid = ++self.maxMsgId;
     
     NSNumber* msgIdNum = @(msgid);
@@ -108,25 +108,46 @@ NSString* sd_js_api();
     [self.sock writeData:msgData withTimeout:3 tag:0];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        if (isInfinite) {
+        if (responses == -1) {
+            [queue get]; // ignore first
             while (true) {
                 id obj = [queue get];
                 callback(obj);
             }
         }
         else {
-            id obj = [queue get];
-            callback(obj);
+            for (int i = 0; i < responses; i++) {
+                id obj = [queue get];
+                callback(obj);
+            }
         }
         
         [self.queues removeObjectForKey:msgIdNum];
     });
 }
 
-- (void) alert:(NSString*)msg delay:(NSNumber*)delay {
-    [self sendRawMessage:@[@0, @"bind", @"D", @[@"cmd", @"shift"]] infinite:YES callback:^(id obj) {
-        [self sendRawMessage:@[@0, @"alert", msg, delay] infinite:NO callback:^(id obj) {
+- (id) sendSyncMessage:(id)msg {
+    __block id returnVal = nil;
+    dispatch_semaphore_t sem = dispatch_semaphore_create(1);
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self sendAsyncMessage:msg responses:1 callback:^(id obj) {
+            returnVal = obj;
+            dispatch_semaphore_signal(sem);
         }];
+    });
+    
+    dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
+    return returnVal;
+}
+
+- (void) alert:(NSString*)msg delay:(NSNumber*)delay {
+    [self sendAsyncMessage:@[@0, @"bind", @"D", @[@"cmd", @"shift"]] responses:-1 callback:^(id obj) {
+        id msg = [self sendSyncMessage:@[@0, @"all_windows"]];
+        NSLog(@"got response: %@", msg);
+        
+//        [self sendAsyncMessage:@[@0, @"alert", msg, delay] responses:1 callback:^(id obj) {
+//        }];
     }];
 }
 
