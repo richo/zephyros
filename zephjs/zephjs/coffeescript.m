@@ -102,11 +102,11 @@ NSString* sd_js_api() {
     "\n"
     "shell = (path, args, options) -> SDAPI.shell_args_options_ path, args, options\n"
     "open = (thing) -> SDAPI.shell_args_options_ '/usr/bin/open', [thing], {}\n"
-    "bind = (key, modifiers, fn) -> SDClient.sharedClient().sendAsyncMessage_responses_callbackJSFunc_ [0, 'bind', key, modifiers], -1, fn\n"
-    "log = (str) -> SDLogWindowController.sharedLogWindowController().show_type_ str, 'SDLogMessageTypeUser'\n"
+    "bind = (key, modifiers, fn) -> SDClient.sharedClient().sendAsyncMessage_responses_callbackJSFunc_([0, 'bind', key, modifiers], -1, fn)\n"
+    "log = (str) -> SDClient.sharedClient().sendAsyncMessage_responses_callbackJSFunc_([0, 'log', str], 1, ->)\n"
     "require = (file) -> SDConfigLoader.sharedConfigLoader().require(file)\n"
     "alert = (str, delay) -> SDAlertWindowController.sharedAlertWindowController().show_delay_ str, delay\n"
-    "reloadConfig = -> SDConfigLoader.sharedConfigLoader().reloadConfig()\n"
+    "reloadConfig = -> SDClient.sharedClient().sendAsyncMessage_responses_callbackJSFunc_([0, 'relaunch_config'], 1, nil)\n"
     "doAfter = (sec, fn) -> SDAPI.doFn_after_ fn, sec\n"
     "\n"
     "listen = (event, fn) ->\n"
@@ -120,7 +120,6 @@ NSString* sd_js_api() {
     "    else\n"
     "      fn()\n"
     "  SDEventListener.sharedEventListener().listenForEvent_fn_(event, trampolineFn)\n"
-    "\n"
     
     
     "";
