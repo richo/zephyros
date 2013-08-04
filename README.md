@@ -119,7 +119,7 @@ func main() {
 ### Change log
 
 - 4.0
-    - Removes JavaScript/CoffeeScript API (will probably be re-added in an upcoming version)
+    - Removes JavaScript/CoffeeScript API (will be re-added in an upcoming version)
         - **Do NOT upgrade** if your configs are written in JS (or anything that compiles to JS)
     - Security update (fixes [this issue](https://github.com/sdegutis/zephyros/pull/21))
         - This auto-updater won't actually work because of it
