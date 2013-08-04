@@ -16,6 +16,7 @@
 		9435A52817AEF76200754D27 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9435A52717AEF76100754D27 /* Security.framework */; };
 		9435A52A17AEF7A400754D27 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9435A52917AEF7A400754D27 /* CFNetwork.framework */; };
 		9435A52C17AEFBAF00754D27 /* libJSCocoaStatic.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9435A52B17AEFBAF00754D27 /* libJSCocoaStatic.a */; };
+		9435A53217AF181C00754D27 /* SDJSBlockWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9435A53117AF181C00754D27 /* SDJSBlockWrapper.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -43,6 +44,8 @@
 		9435A52717AEF76100754D27 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		9435A52917AEF7A400754D27 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		9435A52B17AEFBAF00754D27 /* libJSCocoaStatic.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libJSCocoaStatic.a; path = zephjs/libJSCocoaStatic.a; sourceTree = "<group>"; };
+		9435A53017AF181C00754D27 /* SDJSBlockWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDJSBlockWrapper.h; sourceTree = "<group>"; };
+		9435A53117AF181C00754D27 /* SDJSBlockWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDJSBlockWrapper.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +101,8 @@
 				9435A4C317AEDB3C00754D27 /* zephjs-Prefix.pch */,
 				9435A4C017AEDB3C00754D27 /* main.m */,
 				9435A52217AEEE3200754D27 /* coffeescript.m */,
+				9435A53017AF181C00754D27 /* SDJSBlockWrapper.h */,
+				9435A53117AF181C00754D27 /* SDJSBlockWrapper.m */,
 				9435A52417AEF70700754D27 /* GCDAsyncSocket.h */,
 				9435A52517AEF70700754D27 /* GCDAsyncSocket.m */,
 			);
@@ -158,6 +163,7 @@
 				9435A4C117AEDB3C00754D27 /* main.m in Sources */,
 				9435A52317AEEE3200754D27 /* coffeescript.m in Sources */,
 				9435A52617AEF70700754D27 /* GCDAsyncSocket.m in Sources */,
+				9435A53217AF181C00754D27 /* SDJSBlockWrapper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -278,6 +284,7 @@
 				9435A4CA17AEDB3C00754D27 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

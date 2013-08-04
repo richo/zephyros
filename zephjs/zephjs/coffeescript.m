@@ -102,7 +102,7 @@ NSString* sd_js_api() {
     "\n"
     "shell = (path, args, options) -> SDAPI.shell_args_options_ path, args, options\n"
     "open = (thing) -> SDAPI.shell_args_options_ '/usr/bin/open', [thing], {}\n"
-    "bind = (key, modifiers, fn) -> SDKeyBinder.sharedKeyBinder().bind_modifiers_fn_ key, modifiers, fn\n"
+    "bind = (key, modifiers, fn) -> SDClient.sharedClient().sendAsyncMessage_responses_callbackJSFunc_ [0, 'bind', key, modifiers], -1, fn\n"
     "log = (str) -> SDLogWindowController.sharedLogWindowController().show_type_ str, 'SDLogMessageTypeUser'\n"
     "require = (file) -> SDConfigLoader.sharedConfigLoader().require(file)\n"
     "alert = (str, delay) -> SDAlertWindowController.sharedAlertWindowController().show_delay_ str, delay\n"

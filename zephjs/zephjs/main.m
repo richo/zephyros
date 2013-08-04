@@ -10,6 +10,7 @@
 
 #import "JSCocoa.h"
 #import "GCDAsyncSocket.h"
+#import "SDJSBlockWrapper.h"
 
 NSString* sd_js_coffescript();
 NSString* sd_js_underscore();
@@ -126,6 +127,14 @@ NSString* sd_js_api();
     });
 }
 
+- (void) sendAsyncMessage:(id)msg responses:(int)responses callbackJSFunc:(JSValueRefAndContextRef)fn {
+    SDJSBlockWrapper* block = [[[SDJSBlockWrapper alloc] initWithJavaScriptFn:fn] autorelease];
+    
+    [self sendAsyncMessage:msg responses:responses callback:^(id obj) {
+        [block call:[NSArray arrayWithObject: (obj ? @[obj] : @[])]];
+    }];
+}
+
 - (id) sendSyncMessage:(id)msg {
     __block id returnVal = nil;
     dispatch_semaphore_t sem = dispatch_semaphore_create(1);
@@ -139,16 +148,6 @@ NSString* sd_js_api();
     
     dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
     return returnVal;
-}
-
-- (void) alert:(NSString*)msg delay:(NSNumber*)delay {
-    [self sendAsyncMessage:@[@0, @"bind", @"D", @[@"cmd", @"shift"]] responses:-1 callback:^(id obj) {
-        id msg = [self sendSyncMessage:@[@0, @"all_windows"]];
-        NSLog(@"got response: %@", msg);
-        
-//        [self sendAsyncMessage:@[@0, @"alert", msg, delay] responses:1 callback:^(id obj) {
-//        }];
-    }];
 }
 
 - (id) evalCoffeeScript:(NSString*)coffee {
