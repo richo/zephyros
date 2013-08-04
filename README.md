@@ -123,7 +123,6 @@ func main() {
         - This auto-updater won't actually work because of it
         - [Download Zephyros-4.0.zip](https://raw.github.com/sdegutis/zephyros/master/Builds/Zephyros-LATEST.app.tar.gz) instead
         - See [this github issue](https://github.com/sdegutis/zephyros/pull/21) for details
-    - *Way* more stable
     - Includes new Clojure API
     - Includes new Go API
     - Adds support for any language that can speak JSON over TCP
