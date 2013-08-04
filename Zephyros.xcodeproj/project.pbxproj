@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9435A4D417AEDCC700754D27 /* zephjs in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9435A4D017AEDB3D00754D27 /* zephjs */; };
 		943921BA1719B1EE00F63073 /* statusitem.png in Resources */ = {isa = PBXBuildFile; fileRef = 943921B61719B1EE00F63073 /* statusitem.png */; };
 		943921BB1719B1EE00F63073 /* statusitem_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 943921B71719B1EE00F63073 /* statusitem_pressed.png */; };
 		943921BC1719B1EE00F63073 /* statusitem_pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 943921B81719B1EE00F63073 /* statusitem_pressed@2x.png */; };
@@ -66,7 +67,27 @@
 		94E0964E171EDBA6002D8668 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 94E0964D171EDBA6002D8668 /* dsa_pub.pem */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		9435A4CF17AEDB3D00754D27 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9435A4CB17AEDB3C00754D27 /* zephjs.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9435A4BA17AEDB3C00754D27;
+			remoteInfo = zephjs;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
+		9435A4D317AEDCC200754D27 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+				9435A4D417AEDCC700754D27 /* zephjs in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		94873F4C17192016000AC0A6 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -80,6 +101,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		9435A4CB17AEDB3C00754D27 /* zephjs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = zephjs.xcodeproj; path = zephjs/zephjs.xcodeproj; sourceTree = "<group>"; };
 		943921B61719B1EE00F63073 /* statusitem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = statusitem.png; sourceTree = "<group>"; };
 		943921B71719B1EE00F63073 /* statusitem_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = statusitem_pressed.png; sourceTree = "<group>"; };
 		943921B81719B1EE00F63073 /* statusitem_pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "statusitem_pressed@2x.png"; sourceTree = "<group>"; };
@@ -193,6 +215,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9435A4CC17AEDB3C00754D27 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9435A4D017AEDB3D00754D27 /* zephjs */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		943921B41719AF5900F63073 /* API */ = {
 			isa = PBXGroup;
 			children = (
@@ -271,6 +301,7 @@
 		94873F2117191F40000AC0A6 = {
 			isa = PBXGroup;
 			children = (
+				9435A4CB17AEDB3C00754D27 /* zephjs.xcodeproj */,
 				94B255A417A9AF2A008CFD26 /* Security.framework */,
 				94873F3517191F40000AC0A6 /* Zephyros-Info.plist */,
 				947E995E171D18B6006F30AC /* Credits.rtf */,
@@ -474,7 +505,7 @@
 				94873F2717191F40000AC0A6 /* Frameworks */,
 				94873F2817191F40000AC0A6 /* Resources */,
 				94873F4C17192016000AC0A6 /* CopyFiles */,
-				94CC2CFC17A8B81B0048190F /* ShellScript */,
+				9435A4D317AEDCC200754D27 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -504,12 +535,28 @@
 			mainGroup = 94873F2117191F40000AC0A6;
 			productRefGroup = 94873F2B17191F40000AC0A6 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 9435A4CC17AEDB3C00754D27 /* Products */;
+					ProjectRef = 9435A4CB17AEDB3C00754D27 /* zephjs.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				94873F2917191F40000AC0A6 /* Zephyros */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		9435A4D017AEDB3D00754D27 /* zephjs */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = zephjs;
+			remoteRef = 9435A4CF17AEDB3D00754D27 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		94873F2817191F40000AC0A6 /* Resources */ = {
@@ -537,22 +584,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		94CC2CFC17A8B81B0048190F /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "install_name_tool -change \"Nu.framework/Versions/A/Nu\" \"@executable_path/../Frameworks/Nu.framework/Versions/A/Nu\" \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\"";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		94873F2617191F40000AC0A6 /* Sources */ = {
