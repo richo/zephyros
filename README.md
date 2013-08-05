@@ -119,6 +119,11 @@ func main() {
 
 ### Change log
 
+- HEAD
+    - Security fix: Only listens for clients on localhost
+    - Re-adds support for previous JavaScript API
+    - Also supports dvorak and other keyboard layouts
+    - Many improvements and stability fixes
 - 4.0
     - Removes JavaScript/CoffeeScript API (will be re-added in an upcoming version)
         - **Do NOT upgrade** if your configs are written in JS (or anything that compiles to JS)
