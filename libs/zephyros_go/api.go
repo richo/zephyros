@@ -25,9 +25,7 @@ func (self TopLevelApi) ChooseFrom(list []string, title string, linesTall int, c
 			fn(int(*obj))
 		}
 	}
-	send(float64(self), wrapFn, true, "choose_from", list, title, linesTall, charsWide)
-	// oh wait, this shouldn't say 'true' to infinite, that'll cause a leak. oops.
-	// i wonder if the clojure and ruby version do this too. :(
+	send(float64(self), wrapFn, false, "choose_from", list, title, linesTall, charsWide)
 }
 
 // Function 'fn' will be called with the proper arg and
