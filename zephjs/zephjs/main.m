@@ -127,6 +127,27 @@ NSString* sd_js_api();
     });
 }
 
+- (void) open:(NSString*)thing {
+    
+}
+
+- (void) shell:(NSString*)path args:(NSArray*)args opts:(NSDictionary*)opts {
+    
+}
+
+- (void) requireFromJS:(NSString*)file {
+    
+}
+
+- (void) doFn:(JSValueRefAndContextRef)fn after:(NSNumber*)delay {
+    SDJSBlockWrapper* block = [[[SDJSBlockWrapper alloc] initWithJavaScriptFn:fn] autorelease];
+    double delayInSeconds = [delay doubleValue];
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [block call:nil];
+    });
+}
+
 - (void) sendAsyncMessage:(id)msg responses:(int)responses callbackJSFunc:(JSValueRefAndContextRef)fn {
     SDJSBlockWrapper* block = [[[SDJSBlockWrapper alloc] initWithJavaScriptFn:fn] autorelease];
     
