@@ -67,6 +67,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		941CA64C17AFDA3C004B6E2A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9435A4CB17AEDB3C00754D27 /* zephjs.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 9435A4B917AEDB3C00754D27;
+			remoteInfo = zephjs;
+		};
 		9435A4CF17AEDB3D00754D27 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9435A4CB17AEDB3C00754D27 /* zephjs.xcodeproj */;
@@ -508,6 +515,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				941CA64D17AFDA3C004B6E2A /* PBXTargetDependency */,
 			);
 			name = Zephyros;
 			productName = Windows;
@@ -624,6 +632,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		941CA64D17AFDA3C004B6E2A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = zephjs;
+			targetProxy = 941CA64C17AFDA3C004B6E2A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		94873F3617191F40000AC0A6 /* InfoPlist.strings */ = {
