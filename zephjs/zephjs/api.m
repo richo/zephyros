@@ -46,7 +46,7 @@ NSString* sd_js_api() {
     "  screen: -> ProxyObj.fromNS SDClient.sharedClient().sendSyncMessage([@proxy, 'screen'])\n"
     "  otherWindowsOnSameScreen: -> mapToJS SDClient.sharedClient().sendSyncMessage([@proxy, 'other_windows_on_same_screen']), ProxyObj.fromNS\n"
     "  otherWindowsOnAllScreens: -> mapToJS SDClient.sharedClient().sendSyncMessage([@proxy, 'other_windows_on_all_screens']), ProxyObj.fromNS\n"
-    "  title: -> objToJS SDClient.sharedClient().sendSyncMessage([@proxy, 'title'])\n"
+//    "  title: -> objToJS SDClient.sharedClient().sendSyncMessage([@proxy, 'title'])\n"
     "  isWindowMinimized: -> SDClient.sharedClient().sendSyncMessage([@proxy, 'minimized?'])\n"
     "  focusWindow: -> SDClient.sharedClient().sendSyncMessage([@proxy, 'focus_window'])\n"
     "  focusWindowLeft: -> SDClient.sharedClient().sendSyncMessage([@proxy, 'focus_window_left'])\n"
