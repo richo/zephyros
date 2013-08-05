@@ -8,8 +8,8 @@
     <item>
       <title>Version 4.1</title>
       <sparkle:releaseNotesLink>https://github.com/sdegutis/zephyros#change-log</sparkle:releaseNotesLink>
-      <pubDate>Mon Aug 5 08:05:34 CDT 2013</pubDate>
-      <enclosure url="https://raw.github.com/sdegutis/zephyros/master/Builds/Zephyros-4.1.app.tar.gz" sparkle:version="4.1" sparkle:dsaSignature="MC0CFQCQIWfTih5AUL8TaglKeSie4uSCygIUDalpF9cIJLb3NmPfPP0/NYG+T+o=" length="1359906" type="application/octet-stream"/>
+      <pubDate>Mon Aug 5 08:14:39 CDT 2013</pubDate>
+      <enclosure url="https://raw.github.com/sdegutis/zephyros/master/Builds/Zephyros-4.1.app.tar.gz" sparkle:version="4.1" sparkle:dsaSignature="MCwCFGEtuWNBhY9rRhY8c1ewuim5Mlw6AhR/VhAuY4BVonIcC5+aii8n4SPVsg==" length="1359944" type="application/octet-stream"/>
     </item>
     <item>
       <title>Version 3.1</title>
