@@ -12,6 +12,7 @@
 
 #import "SDClient.h"
 
+#import "SDPreferencesWindowController.h"
 
 @interface SDClientListener ()
 
@@ -34,14 +35,24 @@
 
 - (id) init {
     if (self = [super init]) {
-        self.sock = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
         self.clients = [NSMutableArray array];
     }
     return self;
 }
 
 - (void) startListening {
-    [self.sock acceptOnInterface:@"localhost" port:1235 error:NULL];
+    self.sock.delegate = nil;
+    [self.sock disconnect];
+    self.sock = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
+    
+    NSInteger socketType = [[NSUserDefaults standardUserDefaults] integerForKey:SDScriptSocketTypeDefaultsKey];
+    if (socketType == 0) {
+//        [self.sock acceptOnInterface:@"localhost" port:1235 error:NULL];
+    }
+    else {
+        NSInteger tcpPort = [[NSUserDefaults standardUserDefaults] integerForKey:SDTCPSocketPortDefaultsKey];
+        [self.sock acceptOnInterface:@"localhost" port:tcpPort error:NULL];
+    }
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didAcceptNewSocket:(GCDAsyncSocket *)newSocket {

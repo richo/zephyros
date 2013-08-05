@@ -16,6 +16,9 @@
 #define SDPrerunCommandDefaultsKey @"prerunCommand"
 #define SDRelaunchPathsDefaultsKey @"relaunchPaths"
 
+#define SDScriptSocketTypeDefaultsKey @"scriptSocketType"
+#define SDTCPSocketPortDefaultsKey @"tcpSocketPort"
+
 @interface SDPreferencesWindowController : NSWindowController
 
 + (SDPreferencesWindowController*) sharedConfigChooserWindowController;

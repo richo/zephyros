@@ -12,6 +12,8 @@
 
 #import "SDWatchedPathsWindowController.h"
 
+#import "SDClientListener.h"
+
 @interface SDPreferencesWindowController ()
 
 @property SDWatchedPathsWindowController* pathsController;
@@ -44,6 +46,14 @@
 
 - (IBAction) changeWhetherWatchingPaths:(id)sender {
     [[SDConfigLauncher sharedConfigLauncher] watchPathsMaybe];
+}
+
+- (IBAction) switchSocketType:(id)sender {
+    [[SDClientListener sharedListener] startListening];
+}
+
+- (IBAction) switchSocketPort:(id)sender {
+    [[SDClientListener sharedListener] startListening];
 }
 
 - (BOOL)control:(NSControl *)control textView:(NSTextView *)textView doCommandBySelector:(SEL)command {
