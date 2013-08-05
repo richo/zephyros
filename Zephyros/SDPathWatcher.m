@@ -33,7 +33,6 @@ void fsEventsCallback(ConstFSEventStreamRef streamRef, void *clientCallBackInfo,
         FSEventStreamInvalidate(self.stream);
         FSEventStreamRelease(self.stream);
     }
-    NSLog(@"watcher is dead");
 }
 
 + (SDPathWatcher*) watcherFor:(NSArray*)pathsToWatch {
@@ -41,8 +40,6 @@ void fsEventsCallback(ConstFSEventStreamRef streamRef, void *clientCallBackInfo,
     
     if ([pathsToWatch count] == 0)
         return nil;
-    
-    NSLog(@"watcher is alive");
     
     pathsToWatch = [pathsToWatch valueForKeyPath:@"stringByStandardizingPath"];
     

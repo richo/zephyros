@@ -170,6 +170,20 @@
 
 
 
+// migrating configs
+
+- (NSString*) newBashCommandString {
+    NSString* zephjs = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"Contents/MacOS/zephjs"];
+    NSString* config = @"~/.zephyros.js";
+    
+    if ([[NSFileManager defaultManager] fileExistsAtPath:[@"~/.zephyros.coffee" stringByStandardizingPath]])
+        config = @"~/.zephyros.coffee";
+    
+    return [NSString stringWithFormat:@"%@ %@", zephjs, config];
+}
+
+
+
 // unix and tcp sockets
 
 - (IBAction) switchSocketType:(id)sender {
