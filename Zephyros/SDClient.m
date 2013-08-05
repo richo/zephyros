@@ -52,9 +52,7 @@
         NSString* sizeValidator = [NSString stringWithFormat:@"%ld\n", size];
         
         if (![sizeValidator isEqualToString:str]) {
-            [[SDLogWindowController sharedLogWindowController] show:[NSString stringWithFormat:@"API Error: expected JSON data-load length, got: %@", str]
-                                                               type:SDLogMessageTypeError];
-            
+            [self showAPIError:[NSString stringWithFormat:@"API Error: expected JSON data-load length, got: %@", str]];
             [self waitForNewMessage];
             return;
         }
@@ -69,9 +67,7 @@
         
         if (obj == nil) {
             NSString* rawJson = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-            [[SDLogWindowController sharedLogWindowController] show:[NSString stringWithFormat:@"API Error: expected valid JSON message, got: %@", rawJson]
-                                                               type:SDLogMessageTypeError];
-            
+            [self showAPIError:[NSString stringWithFormat:@"API Error: expected valid JSON message, got: %@", rawJson]];
             [self waitForNewMessage];
             return;
         }
@@ -95,11 +91,38 @@
     self.disconnectedHandler(self);
 }
 
+- (void) showAPIError:(NSString*)errorStr {
+    [[SDLogWindowController sharedLogWindowController] show:errorStr
+                                                       type:SDLogMessageTypeError];
+}
+
 - (void) handleMessage:(NSArray*)msg {
+    if ([msg count] < 3) {
+        [self showAPIError:[NSString stringWithFormat:@"API error: invalid message: %@", msg]];
+        return;
+    }
+    
     NSNumber* msgID = [msg objectAtIndex:0];
     
+    if (![msgID isKindOfClass:[NSNumber self]]) {
+        [self showAPIError:[NSString stringWithFormat:@"API error: invalid message id: %@", msgID]];
+        return;
+    }
+    
     NSNumber* recvID = [msg objectAtIndex:1];
+    
+    if (![recvID isKindOfClass:[NSNumber self]] || [recvID integerValue] < 0) {
+        [self showAPIError:[NSString stringWithFormat:@"API error: invalid receiver id: %@", recvID]];
+        return;
+    }
+    
     NSString* meth = [msg objectAtIndex:2];
+    
+    if (![meth isKindOfClass:[NSString self]] || [[meth stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length] == 0) {
+        [self showAPIError:[NSString stringWithFormat:@"API error: invalid method name: %@", meth]];
+        return;
+    }
+    
     NSArray* args = [msg subarrayWithRange:NSMakeRange(3, [msg count] - 3)];
     NSNumber* recv = [self receiverForID:recvID];
     
@@ -109,8 +132,7 @@
             result = [self callMethod:meth on:recv args:args msgID:msgID];
         }
         @catch (NSException *exception) {
-            [[SDLogWindowController sharedLogWindowController] show:[exception description]
-                                                               type:SDLogMessageTypeError];
+            [self showAPIError:[exception description]];
         }
         @finally {
             [self sendResponse:result forID:msgID];
@@ -209,9 +231,7 @@
                                     [client.hotkeys addObject:hotkey];
                                 }
                                 else {
-                                    NSString* str = [@"Can't bind: " stringByAppendingString: [hotkey hotKeyDescription]];
-                                    [[SDLogWindowController sharedLogWindowController] show:str
-                                                                                       type:SDLogMessageTypeError];
+                                    [client showAPIError:[@"Can't bind: " stringByAppendingString: [hotkey hotKeyDescription]]];
                                 }
                                 
                                 return @-1;
@@ -411,8 +431,7 @@
     if (fn)
         return fn(self, msgID, recv, args);
     
-    [[SDLogWindowController sharedLogWindowController] show:[NSString stringWithFormat:@"API Error: Could not find method [%@] on object of type [%@]", meth, type]
-                                                       type:SDLogMessageTypeError];
+    [self showAPIError:[NSString stringWithFormat:@"API Error: Could not find method [%@] on object of type [%@]", meth, type]];
     return nil;
 }
 
