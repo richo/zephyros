@@ -29,10 +29,11 @@ At it's core, Zephyros just runs quietly in your menu bar, and listens for your 
 - [Using JavaScript](Docs/JavaScript.md) (or CoffeeScript, etc)
 - Using Python (coming soon, see [this issue](../../issues/10))
 - Using node.js (someone started on one, see [this issue](../../issues/17))
+- Using [the TCP protocol directly](Docs/TCP.md)
 
 #### Other languages
 
-You can script Zephyros from **any language** that can talk JSON over TCP.
+You can script Zephyros from any language that can talk JSON over TCP.
 
 Don't see your favorite language here? Why not [write a Zephyros lib](Docs/TCP.md) for it!
 
