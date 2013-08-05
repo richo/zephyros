@@ -27,8 +27,8 @@ At it's core, Zephyros just runs quietly in your menu bar, and listens for your 
 - [Using Ruby](Docs/Ruby.md)
 - [Using Go](Docs/Go.md)
 - [Using JavaScript](Docs/JavaScript.md) (or CoffeeScript, etc)
-- Using Python (coming soon, see [this issue][(coming soon)](issues/10))
-- Using node.js (someone started on one, see [this issue][(in the works)](issues/17))
+- Using Python (coming soon, see [this issue](issues/10))
+- Using node.js (someone started on one, see [this issue](issues/17))
 
 #### Other languages
 
