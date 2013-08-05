@@ -232,9 +232,23 @@ class API
       super(msg, sec)
     end
 
-    # ### Just realized we never coerce the arg into a Ruby class. Oops.
-    # def listen(event, &blk)
-    # end
+    def listen(event, &blk)
+      super(event) do |arg|
+        case event
+        when 'window_created' then blk.call Window.new arg
+        when 'window_created' then blk.call Window.new arg
+        when 'window_minimized' then blk.call Window.new arg
+        when 'window_unminimized' then blk.call Window.new arg
+        when 'window_moved' then blk.call Window.new arg
+        when 'window_resized' then blk.call Window.new arg
+        when 'app_launched' then blk.call App.new arg
+        when 'app_died' then blk.call App.new arg
+        when 'app_hidden' then blk.call App.new arg
+        when 'app_shown' then blk.call App.new arg
+        when 'screens_changed' then blk.call
+        end
+      end
+    end
 
   end
 
