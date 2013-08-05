@@ -49,12 +49,33 @@
         NSString* str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         NSInteger size = [str integerValue];
         
+        NSString* sizeValidator = [NSString stringWithFormat:@"%ld\n", size];
+        
+        if (![sizeValidator isEqualToString:str]) {
+            [[SDLogWindowController sharedLogWindowController] show:[NSString stringWithFormat:@"API Error: expected JSON data-load length, got: %@", str]
+                                                               type:SDLogMessageTypeError];
+            
+            [self waitForNewMessage];
+            return;
+        }
+        
         [self.sock readDataToLength:size
                         withTimeout:FOREVER
                                 tag:1];
     }
     else if (tag == 1) {
-        id obj = [NSJSONSerialization JSONObjectWithData:data options:0 error:0];
+        NSError* __autoreleasing error;
+        id obj = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+        
+        if (obj == nil) {
+            NSString* rawJson = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            [[SDLogWindowController sharedLogWindowController] show:[NSString stringWithFormat:@"API Error: expected valid JSON message, got: %@", rawJson]
+                                                               type:SDLogMessageTypeError];
+            
+            [self waitForNewMessage];
+            return;
+        }
+        
         [self handleMessage:obj];
         [self waitForNewMessage];
     }
