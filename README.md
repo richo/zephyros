@@ -121,17 +121,14 @@ func main() {
 
 - 4.1
     - This auto-updater won't work if you're on version 3.x or 2.x
+        - Due to [this securty fix](https://github.com/sdegutis/zephyros/pull/21)
         - [Download Zephyros-4.1.zip](https://raw.github.com/sdegutis/zephyros/master/Builds/Zephyros-LATEST.app.tar.gz) directly instead
-    - Re-adds support for previous JavaScript API
     - Security fix: Only listens for clients on localhost
+    - Re-adds JavaScript/CoffeeScript API
     - Adds support for dvorak and other keyboard layouts (thanks jballanc)
     - Many improvements and stability fixes
 - 4.0
     - Removes JavaScript/CoffeeScript API (re-added in 4.1)
-    - Security update (fixes [this issue](https://github.com/sdegutis/zephyros/pull/21))
-        - This auto-updater won't actually work because of it
-        - [Download Zephyros-4.0.zip](https://raw.github.com/sdegutis/zephyros/master/Builds/Zephyros-LATEST.app.tar.gz) instead
-        - See [this github issue](https://github.com/sdegutis/zephyros/pull/21) for details
     - Includes new Clojure API
     - Includes new Go API
     - Adds support for any language that can speak JSON over TCP
