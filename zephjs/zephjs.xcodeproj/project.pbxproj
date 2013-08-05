@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9435A4BE17AEDB3C00754D27 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9435A4BD17AEDB3C00754D27 /* Foundation.framework */; };
-		9435A4C117AEDB3C00754D27 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9435A4C017AEDB3C00754D27 /* main.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		9435A4C117AEDB3C00754D27 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9435A4C017AEDB3C00754D27 /* main.m */; };
 		9435A51E17AEE1D900754D27 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9435A51D17AEE1D900754D27 /* JavaScriptCore.framework */; };
 		9435A52017AEE1E200754D27 /* libffi.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9435A51F17AEE1E200754D27 /* libffi.dylib */; };
 		9435A52317AEEE3200754D27 /* api.m in Sources */ = {isa = PBXBuildFile; fileRef = 9435A52217AEEE3200754D27 /* api.m */; };
@@ -17,6 +17,8 @@
 		9435A52A17AEF7A400754D27 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9435A52917AEF7A400754D27 /* CFNetwork.framework */; };
 		9435A52C17AEFBAF00754D27 /* libJSCocoaStatic.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9435A52B17AEFBAF00754D27 /* libJSCocoaStatic.a */; };
 		9435A53217AF181C00754D27 /* SDJSBlockWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9435A53117AF181C00754D27 /* SDJSBlockWrapper.m */; };
+		9466561917AF890000B68607 /* SDZephJS.m in Sources */ = {isa = PBXBuildFile; fileRef = 9466561817AF890000B68607 /* SDZephJS.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		9466561C17AF890F00B68607 /* SDZephClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 9466561B17AF890F00B68607 /* SDZephClient.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -46,6 +48,10 @@
 		9435A52B17AEFBAF00754D27 /* libJSCocoaStatic.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libJSCocoaStatic.a; path = zephjs/libJSCocoaStatic.a; sourceTree = "<group>"; };
 		9435A53017AF181C00754D27 /* SDJSBlockWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDJSBlockWrapper.h; sourceTree = "<group>"; };
 		9435A53117AF181C00754D27 /* SDJSBlockWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDJSBlockWrapper.m; sourceTree = "<group>"; };
+		9466561717AF890000B68607 /* SDZephJS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDZephJS.h; sourceTree = "<group>"; };
+		9466561817AF890000B68607 /* SDZephJS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDZephJS.m; sourceTree = "<group>"; };
+		9466561A17AF890F00B68607 /* SDZephClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDZephClient.h; sourceTree = "<group>"; };
+		9466561B17AF890F00B68607 /* SDZephClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDZephClient.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +107,10 @@
 				9435A4C317AEDB3C00754D27 /* zephjs-Prefix.pch */,
 				9435A4C017AEDB3C00754D27 /* main.m */,
 				9435A52217AEEE3200754D27 /* api.m */,
+				9466561A17AF890F00B68607 /* SDZephClient.h */,
+				9466561B17AF890F00B68607 /* SDZephClient.m */,
+				9466561717AF890000B68607 /* SDZephJS.h */,
+				9466561817AF890000B68607 /* SDZephJS.m */,
 				9435A53017AF181C00754D27 /* SDJSBlockWrapper.h */,
 				9435A53117AF181C00754D27 /* SDJSBlockWrapper.m */,
 				9435A52417AEF70700754D27 /* GCDAsyncSocket.h */,
@@ -164,6 +174,8 @@
 				9435A52317AEEE3200754D27 /* api.m in Sources */,
 				9435A52617AEF70700754D27 /* GCDAsyncSocket.m in Sources */,
 				9435A53217AF181C00754D27 /* SDJSBlockWrapper.m in Sources */,
+				9466561917AF890000B68607 /* SDZephJS.m in Sources */,
+				9466561C17AF890F00B68607 /* SDZephClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
