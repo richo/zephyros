@@ -21,6 +21,7 @@
 + (NSArray*) visibleWindows;
 + (SDWindowProxy*) focusedWindow;
 - (NSArray*) otherWindowsOnSameScreen;
+- (NSArray*) otherWindowsOnAllScreens;
 
 
 // window position & size

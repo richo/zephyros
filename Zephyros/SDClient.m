@@ -257,6 +257,12 @@
                             @"title": ^id(SDClient* client, NSNumber* msgID, SDWindowProxy* recv, NSArray* args) {
                                 return [recv title];
                             },
+                            @"other_windows_on_same_screen": ^id(SDClient* client, NSNumber* msgID, SDWindowProxy* recv, NSArray* args) {
+                                return [recv otherWindowsOnSameScreen];
+                            },
+                            @"other_windows_on_all_screens": ^id(SDClient* client, NSNumber* msgID, SDWindowProxy* recv, NSArray* args) {
+                                return [recv otherWindowsOnAllScreens];
+                            },
                             @"set_frame": ^id(SDClient* client, NSNumber* msgID, SDWindowProxy* recv, NSArray* args) {
                                 [recv setFrame:[args objectAtIndex:0]];
                                 return nil;
