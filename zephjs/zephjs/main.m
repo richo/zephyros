@@ -127,16 +127,68 @@ NSString* sd_js_api();
     });
 }
 
-- (void) open:(NSString*)thing {
-    
-}
+NSString* const DoNotWaitShellOption = @"donotwait";
+NSString* const PwdShellOption = @"pwd";
+NSString* const InputShellOption = @"input";
 
-- (void) shell:(NSString*)path args:(NSArray*)args opts:(NSDictionary*)opts {
+- (NSDictionary*) shell:(NSString*)cmd args:(NSArray*)args opts:(NSDictionary*)options {
+    BOOL doNotWait = NO;
+    NSPipe* outPipe = [NSPipe pipe];
+    NSPipe* errPipe = [NSPipe pipe];
+    NSPipe* inPipe = [NSPipe pipe];
     
+    NSString* pwd = [options objectForKey:PwdShellOption];
+    NSString* input = [options objectForKey:InputShellOption];
+    NSValue* doNotWaitOption = [options objectForKey:DoNotWaitShellOption];
+    if ([doNotWaitOption isKindOfClass:[NSValue class]]) {
+        [doNotWaitOption getValue:&doNotWait];
+    }
+    
+    if (input) {
+        [[inPipe fileHandleForWriting] writeData:[input dataUsingEncoding:NSUTF8StringEncoding]];
+        [[inPipe fileHandleForWriting] closeFile];
+    }
+    
+    NSTask* task = [[NSTask alloc] init];
+    task.launchPath = cmd;
+    task.arguments = args;
+    if (pwd)
+        task.currentDirectoryPath = pwd;
+    task.standardInput = inPipe;
+    task.standardOutput = outPipe;
+    task.standardError = errPipe;
+    
+    if (doNotWait) {
+        [[outPipe fileHandleForReading] waitForDataInBackgroundAndNotify];
+        [task launch];
+        return @{};
+    }
+    
+    [task launch];
+    [task waitUntilExit];
+    
+    NSData* stdoutData = [[outPipe fileHandleForReading] readDataToEndOfFile];
+    NSString* stdoutString = [[NSString alloc] initWithData:stdoutData encoding:NSUTF8StringEncoding];
+    
+    NSData* stderrData = [[errPipe fileHandleForReading] readDataToEndOfFile];
+    NSString* stderrString = [[NSString alloc] initWithData:stderrData encoding:NSUTF8StringEncoding];
+    
+    return @{@"status": @([task terminationStatus]),
+             @"stdout": stdoutString,
+             @"stderr": stderrString};
 }
 
 - (void) requireFromJS:(NSString*)file {
+    file = [file stringByStandardizingPath];
     
+    NSData* contentsData = [[NSFileManager defaultManager] contentsAtPath:file];
+    if (contentsData == nil) {
+        printf("Couldn't require file: %s\n", [file UTF8String]);
+        fflush(stdout);
+        return;
+    }
+    
+    [self evalFile:contentsData asCoffee:[file hasSuffix:@".coffee"]];
 }
 
 - (void) doFn:(JSValueRefAndContextRef)fn after:(NSNumber*)delay {
@@ -178,6 +230,8 @@ NSString* sd_js_api();
 
 - (void) evalFile:(NSData*)contentsData asCoffee:(BOOL)isCoffee {
     NSString* contents = [[NSString alloc] initWithData:contentsData encoding:NSUTF8StringEncoding];
+    
+    NSLog(@"evaling (coffee? %d) %@", isCoffee, contents);
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         if (isCoffee) {
@@ -246,21 +300,14 @@ NSString* sd_js_api();
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
-        NSString* file = nil;
-        BOOL coffee = NO;
-        
-        if (argc == 2) {
-            file = [NSString stringWithUTF8String:argv[1]];
-        }
-        else if (argc == 3) {
-            file = [NSString stringWithUTF8String:argv[1]];
-            coffee = YES;
-        }
-        else {
-            printf("usage: %s script.js\n"
-                   "       %s -coffee script.coffee", argv[0], argv[0]);
+        if (argc != 2) {
+            printf("usage: zephjs script.js\n"
+                   "       zephjs script.coffee");
             return 1;
         }
+        
+        NSString* file = [NSString stringWithUTF8String:argv[1]];
+        BOOL coffee = [file hasSuffix:@".coffee"];
         
         NSData* contentsData = [[NSFileManager defaultManager] contentsAtPath:file];
         if (contentsData == nil) {
