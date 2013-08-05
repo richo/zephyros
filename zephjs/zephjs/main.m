@@ -35,6 +35,12 @@ NSString* sd_js_api();
     return self;
 }
 
+- (void) dealloc {
+    self.queueLock = nil;
+    self.queueContents = nil;
+    [super dealloc];
+}
+
 - (id) get {
     id toRet = nil;
     [self.queueLock lock];
@@ -101,6 +107,8 @@ NSString* sd_js_api();
     NSMutableArray* newMsg = [[msg mutableCopy] autorelease];
     [newMsg insertObject:msgIdNum atIndex:0];
     
+    NSLog(@"msg %@ = %@", msgIdNum, newMsg);
+    
     NSData* msgData = [NSJSONSerialization dataWithJSONObject:newMsg options:0 error:NULL];
     NSString* msgLength = [NSString stringWithFormat:@"%ld", [msgData length]];
     
@@ -110,16 +118,20 @@ NSString* sd_js_api();
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         if (responses == -1) {
-            [queue get]; // ignore first
+            NSLog(@"ignoring first = %@", [queue get]);
+//            [queue get]; // ignore first
             while (true) {
                 id obj = [queue get];
+                NSLog(@"infinite got = %@", obj);
                 callback(obj);
             }
         }
         else {
             for (int i = 0; i < responses; i++) {
                 id obj = [queue get];
+                NSLog(@"once got = %@ for msg id = %@", obj, msgIdNum);
                 callback(obj);
+                NSLog(@"done calling back got = %@ for msg id = %@", obj, msgIdNum);
             }
         }
         
@@ -212,17 +224,25 @@ NSString* const InputShellOption = @"input";
 }
 
 - (id) sendSyncMessage:(id)msg {
+    NSLog(@"IN 1");
+    
     __block id returnVal = nil;
     dispatch_semaphore_t sem = dispatch_semaphore_create(0);
+    NSLog(@"IN 2");
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSLog(@"IN 3");
         [self sendAsyncMessage:msg responses:1 callback:^(id obj) {
+            NSLog(@"IN 4");
             returnVal = obj;
+            NSLog(@"FIRST retval = %@", returnVal);
             dispatch_semaphore_signal(sem);
         }];
     });
     
     dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
+    dispatch_release(sem);
+    NSLog(@"SECOND retval = %@", returnVal);
     return returnVal;
 }
 
