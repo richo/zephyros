@@ -1,8 +1,7 @@
-## Zephyros - Node.js API
+## Zephyros - JavaScript API
 
 * [Top Level](#top-level)
 * [Type "API"](#type-api)
-* [Type "Settings"](#type-settings)
 * [Type "Window"](#type-window)
 * [Type "Screen"](#type-screen)
 * [Type "App"](#type-app)
@@ -26,7 +25,7 @@ property (API) api
 - (Rect) SDIntegralRect(r)        # => modifies and returns r
 
 - (void) log(String str)                   # shows up in the log window
-- (void) alert(String str[, Float delay])  # shows in a fancy alert; optional delay is seconds
+- (void) alert(String str[, Number delay])  # shows in a fancy alert; optional delay is seconds
 
 - (void) bind(String key,              # case-insensitive single-character string; see link below
               Array<String> modifiers, # may contain any number of: "cmd", "ctrl", "alt", "shift"
@@ -45,7 +44,7 @@ property (API) api
 
 - (void) open(String thing) # can be path or URL
 
-- (void) doAfter(Float sec, Function fn)
+- (void) doAfter(Number sec, Function fn)
 ```
 
 The function `bind()` uses [this list](https://github.com/sdegutis/zephyros/blob/master/Zephyros/SDKeyBindingTranslator.m#L148) of key strings.
@@ -53,8 +52,6 @@ The function `bind()` uses [this list](https://github.com/sdegutis/zephyros/blob
 ### Type: `API`
 
 ```coffeescript
-- (Settings) settings()
-
 - (Array<Window>) allWindows()
 - (Array<Window>) visibleWindows()
 - (Window) focusedWindow()
@@ -65,16 +62,6 @@ The function `bind()` uses [this list](https://github.com/sdegutis/zephyros/blob
 - (Array<App>) runningApps()
 
 - (String) clipboardContents()
-```
-
-### Type: `Settings`
-
-```coffeescript
-property (Float) alertDisappearDelay # in seconds.
-property (Boolean) alertAnimates     # when opening.
-
-- (NSBox) alertBox()
-- (NSTextField) alertTextField()
 ```
 
 ### Type: `Window`
@@ -89,13 +76,13 @@ class-property (number) Window.gridMarginX # default: 5
 class-property (number) Window.gridMarginY # default: 5
 # these margins are for giving window-shadows some breathing room
 
-- (CGPoint) topLeft()
-- (CGSize) size()
-- (CGRect) frame()
+- (Point) topLeft()
+- (Size) size()
+- (Rect) frame()
 
-- (void) setTopLeft(CGPoint thePoint)
-- (void) setSize(CGSize theSize)
-- (void) setFrame(CGRect frame)
+- (void) setTopLeft(Point thePoint)
+- (void) setSize(Size theSize)
+- (void) setFrame(Rect frame)
 - (void) maximize()
 
 - (Screen) screen()
@@ -119,8 +106,8 @@ class-property (number) Window.gridMarginY # default: 5
 ### Type: `Screen`
 
 ```coffeescript
-- (CGRect) frameIncludingDockAndMenu()
-- (CGRect) frameWithoutDockOrMenu()
+- (Rect) frameIncludingDockAndMenu()
+- (Rect) frameWithoutDockOrMenu()
 
 - (Screen) nextScreen()
 - (Screen) previousScreen()
@@ -139,22 +126,25 @@ class-property (number) Window.gridMarginY # default: 5
 - (void) kill9()
 ```
 
-### Other Types
-
-The rest of the types here are classes from ObjC, bridged to JS. Here's a few for reference:
+### Type: `Rect`
 
 ```coffeescript
-# CGRect
-property (CGPoint) origin # top-left
-property (CGSize) size
+property (Point) origin # top-left
+property (Size) size
+```
 
-# CGSize
-property (Float) width
-property (Float) height
+### Type: `Size`
 
-# CGPoint
-property (Float) x
-property (Float) y
+```coffeescript
+property (Number) width
+property (Number) height
+```
+
+### Type: `Point`
+
+```coffeescript
+property (Number) x
+property (Number) y
 ```
 
 The rest you'll have to look up for yourself.
