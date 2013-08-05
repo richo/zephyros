@@ -390,8 +390,9 @@
     if (fn)
         return fn(self, msgID, recv, args);
     
-    NSLog(@"could not find method [%@] on object of type [%@]", meth, type);
-    @throw [NSException exceptionWithName:@"crap" reason:@"uhh" userInfo:nil];
+    [[SDLogWindowController sharedLogWindowController] show:[NSString stringWithFormat:@"API Error: Could not find method [%@] on object of type [%@]", meth, type]
+                                                       type:SDLogMessageTypeError];
+    return nil;
 }
 
 @end
