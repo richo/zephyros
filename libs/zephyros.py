@@ -128,8 +128,20 @@ def zephyros(fn):
     while True: pass
 
 
+class Proxy:
+    def __init__(self, id): self.id = id
+    def _send_sync(self, *args): return sendMessage([self.id] + list(args))
+
+class Window(Proxy):
+    def title(self): return self._send_sync('title')
+    def frame(self): return self._send_sync('frame')
+    def set_frame(self, f): self._send_sync('set_frame', f)
+
+
+
 class Api:
     def alert(self, msg, duration=1): sendMessage([0, 'alert', msg, duration])
+    def focused_window(self): return Window(sendMessage([0, 'focused_window']))
     def bind(self, key, mods, fn):
         def tmp_fn(obj): fn()
         sendMessage([0, 'bind', key, mods], callback=tmp_fn)
