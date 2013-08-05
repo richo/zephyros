@@ -62,6 +62,8 @@
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+    [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"launchCommand": @"path/to/zephjs ~/.zephyros.coffee # or .js"}];
+    
     [self prepareStatusItem];
     
     [[SDConfigLauncher sharedConfigLauncher] launchConfigMaybe];
