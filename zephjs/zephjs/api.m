@@ -86,7 +86,6 @@ NSString* sd_js_api() {
     "Window.gridMarginY ?= 5\n"
     "\n"
     "api =\n"
-    "  settings: -> SDAPI.settings()\n"
     "  runningApps: -> mapToJS SDAppProxy.runningApps(), App.fromNS\n"
     "  allWindows: -> mapToJS SDWindowProxy.allWindows(), Window.fromNS\n"
     "  visibleWindows: -> mapToJS SDWindowProxy.visibleWindows(), Window.fromNS\n"
