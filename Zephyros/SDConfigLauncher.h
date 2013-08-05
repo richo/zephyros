@@ -18,4 +18,9 @@
 - (void) launchConfigMaybe;
 - (void) watchPathsMaybe;
 
+- (void) startOrStopScript;
+- (void) unlaunch;
+
+@property (readonly) BOOL isRunning;
+
 @end

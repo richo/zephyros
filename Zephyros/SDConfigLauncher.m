@@ -21,6 +21,8 @@
 @property SDPathWatcher* configWatcher;
 @property SDShellCommand* launchedTask;
 
+@property BOOL isRunning;
+
 @end
 
 
@@ -73,6 +75,15 @@
     }
 }
 
+- (void) startOrStopScript {
+    if (self.isRunning) {
+        [self unlaunch];
+    }
+    else {
+        [self launch];
+    }
+}
+
 
 
 
@@ -117,12 +128,14 @@
     
     __weak SDConfigLauncher* punyself = self;
     self.launchedTask.died = ^{
+        punyself.isRunning = NO;
         [[NSNotificationCenter defaultCenter] postNotificationName:SDScriptDiedNotification object:nil];
         punyself.launchedTask = nil;
     };
     
     [self.launchedTask launch];
     
+    self.isRunning = YES;
     [[NSNotificationCenter defaultCenter] postNotificationName:SDScriptLaunchedNotification object:nil];
 }
 

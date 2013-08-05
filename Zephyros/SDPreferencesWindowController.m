@@ -18,7 +18,39 @@
 
 @property SDWatchedPathsWindowController* pathsController;
 
+@property BOOL scriptRunning;
+
 @end
+
+
+@interface SDStartOrStopScriptTitleTransformer : NSValueTransformer
+@end
+@implementation SDStartOrStopScriptTitleTransformer
++ (Class)transformedValueClass { return [NSString class]; }
++ (BOOL)allowsReverseTransformation { return NO; }
+- (id)transformedValue:(id)value {
+    if ([value boolValue])
+        return @"Kill";
+    else
+        return @"Run";
+}
+@end
+
+
+@interface SDScriptRunningImageTransformer : NSValueTransformer
+@end
+@implementation SDScriptRunningImageTransformer
++ (Class)transformedValueClass { return [NSString class]; }
++ (BOOL)allowsReverseTransformation { return NO; }
+- (id)transformedValue:(id)value {
+    if ([value boolValue])
+        return [NSImage imageNamed:NSImageNameStatusAvailable];
+    else
+        return [NSImage imageNamed:NSImageNameStatusUnavailable];
+}
+@end
+
+
 
 @implementation SDPreferencesWindowController
 
@@ -31,21 +63,48 @@
     return sharedConfigChooserWindowController;
 }
 
+- (id) init {
+    if (self = [super init]) {
+        [[NSNotificationCenter defaultCenter] addObserverForName:SDScriptLaunchedNotification
+                                                          object:nil
+                                                           queue:nil
+                                                      usingBlock:^(NSNotification *note) {
+                                                          self.scriptRunning = YES;
+                                                      }];
+        
+        [[NSNotificationCenter defaultCenter] addObserverForName:SDScriptDiedNotification
+                                                          object:nil
+                                                           queue:nil
+                                                      usingBlock:^(NSNotification *note) {
+                                                          self.scriptRunning = NO;
+                                                      }];
+    }
+    return self;
+}
+
 - (NSString*) windowNibName {
     return @"SDPreferencesWindow";
 }
 
+- (IBAction) startOrStopScript:(id)sender {
+    [[SDConfigLauncher sharedConfigLauncher] startOrStopScript];
+}
+
 - (void) show {
+    self.scriptRunning = [SDConfigLauncher sharedConfigLauncher].isRunning;
+    
     [[self window] center];
     [self showWindow:self];
 }
 
 - (IBAction) changeIfRunsScript:(id)sender {
-    [[SDConfigLauncher sharedConfigLauncher] launchConfigMaybe];
+    if ([sender state] == NSOffState) {
+        [[SDConfigLauncher sharedConfigLauncher] unlaunch];
+    }
 }
 
 - (IBAction) changeWhetherWatchingPaths:(id)sender {
-    [[SDConfigLauncher sharedConfigLauncher] watchPathsMaybe];
+//    [[SDConfigLauncher sharedConfigLauncher] watchPathsMaybe];
 }
 
 - (IBAction) switchSocketType:(id)sender {
