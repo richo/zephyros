@@ -108,6 +108,17 @@ func main() {
 }
 ```
 
+#### JavaScript / CoffeeScript
+
+```ruby
+bind("K", ["cmd", "alt", "ctrl"], function() {
+  var win = API.focusedWindow()
+  frame = win.screen().frameWithoutDockOrMenu()
+  frame.h /= 2
+  win.setFrame(frame)
+})
+```
+
 #### More configs
 
 * [The author's config](https://github.com/sdegutis/dotfiles/blob/master/home/.zephyros.rb)
