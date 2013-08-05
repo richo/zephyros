@@ -231,8 +231,6 @@ NSString* const InputShellOption = @"input";
 - (void) evalFile:(NSData*)contentsData asCoffee:(BOOL)isCoffee {
     NSString* contents = [[NSString alloc] initWithData:contentsData encoding:NSUTF8StringEncoding];
     
-    NSLog(@"evaling (coffee? %d) %@", isCoffee, contents);
-    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         if (isCoffee) {
             [self evalCoffeeScript:contents];
