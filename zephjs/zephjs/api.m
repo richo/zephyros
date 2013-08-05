@@ -110,7 +110,7 @@ NSString* sd_js_api() {
     "      fn ProxyObj.fromNS(thing)\n"
     "    else\n"
     "      fn()\n"
-    "  SDClient.sharedClient().sendAsyncMessage_responses_callbackJSFunc_([0, event], -1, trampolineFn)\n"
+    "  SDClient.sharedClient().sendAsyncMessage_responses_callbackJSFunc_([0, 'listen', event], -1, trampolineFn)\n"
     
     
     "";
