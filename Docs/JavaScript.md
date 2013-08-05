@@ -1,5 +1,17 @@
 ## Zephyros - JavaScript API
 
+## To run:
+
+```bash
+/Applications/Zephyros.app/Contents/MacOS/zephjs myscript.js
+
+# or
+
+/Applications/Zephyros.app/Contents/MacOS/zephjs myscript.coffee
+```
+
+## API
+
 * [Top Level](#top-level)
 * [Type "API"](#type-api)
 * [Type "Window"](#type-window)
