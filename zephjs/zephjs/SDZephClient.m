@@ -94,7 +94,7 @@
     NSMutableArray* newMsg = [msg mutableCopy];
     [newMsg insertObject:msgIdNum atIndex:0];
     
-    NSLog(@"msg %@ = %@", msgIdNum, newMsg);
+//    NSLog(@"msg %@ = %@", msgIdNum, newMsg);
     
     NSData* msgData = [NSJSONSerialization dataWithJSONObject:newMsg options:0 error:NULL];
     NSString* msgLength = [NSString stringWithFormat:@"%ld", [msgData length]];
@@ -105,20 +105,20 @@
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         if (responses == -1) {
-            NSLog(@"ignoring first = %@", [queue get]);
-            //            [queue get]; // ignore first
+//            NSLog(@"ignoring first = %@", [queue get]);
+            [queue get]; // ignore first
             while (true) {
                 id obj = [queue get];
-                NSLog(@"infinite got = %@", obj);
+//                NSLog(@"infinite got = %@", obj);
                 callback(obj);
             }
         }
         else {
             for (int i = 0; i < responses; i++) {
                 id obj = [queue get];
-                NSLog(@"once got = %@ for msg id = %@", obj, msgIdNum);
+//                NSLog(@"once got = %@ for msg id = %@", obj, msgIdNum);
                 callback(obj);
-                NSLog(@"done calling back got = %@ for msg id = %@", obj, msgIdNum);
+//                NSLog(@"done calling back got = %@ for msg id = %@", obj, msgIdNum);
             }
         }
         
@@ -127,25 +127,25 @@
 }
 
 - (id) sendSyncMessage:(id)msg {
-    NSLog(@"IN 1");
+//    NSLog(@"IN 1");
     
     __block id returnVal = nil;
     dispatch_semaphore_t sem = dispatch_semaphore_create(0);
-    NSLog(@"IN 2");
+//    NSLog(@"IN 2");
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSLog(@"IN 3");
+//        NSLog(@"IN 3");
         [self sendAsyncMessage:msg responses:1 callback:^(id obj) {
-            NSLog(@"IN 4");
+//            NSLog(@"IN 4");
             returnVal = obj;
-            NSLog(@"FIRST retval = %@", returnVal);
+//            NSLog(@"FIRST retval = %@", returnVal);
             dispatch_semaphore_signal(sem);
         }];
     });
     
     dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
 //    dispatch_release(sem);
-    NSLog(@"SECOND retval = %@", returnVal);
+//    NSLog(@"SECOND retval = %@", returnVal);
     return returnVal;
 }
 
