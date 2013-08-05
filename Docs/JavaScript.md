@@ -1,6 +1,6 @@
 ## Zephyros - JavaScript API
 
-## To run:
+### To run:
 
 ```bash
 /Applications/Zephyros.app/Contents/MacOS/zephjs myscript.js
@@ -10,7 +10,7 @@
 /Applications/Zephyros.app/Contents/MacOS/zephjs myscript.coffee
 ```
 
-## API
+### API
 
 * [Top Level](#top-level)
 * [Type "API"](#type-api)
@@ -22,7 +22,7 @@
 
 For your convenience, [underscore.js 1.4.4](http://underscorejs.org/) is pre-loaded.
 
-### Top Level
+#### Top Level
 
 ```coffeescript
 property (API) api
@@ -61,7 +61,7 @@ property (API) api
 
 The function `bind()` uses [this list](https://github.com/sdegutis/zephyros/blob/master/Zephyros/SDKeyBindingTranslator.m#L148) of key strings.
 
-### Type: `API`
+#### Type: `API`
 
 ```coffeescript
 - (Array<Window>) allWindows()
@@ -76,7 +76,7 @@ The function `bind()` uses [this list](https://github.com/sdegutis/zephyros/blob
 - (String) clipboardContents()
 ```
 
-### Type: `Window`
+#### Type: `Window`
 
 ```coffeescript
 - (Grid) getGrid()
@@ -115,7 +115,7 @@ class-property (number) Window.gridMarginY # default: 5
 - (void) focusWindowDown()
 ```
 
-### Type: `Screen`
+#### Type: `Screen`
 
 ```coffeescript
 - (Rect) frameIncludingDockAndMenu()
@@ -125,7 +125,7 @@ class-property (number) Window.gridMarginY # default: 5
 - (Screen) previousScreen()
 ```
 
-### Type: `App`
+#### Type: `App`
 
 ```coffeescript
 - (Array<Window>) allWindows()
@@ -138,21 +138,21 @@ class-property (number) Window.gridMarginY # default: 5
 - (void) kill9()
 ```
 
-### Type: `Rect`
+#### Type: `Rect`
 
 ```coffeescript
 property (Point) origin # top-left
 property (Size) size
 ```
 
-### Type: `Size`
+#### Type: `Size`
 
 ```coffeescript
 property (Number) width
 property (Number) height
 ```
 
-### Type: `Point`
+#### Type: `Point`
 
 ```coffeescript
 property (Number) x
@@ -161,7 +161,7 @@ property (Number) y
 
 The rest you'll have to look up for yourself.
 
-### Events
+#### Events
 
 ```coffeescript
 'window_created', callback args: (win)
