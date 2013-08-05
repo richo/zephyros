@@ -10,9 +10,11 @@
 
 @interface SDZephClient : NSObject
 
-- (void) connect;
+- (BOOL) connect;
 
 - (id) sendSyncMessage:(id)msg;
 - (void) sendAsyncMessage:(id)msg responses:(int)responses callback:(void(^)(id obj))callback;
+
+@property (copy) void(^errorCallback)(NSError* error);
 
 @end

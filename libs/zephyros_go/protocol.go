@@ -8,11 +8,16 @@ import (
 	"strconv"
 	"strings"
 	"io"
+	"os"
 )
 
 
 func connect() net.Conn {
-	conn, _ := net.Dial("tcp", "localhost:1235")
+	conn, err := net.Dial("tcp", "localhost:1235")
+	if err != nil {
+		fmt.Println("Can't connect. Is Zephyros running?")
+		os.Exit(1)
+	}
 	return conn
 }
 

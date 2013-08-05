@@ -32,7 +32,11 @@
       (.put chan json))))
 
 (defn connect [server]
-  (let [socket (Socket. (:name server) (:port server))
+  (let [socket (try
+                 (Socket. (:name server) (:port server))
+                 (catch Exception e
+                   (println "Can't connect. Is Zephyros running?")
+                   (System/exit 1)))
         in (.getInputStream socket)
         out (PrintWriter. (.getOutputStream socket))
         conn (ref {:in in :out out :socket socket})]

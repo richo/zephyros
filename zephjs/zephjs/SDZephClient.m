@@ -149,17 +149,23 @@
     return returnVal;
 }
 
-- (void) connect {
+- (BOOL) connect {
     self.queues = [NSMutableDictionary dictionary];
     
     self.sock = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
-    [self.sock connectToHost:@"localhost" onPort:1235 error:NULL];
+    BOOL connected = [self.sock connectToHost:@"localhost" onPort:1235 error:NULL];
     
     [self waitForNewMessage];
+    return connected;
 }
 
 - (void) waitForNewMessage {
     [self.sock readDataToData:[GCDAsyncSocket LFData] withTimeout:FOREVER tag:0];
+}
+
+- (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err {
+    if (self.errorCallback)
+        self.errorCallback(err);
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag {

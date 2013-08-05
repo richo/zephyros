@@ -48,8 +48,19 @@ NSString* sd_js_api();
     [self.js evalJSString:@"function coffeeToJS(coffee) { return CoffeeScript.compile(coffee, { bare: true }); };"];
     [self evalCoffeeScript:sd_js_api()];
     
+    dispatch_block_t errorBlock = ^{
+        printf("Can't connect. Is Zephyros running?\n");
+        exit(1);
+    };
+    
     self.client = [[SDZephClient alloc] init];
-    [self.client connect];
+    self.client.errorCallback = ^(NSError* err) {
+        errorBlock();
+    };
+    
+    if (![self.client connect]) {
+        errorBlock();
+    }
 }
 
 - (NSDictionary*) shell:(NSString*)cmd args:(NSArray*)args opts:(NSDictionary*)options {

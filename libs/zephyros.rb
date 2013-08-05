@@ -15,6 +15,9 @@ class Zeph
 
     trap("SIGINT") { exit }
     @listen_thread = listen_forever
+  rescue Errno::ECONNREFUSED => e
+    puts "Can't connect. Is Zephyros running?"
+    exit 1
   end
 
   def wait_on_callbacks
