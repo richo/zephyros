@@ -24,6 +24,7 @@
 		945AD7C117A8692A00578BEB /* SDChoice.m in Sources */ = {isa = PBXBuildFile; fileRef = 945AD7BA17A8692A00578BEB /* SDChoice.m */; };
 		945AD7C217A8692A00578BEB /* NSString+Score.m in Sources */ = {isa = PBXBuildFile; fileRef = 945AD7BC17A8692A00578BEB /* NSString+Score.m */; };
 		9463D43417A77E2C00A3E905 /* SDGeometry.m in Sources */ = {isa = PBXBuildFile; fileRef = 9463D43317A77E2C00A3E905 /* SDGeometry.m */; };
+		9466562217AFA5EE00B68607 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9466562117AFA5EE00B68607 /* ApplicationServices.framework */; };
 		946B3AAF1721C5C800FB05F3 /* logwindow.html in Resources */ = {isa = PBXBuildFile; fileRef = 946B3AAE1721C5C800FB05F3 /* logwindow.html */; };
 		94779BD117A85CB000649169 /* Licenses in Resources */ = {isa = PBXBuildFile; fileRef = 94779BD017A85CB000649169 /* Licenses */; };
 		947DC99317A5BC990082D095 /* SDPreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 947DC99117A5BC990082D095 /* SDPreferencesWindowController.m */; };
@@ -126,6 +127,8 @@
 		945AD7BC17A8692A00578BEB /* NSString+Score.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Score.m"; sourceTree = "<group>"; };
 		9463D43217A77E2C00A3E905 /* SDGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDGeometry.h; sourceTree = "<group>"; };
 		9463D43317A77E2C00A3E905 /* SDGeometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDGeometry.m; sourceTree = "<group>"; };
+		9466561F17AFA58400B68607 /* HIToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HIToolbox.framework; path = System/Library/Frameworks/Carbon.framework/Frameworks/HIToolbox.framework; sourceTree = SDKROOT; };
+		9466562117AFA5EE00B68607 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
 		946B3AAE1721C5C800FB05F3 /* logwindow.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = logwindow.html; sourceTree = "<group>"; };
 		94779BD017A85CB000649169 /* Licenses */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Licenses; sourceTree = SOURCE_ROOT; };
 		947DC99017A5BC990082D095 /* SDPreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDPreferencesWindowController.h; sourceTree = "<group>"; };
@@ -204,6 +207,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9466562217AFA5EE00B68607 /* ApplicationServices.framework in Frameworks */,
 				94B255A517A9AF2A008CFD26 /* Security.framework in Frameworks */,
 				94454B3F171B479B003EF64E /* QuartzCore.framework in Frameworks */,
 				94873F60171920B4000AC0A6 /* Carbon.framework in Frameworks */,
@@ -302,7 +306,6 @@
 			isa = PBXGroup;
 			children = (
 				9435A4CB17AEDB3C00754D27 /* zephjs.xcodeproj */,
-				94B255A417A9AF2A008CFD26 /* Security.framework */,
 				94873F3517191F40000AC0A6 /* Zephyros-Info.plist */,
 				947E995E171D18B6006F30AC /* Credits.rtf */,
 				94873F3317191F40000AC0A6 /* Zephyros */,
@@ -322,6 +325,9 @@
 		94873F2C17191F40000AC0A6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9466562117AFA5EE00B68607 /* ApplicationServices.framework */,
+				9466561F17AFA58400B68607 /* HIToolbox.framework */,
+				94B255A417A9AF2A008CFD26 /* Security.framework */,
 				94E0964A171ED905002D8668 /* Sparkle.framework */,
 				94454B3E171B479B003EF64E /* QuartzCore.framework */,
 				94873F5F171920B4000AC0A6 /* Carbon.framework */,
@@ -717,6 +723,7 @@
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/ThirdParty\"",
 					"\"$(SRCROOT)/Zephyros\"",
+					"\"$(SDKROOT)$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Frameworks\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Zephyros/Zephyros-Prefix.pch";
@@ -736,6 +743,7 @@
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/ThirdParty\"",
 					"\"$(SRCROOT)/Zephyros\"",
+					"\"$(SDKROOT)$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Frameworks\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Zephyros/Zephyros-Prefix.pch";
