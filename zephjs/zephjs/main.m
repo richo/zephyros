@@ -204,13 +204,16 @@ NSString* const InputShellOption = @"input";
     SDJSBlockWrapper* block = [[[SDJSBlockWrapper alloc] initWithJavaScriptFn:fn] autorelease];
     
     [self sendAsyncMessage:msg responses:responses callback:^(id obj) {
-        [block call:[NSArray arrayWithObject: (obj ? @[obj] : @[])]];
+        if (obj == nil || obj == [NSNull null])
+            obj = [NSNull null];
+        
+        [block call:@[obj]];
     }];
 }
 
 - (id) sendSyncMessage:(id)msg {
     __block id returnVal = nil;
-    dispatch_semaphore_t sem = dispatch_semaphore_create(1);
+    dispatch_semaphore_t sem = dispatch_semaphore_create(0);
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self sendAsyncMessage:msg responses:1 callback:^(id obj) {
