@@ -169,7 +169,7 @@
         [self.sock readDataToLength:[lenStr integerValue] withTimeout:FOREVER tag:1];
     }
     else if (tag == 1) {
-        NSArray* msg = [NSJSONSerialization JSONObjectWithData:data options:0 error:NULL];
+        NSArray* msg = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers | NSJSONReadingMutableLeaves error:NULL];
         NSNumber* msgId = [msg objectAtIndex:0];
         id value = [msg objectAtIndex:1];
         

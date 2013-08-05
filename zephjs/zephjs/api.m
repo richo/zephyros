@@ -128,7 +128,7 @@ NSString* sd_js_api() {
     "bind = (key, modifiers, fn) -> SDZephJS.sharedZeph().sendAsyncMessage_responses_callbackJSFunc_([0, 'bind', key, modifiers], -1, fn)\n"
     "log = (str) -> SDZephJS.sharedZeph().sendSyncMessage([0, 'log', str])\n"
     "require = (file) -> SDZephJS.sharedZeph().requireFromJS(file)\n"
-    "alert = (str, delay) -> SDZephJS.sharedZeph().sendSyncMessage([0, 'alert', str, delay])\n"
+    "alert = (str, delay = 2) -> SDZephJS.sharedZeph().sendSyncMessage([0, 'alert', str, delay])\n"
     "reloadConfig = -> SDZephJS.sharedZeph().sendSyncMessage([0, 'relaunch_config'])\n"
     "doAfter = (sec, fn) -> SDZephJS.sharedZeph().doFn_after_ fn, sec\n"
     "\n"
