@@ -61,8 +61,6 @@
 		94DC5FDD17ADAC3700274A92 /* SDShellCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DC5FDC17ADAC3700274A92 /* SDShellCommand.m */; };
 		94E02EE417AB2496005AE3E8 /* libs in Resources */ = {isa = PBXBuildFile; fileRef = 94E02EE317AB2496005AE3E8 /* libs */; };
 		94E02EE817AB462A005AE3E8 /* SDInsetHorizontalLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E02EE717AB462A005AE3E8 /* SDInsetHorizontalLine.m */; };
-		94E02EEC17AB4F7C005AE3E8 /* SDWatchedPathsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94E02EEA17AB4F7C005AE3E8 /* SDWatchedPathsWindowController.m */; };
-		94E02EED17AB4F7C005AE3E8 /* SDWatchedPathsWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94E02EEB17AB4F7C005AE3E8 /* SDWatchedPathsWindow.xib */; };
 		94E0964B171ED905002D8668 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E0964A171ED905002D8668 /* Sparkle.framework */; };
 		94E0964C171ED9D6002D8668 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 94E0964A171ED905002D8668 /* Sparkle.framework */; };
 		94E0964E171EDBA6002D8668 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 94E0964D171EDBA6002D8668 /* dsa_pub.pem */; };
@@ -195,9 +193,6 @@
 		94E02EE317AB2496005AE3E8 /* libs */ = {isa = PBXFileReference; lastKnownFileType = folder; path = libs; sourceTree = SOURCE_ROOT; };
 		94E02EE617AB462A005AE3E8 /* SDInsetHorizontalLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDInsetHorizontalLine.h; sourceTree = "<group>"; };
 		94E02EE717AB462A005AE3E8 /* SDInsetHorizontalLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDInsetHorizontalLine.m; sourceTree = "<group>"; };
-		94E02EE917AB4F7C005AE3E8 /* SDWatchedPathsWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWatchedPathsWindowController.h; sourceTree = "<group>"; };
-		94E02EEA17AB4F7C005AE3E8 /* SDWatchedPathsWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDWatchedPathsWindowController.m; sourceTree = "<group>"; };
-		94E02EEB17AB4F7C005AE3E8 /* SDWatchedPathsWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SDWatchedPathsWindow.xib; sourceTree = "<group>"; };
 		94E0964A171ED905002D8668 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = ThirdParty/Sparkle.framework; sourceTree = "<group>"; };
 		94E0964D171EDBA6002D8668 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dsa_pub.pem; path = AutoUpdating/dsa_pub.pem; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -285,9 +280,6 @@
 				947DC99217A5BC990082D095 /* SDPreferencesWindow.xib */,
 				947DC99017A5BC990082D095 /* SDPreferencesWindowController.h */,
 				947DC99117A5BC990082D095 /* SDPreferencesWindowController.m */,
-				94E02EEB17AB4F7C005AE3E8 /* SDWatchedPathsWindow.xib */,
-				94E02EE917AB4F7C005AE3E8 /* SDWatchedPathsWindowController.h */,
-				94E02EEA17AB4F7C005AE3E8 /* SDWatchedPathsWindowController.m */,
 			);
 			name = Preferences;
 			sourceTree = "<group>";
@@ -585,7 +577,6 @@
 				94779BD117A85CB000649169 /* Licenses in Resources */,
 				945AD7BE17A8692A00578BEB /* SDFuzzyMatcherWindow.xib in Resources */,
 				94E02EE417AB2496005AE3E8 /* libs in Resources */,
-				94E02EED17AB4F7C005AE3E8 /* SDWatchedPathsWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -628,7 +619,6 @@
 				94B255A817A9B5D8008CFD26 /* SDClientListener.m in Sources */,
 				94B255AB17A9B5E2008CFD26 /* SDClient.m in Sources */,
 				94E02EE817AB462A005AE3E8 /* SDInsetHorizontalLine.m in Sources */,
-				94E02EEC17AB4F7C005AE3E8 /* SDWatchedPathsWindowController.m in Sources */,
 				94DC5FDD17ADAC3700274A92 /* SDShellCommand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

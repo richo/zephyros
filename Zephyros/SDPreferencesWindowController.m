@@ -10,15 +10,27 @@
 
 #import "SDConfigLauncher.h"
 
-#import "SDWatchedPathsWindowController.h"
-
 #import "SDClientListener.h"
 
 @interface SDPreferencesWindowController ()
 
-@property SDWatchedPathsWindowController* pathsController;
-
 @property BOOL scriptRunning;
+@property (readonly) BOOL watchedPathsHasChanges;
+@property NSString* tempRelaunchPaths;
+
+@end
+
+
+
+@interface SDRightMarginTextFieldCell : NSTextFieldCell
+@end
+@implementation SDRightMarginTextFieldCell
+
+- (NSRect)drawingRectForBounds:(NSRect)theRect {
+    theRect = [super drawingRectForBounds:theRect];
+    theRect.size.width -= 18;
+    return theRect;
+}
 
 @end
 
@@ -78,16 +90,14 @@
                                                       usingBlock:^(NSNotification *note) {
                                                           self.scriptRunning = NO;
                                                       }];
+        
+        self.tempRelaunchPaths = [[NSUserDefaults standardUserDefaults] stringForKey:SDRelaunchPathsDefaultsKey];
     }
     return self;
 }
 
 - (NSString*) windowNibName {
     return @"SDPreferencesWindow";
-}
-
-- (IBAction) startOrStopScript:(id)sender {
-    [[SDConfigLauncher sharedConfigLauncher] startOrStopScript];
 }
 
 - (void) show {
@@ -97,22 +107,57 @@
     [self showWindow:self];
 }
 
-- (IBAction) changeIfRunsScript:(id)sender {
+
+
+
+// run script
+
+- (IBAction) toggleKeepMyScriptAlive:(id)sender {
     if ([sender state] == NSOffState) {
         [[SDConfigLauncher sharedConfigLauncher] unlaunch];
     }
 }
 
-- (IBAction) changeWhetherWatchingPaths:(id)sender {
-//    [[SDConfigLauncher sharedConfigLauncher] watchPathsMaybe];
+- (IBAction) startOrStopScript:(id)sender {
+    [[SDConfigLauncher sharedConfigLauncher] startOrStopScript];
 }
 
-- (IBAction) switchSocketType:(id)sender {
-    [[SDClientListener sharedListener] startListening];
+
+
+
+
+// changing paths
+
+- (IBAction) changePaths:(id)sender {
+    [self willChangeValueForKey:@"watchedPathsHasChanges"];
+    [self setValue:self.tempRelaunchPaths forKeyPath:@"defaults.values.relaunchPaths"];
+    [self didChangeValueForKey:@"watchedPathsHasChanges"];
+    
+    [[SDConfigLauncher sharedConfigLauncher] watchPaths];
 }
 
-- (IBAction) switchSocketPort:(id)sender {
-    [[SDClientListener sharedListener] startListening];
+- (BOOL) watchedPathsHasChanges {
+    NSString* str1 = [[[self defaults] values] valueForKeyPath:@"relaunchPaths"];
+    NSString* str2 = self.tempRelaunchPaths;
+    return ![str1 isEqualToString: str2];
+}
+
+- (NSUserDefaultsController*) defaults {
+    // only used for my hacky bindings trick
+    return [NSUserDefaultsController sharedUserDefaultsController];
+}
+
++ (NSSet*) keyPathsForValuesAffectingWatchedPathsHasChanges {
+    return [NSSet setWithArray:@[@"tempRelaunchPaths", @"defaults.values.relaunchPaths"]];
+}
+
+- (IBAction) toggleWatchPaths:(id)sender {
+    if ([sender state] == NSOnState) {
+        [[SDConfigLauncher sharedConfigLauncher] watchPaths];
+    }
+    if ([sender state] == NSOffState) {
+        [[SDConfigLauncher sharedConfigLauncher] unwatchPaths];
+    }
 }
 
 - (BOOL)control:(NSControl *)control textView:(NSTextView *)textView doCommandBySelector:(SEL)command {
@@ -123,26 +168,16 @@
     return NO;
 }
 
-- (IBAction) changePaths:(id)sender {
-    self.pathsController = [[SDWatchedPathsWindowController alloc] init];
-    [NSApp beginSheet:[self.pathsController window]
-       modalForWindow:[self window]
-        modalDelegate:self
-       didEndSelector:@selector(pathsSheetDidEnd:returnCode:contextInfo:)
-          contextInfo:NULL];
+
+
+// unix and tcp sockets
+
+- (IBAction) switchSocketType:(id)sender {
+    [[SDClientListener sharedListener] startListening];
 }
 
-- (void) pathsSheetDidEnd:(NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
-    [sheet orderOut:self];
-    
-    if (returnCode) {
-        [[NSUserDefaults standardUserDefaults] setObject:self.pathsController.pathsToWatch
-                                                  forKey:SDRelaunchPathsDefaultsKey];
-        
-        [[SDConfigLauncher sharedConfigLauncher] watchPathsMaybe];
-    }
-    
-    self.pathsController = nil;
+- (IBAction) switchSocketPort:(id)sender {
+    [[SDClientListener sharedListener] startListening];
 }
 
 @end

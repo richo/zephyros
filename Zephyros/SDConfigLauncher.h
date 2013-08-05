@@ -19,7 +19,10 @@
 - (void) watchPathsMaybe;
 
 - (void) startOrStopScript;
+
 - (void) unlaunch;
+- (void) watchPaths;
+- (void) unwatchPaths;
 
 @property (readonly) BOOL isRunning;
 

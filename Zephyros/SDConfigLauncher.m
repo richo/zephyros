@@ -65,14 +65,16 @@
     BOOL shouldLaunchConfig = [[NSUserDefaults standardUserDefaults] boolForKey:SDRunMyScriptDefaultsKey];
     BOOL shouldWatchPaths = [[NSUserDefaults standardUserDefaults] boolForKey:SDUseRelaunchPathsDefaultsKey];
     
-    if (shouldLaunchConfig && shouldWatchPaths) {
-        NSString* pathsStr = [[NSUserDefaults standardUserDefaults] stringForKey:SDRelaunchPathsDefaultsKey];
-        NSArray* paths = [pathsStr componentsSeparatedByString:@"\n"];
-        self.configWatcher = [SDPathWatcher watcherFor:paths];
-    }
-    else {
-        self.configWatcher = nil;
-    }
+    if (shouldLaunchConfig && shouldWatchPaths)
+        [self watchPaths];
+    else
+        [self unwatchPaths];
+}
+
+- (void) watchPaths {
+    NSString* pathsStr = [[NSUserDefaults standardUserDefaults] stringForKey:SDRelaunchPathsDefaultsKey];
+    NSArray* paths = [pathsStr componentsSeparatedByString:@"\n"];
+    self.configWatcher = [SDPathWatcher watcherFor:paths];
 }
 
 - (void) startOrStopScript {
@@ -83,6 +85,11 @@
         [self launch];
     }
 }
+
+- (void) unwatchPaths {
+    self.configWatcher = nil;
+}
+
 
 
 
@@ -140,7 +147,7 @@
 }
 
 - (void) unlaunch {
-//    NSLog(@"killing");
+    NSLog(@"killing");
     [self.launchedTask kill];
     self.launchedTask = nil;
 }
