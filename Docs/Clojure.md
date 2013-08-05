@@ -35,6 +35,16 @@ lein run path/to/my-zeph.clj
 
 (defn bind [key mods f])
 (defn listen [event f])
+  ;; 'window_created' args: [win]
+  ;; 'window_minimized' args: [win]
+  ;; 'window_unminimized' args: [win]
+  ;; 'window_moved' args: [win]
+  ;; 'window_resized' args: [win]
+  ;; 'app_launched' args: [app]
+  ;; 'app_died' args: [app]
+  ;; 'app_hidden' args: [app]
+  ;; 'app_shown' args: [app]
+  ;; 'screens_changed' args: []
 
 (defn get-focused-window [])
 (defn get-visible-windows [])

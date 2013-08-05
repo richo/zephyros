@@ -30,6 +30,18 @@ func (self TopLevelApi) ChooseFrom(list []string, title string, linesTall int, c
 
 // Function 'fn' will be called with the proper arg and
 // type (or no args) depending on the event type.
+//
+// Valid events and their callback arguments:
+//     'window_created' args: [win]
+//     'window_minimized' args: [win]
+//     'window_unminimized' args: [win]
+//     'window_moved' args: [win]
+//     'window_resized' args: [win]
+//     'app_launched' args: [app]
+//     'app_died' args: [app]
+//     'app_hidden' args: [app]
+//     'app_shown' args: [app]
+//     'screens_changed' args: []
 func (self TopLevelApi) Listen(event string, fn interface{}) {
 	fnValue := reflect.ValueOf(fn)
 	fnType := fnValue.Type()

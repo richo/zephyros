@@ -81,3 +81,18 @@ frame_including_dock_and_menu | {x, y, w, h} |
 frame_without_dock_or_menu    | {x, y, w, h} |
 previous_screen               |              | [screen_id](#screen)
 next_screen                   |              | [screen_id](#screen)
+
+#### Events
+
+Event name          | Callback parameter list
+--------------------|-------------------------
+window_created      | [[window_id](#window)]
+window_minimized    | [[window_id](#window)]
+window_unminimized  | [[window_id](#window)]
+window_moved        | [[window_id](#window)]
+window_resized      | [[window_id](#window)]
+app_launched        | [[appdow_id](#window)]
+app_died            | [[app_id](#app)]
+app_hidden          | [[app_id](#app)]
+app_shown           | [[app_id](#app)]
+screens_changed     | []
