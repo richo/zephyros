@@ -110,9 +110,9 @@ def send_message(msg, infinite=True, callback=None):
 def dispatch_individual_messages_forever():
     while True:
         msg = raw_message_queue.get()
-        msgId = msg[0]
-        thisQueue = individual_message_queues[msgId]
-        thisQueue.put(msg)
+        msg_id = msg[0]
+        this_queue = individual_message_queues[msg_id]
+        this_queue.put(msg)
 
 def zephyros(fn):
     run_in_background(fn)
