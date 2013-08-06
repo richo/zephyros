@@ -3,6 +3,7 @@ import threading
 import json
 import Queue
 import sys
+import time
 import atexit
 import itertools
 
@@ -86,38 +87,27 @@ def dispatch_individual_messages_forever():
 def zephyros(fn):
     run_in_background(fn)
     try:
-        while True: pass
+        while True: time.sleep(5)
     except KeyboardInterrupt:
         pass
 
 
 class Rect:
-    @classmethod
-    def from_dict(cls, d):
-        return cls(x=d['x'],
-                   y=d['y'],
-                   w=d['w'],
-                   h=d['h'])
+    def to_dict(r): return {'x': r.x, 'y': r.y, 'w': r.w, 'h': r.h}
     def __init__(self, x=0, y=0, w=0, h=0):
-        self.x = w
+        self.x = x
         self.y = y
         self.w = w
         self.h = h
 
 class Point:
-    @classmethod
-    def from_dict(cls, d):
-        return cls(x=d['x'],
-                   y=d['y'])
+    def to_dict(r): return {'x': r.x, 'y': r.y}
     def __init__(self, x=0, y=0):
         self.x = x
         self.y = y
 
 class Size:
-    @classmethod
-    def from_dict(cls, d):
-        return cls(w=d['w'],
-                   h=d['h'])
+    def to_dict(r): return {'w': r.w, 'h': r.h}
     def __init__(self, w=0, h=0):
         self.w = w
         self.h = h
@@ -128,12 +118,12 @@ class Proxy:
 
 class Window(Proxy):
     def title(self): return self._send_sync('title')
-    def frame(self): return Rect.from_dict(self._send_sync('frame'))
-    def top_left(self): return Point.from_dict(self._send_sync('top_left'))
-    def size(self): return Size.from_dict(self._send_sync('size'))
-    def set_frame(self, f): self._send_sync('set_frame', vars(f))
-    def set_top_left(self, tl): return self._send_sync('set_top_left', vars(tl))
-    def set_size(self, s): return self._send_sync('set_size', vars(s))
+    def frame(self): return Rect(**self._send_sync('frame'))
+    def top_left(self): return Point(**self._send_sync('top_left'))
+    def size(self): return Size(**self._send_sync('size'))
+    def set_frame(self, f): self._send_sync('set_frame', f.to_dict())
+    def set_top_left(self, tl): return self._send_sync('set_top_left', tl.to_dict())
+    def set_size(self, s): return self._send_sync('set_size', s.to_dict())
     def maximize(self): return self._send_sync('maximize')
     def minimize(self): return self._send_sync('minimize')
     def un_minimize(self): return self._send_sync('un_minimize')
@@ -146,18 +136,18 @@ class Window(Proxy):
     def focus_window_down(self): return self._send_sync('focus_window_down')
     def normal_window(self): return self._send_sync('normal_window')
     def minimized(self): return self._send_sync('minimized')
-    def other_windows_on_same_screen(self): return map(Window, self._send_sync('other_windows_on_same_screen'))
-    def other_windows_on_all_screens(self): return map(Window, self._send_sync('other_windows_on_all_screens'))
+    def other_windows_on_same_screen(self): return [Window(x) for x in  self._send_sync('other_windows_on_same_screen')]
+    def other_windows_on_all_screens(self): return [Window(x) for x in  self._send_sync('other_windows_on_all_screens')]
 
 class Screen(Proxy):
-    def frame_including_dock_and_menu(self): return Rect.from_dict(self._send_sync("frame_including_dock_and_menu"))
-    def frame_without_dock_or_menu(self): return Rect.from_dict(self._send_sync("frame_without_dock_or_menu"))
+    def frame_including_dock_and_menu(self): return Rect(**self._send_sync("frame_including_dock_and_menu"))
+    def frame_without_dock_or_menu(self): return Rect(**self._send_sync("frame_without_dock_or_menu"))
     def previous_screen(self): return Screen(self._send_sync("previous_screen"))
     def next_screen(self): return Screen(self._send_sync("next_screen"))
 
 class App(Proxy):
-    def visible_windows(self): return map(Window, self._send_sync("visible_windows"))
-    def all_windows(self): return map(Window, self._send_sync("all_windows"))
+    def visible_windows(self): return [Window(x) for x in  self._send_sync("visible_windows")]
+    def all_windows(self): return [Window(x) for x in  self._send_sync("all_windows")]
     def title(self): return self._send_sync("title")
     def hidden(self): return self._send_sync("hidden")
     def show(self): return self._send_sync("show")
@@ -171,11 +161,11 @@ class Api(Proxy):
     def relaunch_config(self): self._send_sync('relaunch_config')
     def clipboard_contents(self): return self._send_sync('clipboard_contents')
     def focused_window(self): return Window(self._send_sync('focused_window'))
-    def visible_windows(self): return map(Window, self._send_sync('visible_windows'))
-    def all_windows(self): return map(Window, self._send_sync('all_windows'))
+    def visible_windows(self): return [Window(x) for x in  self._send_sync('visible_windows')]
+    def all_windows(self): return [Window(x) for x in  self._send_sync('all_windows')]
     def main_screen(self): return Screen(self._send_sync('main_screen'))
-    def all_screens(self): return map(Screen, self._send_sync('all_screens'))
-    def running_apps(self): return map(App, self._send_sync('running_apps'))
+    def all_screens(self): return [Screen(x) for x in  self._send_sync('all_screens')]
+    def running_apps(self): return [App(x) for x in  self._send_sync('running_apps')]
     def bind(self, key, mods, fn):
         def tmp_fn(obj): fn()
         send_message([0, 'bind', key, mods], callback=tmp_fn)
