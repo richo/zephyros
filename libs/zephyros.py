@@ -4,7 +4,7 @@ import json
 import Queue
 import sys
 import atexit
-
+import itertools
 
 
 
@@ -15,14 +15,9 @@ sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.connect(('127.0.0.1', 1235))
 
 raw_message_queue = Queue.Queue(10)
-
-def msg_id_gen():
-    i = 0
-    while True:
-        i += 1
-        yield i
-
-reified_msg_id_gen = msg_id_gen()
+reified_msg_id_gen = itertools.count()
+send_data_queue = Queue.Queue(10)
+individual_message_queues = {}
 
 
 def run_in_background(fn):
@@ -30,42 +25,25 @@ def run_in_background(fn):
     t.daemon = True
     t.start()
 
-
-
-class DataReader:
-    def __init__(self):
-        self.buf = ''
-        self.reading_size = None
-
-    def process_data(self):
-        if self.reading_size:
-            l = len(self.buf)
-            if l >= self.reading_size:
-                msg, self.buf = self.buf[:l], self.buf[l:]
-                obj = json.loads(msg)
-                self.reading_size = None
-                raw_message_queue.put(obj)
-                self.process_data()
-        else:
-            idx = self.buf.find('\n')
-            if idx != -1:
-                self.reading_size = int(self.buf[:idx])
-                self.buf = self.buf[idx+1:]
-                self.process_data()
-
-
 @run_in_background
 def read_forever():
-    reader = DataReader()
     while True:
-        reader.buf += sock.recv(4096)
-        reader.process_data()
+        len_str = ''
+        while True:
+            in_str = sock.recv(1)
+            if in_str == '\n':
+                 break
+            len_str += in_str
 
+        len_num = int(len_str)
+        data = ''
+        while len(data) < len_num:
+            new_data = sock.recv(len_num)
+            len_num -= len(new_data)
+            data += new_data
 
-
-send_data_queue = Queue.Queue(10)
-
-
+        obj = json.loads(data)
+        raw_message_queue.put(obj)
 
 @run_in_background
 def send_data_fully():
@@ -74,11 +52,6 @@ def send_data_fully():
         while len(data) > 0:
             num_wrote = sock.send(data)
             data = data[num_wrote:]
-
-
-
-
-individual_message_queues = {}
 
 
 def send_message(msg, infinite=True, callback=None):
@@ -166,9 +139,5 @@ class Api(Proxy):
             elif event == "app_shown":          fn(App(obj))
             elif event == "screens_changed":    fn()
         send_message([0, 'listen', event], callback=tmp_fn)
-
-
-
-
 
 api = Api(0)
