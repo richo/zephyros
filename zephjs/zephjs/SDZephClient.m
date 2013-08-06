@@ -127,25 +127,20 @@
 }
 
 - (id) sendSyncMessage:(id)msg {
-//    NSLog(@"IN 1");
-    
     __block id returnVal = nil;
-    dispatch_semaphore_t sem = dispatch_semaphore_create(0);
-//    NSLog(@"IN 2");
+    
+    dispatch_group_t group = dispatch_group_create();
+    dispatch_group_enter(group);
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//        NSLog(@"IN 3");
         [self sendAsyncMessage:msg responses:1 callback:^(id obj) {
-//            NSLog(@"IN 4");
             returnVal = obj;
-//            NSLog(@"FIRST retval = %@", returnVal);
-            dispatch_semaphore_signal(sem);
+            
+            dispatch_group_leave(group);
         }];
     });
     
-    dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
-//    dispatch_release(sem);
-//    NSLog(@"SECOND retval = %@", returnVal);
+    dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
     return returnVal;
 }
 
