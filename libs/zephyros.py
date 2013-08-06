@@ -7,84 +7,86 @@ import time
 import atexit
 import itertools
 
-
-sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-sock.connect(('127.0.0.1', 1235))
-
-raw_message_queue = Queue.Queue(10)
-reified_msg_id_gen = itertools.count()
-send_data_queue = Queue.Queue(10)
-individual_message_queues = {}
-
-
 def run_in_background(fn):
     t = threading.Thread(target=fn)
     t.daemon = True
     t.start()
 
-@run_in_background
-def read_forever():
-    while True:
-        len_str = ''
+class Zeph:
+    def start(self):
+        self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.sock.connect(('127.0.0.1', 1235))
+        self.raw_message_queue = Queue.Queue(10) # read_forever, dispatch_individual_messages_forever
+        self.reified_msg_id_gen = itertools.count() # send_message
+        self.send_data_queue = Queue.Queue(10) # send_message, send_data_fully
+        self.individual_message_queues = {} # send_message, dispatch_individual_messages_forever
+        run_in_background(self.read_forever)
+        run_in_background(self.send_data_fully)
+        run_in_background(self.dispatch_individual_messages_forever)
+
+    def read_forever(self):
         while True:
-            in_str = sock.recv(1)
-            if in_str == '\n':
-                 break
-            len_str += in_str
+            len_str = ''
+            while True:
+                in_str = self.sock.recv(1)
+                if in_str == '\n':
+                     break
+                len_str += in_str
 
-        len_num = int(len_str)
-        data = ''
-        while len(data) < len_num:
-            new_data = sock.recv(len_num)
-            len_num -= len(new_data)
-            data += new_data
+            len_num = int(len_str)
+            data = ''
+            while len(data) < len_num:
+                new_data = self.sock.recv(len_num)
+                len_num -= len(new_data)
+                data += new_data
 
-        obj = json.loads(data)
-        raw_message_queue.put(obj)
+            obj = json.loads(data)
+            self.raw_message_queue.put(obj)
 
-@run_in_background
-def send_data_fully():
-    while True:
-        data = send_data_queue.get()
-        while len(data) > 0:
-            num_wrote = sock.send(data)
-            data = data[num_wrote:]
+    def send_data_fully(self):
+        while True:
+            data = self.send_data_queue.get()
+            while len(data) > 0:
+                num_wrote = self.sock.send(data)
+                data = data[num_wrote:]
 
+    def send_message(self, msg, infinite=True, callback=None):
+        msg_id = self.reified_msg_id_gen.next()
+        temp_send_queue = Queue.Queue(10)
+        self.individual_message_queues[msg_id] = temp_send_queue
 
-def send_message(msg, infinite=True, callback=None):
-    msgId = reified_msg_id_gen.next()
-    temp_send_queue = Queue.Queue(10)
-    individual_message_queues[msgId] = temp_send_queue
+        msg.insert(0, msg_id)
+        msg_str = json.dumps(msg)
+        self.send_data_queue.put(str(len(msg_str)) + '\n' + msg_str)
 
-    msg.insert(0, msgId)
-    msg_str = json.dumps(msg)
-    send_data_queue.put(str(len(msg_str)) + '\n' + msg_str)
-
-    if callback is not None:
-        def temp_fn():
-            temp_send_queue.get() # ignore first
-            if infinite:
-                while True:
+        if callback is not None:
+            def temp_fn():
+                temp_send_queue.get() # ignore first
+                if infinite:
+                    while True:
+                        obj = temp_send_queue.get()
+                        callback(obj[1])
+                else:
                     obj = temp_send_queue.get()
                     callback(obj[1])
-            else:
-                obj = temp_send_queue.get()
-                callback(obj[1])
-        run_in_background(temp_fn)
-        return None
-    else:
-        return temp_send_queue.get()[1]
+            run_in_background(temp_fn)
+            return None
+        else:
+            return temp_send_queue.get()[1]
+
+    def dispatch_individual_messages_forever(self):
+        while True:
+            msg = self.raw_message_queue.get()
+            msg_id = msg[0]
+            this_queue = self.individual_message_queues[msg_id]
+            this_queue.put(msg)
 
 
-@run_in_background
-def dispatch_individual_messages_forever():
-    while True:
-        msg = raw_message_queue.get()
-        msg_id = msg[0]
-        this_queue = individual_message_queues[msg_id]
-        this_queue.put(msg)
+zeph = Zeph()
+
 
 def zephyros(fn):
+    zeph.start()
     run_in_background(fn)
     try:
         while True: time.sleep(5)
@@ -114,7 +116,7 @@ class Size:
 
 class Proxy:
     def __init__(self, id): self.id = id
-    def _send_sync(self, *args): return send_message([self.id] + list(args))
+    def _send_sync(self, *args): return zeph.send_message([self.id] + list(args))
 
 class Window(Proxy):
     def title(self): return self._send_sync('title')
@@ -168,9 +170,9 @@ class Api(Proxy):
     def running_apps(self): return [App(x) for x in  self._send_sync('running_apps')]
     def bind(self, key, mods, fn):
         def tmp_fn(obj): fn()
-        send_message([0, 'bind', key, mods], callback=tmp_fn)
+        zeph.send_message([0, 'bind', key, mods], callback=tmp_fn)
     def choose_from(self, lst, title, lines, chars, fn):
-        send_message([0, 'choose_from', lst, title, lines, chars], callback=fn, infinite=False)
+        zeph.send_message([0, 'choose_from', lst, title, lines, chars], callback=fn, infinite=False)
     def listen(self, event, fn):
         def tmp_fn(obj):
             if event == "window_created":       fn(Window(obj))
@@ -183,6 +185,6 @@ class Api(Proxy):
             elif event == "app_hidden":         fn(App(obj))
             elif event == "app_shown":          fn(App(obj))
             elif event == "screens_changed":    fn()
-        send_message([0, 'listen', event], callback=tmp_fn)
+        zeph.send_message([0, 'listen', event], callback=tmp_fn)
 
 api = Api(0)
