@@ -25,10 +25,10 @@ At it's core, Zephyros just runs quietly in your menu bar, and listens for your 
 
 - [Using Clojure](Docs/Clojure.md)
 - [Using Ruby](Docs/Ruby.md)
+- [Using Python](Docs/Python.md)
 - [Using Go](Docs/Go.md)
 - [Using JavaScript](Docs/JavaScript.md)
 - [Using CoffeeScript](Docs/CoffeeScript.md)
-- [Using Python](Docs/Python.md)
 - Using node.js (someone started on one, see [this issue](../../issues/17))
 - Using [the TCP protocol directly](Docs/TCP.md)
 
