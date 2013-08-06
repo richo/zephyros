@@ -13,7 +13,7 @@
 
 *The OS X window manager for hackers*
 
-* Current version: **4.1**
+* Current version: **4.2**
 * Requires: OS X 10.7 and up
 * Download: get [.zip file](https://raw.github.com/sdegutis/zephyros/master/Builds/Zephyros-LATEST.app.tar.gz), unzip, right-click app, choose "Open"
 
@@ -131,6 +131,8 @@ bind("K", ["cmd", "alt", "ctrl"], function() {
 
 ### Change log
 
+- 4.2
+  - Includes new Python API
 - 4.1
     - This auto-updater won't work if you're on version 3.x or 2.x
         - Due to [this securty fix](https://github.com/sdegutis/zephyros/pull/21)

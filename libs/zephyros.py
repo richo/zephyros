@@ -14,8 +14,12 @@ def run_in_background(fn):
 
 class ZephClient(object):
     def start(self):
-        self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.sock.connect(('127.0.0.1', 1235))
+        try:
+            self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            self.sock.connect(('127.0.0.1', 1235))
+        except:
+            print "Can't connect. Is Zephyros running?"
+            sys.exit(1)
         self.raw_message_queue = Queue.Queue(10) # read_forever, dispatch_individual_messages_forever
         self.reified_msg_id_gen = itertools.count() # send_message
         self.send_data_queue = Queue.Queue(10) # send_message, send_data_fully
