@@ -25,7 +25,7 @@
 #### Run
 
 ```bash
-lein run path/to/my-zeph.clj
+lein exec path/to/my-zeph.clj
 ```
 
 #### API
