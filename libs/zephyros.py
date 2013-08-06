@@ -136,8 +136,8 @@ class Window(Proxy):
     def focus_window_right(self): return self._send_sync('focus_window_right')
     def focus_window_up(self): return self._send_sync('focus_window_up')
     def focus_window_down(self): return self._send_sync('focus_window_down')
-    def normal_window(self): return self._send_sync('normal_window')
-    def minimized(self): return self._send_sync('minimized')
+    def normal_window(self): return self._send_sync('normal_window?')
+    def minimized(self): return self._send_sync('minimized?')
     def other_windows_on_same_screen(self): return [Window(x) for x in  self._send_sync('other_windows_on_same_screen')]
     def other_windows_on_all_screens(self): return [Window(x) for x in  self._send_sync('other_windows_on_all_screens')]
 
@@ -151,7 +151,7 @@ class App(Proxy):
     def visible_windows(self): return [Window(x) for x in  self._send_sync("visible_windows")]
     def all_windows(self): return [Window(x) for x in  self._send_sync("all_windows")]
     def title(self): return self._send_sync("title")
-    def hidden(self): return self._send_sync("hidden")
+    def hidden(self): return self._send_sync("hidden?")
     def show(self): return self._send_sync("show")
     def hide(self): return self._send_sync("hide")
     def kill(self): return self._send_sync("kill")
