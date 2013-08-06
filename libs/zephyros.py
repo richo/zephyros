@@ -12,7 +12,7 @@ def run_in_background(fn):
     t.daemon = True
     t.start()
 
-class Zeph:
+class Zeph(object):
     def start(self):
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.sock.connect(('127.0.0.1', 1235))
@@ -94,7 +94,7 @@ def zephyros(fn):
         pass
 
 
-class Rect:
+class Rect(object):
     def to_dict(r): return {'x': r.x, 'y': r.y, 'w': r.w, 'h': r.h}
     def __init__(self, x=0, y=0, w=0, h=0):
         self.x = x
@@ -102,19 +102,19 @@ class Rect:
         self.w = w
         self.h = h
 
-class Point:
+class Point(object):
     def to_dict(r): return {'x': r.x, 'y': r.y}
     def __init__(self, x=0, y=0):
         self.x = x
         self.y = y
 
-class Size:
+class Size(object):
     def to_dict(r): return {'w': r.w, 'h': r.h}
     def __init__(self, w=0, h=0):
         self.w = w
         self.h = h
 
-class Proxy:
+class Proxy(object):
     def __init__(self, id): self.id = id
     def _send_sync(self, *args): return zeph.send_message([self.id] + list(args))
 
