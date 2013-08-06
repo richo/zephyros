@@ -12,7 +12,7 @@ def run_in_background(fn):
     t.daemon = True
     t.start()
 
-class Zeph(object):
+class ZephClient(object):
     def start(self):
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.sock.connect(('127.0.0.1', 1235))
@@ -82,7 +82,7 @@ class Zeph(object):
             this_queue.put(msg)
 
 
-zeph = Zeph()
+zeph = ZephClient()
 
 
 def zephyros(fn):
