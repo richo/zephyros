@@ -59,7 +59,7 @@ Is the API missing something you need? File an issue and let me know!
 
 ### Example Configs
 
-#### Ruby
+#### Ruby [(documentation)](Docs/Ruby.md)
 
 ```ruby
 require '/Applications/Zephyros.app/Contents/Resources/libs/zephyros.rb'
@@ -75,7 +75,7 @@ end
 wait_on_callbacks
 ```
 
-#### Clojure
+#### Clojure [(documentation)](Docs/Clojure.md)
 
 ```clojure
 (use '[leiningen.exec :only (deps)])
@@ -90,7 +90,29 @@ wait_on_callbacks
 @listen-for-callbacks ;; necessary when you use (bind) or (listen)
 ```
 
-#### Go
+#### Python [(documentation)](Docs/Python.md)
+
+```python
+import sys
+sys.path.insert(0, '/Applications/Zephyros.app/Contents/Resources/libs/zephyros.py')
+import zephyros
+
+@zephyros.zephyros
+def myscript():
+    def nudge_window():
+        win = zephyros.api.focused_window()
+        f = win.frame()
+        f.x += 3
+        win.set_frame(f)
+
+    def show_window_title():
+        zephyros.api.alert(zephyros.api.focused_window().title())
+
+    zephyros.api.bind('D', ['Cmd', 'Shift'], show_window_title)
+    zephyros.api.bind('F', ['Cmd', 'Shift'], nudge_window)
+```
+
+#### Go [(documentation)](Docs/Go.md)
 
 ```go
 package main
@@ -108,7 +130,7 @@ func main() {
 }
 ```
 
-#### JavaScript / CoffeeScript
+#### JavaScript / CoffeeScript [(documentation)](Docs/JavaScript.md)
 
 ```ruby
 bind("K", ["cmd", "alt", "ctrl"], function() {
