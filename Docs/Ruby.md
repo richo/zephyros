@@ -1,13 +1,6 @@
 ## Zephyros - Ruby API
 
-#### Setup
-
-Add this to the top of your ruby script:
-```ruby
-require '/Applications/Zephyros.app/Contents/Resources/libs/zephyros.rb'
-```
-
-#### Sample
+#### Sample Script
 
 ```ruby
 require '/Applications/Zephyros.app/Contents/Resources/libs/zephyros.rb'
