@@ -59,7 +59,7 @@ Is the API missing something you need? File an issue and let me know!
 
 ### Example Configs
 
-#### Ruby [(documentation)](Docs/Ruby.md)
+#### Ruby [(docs)](Docs/Ruby.md)
 
 ```ruby
 require '/Applications/Zephyros.app/Contents/Resources/libs/zephyros.rb'
@@ -75,7 +75,7 @@ end
 wait_on_callbacks
 ```
 
-#### Clojure [(documentation)](Docs/Clojure.md)
+#### Clojure [(docs)](Docs/Clojure.md)
 
 ```clojure
 (use '[leiningen.exec :only (deps)])
@@ -90,7 +90,7 @@ wait_on_callbacks
 @listen-for-callbacks ;; necessary when you use (bind) or (listen)
 ```
 
-#### Python [(documentation)](Docs/Python.md)
+#### Python [(docs)](Docs/Python.md)
 
 ```python
 import sys
@@ -112,7 +112,7 @@ def myscript():
     zephyros.api.bind('F', ['Cmd', 'Shift'], nudge_window)
 ```
 
-#### Go [(documentation)](Docs/Go.md)
+#### Go [(docs)](Docs/Go.md)
 
 ```go
 package main
@@ -130,7 +130,7 @@ func main() {
 }
 ```
 
-#### JavaScript / CoffeeScript [(documentation)](Docs/JavaScript.md)
+#### JavaScript / CoffeeScript [(docs)](Docs/JavaScript.md)
 
 ```ruby
 bind("K", ["cmd", "alt", "ctrl"], function() {
