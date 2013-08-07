@@ -166,7 +166,7 @@ class App(Proxy):
     def kill9(self): return self._send_sync("kill9")
 
 class Api(Proxy):
-    def alert(self, msg, duration=1): self._send_sync('alert', msg, duration)
+    def alert(self, msg, duration=None): self._send_sync('alert', msg, duration)
     def log(self, msg): self._send_sync('log', msg)
     def update_settings(self, new_settings): self._send_sync('update_settings', new_settings)
     def relaunch_config(self): self._send_sync('relaunch_config')
