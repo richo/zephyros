@@ -4,13 +4,15 @@
 * All messages are simple JSON arrays
 * Messages in both directions are encoded as `json.length.to_s + "\n" + json`
 * Each message to Zephyros will be [msg_id, receiver_id, method, *args]
+    * msg_id can be of any type you choose, as long as it's unique per request
 * Each response from Zephyros will be [msg_id, value]
     * Each response can be matched to its request by msg_id
     * Every message will get at least one response
     * Methods with callbacks (i.e. 'bind' and 'listen') will get multiple responses
-* All methods at the top level take 0 as the receiver_id
-* Any resource (Window, Screen, App) within responses will be returned as a number uniquely identifying this resource:
-    * This number should be sent as the receiver for method calls to this object
+* All methods at the top level take `null` as the receiver_id
+* Any resource (Window, Screen, App) within responses will be returned as a unique identifier for this resource:
+    * It may be of any type (it's currently a number, but UUID strings are being considered)
+    * This identifier should be sent as the receiver for method calls to this object
     * Each resource is garbage-collected by Zephyros after 30 seconds
 
 

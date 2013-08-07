@@ -217,7 +217,7 @@ class API
 
   class << self
 
-    define_method(:id) { 0 }
+    define_method(:id) { nil }
 
     include ZephProxy
     extend PatchAdams

@@ -86,7 +86,11 @@ wait_on_callbacks
 
 (bind "D" ["Cmd" "Shift"]
       (fn []
-        (alert "hello world" 1)))
+        (alert "hello world" 1)
+        (let [win (get-focused-window)
+              f (get-frame win)
+              f (update-in f [:x] + 10)]
+          (set-frame win f))))
 
 @listen-for-callbacks ;; necessary when you use (bind) or (listen)
 ```
@@ -103,7 +107,7 @@ def myscript():
     def nudge_window():
         win = zephyros.api.focused_window()
         f = win.frame()
-        f.x += 3
+        f.x += 10
         win.set_frame(f)
 
     def show_window_title():
@@ -123,21 +127,25 @@ import (
 )
 
 func main() {
-	API.Bind("D", []string{"Cmd", "Shift"}, func() {
-		API.Alert("hello world", 1)
-	})
+    API.Bind("D", []string{"Cmd", "Shift"}, func() {
+        API.Alert("hello world", 1)
+        win := API.FocusedWindow()
+        frame := win.Frame()
+        frame.X += 10
+        win.SetFrame(frame)
+    })
 
-	ListenForCallbacks()
+    ListenForCallbacks()
 }
 ```
 
 #### JavaScript / CoffeeScript [(docs)](Docs/JavaScript.md)
 
 ```ruby
-bind("K", ["cmd", "alt", "ctrl"], function() {
-  var win = API.focusedWindow()
-  frame = win.screen().frameWithoutDockOrMenu()
-  frame.h /= 2
+bind("D", ["cmd", "shift"], function() {
+  var win = api.focusedWindow()
+  frame = win.frame()
+  frame.x += 10
   win.setFrame(frame)
 })
 ```

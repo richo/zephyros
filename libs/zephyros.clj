@@ -101,24 +101,26 @@
 
 ;; top level
 
-(defn bind "" [key mods f] (do-callback-indefinitely (fn [_] (f)) 0 "bind" key mods))
-(defn listen "" [event f] (do-callback-indefinitely #(f %) 0 "listen" event))
+(def top-level-obj nil)
 
-(defn get-focused-window "" [] (get-one-value 0 "focused_window"))
-(defn get-visible-windows "" [] (get-one-value 0 "visible_windows"))
-(defn get-all-windows "" [] (get-one-value 0 "all_windows"))
+(defn bind "" [key mods f] (do-callback-indefinitely (fn [_] (f)) top-level-obj "bind" key mods))
+(defn listen "" [event f] (do-callback-indefinitely #(f %) top-level-obj "listen" event))
 
-(defn get-main-screen "" [] (get-one-value 0 "main_screen"))
-(defn get-all-screens "" [] (get-one-value 0 "all_screens"))
+(defn get-focused-window "" [] (get-one-value top-level-obj "focused_window"))
+(defn get-visible-windows "" [] (get-one-value top-level-obj "visible_windows"))
+(defn get-all-windows "" [] (get-one-value top-level-obj "all_windows"))
 
-(defn get-running-apps "" [] (get-one-value 0 "running_apps"))
+(defn get-main-screen "" [] (get-one-value top-level-obj "main_screen"))
+(defn get-all-screens "" [] (get-one-value top-level-obj "all_screens"))
 
-(defn alert "" [msg duration] (get-one-value 0 "alert" msg duration))
-(defn log "" [msg] (get-one-value 0 "log" msg))
-(defn choose-from "" [list title f] (do-callback-once f 0 "choose_from" list title 20 10))
+(defn get-running-apps "" [] (get-one-value top-level-obj "running_apps"))
 
-(defn relaunch-config "" [] (get-one-value 0 "relaunch_config"))
-(defn get-clipboard-contents "" [] (get-one-value 0 "clipboard_contents"))
+(defn alert "" [msg duration] (get-one-value top-level-obj "alert" msg duration))
+(defn log "" [msg] (get-one-value top-level-obj "log" msg))
+(defn choose-from "" [list title f] (do-callback-once f top-level-obj "choose_from" list title 20 10))
+
+(defn relaunch-config "" [] (get-one-value top-level-obj "relaunch_config"))
+(defn get-clipboard-contents "" [] (get-one-value top-level-obj "clipboard_contents"))
 
 
 ;; window

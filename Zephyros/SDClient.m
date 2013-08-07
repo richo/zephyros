@@ -102,19 +102,15 @@
         return;
     }
     
-    NSNumber* msgID = [msg objectAtIndex:0];
+    id msgID = [msg objectAtIndex:0];
     
-    if (![msgID isKindOfClass:[NSNumber self]]) {
+    if ([msgID isEqual:[NSNull null]]) {
         [self showAPIError:[NSString stringWithFormat:@"API error: invalid message id: %@", msgID]];
+        [self sendResponse:nil forID:msgID];
         return;
     }
     
-    NSNumber* recvID = [msg objectAtIndex:1];
-    
-    if (![recvID isKindOfClass:[NSNumber self]] || [recvID integerValue] < 0) {
-        [self showAPIError:[NSString stringWithFormat:@"API error: invalid receiver id: %@", recvID]];
-        return;
-    }
+    id recvID = [msg objectAtIndex:1];
     
     NSString* meth = [msg objectAtIndex:2];
     
@@ -124,7 +120,7 @@
     }
     
     NSArray* args = [msg subarrayWithRange:NSMakeRange(3, [msg count] - 3)];
-    NSNumber* recv = [self receiverForID:recvID];
+    id recv = [self receiverForID:recvID];
     
     dispatch_async(dispatch_get_main_queue(), ^{
         id result = nil;
@@ -199,7 +195,7 @@
 }
 
 - (id) receiverForID:(NSNumber*)recvID {
-    if ([recvID integerValue] == 0)
+    if ([recvID isEqual: [NSNull null]])
         return nil;
     
     return [self.returnedObjects objectForKey:recvID];

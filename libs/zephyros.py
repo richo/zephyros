@@ -191,4 +191,4 @@ class Api(Proxy):
             elif event == "screens_changed":    fn()
         zeph.send_message([0, 'listen', event], callback=tmp_fn)
 
-api = Api(0)
+api = Api(None)
