@@ -154,12 +154,11 @@ bind("K", ["cmd", "alt", "ctrl"], function() {
 
 ### Change log
 
+**NOTE:** This auto-updater won't work if you're on version 3.x or 2.x due to [this securty fix](https://github.com/sdegutis/zephyros/pull/21). [Download Zephyros-4.2.zip](https://raw.github.com/sdegutis/zephyros/master/Builds/Zephyros-LATEST.app.tar.gz) directly instead.
+
 - 4.2
-  - Includes new Python API
+    - Includes new Python API
 - 4.1
-    - This auto-updater won't work if you're on version 3.x or 2.x
-        - Due to [this securty fix](https://github.com/sdegutis/zephyros/pull/21)
-        - [Download Zephyros-4.1.zip](https://raw.github.com/sdegutis/zephyros/master/Builds/Zephyros-LATEST.app.tar.gz) directly instead
     - Re-adds JavaScript/CoffeeScript API
     - Adds support for dvorak and other keyboard layouts (thanks jballanc)
     - Only listens for clients on localhost
