@@ -44,6 +44,7 @@ property (API) api
               Function fn)             # javascript fn that takes no args; return val is ignored
 
 - (void) listen(String eventName, Function callback) # see Events section below
+- (void) chooseFrom(Array<String> list, String title, Number linesTall, Number charsWide, Function callback) # fn called with chosen idx or null if canceled
 
 - (void) reloadConfig()
 
