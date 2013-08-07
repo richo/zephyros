@@ -19,7 +19,7 @@
 
 #### Basics
 
-At it's core, Zephyros just runs quietly in your menu bar, and listens for your script. You typically write a script that binds global hot keys to do stuff, often window-manager-type things.
+At it's core, Zephyros just runs quietly in your menu bar, and listens for your script. You typically write a script that binds global hot keys to do stuff, like moving or resizing windows.
 
 #### Some languages you can use
 
