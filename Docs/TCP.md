@@ -58,6 +58,10 @@ focus_window_left            |              |
 focus_window_right           |              |
 focus_window_up              |              |
 focus_window_down            |              |
+windows_to_north             |              | [[window_id](#window), ...]
+windows_to_south             |              | [[window_id](#window), ...]
+windows_to_east              |              | [[window_id](#window), ...]
+windows_to_west              |              | [[window_id](#window), ...]
 normal_window?               |              | bool
 minimized?                   |              | bool
 other_windows_on_same_screen |              | [[window_id](#window), ...]

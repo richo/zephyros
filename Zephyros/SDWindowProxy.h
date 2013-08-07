@@ -56,6 +56,11 @@
 - (void) focusWindowUp;
 - (void) focusWindowDown;
 
+- (NSArray*) windowsToWest;
+- (NSArray*) windowsToEast;
+- (NSArray*) windowsToNorth;
+- (NSArray*) windowsToSouth;
+
 
 // other window properties
 

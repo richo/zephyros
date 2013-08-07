@@ -319,38 +319,46 @@ NSPoint SDMidpoint(NSRect r) {
 }
 
 - (void) focusFirstValidWindowIn:(NSArray*)closestWindows {
-    for (SDWindowProxy* win in [closestWindows valueForKeyPath:@"win"]) {
+    for (SDWindowProxy* win in closestWindows) {
         if ([[win focusWindow] boolValue])
             break;
     }
 }
 
+- (NSArray*) windowsToWest {
+    return [[self windowsInDirectionFn:^double(double angle) { return M_PI - abs(angle); }
+                     shouldDisregardFn:^BOOL(double deltaX, double deltaY) { return (deltaX >= 0); }] valueForKeyPath:@"win"];
+}
+
+- (NSArray*) windowsToEast {
+    return [[self windowsInDirectionFn:^double(double angle) { return 0.0 - angle; }
+                     shouldDisregardFn:^BOOL(double deltaX, double deltaY) { return (deltaX <= 0); }] valueForKeyPath:@"win"];
+}
+
+- (NSArray*) windowsToNorth {
+    return [[self windowsInDirectionFn:^double(double angle) { return -M_PI_2 - angle; }
+                     shouldDisregardFn:^BOOL(double deltaX, double deltaY) { return (deltaY >= 0); }] valueForKeyPath:@"win"];
+}
+
+- (NSArray*) windowsToSouth {
+    return [[self windowsInDirectionFn:^double(double angle) { return M_PI_2 - angle; }
+                     shouldDisregardFn:^BOOL(double deltaX, double deltaY) { return (deltaY <= 0); }] valueForKeyPath:@"win"];
+}
+
 - (void) focusWindowLeft {
-    NSArray* closestWindows = [self windowsInDirectionFn:^double(double angle) { return M_PI - abs(angle); }
-                                       shouldDisregardFn:^BOOL(double deltaX, double deltaY) { return (deltaX >= 0); }];
-    
-    [self focusFirstValidWindowIn:closestWindows];
+    [self focusFirstValidWindowIn:[self windowsToWest]];
 }
 
 - (void) focusWindowRight {
-    NSArray* closestWindows = [self windowsInDirectionFn:^double(double angle) { return 0.0 - angle; }
-                                       shouldDisregardFn:^BOOL(double deltaX, double deltaY) { return (deltaX <= 0); }];
-    
-    [self focusFirstValidWindowIn:closestWindows];
+    [self focusFirstValidWindowIn:[self windowsToEast]];
 }
 
 - (void) focusWindowUp {
-    NSArray* closestWindows = [self windowsInDirectionFn:^double(double angle) { return -M_PI_2 - angle; }
-                                       shouldDisregardFn:^BOOL(double deltaX, double deltaY) { return (deltaY >= 0); }];
-    
-    [self focusFirstValidWindowIn:closestWindows];
+    [self focusFirstValidWindowIn:[self windowsToNorth]];
 }
 
 - (void) focusWindowDown {
-    NSArray* closestWindows = [self windowsInDirectionFn:^double(double angle) { return M_PI_2 - angle; }
-                                       shouldDisregardFn:^BOOL(double deltaX, double deltaY) { return (deltaY <= 0); }];
-    
-    [self focusFirstValidWindowIn:closestWindows];
+    [self focusFirstValidWindowIn:[self windowsToSouth]];
 }
 
 @end

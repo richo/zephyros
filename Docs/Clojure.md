@@ -85,10 +85,16 @@ lein exec path/to/my-zeph.clj
 (defn get-screen-for-window [window])
 
 (defn focus-window [window]) ;; returns bool
+
 (defn focus-window-left [window])
 (defn focus-window-right [window])
 (defn focus-window-up [window])
 (defn focus-window-down [window])
+
+(defn windows-to-north [window])
+(defn windows-to-south [window])
+(defn windows-to-west [window])
+(defn windows-to-east [window])
 
 (defn normal-window? [window])
 (defn minimized? [window])

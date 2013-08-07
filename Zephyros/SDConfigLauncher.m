@@ -147,7 +147,7 @@
 }
 
 - (void) unlaunch {
-    NSLog(@"killing");
+//    NSLog(@"killing");
     [self.launchedTask kill];
     self.launchedTask = nil;
 }

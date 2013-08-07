@@ -137,6 +137,14 @@
 (defn set-size "Returns {:w, :h}" [window s] (get-one-value window "set_size" s))
 (defn set-top-left "Returns {:x, :y}" [window tl] (get-one-value window "set_top_left" tl))
 
+(defn other-windows-on-same-screen [window] (get-one-value window "other_windows_on_same_screen"))
+(defn other-windows-on-all-screens [window] (get-one-value window "other_windows_on_all_screens"))
+
+(defn windows-to-north [window] (get-one-value window "windows_to_north"))
+(defn windows-to-south [window] (get-one-value window "windows_to_south"))
+(defn windows-to-east [window] (get-one-value window "windows_to_east"))
+(defn windows-to-west [window] (get-one-value window "windows_to_west"))
+
 (defn minimize "" [window] (get-one-value window "minimize"))
 (defn maximize "" [window] (get-one-value window "maximize"))
 (defn un-minimize "" [window] (get-one-value window "un_minimize"))

@@ -231,7 +231,7 @@ class API
 
     patch_return(:running_apps, -> { map { |o| App.new o } })
 
-    def alert(msg, sec=2)
+    def alert(msg, sec=nil)
       super(msg, sec)
     end
 
@@ -298,6 +298,11 @@ class Window < Struct.new(:id)
   patch_return(:app, -> { App.new self })
 
   patch_return(:other_windows_on_same_screen, -> { map { |o| Window.new o } })
+
+  patch_return(:windows_to_north, -> { map { |o| Window.new o } })
+  patch_return(:windows_to_south, -> { map { |o| Window.new o } })
+  patch_return(:windows_to_east, -> { map { |o| Window.new o } })
+  patch_return(:windows_to_west, -> { map { |o| Window.new o } })
 
   define_method(:frame=) { |f| set_frame f.to_hash }
   define_method(:top_left=) { |f| set_top_left f.to_hash }

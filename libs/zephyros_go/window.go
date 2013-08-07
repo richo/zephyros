@@ -108,3 +108,45 @@ func (self Window) IsMinimized() bool {
 	json.Unmarshal(bytes, &buf)
 	return buf
 }
+
+func (self Window) OtherWindowsOnSameScreen() []Window {
+	var buf []Window
+	bytes := send(float64(self), nil, false, "other_windows_on_same_screen")
+	json.Unmarshal(bytes, &buf)
+	return buf
+}
+
+func (self Window) OtherWindowsOnAllScreens() []Window {
+	var buf []Window
+	bytes := send(float64(self), nil, false, "other_windows_on_all_screens")
+	json.Unmarshal(bytes, &buf)
+	return buf
+}
+
+func (self Window) WindowsToNorth() []Window {
+	var buf []Window
+	bytes := send(float64(self), nil, false, "windows_to_north")
+	json.Unmarshal(bytes, &buf)
+	return buf
+}
+
+func (self Window) WindowsToSouth() []Window {
+	var buf []Window
+	bytes := send(float64(self), nil, false, "windows_to_south")
+	json.Unmarshal(bytes, &buf)
+	return buf
+}
+
+func (self Window) WindowsToWest() []Window {
+	var buf []Window
+	bytes := send(float64(self), nil, false, "windows_to_west")
+	json.Unmarshal(bytes, &buf)
+	return buf
+}
+
+func (self Window) WindowsToEast() []Window {
+	var buf []Window
+	bytes := send(float64(self), nil, false, "windows_to_east")
+	json.Unmarshal(bytes, &buf)
+	return buf
+}

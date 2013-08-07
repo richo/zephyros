@@ -356,6 +356,18 @@
                             @"focus_window": ^id(SDClient* client, NSNumber* msgID, SDWindowProxy* recv, NSArray* args) {
                                 return [recv focusWindow];
                             },
+                            @"windows_to_north": ^id(SDClient* client, NSNumber* msgID, SDWindowProxy* recv, NSArray* args) {
+                                return [recv windowsToNorth];
+                            },
+                            @"windows_to_south": ^id(SDClient* client, NSNumber* msgID, SDWindowProxy* recv, NSArray* args) {
+                                return [recv windowsToSouth];
+                            },
+                            @"windows_to_west": ^id(SDClient* client, NSNumber* msgID, SDWindowProxy* recv, NSArray* args) {
+                                return [recv windowsToWest];
+                            },
+                            @"windows_to_east": ^id(SDClient* client, NSNumber* msgID, SDWindowProxy* recv, NSArray* args) {
+                                return [recv windowsToEast];
+                            },
                             @"focus_window_left": ^id(SDClient* client, NSNumber* msgID, SDWindowProxy* recv, NSArray* args) {
                                 [recv focusWindowLeft];
                                 return nil;

@@ -127,6 +127,11 @@ class Window
   def focus_window_up; end
   def focus_window_down; end
 
+  def windows_to_north; end
+  def windows_to_south; end
+  def windows_to_west; end
+  def windows_to_east; end
+
   def normal_window?; end
   def minimized?; end
 

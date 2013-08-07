@@ -110,10 +110,16 @@ class-property (number) Window.gridMarginY # default: 5
 - (App) app()
 
 - (Boolean) focusWindow()
+
 - (void) focusWindowLeft()
 - (void) focusWindowRight()
 - (void) focusWindowUp()
 - (void) focusWindowDown()
+
+- (void) windowToNorth()
+- (void) windowToSouth()
+- (void) windowToEast()
+- (void) windowToWest()
 ```
 
 #### Type: `Screen`
