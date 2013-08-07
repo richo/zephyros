@@ -42,7 +42,7 @@ These languages might be fun to write a Zephyros client in:
 - Using Rust
 - Using Racket
 
-If you want to do one, it might be helpful to [open an issue](https://github.com/sdegutis/zephyros/issues/new) letting us know. That would help us coordinate so nobody does extra work.
+If you want to do one, please [open an issue](https://github.com/sdegutis/zephyros/issues/new) so we can coordinate. That way nobody does extra work.
 
 #### Stuff you can do
 
