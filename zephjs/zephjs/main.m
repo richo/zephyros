@@ -29,7 +29,9 @@ int main(int argc, const char * argv[]) {
         }
         
         [[SDZephJS sharedZeph] setup];
-        [[SDZephJS sharedZeph] evalFile:contentsData asCoffee:coffee];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [[SDZephJS sharedZeph] evalFile:contentsData asCoffee:coffee];
+        });
         dispatch_main();
     }
     return 0;
