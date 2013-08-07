@@ -116,6 +116,7 @@
     
     if (![meth isKindOfClass:[NSString self]] || [[meth stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length] == 0) {
         [self showAPIError:[NSString stringWithFormat:@"API error: invalid method name: %@", meth]];
+        [self sendResponse:nil forID:msgID];
         return;
     }
     
