@@ -115,6 +115,8 @@
 
 (defn get-running-apps "" [] (get-one-value top-level-obj "running_apps"))
 
+(defn update-settings "" [s] (get-one-value top-level-obj "update_settings" s))
+
 (defn alert "" [msg duration] (get-one-value top-level-obj "alert" msg duration))
 (defn log "" [msg] (get-one-value top-level-obj "log" msg))
 (defn choose-from "" [list title f] (do-callback-once f top-level-obj "choose_from" list title 20 10))

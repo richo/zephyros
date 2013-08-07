@@ -50,6 +50,8 @@ lein exec path/to/my-zeph.clj
 (defn get-visible-windows [])
 (defn get-all-windows [])
 
+(defn update-settings [s]) ;; map, with :alert_should_animate (bool) and/or :alert_default_delay (number)
+
 (defn get-main-screen [])
 (defn get-all-screens [])
 

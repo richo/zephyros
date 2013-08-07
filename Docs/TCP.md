@@ -35,6 +35,7 @@ running_apps       |                                     | [[app_id](#app), ...]
 alert              | msg, duration_sec                   |
 log                | msg                                 |
 choose_from        | list, title, lines_tall, chars_wide | 0, followed by: chosen index or nil if canceled
+update_settings    | map of strings to values            |
 
 #### Window
 

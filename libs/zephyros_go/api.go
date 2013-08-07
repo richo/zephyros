@@ -74,6 +74,11 @@ func (self TopLevelApi) Log(msg string) {
 	send(float64(self), nil, false, "log", msg)
 }
 
+// Value keys are "alert_should_animate" (bool) and/or "alert_default_delay" (number)
+func (self TopLevelApi) UpdateSettings(msg map[string]interface{}) {
+	send(float64(self), nil, false, "update_settings", msg)
+}
+
 func (self TopLevelApi) RelaunchConfig() {
 	send(float64(self), nil, false, "relaunch_config")
 }

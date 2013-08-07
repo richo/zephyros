@@ -98,8 +98,9 @@ class Api(Proxy):
     def main_screen(self)
     def all_screens(self)
     def running_apps(self)
-    def bind(self, key, mods, fn):
-    def choose_from(self, lst, title, lines, chars, fn):
+    def bind(self, key, mods, fn)
+    def choose_from(self, lst, title, lines, chars, fn)
+    def update_settings(self, s) # dict with key 'alert_should_animate' (bool) and/or 'alert_default_delay' (number)
     def listen(self, event, fn):
         def tmp_fn(obj):
             if event == "window_created":       fn(Window(obj))
