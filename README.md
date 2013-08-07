@@ -32,7 +32,7 @@ At it's core, Zephyros just runs quietly in your menu bar, and listens for your 
 
 #### Want to add another language?
 
-Zephyros clients can be written in any language, using [this simple TCP protocol](Docs/TCP.md). (It helps if the language has threading.)
+Zephyros clients can be written in any language, using [this simple protocol](Docs/Protocol.md). (Threading support helps.)
 
 These languages might be fun to write a Zephyros client in:
 
