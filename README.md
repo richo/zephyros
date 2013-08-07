@@ -29,7 +29,6 @@ At it's core, Zephyros just runs quietly in your menu bar, and listens for your 
 - [Using Go](Docs/Go.md)
 - [Using JavaScript](Docs/JavaScript.md)
 - [Using CoffeeScript](Docs/CoffeeScript.md)
-- Using [the TCP protocol directly](Docs/TCP.md)
 
 #### Want to add another language?
 
