@@ -67,13 +67,13 @@ lein exec path/to/my-zeph.clj
 
 (defn get-window-title [window])
 
-(defn get-frame [window])       ;; takes {:x, :y, :w, :h}
-(defn get-size [window])        ;; takes {:w, :h}
-(defn get-top-left [window])    ;; takes {:w, :h}
+(defn get-frame [window])       ;; returns {:x, :y, :w, :h}
+(defn get-size [window])        ;; returns {:w, :h}
+(defn get-top-left [window])    ;; returns {:w, :h}
 
-(defn set-frame [window f])     ;; returns {:x, :y, :w, :h}
-(defn set-size [window s])      ;; returns {:w, :h}
-(defn set-top-left [window tl]) ;; returns {:x, :y}
+(defn set-frame [window f])     ;; takes {:x, :y, :w, :h}
+(defn set-size [window s])      ;; takes {:w, :h}
+(defn set-top-left [window tl]) ;; takes {:x, :y}
 
 (defn minimize [window])
 (defn maximize [window])
