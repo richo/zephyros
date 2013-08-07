@@ -13,7 +13,7 @@
 
 *The OS X window manager for hackers*
 
-* Current version: **4.2**
+* Current version: **4.3**
 * Requires: OS X 10.7 and up
 * Download: get [.zip file](https://raw.github.com/sdegutis/zephyros/master/Builds/Zephyros-LATEST.app.tar.gz), unzip, right-click app, choose "Open"
 
@@ -162,8 +162,13 @@ bind("D", ["cmd", "shift"], function() {
 
 ### Change log
 
-**NOTE:** This auto-updater won't work if you're on version 3.x or 2.x due to [this securty fix](https://github.com/sdegutis/zephyros/pull/21).<br>[Download Zephyros-4.2.zip](https://raw.github.com/sdegutis/zephyros/master/Builds/Zephyros-LATEST.app.tar.gz) directly instead.
+**NOTE:** This auto-updater won't work if you're on version 3.x or 2.x due to [this securty fix](https://github.com/sdegutis/zephyros/pull/21).<br>[Download Zephyros-4.3.zip](https://raw.github.com/sdegutis/zephyros/master/Builds/Zephyros-LATEST.app.tar.gz) directly instead.
 
+- 4.3
+    - Many bug fixes and improvements
+    - Added `window.other_windows_on_same_screen` and `window.other_windows_on_all_screens` to all APIs
+    - Added `window.windows_to_{south,north,east,west}` to all APIs
+    - Added `update_settings` to all APIs
 - 4.2
     - Includes new Python API
 - 4.1
