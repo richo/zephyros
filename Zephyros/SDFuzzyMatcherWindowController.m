@@ -27,6 +27,9 @@
 @property BOOL attached;
 @property id oldDelegate;
 
+@property long chosenIdx;
+@property BOOL actuallyChoseOne;
+
 @end
 
 
@@ -125,11 +128,8 @@ NSPoint SDGetTopLeftPointOfView(NSView* view) {
     if (self.attached)
         self.tryTextField.delegate = self.oldDelegate;
     
-    if (self.choseCallback) {
-        SDChoice* choice = [[self.choicesArrayController arrangedObjects] objectAtIndex:self.selection];
-        long idx = [self.choices indexOfObject:choice];
-        self.choseCallback(idx);
-    }
+    self.actuallyChoseOne = YES;
+    self.chosenIdx = self.selection;
     
     [self close];
 }
@@ -137,9 +137,6 @@ NSPoint SDGetTopLeftPointOfView(NSView* view) {
 - (void) justGiveUp {
     if (self.attached)
         self.tryTextField.delegate = self.oldDelegate;
-    
-    if (self.canceledCallback)
-        self.canceledCallback();
     
     [self close];
 }
@@ -203,6 +200,19 @@ NSPoint SDGetTopLeftPointOfView(NSView* view) {
 }
 
 - (void) windowWillClose:(NSNotification *)notification {
+    if (self.actuallyChoseOne) {
+        if (self.choseCallback) {
+            SDChoice* choice = [[self.choicesArrayController arrangedObjects] objectAtIndex:self.selection];
+            long idx = [self.choices indexOfObject:choice];
+            self.choseCallback(idx);
+        }
+    }
+    else {
+        if (self.canceledCallback) {
+            self.canceledCallback();
+        }
+    }
+    
     [self.killedDelegate btwImDead:self];
 }
 
