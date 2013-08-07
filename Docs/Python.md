@@ -4,7 +4,7 @@
 
 ```python
 import sys
-sys.path.insert(0, '/Applications/Zephyros.app/Contents/Resources/libs/zephyros.py')
+sys.path.insert(0, '/Applications/Zephyros.app/Contents/Resources/libs/')
 import zephyros
 
 @zephyros.zephyros
