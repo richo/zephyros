@@ -29,14 +29,21 @@ At it's core, Zephyros just runs quietly in your menu bar, and listens for your 
 - [Using Go](Docs/Go.md)
 - [Using JavaScript](Docs/JavaScript.md)
 - [Using CoffeeScript](Docs/CoffeeScript.md)
-- Using node.js (someone started on one, see [this issue](../../issues/17))
 - Using [the TCP protocol directly](Docs/TCP.md)
 
-#### Other languages
+#### Want to add another language?
 
-You can script Zephyros from any language that can talk JSON over TCP.
+Zephyros clients can be written in any language with threading, using [this simple TCP protocol](Docs/TCP.md).
 
-Don't see your favorite language here? Why not [write a Zephyros lib](Docs/TCP.md) for it!
+These languages might be fun to write a Zephyros client in:
+
+- Using node.js (see [issue 17](../../issues/17))
+- Using Lua
+- Using Elixir
+- Using Rust
+- Using Racket
+
+If you want to do one, it might be helpful to [open an issue](https://github.com/sdegutis/zephyros/issues/new) letting us know. That would help us coordinate so nobody does extra work.
 
 #### Stuff you can do
 
