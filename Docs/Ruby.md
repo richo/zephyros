@@ -5,7 +5,7 @@
 ```ruby
 require '/Applications/Zephyros.app/Contents/Resources/libs/zephyros.rb'
 
-# push to top half of screen
+# alert hello world
 API.bind "D", ["Cmd", "Shift"] do
   API.alert 'hello world'
 end
