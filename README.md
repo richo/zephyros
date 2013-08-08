@@ -34,9 +34,9 @@ You typically write a script that binds global hot keys to do stuff, like moving
 
 #### Want to add another language?
 
-Zephyros clients can be written in any language, using [this simple protocol](Docs/Protocol.md). (Threading support helps.)
+You can script Zephyros from any language, using [this simple protocol](Docs/Protocol.md).
 
-These languages might be fun to write a Zephyros client in:
+These languages might be fun to write one in:
 
 - Using node.js (see [issue 17](../../issues/17))
 - Using Lua
@@ -135,9 +135,9 @@ import (
 )
 
 func main() {
-    API.Bind("D", []string{"Cmd", "Shift"}, func() {
-        API.Alert("hello world", 1)
-        win := API.FocusedWindow()
+    Bind("D", []string{"Cmd", "Shift"}, func() {
+        Alert("hello world", 1)
+        win := FocusedWindow()
         frame := win.Frame()
         frame.X += 10
         win.SetFrame(frame)

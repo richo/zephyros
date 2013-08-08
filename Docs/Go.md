@@ -10,8 +10,8 @@ import (
 )
 
 func main() {
-	API.Bind("D", []string{"Cmd", "Shift"}, func() {
-		API.Alert("hello world", 1)
+	Bind("D", []string{"Cmd", "Shift"}, func() {
+		Alert("hello world", 1)
 	})
 
 	ListenForCallbacks()

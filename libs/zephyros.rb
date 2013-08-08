@@ -2,6 +2,8 @@ require 'socket'
 require 'json'
 require 'thread'
 
+Thread.abort_on_exception = true
+
 def wait_on_callbacks
   $zeph.wait_on_callbacks
 end
