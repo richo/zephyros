@@ -29,16 +29,14 @@ class API
   class << self
 
     def reload_config; end
-
-    def after(sec, &blk); end
-    def log(str); end
+    
     def bind(key, mods, &blk); end
+
+    def log(str); end
     def alert(msg); end
 
     def update_settings(s); # hash with key 'alert_should_animate' (bool) and/or 'alert_default_delay' (number)
 
-    def shell(path, args, opts={}); end # TODO: document opts
-    def open(thing); end
     def clipboard_contents; end
 
     def choose_from(list, title, &blk); end
