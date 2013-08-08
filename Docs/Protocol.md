@@ -15,6 +15,19 @@
     * This identifier should be sent as the receiver for method calls to this object
     * Each resource is garbage-collected by Zephyros after 30 seconds
 
+### Pseudo-sync
+
+Technically the protocol is asynchronous, to allow for callbacks. But it's nicer to just write `win.title()` and have it return the title directly. The pseudo-sync trick solves this problem. This is the basic idea, using Ruby:
+
+```ruby
+def send_sync(args)
+    queue = Queue.new(1) # a thread-safe queue
+    send_async(args) do |return_val|
+        queue.put(return_val)
+    end
+    return queue.get # this blocks
+end
+```
 
 ### API
 
