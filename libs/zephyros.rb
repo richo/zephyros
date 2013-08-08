@@ -1,4 +1,5 @@
 require 'socket'
+require 'rubygems'
 require 'json'
 require 'thread'
 
@@ -222,14 +223,14 @@ class API
     include ZephProxy
     extend PatchAdams
 
-    patch_return(:focused_window, -> { Window.new self })
-    patch_return(:visible_windows, -> { map { |o| Window.new o } })
-    patch_return(:all_windows, -> { map { |o| Window.new o } })
+    patch_return(:focused_window, lambda { Window.new self })
+    patch_return(:visible_windows, lambda { map { |o| Window.new o } })
+    patch_return(:all_windows, lambda { map { |o| Window.new o } })
 
-    patch_return(:main_screen, -> { Screen.new self })
-    patch_return(:all_screens, -> { map { |o| Screen.new o } })
+    patch_return(:main_screen, lambda { Screen.new self })
+    patch_return(:all_screens, lambda { map { |o| Screen.new o } })
 
-    patch_return(:running_apps, -> { map { |o| App.new o } })
+    patch_return(:running_apps, lambda { map { |o| App.new o } })
 
     def alert(msg, sec=2)
       super(msg, sec)
@@ -262,8 +263,8 @@ class App < Struct.new(:id)
   include ZephProxy
   extend PatchAdams
 
-  patch_return(:all_windows, -> { map { |o| Window.new o } })
-  patch_return(:visible_windows, -> { map { |o| Window.new o } })
+  patch_return(:all_windows, lambda { map { |o| Window.new o } })
+  patch_return(:visible_windows, lambda { map { |o| Window.new o } })
 
 end
 
@@ -272,11 +273,11 @@ class Screen < Struct.new(:id)
   include ZephProxy
   extend PatchAdams
 
-  patch_return(:next_screen, -> { Screen.new self })
-  patch_return(:previous_screen, -> { Screen.new self })
+  patch_return(:next_screen, lambda { Screen.new self })
+  patch_return(:previous_screen, lambda { Screen.new self })
 
-  patch_return(:frame_including_dock_and_menu, -> { Rect.from_hash self })
-  patch_return(:frame_without_dock_or_menu, -> { Rect.from_hash self })
+  patch_return(:frame_including_dock_and_menu, lambda { Rect.from_hash self })
+  patch_return(:frame_without_dock_or_menu, lambda { Rect.from_hash self })
 
 end
 
@@ -290,14 +291,14 @@ class Window < Struct.new(:id)
   include ZephProxy
   extend PatchAdams
 
-  patch_return(:frame, -> { Rect.from_hash self })
-  patch_return(:top_left, -> { Point.from_hash self })
-  patch_return(:size, -> { Size.from_hash self })
+  patch_return(:frame, lambda { Rect.from_hash self })
+  patch_return(:top_left, lambda { Point.from_hash self })
+  patch_return(:size, lambda { Size.from_hash self })
 
-  patch_return(:screen, -> { Screen.new self })
-  patch_return(:app, -> { App.new self })
+  patch_return(:screen, lambda { Screen.new self })
+  patch_return(:app, lambda { App.new self })
 
-  patch_return(:other_windows_on_same_screen, -> { map { |o| Window.new o } })
+  patch_return(:other_windows_on_same_screen, lambda { map { |o| Window.new o } })
 
   define_method(:frame=) { |f| set_frame f.to_hash }
   define_method(:top_left=) { |f| set_top_left f.to_hash }
