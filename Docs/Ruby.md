@@ -1,5 +1,7 @@
 ## Zephyros - Ruby API
 
+Note: This requires Ruby 1.9 and won't work on Ruby 1.8
+
 #### Sample Script
 
 ```ruby
