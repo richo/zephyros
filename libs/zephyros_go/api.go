@@ -5,17 +5,13 @@ import (
 	"reflect"
 )
 
-type TopLevelApi float64
-var API TopLevelApi = 0
 
-
-
-func (self TopLevelApi) Bind(key string, mods []string, fn func()) {
+func Bind(key string, mods []string, fn func()) {
 	wrapFn := func(bytes []byte) { fn() }
-	send(float64(self), wrapFn, true, "bind", key, mods)
+	send(0, wrapFn, true, "bind", key, mods)
 }
 
-func (self TopLevelApi) ChooseFrom(list []string, title string, linesTall int, charsWide int, fn func(i int)) {
+func ChooseFrom(list []string, title string, linesTall int, charsWide int, fn func(i int)) {
 	wrapFn := func(bytes []byte) {
 		var obj *float64
 		json.Unmarshal(bytes, &obj)
@@ -25,7 +21,7 @@ func (self TopLevelApi) ChooseFrom(list []string, title string, linesTall int, c
 			fn(int(*obj))
 		}
 	}
-	send(float64(self), wrapFn, false, "choose_from", list, title, linesTall, charsWide)
+	send(0, wrapFn, false, "choose_from", list, title, linesTall, charsWide)
 }
 
 // Function 'fn' will be called with the proper arg and
@@ -42,7 +38,7 @@ func (self TopLevelApi) ChooseFrom(list []string, title string, linesTall int, c
 //     'app_hidden' args: [app]
 //     'app_shown' args: [app]
 //     'screens_changed' args: []
-func (self TopLevelApi) Listen(event string, fn interface{}) {
+func Listen(event string, fn interface{}) {
 	fnValue := reflect.ValueOf(fn)
 	fnType := fnValue.Type()
 
@@ -63,71 +59,71 @@ func (self TopLevelApi) Listen(event string, fn interface{}) {
 			fnValue.Call([]reflect.Value{convertedObj})
 		}
 	}
-	send(float64(self), wrapFn, true, "listen", event)
+	send(0, wrapFn, true, "listen", event)
 }
 
-func (self TopLevelApi) Alert(msg string, dur int) {
-	send(float64(self), nil, false, "alert", msg, dur)
+func Alert(msg string, dur int) {
+	send(0, nil, false, "alert", msg, dur)
 }
 
-func (self TopLevelApi) Log(msg string) {
-	send(float64(self), nil, false, "log", msg)
+func Log(msg string) {
+	send(0, nil, false, "log", msg)
 }
 
 // Value keys are "alert_should_animate" (bool) and/or "alert_default_delay" (number)
-func (self TopLevelApi) UpdateSettings(msg map[string]interface{}) {
-	send(float64(self), nil, false, "update_settings", msg)
+func UpdateSettings(msg map[string]interface{}) {
+	send(0, nil, false, "update_settings", msg)
 }
 
-func (self TopLevelApi) RelaunchConfig() {
-	send(float64(self), nil, false, "relaunch_config")
+func RelaunchConfig() {
+	send(0, nil, false, "relaunch_config")
 }
 
-func (self TopLevelApi) ClipboardContents() string {
+func ClipboardContents() string {
 	var buf string
-	bytes := send(float64(self), nil, false, "clipboard_contents")
+	bytes := send(0, nil, false, "clipboard_contents")
 	json.Unmarshal(bytes, &buf)
 	return buf
 }
 
-func (self TopLevelApi) FocusedWindow() Window {
+func FocusedWindow() Window {
 	var buf Window
-	bytes := send(float64(self), nil, false, "focused_window")
+	bytes := send(0, nil, false, "focused_window")
 	json.Unmarshal(bytes, &buf)
 	return buf
 }
 
-func (self TopLevelApi) VisibleWindows() []Window {
+func VisibleWindows() []Window {
 	var buf []Window
-	bytes := send(float64(self), nil, false, "visible_windows")
+	bytes := send(0, nil, false, "visible_windows")
 	json.Unmarshal(bytes, &buf)
 	return buf
 }
 
-func (self TopLevelApi) AllWindows() []Window {
+func AllWindows() []Window {
 	var buf []Window
-	bytes := send(float64(self), nil, false, "all_windows")
+	bytes := send(0, nil, false, "all_windows")
 	json.Unmarshal(bytes, &buf)
 	return buf
 }
 
-func (self TopLevelApi) MainScreen() Screen {
+func MainScreen() Screen {
 	var buf Screen
-	bytes := send(float64(self), nil, false, "main_screen")
+	bytes := send(0, nil, false, "main_screen")
 	json.Unmarshal(bytes, &buf)
 	return buf
 }
 
-func (self TopLevelApi) AllScreens() []Screen {
+func AllScreens() []Screen {
 	var buf []Screen
-	bytes := send(float64(self), nil, false, "all_screens")
+	bytes := send(0, nil, false, "all_screens")
 	json.Unmarshal(bytes, &buf)
 	return buf
 }
 
-func (self TopLevelApi) RunningApps() []App {
+func RunningApps() []App {
 	var buf []App
-	bytes := send(float64(self), nil, false, "running_apps")
+	bytes := send(0, nil, false, "running_apps")
 	json.Unmarshal(bytes, &buf)
 	return buf
 }
