@@ -47,7 +47,9 @@
 }
 
 - (void) kill {
+    pid_t p = [self.task processIdentifier];
     [self.task terminate];
+    kill(p, SIGKILL);
     self.task = nil;
 }
 
