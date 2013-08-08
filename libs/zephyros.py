@@ -106,6 +106,12 @@ class Rect(object):
         self.w = w
         self.h = h
 
+    def inset(self, x, y):
+        self.x += x
+        self.y += y
+        self.w -= (x * 2)
+        self.h -= (y * 2)
+
 class Point(object):
     def to_dict(r): return {'x': r.x, 'y': r.y}
     def __init__(self, x=0, y=0):
