@@ -25,7 +25,7 @@ You typically write a script that binds global hot keys to do stuff, like moving
 
 #### Watch it in action
 
-![screencast](Graphics/sshot.png)
+[![screencast](Graphics/sshot.png)](https://www.dropbox.com/s/qrvtmxmrxq40l1b/zephcast.mov)
 
 #### Some languages you can use
 
