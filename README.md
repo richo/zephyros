@@ -23,6 +23,10 @@ At it's core, Zephyros just runs quietly in your menu bar, and listens for your 
 
 You typically write a script that binds global hot keys to do stuff, like moving or resizing windows.
 
+#### Watch it in action
+
+![screencast](https://www.dropbox.com/s/qrvtmxmrxq40l1b/zephcast.mov)
+
 #### Some languages you can use
 
 - [Using Clojure](Docs/Clojure.md)
