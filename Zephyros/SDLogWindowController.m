@@ -132,7 +132,7 @@
         
         NSDateFormatter* stampFormatter = [[NSDateFormatter alloc] init];
         stampFormatter.dateStyle = NSDateFormatterNoStyle;
-        stampFormatter.timeStyle = NSDateFormatterShortStyle;
+        stampFormatter.timeStyle = kCFDateFormatterMediumStyle;
         
         DOMHTMLDivElement* div = (id)[doc createElement:@"div"];
         div.className = classname;
