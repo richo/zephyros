@@ -31,7 +31,7 @@ class Zeph
     id = @id += 1
     @queues[id] = Queue.new
     json = [id].concat(data).to_json
-    @sock.write "#{json.size}\n#{json}"
+    @sock.write "#{json.bytesize}\n#{json}"
 
     if blk.nil?
       o = @queues[id].pop
