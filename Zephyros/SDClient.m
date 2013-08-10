@@ -218,8 +218,8 @@
                     @"api": @{
                             @"bind": ^id(SDClient* client, NSNumber* msgID, id recv, NSArray* args) {
                                 SDHotKey* hotkey = [[SDHotKey alloc] init];
-                                hotkey.key = [args objectAtIndex:0];
-                                hotkey.modifiers = [args objectAtIndex:1];
+                                hotkey.key = [[args objectAtIndex:0] uppercaseString];
+                                hotkey.modifiers = [[args objectAtIndex:1] valueForKeyPath:@"uppercaseString"];
                                 hotkey.fn = ^{
                                     [client sendResponse:nil forID:msgID];
                                 };
@@ -232,6 +232,27 @@
                                 }
                                 
                                 return @-1;
+                            },
+                            @"unbind": ^id(SDClient* client, NSNumber* msgID, id recv, NSArray* args) {
+                                NSString* key = [[args objectAtIndex:0] uppercaseString];
+                                NSArray* modifiers = [[args objectAtIndex:1] valueForKeyPath:@"uppercaseString"];
+                                
+                                SDHotKey* foundHotkey;
+                                for (SDHotKey* existingHotkey in client.hotkeys) {
+                                    if ([existingHotkey.key isEqual: key] && [existingHotkey.modifiers isEqual: modifiers]) {
+                                        foundHotkey = existingHotkey;
+                                        break;
+                                    }
+                                }
+                                
+                                if (foundHotkey) {
+                                    [foundHotkey unbind];
+                                    [client.hotkeys removeObject:foundHotkey];
+                                    return @YES;
+                                }
+                                else {
+                                    return @NO;
+                                }
                             },
                             @"listen": ^id(SDClient* client, NSNumber* msgID, id recv, NSArray* args) {
                                 SDEventListener* listener = [[SDEventListener alloc] init];

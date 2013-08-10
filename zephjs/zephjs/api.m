@@ -140,6 +140,7 @@ NSString* sd_js_api() {
     "update_settings = (s) -> SDZephJS.sharedZeph().sendSyncMessage([NSNull.null(), 'update_settings', s])\n"
     "require = (file) -> SDZephJS.sharedZeph().requireFromJS(file)\n"
     "alert = (str, delay = NSNull.null()) -> SDZephJS.sharedZeph().sendSyncMessage([NSNull.null(), 'alert', str, delay])\n"
+    "unbind = (key, mods) -> SDZephJS.sharedZeph().sendSyncMessage([NSNull.null(), 'unbind', key, mods])\n"
     "reloadConfig = -> SDZephJS.sharedZeph().sendSyncMessage([NSNull.null(), 'relaunch_config'])\n"
     "doAfter = (sec, fn) -> SDZephJS.sharedZeph().doFn_after_ fn, sec\n"
     "\n"
