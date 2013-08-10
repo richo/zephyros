@@ -297,6 +297,7 @@
 				94DAFB521719B99A00526003 /* LogWindow.xib */,
 				94DAFB4F1719B98500526003 /* SDLogWindowController.h */,
 				94DAFB501719B98500526003 /* SDLogWindowController.m */,
+				946B3AAE1721C5C800FB05F3 /* logwindow.html */,
 			);
 			name = "Log Window";
 			sourceTree = "<group>";
@@ -375,7 +376,6 @@
 			isa = PBXGroup;
 			children = (
 				94779BD017A85CB000649169 /* Licenses */,
-				946B3AAE1721C5C800FB05F3 /* logwindow.html */,
 				94E0964D171EDBA6002D8668 /* dsa_pub.pem */,
 				94873F3617191F40000AC0A6 /* InfoPlist.strings */,
 				94873F3917191F40000AC0A6 /* main.m */,
