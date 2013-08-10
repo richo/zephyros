@@ -302,10 +302,10 @@ class Window < Struct.new(:id)
 
   patch_return(:other_windows_on_same_screen, lambda { map { |o| Window.new o } })
 
-  patch_return(:windows_to_north, -> { map { |o| Window.new o } })
-  patch_return(:windows_to_south, -> { map { |o| Window.new o } })
-  patch_return(:windows_to_east, -> { map { |o| Window.new o } })
-  patch_return(:windows_to_west, -> { map { |o| Window.new o } })
+  patch_return(:windows_to_north, lambda { map { |o| Window.new o } })
+  patch_return(:windows_to_south, lambda { map { |o| Window.new o } })
+  patch_return(:windows_to_east, lambda { map { |o| Window.new o } })
+  patch_return(:windows_to_west, lambda { map { |o| Window.new o } })
 
   define_method(:frame=) { |f| set_frame f.to_hash }
   define_method(:top_left=) { |f| set_top_left f.to_hash }
