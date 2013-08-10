@@ -13,7 +13,7 @@
 
 *The OS X window manager for hackers*
 
-* Current version: **4.4**
+* Current version: **4.4.1**
 * Requires: OS X 10.8 and up
 * Download: get [.zip file](https://raw.github.com/sdegutis/zephyros/master/Builds/Zephyros-LATEST.app.tar.gz), unzip, right-click app, choose "Open"
 
@@ -177,6 +177,8 @@ bind("D", ["cmd", "shift"], function() {
 
 **NOTE:** This auto-updater won't work if you're on version 3.x or 2.x due to [this securty fix](https://github.com/sdegutis/zephyros/pull/21).<br>[Download Zephyros-4.3.zip](https://raw.github.com/sdegutis/zephyros/master/Builds/Zephyros-LATEST.app.tar.gz) directly instead.
 
+- 4.4.1
+    - Ruby API handles UTF-8 strings properly
 - 4.4
     - Changed Go API to just use top-level functions for API
     - Ruby API now works with Ruby 1.8
