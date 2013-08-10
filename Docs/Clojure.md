@@ -46,6 +46,8 @@ lein exec path/to/my-zeph.clj
   ;; 'app_shown' args: [app]
   ;; 'screens_changed' args: []
 
+(defn unbind [key mods])
+
 (defn get-focused-window [])
 (defn get-visible-windows [])
 (defn get-all-windows [])

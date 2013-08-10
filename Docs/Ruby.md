@@ -29,8 +29,9 @@ class API
   class << self
 
     def reload_config; end
-    
+
     def bind(key, mods, &blk); end
+    def unbind(key, mods); end
 
     def log(str); end
     def alert(msg); end

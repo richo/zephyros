@@ -37,6 +37,7 @@ Name               | Args                                | Return value
 -------------------|-------------------------------------|--------------------
 bind               | key, [modifier, ...]                | nil, followed by: callback, ...
 listen             | event_name                          | nil, followed by: callback, ...
+unbind             | key, [modifier, ...]                |
 relaunch_config    |                                     |
 clipboard_contents |                                     | string
 focused_window     |                                     | [window_id](#window)
