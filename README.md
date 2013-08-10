@@ -172,7 +172,6 @@ bind("D", ["cmd", "shift"], function() {
 ### Community
 
 - #zephyros on irc.freenode.org
-- [wiki home page](https://github.com/sdegutis/zephyros/wiki), a place to share configs and stuff
 
 ### Change log
 
