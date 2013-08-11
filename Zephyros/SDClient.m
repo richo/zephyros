@@ -11,10 +11,12 @@
 #import "SDFuzzyMatcher.h"
 
 #import "SDHotKey.h"
+#import "SDEventListener.h"
+
+#import "SDConfigLauncher.h"
+
 #import "SDLogWindowController.h"
 #import "SDAlertWindowController.h"
-#import "SDConfigLauncher.h"
-#import "SDEventListener.h"
 
 #import "SDAppProxy.h"
 #import "SDWindowProxy.h"
