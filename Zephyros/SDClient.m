@@ -391,7 +391,7 @@
                                 return [recv screen];
                             },
                             @"focus_window": ^id(SDClient* client, NSNumber* msgID, SDWindowProxy* recv, NSArray* args) {
-                                return [recv focusWindow];
+                                return @([recv focusWindow]);
                             },
                             @"windows_to_north": ^id(SDClient* client, NSNumber* msgID, SDWindowProxy* recv, NSArray* args) {
                                 return [recv windowsToNorth];
@@ -422,10 +422,10 @@
                                 return nil;
                             },
                             @"normal_window?": ^id(SDClient* client, NSNumber* msgID, SDWindowProxy* recv, NSArray* args) {
-                                return [recv isNormalWindow];
+                                return @([recv isNormalWindow]);
                             },
                             @"minimized?": ^id(SDClient* client, NSNumber* msgID, SDWindowProxy* recv, NSArray* args) {
-                                return [recv isWindowMinimized];
+                                return @([recv isWindowMinimized]);
                             },
                             },
                     @"app": @{
@@ -439,7 +439,7 @@
                                 return [recv title];
                             },
                             @"hidden?": ^id(SDClient* client, NSNumber* msgID, SDAppProxy* recv, NSArray* args) {
-                                return [recv isHidden];
+                                return @([recv isHidden]);
                             },
                             @"show": ^id(SDClient* client, NSNumber* msgID, SDAppProxy* recv, NSArray* args) {
                                 [recv show];

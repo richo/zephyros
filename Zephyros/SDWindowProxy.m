@@ -47,8 +47,8 @@
     return windows;
 }
 
-- (NSNumber*) isNormalWindow {
-    return @([[self subrole] isEqualToString: (__bridge NSString*)kAXStandardWindowSubrole]);
+- (BOOL) isNormalWindow {
+    return [[self subrole] isEqualToString: (__bridge NSString*)kAXStandardWindowSubrole];
 }
 
 + (NSArray*) visibleWindows {
@@ -56,9 +56,9 @@
         return nil;
     
     return [[self allWindows] filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(SDWindowProxy* win, NSDictionary *bindings) {
-        return ![[[win app] isHidden] boolValue]
-        && ![[win isWindowMinimized] boolValue]
-        && [[win isNormalWindow] boolValue];
+        return ![[win app] isHidden]
+        && ![win isWindowMinimized]
+        && [win isNormalWindow];
     }]];
 }
 
@@ -264,8 +264,8 @@
     return [self getWindowProperty:NSAccessibilitySubroleAttribute withDefaultValue:@""];
 }
 
-- (NSNumber*) isWindowMinimized {
-    return @([[self getWindowProperty:NSAccessibilityMinimizedAttribute withDefaultValue:@(NO)] boolValue]);
+- (BOOL) isWindowMinimized {
+    return [[self getWindowProperty:NSAccessibilityMinimizedAttribute withDefaultValue:@(NO)] boolValue];
 }
 
 - (void) setWindowMinimized:(BOOL)flag
@@ -320,7 +320,7 @@ NSPoint SDMidpoint(NSRect r) {
 
 - (void) focusFirstValidWindowIn:(NSArray*)closestWindows {
     for (SDWindowProxy* win in closestWindows) {
-        if ([[win focusWindow] boolValue])
+        if ([win focusWindow])
             break;
     }
 }

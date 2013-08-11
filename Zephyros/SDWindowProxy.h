@@ -45,11 +45,11 @@
 - (SDScreenProxy*) screen;
 - (SDAppProxy*) app;
 
-- (NSNumber*) isNormalWindow;
+- (BOOL) isNormalWindow;
 
 // focus
 
-- (NSNumber*) focusWindow;
+- (BOOL) focusWindow;
 
 - (void) focusWindowLeft;
 - (void) focusWindowRight;
@@ -64,7 +64,7 @@
 
 // other window properties
 
-- (NSString *) title;
-- (NSNumber*) isWindowMinimized;
+- (NSString*) title;
+- (BOOL) isWindowMinimized;
 
 @end

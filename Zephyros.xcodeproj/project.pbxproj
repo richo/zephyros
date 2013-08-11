@@ -229,13 +229,13 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		943921B41719AF5900F63073 /* API */ = {
+		943921B41719AF5900F63073 /* sigh */ = {
 			isa = PBXGroup;
 			children = (
 				9463D43217A77E2C00A3E905 /* SDGeometry.h */,
 				9463D43317A77E2C00A3E905 /* SDGeometry.m */,
 			);
-			name = API;
+			name = sigh;
 			sourceTree = "<group>";
 		};
 		943921B51719B1E600F63073 /* Graphics */ = {
@@ -360,7 +360,7 @@
 				94E02EE017AB1B14005AE3E8 /* Hot keys */,
 				947DC98B17A5B9400082D095 /* Events */,
 				94E02EEE17AB536D005AE3E8 /* Launcher */,
-				943921B41719AF5900F63073 /* API */,
+				943921B41719AF5900F63073 /* sigh */,
 				94873F6417192987000AC0A6 /* Helpers */,
 				943921B51719B1E600F63073 /* Graphics */,
 				94873F631719223F000AC0A6 /* Third Party */,

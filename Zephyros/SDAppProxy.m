@@ -109,9 +109,9 @@ void obsessiveWindowCallback(AXObserverRef observer, AXUIElementRef element, CFS
         return nil;
     
     return [[self allWindows] filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(SDWindowProxy* win, NSDictionary *bindings) {
-        return ![[[win app] isHidden] boolValue]
-        && ![[win isWindowMinimized] boolValue]
-        && [[win isNormalWindow] boolValue];
+        return ![[win app] isHidden]
+        && ![win isWindowMinimized]
+        && [win isNormalWindow];
     }]];
 }
 
@@ -133,13 +133,13 @@ void obsessiveWindowCallback(AXObserverRef observer, AXUIElementRef element, CFS
     return windows;
 }
 
-- (NSNumber*) isHidden {
+- (BOOL) isHidden {
     CFTypeRef _isHidden;
     NSNumber* isHidden = @NO;
     if (AXUIElementCopyAttributeValue(self.app, (CFStringRef)NSAccessibilityHiddenAttribute, (CFTypeRef *)&_isHidden) == kAXErrorSuccess) {
         isHidden = CFBridgingRelease(_isHidden);
     }
-    return isHidden;
+    return [isHidden boolValue];
 }
 
 - (void) show {
