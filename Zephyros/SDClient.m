@@ -22,6 +22,8 @@
 #import "SDWindowProxy.h"
 #import "SDScreenProxy.h"
 
+#import "SDGeometry.h"
+
 @interface SDClient ()
 
 @property int64_t maxRespObjID;
@@ -352,25 +354,25 @@
                                 return [recv otherWindowsOnAllScreens];
                             },
                             @"set_frame": ^id(SDClient* client, NSNumber* msgID, SDWindowProxy* recv, NSArray* args) {
-                                [recv setFrame:[args objectAtIndex:0]];
+                                [recv setFrame: SDRectFromDict([args objectAtIndex:0])];
                                 return nil;
                             },
                             @"set_top_left": ^id(SDClient* client, NSNumber* msgID, SDWindowProxy* recv, NSArray* args) {
-                                [recv setTopLeft:[args objectAtIndex:0]];
+                                [recv setTopLeft: SDPointFromDict([args objectAtIndex:0])];
                                 return nil;
                             },
                             @"set_size": ^id(SDClient* client, NSNumber* msgID, SDWindowProxy* recv, NSArray* args) {
-                                [recv setSize:[args objectAtIndex:0]];
+                                [recv setSize: SDSizeFromDict([args objectAtIndex:0])];
                                 return nil;
                             },
                             @"frame": ^id(SDClient* client, NSNumber* msgID, SDWindowProxy* recv, NSArray* args) {
-                                return [recv frame];
+                                return SDDictFromRect([recv frame]);
                             },
                             @"top_left": ^id(SDClient* client, NSNumber* msgID, SDWindowProxy* recv, NSArray* args) {
-                                return [recv topLeft];
+                                return SDDictFromPoint([recv topLeft]);
                             },
                             @"size": ^id(SDClient* client, NSNumber* msgID, SDWindowProxy* recv, NSArray* args) {
-                                return [recv size];
+                                return SDDictFromSize([recv size]);
                             },
                             @"maximize": ^id(SDClient* client, NSNumber* msgID, SDWindowProxy* recv, NSArray* args) {
                                 [recv maximize];
@@ -460,10 +462,10 @@
                             },
                     @"screen": @{
                             @"frame_including_dock_and_menu": ^id(SDClient* client, NSNumber* msgID, SDScreenProxy* recv, NSArray* args) {
-                                return [recv frameIncludingDockAndMenu];
+                                return SDDictFromRect([recv frameIncludingDockAndMenu]);
                             },
                             @"frame_without_dock_or_menu": ^id(SDClient* client, NSNumber* msgID, SDScreenProxy* recv, NSArray* args) {
-                                return [recv frameWithoutDockOrMenu];
+                                return SDDictFromRect([recv frameWithoutDockOrMenu]);
                             },
                             @"next_screen": ^id(SDClient* client, NSNumber* msgID, SDScreenProxy* recv, NSArray* args) {
                                 return [recv nextScreen];

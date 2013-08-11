@@ -15,8 +15,8 @@
 + (SDScreenProxy*) mainScreen;
 + (NSArray*) allScreens;
 
-- (NSDictionary*) frameIncludingDockAndMenu;
-- (NSDictionary*) frameWithoutDockOrMenu;
+- (CGRect) frameIncludingDockAndMenu;
+- (CGRect) frameWithoutDockOrMenu;
 
 - (SDScreenProxy*) nextScreen;
 - (SDScreenProxy*) previousScreen;
