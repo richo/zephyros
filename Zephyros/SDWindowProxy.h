@@ -26,14 +26,14 @@
 
 // window position & size
 
-- (NSDictionary*) frame;
-- (void) setFrame:(NSDictionary*)frame;
+- (CGRect) frame;
+- (CGPoint) topLeft;
+- (CGSize) size;
 
-- (void) setTopLeft:(NSDictionary*)thePoint;
-- (void) setSize:(NSDictionary*)theSize;
+- (void) setFrame:(CGRect)frame;
+- (void) setTopLeft:(CGPoint)thePoint;
+- (void) setSize:(CGSize)theSize;
 
-- (NSDictionary*) topLeft;
-- (NSDictionary*) size;
 
 - (void) maximize;
 - (void) minimize;
@@ -45,11 +45,11 @@
 - (SDScreenProxy*) screen;
 - (SDAppProxy*) app;
 
-- (NSNumber*) isNormalWindow;
+- (BOOL) isNormalWindow;
 
 // focus
 
-- (NSNumber*) focusWindow;
+- (BOOL) focusWindow;
 
 - (void) focusWindowLeft;
 - (void) focusWindowRight;
@@ -64,7 +64,7 @@
 
 // other window properties
 
-- (NSString *) title;
-- (NSNumber*) isWindowMinimized;
+- (NSString*) title;
+- (BOOL) isWindowMinimized;
 
 @end

@@ -14,9 +14,7 @@
 
 - (void) show:(NSString*)oneLineMsg delay:(NSNumber*)delay;
 
-@property BOOL alertAnimates;
-
-@property IBOutlet NSTextField* textField;
-@property IBOutlet NSBox* box;
+@property CGFloat alertDisappearDelay;
+- (void) setAlertAnimates:(BOOL)alertAnimates;
 
 @end

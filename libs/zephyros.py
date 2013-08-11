@@ -174,6 +174,7 @@ class App(Proxy):
 class Api(Proxy):
     def alert(self, msg, duration=None): self._send_sync('alert', msg, duration)
     def log(self, msg): self._send_sync('log', msg)
+    def unbind(self, key, mods): self._send_sync('unbind', key, mods)
     def update_settings(self, new_settings): self._send_sync('update_settings', new_settings)
     def relaunch_config(self): self._send_sync('relaunch_config')
     def clipboard_contents(self): return self._send_sync('clipboard_contents')

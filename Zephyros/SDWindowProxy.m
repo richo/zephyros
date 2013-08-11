@@ -47,8 +47,8 @@
     return windows;
 }
 
-- (NSNumber*) isNormalWindow {
-    return @([[self subrole] isEqualToString: (__bridge NSString*)kAXStandardWindowSubrole]);
+- (BOOL) isNormalWindow {
+    return [[self subrole] isEqualToString: (__bridge NSString*)kAXStandardWindowSubrole];
 }
 
 + (NSArray*) visibleWindows {
@@ -56,9 +56,9 @@
         return nil;
     
     return [[self allWindows] filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(SDWindowProxy* win, NSDictionary *bindings) {
-        return ![[[win app] isHidden] boolValue]
-        && ![[win isWindowMinimized] boolValue]
-        && [[win isNormalWindow] boolValue];
+        return ![[win app] isHidden]
+        && ![win isWindowMinimized]
+        && [win isNormalWindow];
     }]];
 }
 
@@ -103,20 +103,20 @@
     return nil;
 }
 
-- (NSDictionary*) frame {
+- (CGRect) frame {
     CGRect r;
-    r.origin = SDPointFromDict([self topLeft]);
-    r.size = SDSizeFromDict([self size]);
-    return SDDictFromRect(r);
+    r.origin = [self topLeft];
+    r.size = [self size];
+    return r;
 }
 
-- (void) setFrame:(NSDictionary*)frameDict {
-    [self setSize: frameDict];
-    [self setTopLeft: frameDict];
-    [self setSize: frameDict];
+- (void) setFrame:(CGRect)frame {
+    [self setSize: frame.size];
+    [self setTopLeft: frame.origin];
+    [self setSize: frame.size];
 }
 
-- (NSDictionary*) topLeft {
+- (CGPoint) topLeft {
     CFTypeRef positionStorage;
     AXError result = AXUIElementCopyAttributeValue(self.window, (CFStringRef)NSAccessibilityPositionAttribute, &positionStorage);
     
@@ -135,10 +135,10 @@
     if (positionStorage)
         CFRelease(positionStorage);
     
-    return SDDictFromPoint(topLeft);
+    return topLeft;
 }
 
-- (NSDictionary*) size {
+- (CGSize) size {
     CFTypeRef sizeStorage;
     AXError result = AXUIElementCopyAttributeValue(self.window, (CFStringRef)NSAccessibilitySizeAttribute, &sizeStorage);
     
@@ -157,19 +157,17 @@
     if (sizeStorage)
         CFRelease(sizeStorage);
     
-    return SDDictFromSize(size);
+    return size;
 }
 
-- (void) setTopLeft:(NSDictionary*)thePointDict {
-    CGPoint thePoint = SDPointFromDict(thePointDict);
+- (void) setTopLeft:(CGPoint)thePoint {
     CFTypeRef positionStorage = (CFTypeRef)(AXValueCreate(kAXValueCGPointType, (const void *)&thePoint));
     AXUIElementSetAttributeValue(self.window, (CFStringRef)NSAccessibilityPositionAttribute, positionStorage);
     if (positionStorage)
         CFRelease(positionStorage);
 }
 
-- (void) setSize:(NSDictionary*)theSizeDict {
-    CGSize theSize = SDSizeFromDict(theSizeDict);
+- (void) setSize:(CGSize)theSize {
     CFTypeRef sizeStorage = (CFTypeRef)(AXValueCreate(kAXValueCGSizeType, (const void *)&theSize));
     AXUIElementSetAttributeValue(self.window, (CFStringRef)NSAccessibilitySizeAttribute, sizeStorage);
     if (sizeStorage)
@@ -177,13 +175,13 @@
 }
 
 - (SDScreenProxy*) screen {
-    CGRect windowFrame = SDRectFromDict([self frame]);
+    CGRect windowFrame = [self frame];
     
     CGFloat lastVolume = 0;
     SDScreenProxy* lastScreen = nil;
     
     for (SDScreenProxy* screen in [SDScreenProxy allScreens]) {
-        CGRect screenFrame = SDRectFromDict([screen frameIncludingDockAndMenu]);
+        CGRect screenFrame = [screen frameIncludingDockAndMenu];
         CGRect intersection = CGRectIntersection(windowFrame, screenFrame);
         CGFloat volume = intersection.size.width * intersection.size.height;
         
@@ -197,8 +195,8 @@
 }
 
 - (void) maximize {
-    CGRect screenRect = SDRectFromDict([[self screen] frameWithoutDockOrMenu]);
-    [self setFrame: SDDictFromRect(screenRect)];
+    CGRect screenRect = [[self screen] frameWithoutDockOrMenu];
+    [self setFrame: screenRect];
 }
 
 - (void) minimize {
@@ -209,17 +207,17 @@
     [self setWindowMinimized:NO];
 }
 
-- (NSNumber*) focusWindow {
+- (BOOL) focusWindow {
     AXError changedMainWindowResult = AXUIElementSetAttributeValue(self.window, (CFStringRef)NSAccessibilityMainAttribute, kCFBooleanTrue);
     if (changedMainWindowResult != kAXErrorSuccess) {
         NSLog(@"ERROR: Could not change focus to window");
-        return @NO;
+        return NO;
     }
     
     ProcessSerialNumber psn;
     GetProcessForPID([self processIdentifier], &psn);
     OSStatus focusAppResult = SetFrontProcessWithOptions(&psn, kSetFrontProcessFrontWindowOnly);
-    return @(focusAppResult == 0);
+    return (focusAppResult == 0);
 }
 
 - (pid_t) processIdentifier {
@@ -264,8 +262,8 @@
     return [self getWindowProperty:NSAccessibilitySubroleAttribute withDefaultValue:@""];
 }
 
-- (NSNumber*) isWindowMinimized {
-    return @([[self getWindowProperty:NSAccessibilityMinimizedAttribute withDefaultValue:@(NO)] boolValue]);
+- (BOOL) isWindowMinimized {
+    return [[self getWindowProperty:NSAccessibilityMinimizedAttribute withDefaultValue:@(NO)] boolValue];
 }
 
 - (void) setWindowMinimized:(BOOL)flag
@@ -284,13 +282,13 @@ NSPoint SDMidpoint(NSRect r) {
                 shouldDisregardFn:(BOOL(^)(double deltaX, double deltaY))shouldDisregardFn
 {
     SDWindowProxy* thisWindow = [SDWindowProxy focusedWindow];
-    NSPoint startingPoint = SDMidpoint(SDRectFromDict([thisWindow frame]));
+    NSPoint startingPoint = SDMidpoint([thisWindow frame]);
     
     NSArray* otherWindows = [thisWindow otherWindowsOnAllScreens];
     NSMutableArray* closestOtherWindows = [NSMutableArray arrayWithCapacity:[otherWindows count]];
     
     for (SDWindowProxy* win in otherWindows) {
-        NSPoint otherPoint = SDMidpoint(SDRectFromDict([win frame]));
+        NSPoint otherPoint = SDMidpoint([win frame]);
         
         double deltaX = otherPoint.x - startingPoint.x;
         double deltaY = otherPoint.y - startingPoint.y;
@@ -320,7 +318,7 @@ NSPoint SDMidpoint(NSRect r) {
 
 - (void) focusFirstValidWindowIn:(NSArray*)closestWindows {
     for (SDWindowProxy* win in closestWindows) {
-        if ([[win focusWindow] boolValue])
+        if ([win focusWindow])
             break;
     }
 }

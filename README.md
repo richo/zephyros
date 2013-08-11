@@ -13,8 +13,8 @@
 
 *The OS X window manager for hackers*
 
-* Current version: **4.3**
-* Requires: OS X 10.7 and up
+* Current version: **4.4.1**
+* Requires: OS X 10.8 and up
 * Download: get [.zip file](https://raw.github.com/sdegutis/zephyros/master/Builds/Zephyros-LATEST.app.tar.gz), unzip, right-click app, choose "Open"
 
 #### Basics
@@ -22,6 +22,12 @@
 At it's core, Zephyros just runs quietly in your menu bar, and listens for your script.
 
 You typically write a script that binds global hot keys to do stuff, like moving or resizing windows.
+
+#### See it in action
+
+Screenshots don't really do Zephyros justice, so here's a screencast instead. (I had a fever when making it so pardon any slight incoherence.)
+
+[![screencast](Graphics/sshot.png)](https://www.dropbox.com/s/qrvtmxmrxq40l1b/zephcast.mov)
 
 #### Some languages you can use
 
@@ -160,18 +166,25 @@ bind("D", ["cmd", "shift"], function() {
 
 #### More configs
 
-* [The author's config](https://github.com/sdegutis/dotfiles/blob/master/home/.zephyros.rb)
+* [The author's config](https://github.com/sdegutis/dotfiles/blob/master/stuff/zeph.rb)
 * Look in the [wiki home page](https://github.com/sdegutis/zephyros/wiki) for other people's configs (including a SizeUp emulator)
 
 ### Community
 
 - #zephyros on irc.freenode.org
-- [wiki home page](https://github.com/sdegutis/zephyros/wiki), a place to share configs and stuff
 
 ### Change log
 
 **NOTE:** This auto-updater won't work if you're on version 3.x or 2.x due to [this securty fix](https://github.com/sdegutis/zephyros/pull/21).<br>[Download Zephyros-4.3.zip](https://raw.github.com/sdegutis/zephyros/master/Builds/Zephyros-LATEST.app.tar.gz) directly instead.
 
+- 4.4.1
+    - Ruby API handles UTF-8 strings properly
+- 4.4
+    - Changed Go API to just use top-level functions for API
+    - Ruby API now works with Ruby 1.8
+    - Adds `unbind` to all APIs
+    - Changed Log window to be always-on-top
+    - Log window shows seconds in timestamp
 - 4.3
     - Many bug fixes and improvements
     - Added `window.other_windows_on_same_screen` and `window.other_windows_on_all_screens` to all APIs

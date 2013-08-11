@@ -10,7 +10,12 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-#import "SDAPI.h"
+@interface SDAlertWindowController ()
+
+@property IBOutlet NSTextField* textField;
+@property IBOutlet NSBox* box;
+
+@end
 
 @implementation SDAlertWindowController
 
@@ -19,16 +24,13 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedAlertWindowController = [[SDAlertWindowController alloc] init];
+        sharedAlertWindowController.alertDisappearDelay = 1.0;
     });
     return sharedAlertWindowController;
 }
 
 - (NSString*) windowNibName {
     return @"AlertWindow";
-}
-
-- (BOOL) alertAnimates {
-    return self.window.animationBehavior == NSWindowAnimationBehaviorAlertPanel;
 }
 
 - (void) setAlertAnimates:(BOOL)alertAnimates {
@@ -47,7 +49,7 @@
 
 - (void) show:(NSString*)oneLineMsg delay:(NSNumber*)delay {
     if (delay == nil || delay == (id)[NSNull null])
-        delay = @([SDAPI settings].alertDisappearDelay);
+        delay = @(self.alertDisappearDelay);
     
     NSDisableScreenUpdates();
     

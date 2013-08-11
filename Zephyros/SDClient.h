@@ -1,23 +1,26 @@
 //
-//  SDClient.h
+//  SDClientInterface.h
 //  Zephyros
 //
-//  Created by Steven Degutis on 7/31/13.
+//  Created by Steven on 8/11/13.
 //  Copyright (c) 2013 Giant Robot Software. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
-#import "GCDAsyncSocket.h"
-
-@interface SDClient : NSObject
-
-@property GCDAsyncSocket* sock;
-
-- (void) waitForNewMessage;
+@protocol SDClientDelegate <NSObject>
 
 - (void) sendMessage:(id)msg;
 
-@property (copy) void(^disconnectedHandler)(SDClient* me);
+@end
+
+
+@interface SDClient : NSObject
+
+- (void) handleMessage:(NSArray*)msg;
+
+- (void) destroy;
+
+@property (weak) id<SDClientDelegate> delegate;
 
 @end

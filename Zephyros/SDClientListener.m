@@ -10,7 +10,7 @@
 
 #import "GCDAsyncSocket.h"
 
-#import "SDClient.h"
+#import "SDClientBackend.h"
 
 #import "SDPreferencesWindowController.h"
 
@@ -56,8 +56,8 @@
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didAcceptNewSocket:(GCDAsyncSocket *)newSocket {
-    SDClient* client = [[SDClient alloc] init];
-    client.disconnectedHandler = ^(SDClient* me){
+    SDClientBackend* client = [[SDClientBackend alloc] init];
+    client.disconnectedHandler = ^(SDClientBackend* me){
         [self.clients removeObject:me];
     };
     newSocket.delegate = client;

@@ -1,21 +1,30 @@
 //
-//  SDClient.m
+//  SDClientInterface.m
 //  Zephyros
 //
-//  Created by Steven Degutis on 7/31/13.
+//  Created by Steven on 8/11/13.
 //  Copyright (c) 2013 Giant Robot Software. All rights reserved.
 //
 
 #import "SDClient.h"
 
-#define FOREVER (60*60*24*365)
+#import "SDFuzzyMatcher.h"
 
-#import "SDAPI.h"
 #import "SDHotKey.h"
+#import "SDEventListener.h"
+
+#import "SDConfigLauncher.h"
+
 #import "SDLogWindowController.h"
 #import "SDAlertWindowController.h"
-#import "SDConfigLauncher.h"
-#import "SDEventListener.h"
+
+#import "SDAppProxy.h"
+#import "SDWindowProxy.h"
+#import "SDScreenProxy.h"
+
+#import "SDGeometry.h"
+
+#import "SDClient.h"
 
 @interface SDClient ()
 
@@ -38,48 +47,7 @@
     return self;
 }
 
-- (void) waitForNewMessage {
-    [self.sock readDataToData:[@"\n" dataUsingEncoding:NSUTF8StringEncoding]
-                  withTimeout:FOREVER
-                          tag:0];
-}
-
-- (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag {
-    if (tag == 0) {
-        NSString* str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        NSInteger size = [str integerValue];
-        
-        NSString* sizeValidator = [NSString stringWithFormat:@"%ld\n", size];
-        
-        if (![sizeValidator isEqualToString:str]) {
-            [self showAPIError:[NSString stringWithFormat:@"API Error: expected JSON data-load length, got: %@", str]];
-            [self waitForNewMessage];
-            return;
-        }
-        
-        [self.sock readDataToLength:size
-                        withTimeout:FOREVER
-                                tag:1];
-    }
-    else if (tag == 1) {
-        NSError* __autoreleasing error;
-        id obj = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-        
-        if (obj == nil) {
-            NSString* rawJson = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-            [self showAPIError:[NSString stringWithFormat:@"API Error: expected valid JSON message, got: %@", rawJson]];
-            [self waitForNewMessage];
-            return;
-        }
-        
-        [self handleMessage:obj];
-        [self waitForNewMessage];
-    }
-}
-
-- (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err {
-//    NSLog(@"did disconnect");
-    
+- (void) destroy {
     for (SDHotKey* hotkey in self.hotkeys) {
         [hotkey unbind];
     }
@@ -87,8 +55,6 @@
     for (SDEventListener* listener in self.listeners) {
         [listener stopListening];
     }
-    
-    self.disconnectedHandler(self);
 }
 
 - (void) showAPIError:(NSString*)errorStr {
@@ -145,7 +111,7 @@
     NSNumber* newMaxID = @(self.maxRespObjID);
     
     [self.returnedObjects setObject:obj
-                       forKey:newMaxID];
+                             forKey:newMaxID];
     
     double delayInSeconds = 30.0;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
@@ -177,22 +143,8 @@
 }
 
 - (void) sendResponse:(id)result forID:(NSNumber*)msgID {
-    [self sendMessage:@[msgID, [self convertObj:result]]];
+    [self.delegate sendMessage:@[msgID, [self convertObj:result]]];
 //    NSLog(@"%@", self.returnedObjects);
-}
-
-- (void) sendMessage:(id)msg {
-//    NSLog(@"sending [%@]", msg);
-    
-    NSData* data = [NSJSONSerialization dataWithJSONObject:msg options:0 error:NULL];
-    
-//    NSString* tempStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    NSString* len = [NSString stringWithFormat:@"%ld", [data length]];
-//    NSLog(@"len = %@", len);
-//    NSLog(@"data = %@", tempStr);
-    [self.sock writeData:[len dataUsingEncoding:NSUTF8StringEncoding] withTimeout:3 tag:0];
-    [self.sock writeData:[GCDAsyncSocket LFData] withTimeout:3 tag:0];
-    [self.sock writeData:data withTimeout:3 tag:0];
 }
 
 - (id) receiverForID:(NSNumber*)recvID {
@@ -218,8 +170,8 @@
                     @"api": @{
                             @"bind": ^id(SDClient* client, NSNumber* msgID, id recv, NSArray* args) {
                                 SDHotKey* hotkey = [[SDHotKey alloc] init];
-                                hotkey.key = [args objectAtIndex:0];
-                                hotkey.modifiers = [args objectAtIndex:1];
+                                hotkey.key = [[args objectAtIndex:0] uppercaseString];
+                                hotkey.modifiers = [[args objectAtIndex:1] valueForKeyPath:@"uppercaseString"];
                                 hotkey.fn = ^{
                                     [client sendResponse:nil forID:msgID];
                                 };
@@ -232,6 +184,27 @@
                                 }
                                 
                                 return @-1;
+                            },
+                            @"unbind": ^id(SDClient* client, NSNumber* msgID, id recv, NSArray* args) {
+                                NSString* key = [[args objectAtIndex:0] uppercaseString];
+                                NSArray* modifiers = [[args objectAtIndex:1] valueForKeyPath:@"uppercaseString"];
+                                
+                                SDHotKey* foundHotkey;
+                                for (SDHotKey* existingHotkey in client.hotkeys) {
+                                    if ([existingHotkey.key isEqual: key] && [existingHotkey.modifiers isEqual: modifiers]) {
+                                        foundHotkey = existingHotkey;
+                                        break;
+                                    }
+                                }
+                                
+                                if (foundHotkey) {
+                                    [foundHotkey unbind];
+                                    [client.hotkeys removeObject:foundHotkey];
+                                    return @YES;
+                                }
+                                else {
+                                    return @NO;
+                                }
                             },
                             @"listen": ^id(SDClient* client, NSNumber* msgID, id recv, NSArray* args) {
                                 SDEventListener* listener = [[SDEventListener alloc] init];
@@ -254,11 +227,11 @@
                                 
                                 NSNumber* shouldAnimate = [settings objectForKey:@"alert_should_animate"];
                                 if ([shouldAnimate isKindOfClass: [NSNumber self]])
-                                    [SDAPI settings].alertAnimates = [shouldAnimate boolValue];
+                                    [[SDAlertWindowController sharedAlertWindowController] setAlertAnimates:[shouldAnimate boolValue]];
                                 
                                 NSNumber* defaultDuration = [settings objectForKey:@"alert_default_delay"];
                                 if ([defaultDuration isKindOfClass: [NSNumber self]])
-                                    [SDAPI settings].alertDisappearDelay = [defaultDuration doubleValue];
+                                    [SDAlertWindowController sharedAlertWindowController].alertDisappearDelay = [defaultDuration doubleValue];
                                 
                                 return nil;
                             },
@@ -294,13 +267,24 @@
                                 return nil;
                             },
                             @"choose_from": ^id(SDClient* client, NSNumber* msgID, id recv, NSArray* args) {
-                                [SDAPI chooseFrom:[args objectAtIndex:0]
-                                            title:[args objectAtIndex:1]
-                                            lines:[args objectAtIndex:2]
-                                            chars:[args objectAtIndex:3]
-                                         callback:^(id idx){
-                                             [client sendResponse:idx forID:msgID];
-                                         }];
+                                NSArray* list = [args objectAtIndex:0];
+                                NSString* title = [args objectAtIndex:1];
+                                NSNumber* lines = [args objectAtIndex:2];
+                                NSNumber* chars = [args objectAtIndex:3];
+                                
+                                [NSApp activateIgnoringOtherApps:YES];
+                                [SDFuzzyMatcher showChoices:list
+                                                  charsWide:[chars intValue]
+                                                  linesTall:[lines intValue]
+                                                windowTitle:title
+                                              choseCallback:^(long chosenIndex) {
+                                                  [NSApp hide:self];
+                                                  [client sendResponse:@(chosenIndex) forID:msgID];
+                                              }
+                                           canceledCallback:^{
+                                               [NSApp hide:self];
+                                               [client sendResponse:[NSNull null] forID:msgID];
+                                           }];
                                 return @1;
                             },
                             },
@@ -315,25 +299,25 @@
                                 return [recv otherWindowsOnAllScreens];
                             },
                             @"set_frame": ^id(SDClient* client, NSNumber* msgID, SDWindowProxy* recv, NSArray* args) {
-                                [recv setFrame:[args objectAtIndex:0]];
+                                [recv setFrame: SDRectFromDict([args objectAtIndex:0])];
                                 return nil;
                             },
                             @"set_top_left": ^id(SDClient* client, NSNumber* msgID, SDWindowProxy* recv, NSArray* args) {
-                                [recv setTopLeft:[args objectAtIndex:0]];
+                                [recv setTopLeft: SDPointFromDict([args objectAtIndex:0])];
                                 return nil;
                             },
                             @"set_size": ^id(SDClient* client, NSNumber* msgID, SDWindowProxy* recv, NSArray* args) {
-                                [recv setSize:[args objectAtIndex:0]];
+                                [recv setSize: SDSizeFromDict([args objectAtIndex:0])];
                                 return nil;
                             },
                             @"frame": ^id(SDClient* client, NSNumber* msgID, SDWindowProxy* recv, NSArray* args) {
-                                return [recv frame];
+                                return SDDictFromRect([recv frame]);
                             },
                             @"top_left": ^id(SDClient* client, NSNumber* msgID, SDWindowProxy* recv, NSArray* args) {
-                                return [recv topLeft];
+                                return SDDictFromPoint([recv topLeft]);
                             },
                             @"size": ^id(SDClient* client, NSNumber* msgID, SDWindowProxy* recv, NSArray* args) {
-                                return [recv size];
+                                return SDDictFromSize([recv size]);
                             },
                             @"maximize": ^id(SDClient* client, NSNumber* msgID, SDWindowProxy* recv, NSArray* args) {
                                 [recv maximize];
@@ -354,7 +338,7 @@
                                 return [recv screen];
                             },
                             @"focus_window": ^id(SDClient* client, NSNumber* msgID, SDWindowProxy* recv, NSArray* args) {
-                                return [recv focusWindow];
+                                return @([recv focusWindow]);
                             },
                             @"windows_to_north": ^id(SDClient* client, NSNumber* msgID, SDWindowProxy* recv, NSArray* args) {
                                 return [recv windowsToNorth];
@@ -385,10 +369,10 @@
                                 return nil;
                             },
                             @"normal_window?": ^id(SDClient* client, NSNumber* msgID, SDWindowProxy* recv, NSArray* args) {
-                                return [recv isNormalWindow];
+                                return @([recv isNormalWindow]);
                             },
                             @"minimized?": ^id(SDClient* client, NSNumber* msgID, SDWindowProxy* recv, NSArray* args) {
-                                return [recv isWindowMinimized];
+                                return @([recv isWindowMinimized]);
                             },
                             },
                     @"app": @{
@@ -402,7 +386,7 @@
                                 return [recv title];
                             },
                             @"hidden?": ^id(SDClient* client, NSNumber* msgID, SDAppProxy* recv, NSArray* args) {
-                                return [recv isHidden];
+                                return @([recv isHidden]);
                             },
                             @"show": ^id(SDClient* client, NSNumber* msgID, SDAppProxy* recv, NSArray* args) {
                                 [recv show];
@@ -423,10 +407,10 @@
                             },
                     @"screen": @{
                             @"frame_including_dock_and_menu": ^id(SDClient* client, NSNumber* msgID, SDScreenProxy* recv, NSArray* args) {
-                                return [recv frameIncludingDockAndMenu];
+                                return SDDictFromRect([recv frameIncludingDockAndMenu]);
                             },
                             @"frame_without_dock_or_menu": ^id(SDClient* client, NSNumber* msgID, SDScreenProxy* recv, NSArray* args) {
-                                return [recv frameWithoutDockOrMenu];
+                                return SDDictFromRect([recv frameWithoutDockOrMenu]);
                             },
                             @"next_screen": ^id(SDClient* client, NSNumber* msgID, SDScreenProxy* recv, NSArray* args) {
                                 return [recv nextScreen];

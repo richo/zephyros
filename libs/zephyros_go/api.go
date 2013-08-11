@@ -66,6 +66,10 @@ func Alert(msg string, dur int) {
 	send(0, nil, false, "alert", msg, dur)
 }
 
+func Unbind(key string, mods []string) {
+	send(0, nil, false, "unbind", key, mods)
+}
+
 func Log(msg string) {
 	send(0, nil, false, "log", msg)
 }

@@ -19,7 +19,7 @@
 - (NSArray*) visibleWindows;
 
 - (NSString*) title;
-- (NSNumber*) isHidden;
+- (BOOL) isHidden;
 - (void) show;
 - (void) hide;
 

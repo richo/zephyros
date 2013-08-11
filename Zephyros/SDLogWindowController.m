@@ -94,11 +94,13 @@
     NSLog(@"key down! %@", theEvent);
 }
 
-- (void) windowDidBecomeKey:(NSNotification *)notification {
-    self.window.level = NSNormalWindowLevel;
-}
+//- (void) windowDidBecomeKey:(NSNotification *)notification {
+//    self.window.level = NSNormalWindowLevel;
+//}
 
 - (void) windowDidLoad {
+    self.window.level = NSFloatingWindowLevel;
+    
     self.replHistory = [NSMutableArray array];
     self.webView.frameLoadDelegate = self;
     
@@ -118,7 +120,6 @@
 
 - (void) show:(NSString*)message type:(NSString*)type {
     if (!self.window.isVisible) {
-        self.window.level = NSFloatingWindowLevel;
         [self showWindow:nil];
     }
     
@@ -131,7 +132,7 @@
         
         NSDateFormatter* stampFormatter = [[NSDateFormatter alloc] init];
         stampFormatter.dateStyle = NSDateFormatterNoStyle;
-        stampFormatter.timeStyle = NSDateFormatterShortStyle;
+        stampFormatter.timeStyle = kCFDateFormatterMediumStyle;
         
         DOMHTMLDivElement* div = (id)[doc createElement:@"div"];
         div.className = classname;

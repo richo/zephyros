@@ -103,6 +103,7 @@ class Api(Proxy):
     def all_screens(self)
     def running_apps(self)
     def bind(self, key, mods, fn)
+    def unbind(self, key, mods)
     def choose_from(self, lst, title, lines, chars, fn)
     def update_settings(self, s) # dict with key 'alert_should_animate' (bool) and/or 'alert_default_delay' (number)
     def listen(self, event, fn):
