@@ -10,8 +10,6 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-#import "SDAPI.h"
-
 @interface SDAlertWindowController ()
 
 @property IBOutlet NSTextField* textField;

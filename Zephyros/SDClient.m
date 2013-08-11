@@ -10,7 +10,8 @@
 
 #define FOREVER (60*60*24*365)
 
-#import "SDAPI.h"
+#import "SDFuzzyMatcher.h"
+
 #import "SDHotKey.h"
 #import "SDLogWindowController.h"
 #import "SDAlertWindowController.h"
@@ -319,13 +320,24 @@
                                 return nil;
                             },
                             @"choose_from": ^id(SDClient* client, NSNumber* msgID, id recv, NSArray* args) {
-                                [SDAPI chooseFrom:[args objectAtIndex:0]
-                                            title:[args objectAtIndex:1]
-                                            lines:[args objectAtIndex:2]
-                                            chars:[args objectAtIndex:3]
-                                         callback:^(id idx){
-                                             [client sendResponse:idx forID:msgID];
-                                         }];
+                                NSArray* list = [args objectAtIndex:0];
+                                NSString* title = [args objectAtIndex:1];
+                                NSNumber* lines = [args objectAtIndex:2];
+                                NSNumber* chars = [args objectAtIndex:3];
+                                
+                                [NSApp activateIgnoringOtherApps:YES];
+                                [SDFuzzyMatcher showChoices:list
+                                                  charsWide:[chars intValue]
+                                                  linesTall:[lines intValue]
+                                                windowTitle:title
+                                              choseCallback:^(long chosenIndex) {
+                                                  [NSApp hide:self];
+                                                  [client sendResponse:@(chosenIndex) forID:msgID];
+                                              }
+                                           canceledCallback:^{
+                                               [NSApp hide:self];
+                                               [client sendResponse:[NSNull null] forID:msgID];
+                                           }];
                                 return @1;
                             },
                             },
