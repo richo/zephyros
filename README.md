@@ -166,7 +166,7 @@ bind("D", ["cmd", "shift"], function() {
 
 #### More configs
 
-* [The author's config](https://github.com/sdegutis/dotfiles/blob/master/home/.zephyros.rb)
+* [The author's config](https://github.com/sdegutis/dotfiles/blob/master/stuff/zeph.rb)
 * Look in the [wiki home page](https://github.com/sdegutis/zephyros/wiki) for other people's configs (including a SizeUp emulator)
 
 ### Community
