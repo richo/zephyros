@@ -22,6 +22,8 @@
 @property (copy) dispatch_block_t beforeReady;
 @property BOOL ready;
 
+@property SDClient* replClient;
+
 @end
 
 @implementation SDLogWindowController
@@ -39,14 +41,23 @@
     return @"LogWindow";
 }
 
+- (void) sendMessage:(id)msg {
+    NSData* strData = [NSJSONSerialization dataWithJSONObject:msg options:0 error:NULL];
+    NSString* str = [[NSString alloc] initWithData:strData encoding:NSUTF8StringEncoding];
+    
+    [self show:str type:SDLogMessageTypeREPL];
+    [self.replTextField setStringValue:@""];
+}
+
 - (IBAction) evalFromRepl:(id)sender {
-//    NSString* command = [sender stringValue];
-//    NSString* str = [[SDConfigLoader sharedConfigLoader] evalString:command];
-//    [self show:str type:SDLogMessageTypeREPL];
-//    [sender setStringValue:@""];
-//    
-//    [self.replHistory addObject:command];
-//    self.replHistoryPos = [self.replHistory count];
+    NSString* command = [sender stringValue];
+    
+    NSArray* jsonCmd = [NSJSONSerialization JSONObjectWithData:[command dataUsingEncoding:NSUTF8StringEncoding] options:0 error:NULL];
+    
+    [self.replClient handleMessage:jsonCmd];
+    
+    [self.replHistory addObject:command];
+    self.replHistoryPos = [self.replHistory count];
 }
 
 - (IBAction) clearLog:(id)sender {
@@ -99,6 +110,9 @@
 //}
 
 - (void) windowDidLoad {
+    self.replClient = [[SDClient alloc] init];
+    self.replClient.delegate = self;
+    
     self.window.level = NSFloatingWindowLevel;
     
     self.replHistory = [NSMutableArray array];
