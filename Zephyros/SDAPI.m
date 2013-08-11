@@ -18,44 +18,7 @@
 
 #import "SDFuzzyMatcher.h"
 
-@implementation SDAPISettings
-
-- (id) init {
-    if (self = [super init]) {
-        self.alertDisappearDelay = 1.0;
-        self.alertAnimates = YES;
-    }
-    return self;
-}
-
-- (BOOL) alertAnimates {
-    return [SDAlertWindowController sharedAlertWindowController].alertAnimates;
-}
-
-- (void) setAlertAnimates:(BOOL)alertAnimates {
-    [SDAlertWindowController sharedAlertWindowController].alertAnimates = alertAnimates;
-}
-
-- (NSBox*) alertBox {
-    return [SDAlertWindowController sharedAlertWindowController].box;
-}
-
-- (NSTextField*) alertTextField {
-    return [SDAlertWindowController sharedAlertWindowController].textField;
-}
-
-@end
-
 @implementation SDAPI
-
-+ (SDAPISettings*) settings {
-    static SDAPISettings* settings;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        settings = [[SDAPISettings alloc] init];
-    });
-    return settings;
-}
 
 + (void) chooseFrom:(NSArray*)list
               title:(NSString*)title

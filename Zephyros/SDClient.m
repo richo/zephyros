@@ -17,6 +17,10 @@
 #import "SDConfigLauncher.h"
 #import "SDEventListener.h"
 
+#import "SDAppProxy.h"
+#import "SDWindowProxy.h"
+#import "SDScreenProxy.h"
+
 @interface SDClient ()
 
 @property int64_t maxRespObjID;
@@ -275,11 +279,11 @@
                                 
                                 NSNumber* shouldAnimate = [settings objectForKey:@"alert_should_animate"];
                                 if ([shouldAnimate isKindOfClass: [NSNumber self]])
-                                    [SDAPI settings].alertAnimates = [shouldAnimate boolValue];
+                                    [[SDAlertWindowController sharedAlertWindowController] setAlertAnimates:[shouldAnimate boolValue]];
                                 
                                 NSNumber* defaultDuration = [settings objectForKey:@"alert_default_delay"];
                                 if ([defaultDuration isKindOfClass: [NSNumber self]])
-                                    [SDAPI settings].alertDisappearDelay = [defaultDuration doubleValue];
+                                    [SDAlertWindowController sharedAlertWindowController].alertDisappearDelay = [defaultDuration doubleValue];
                                 
                                 return nil;
                             },
