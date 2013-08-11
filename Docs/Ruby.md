@@ -34,7 +34,7 @@ class API
     def unbind(key, mods); end
 
     def log(str); end
-    def alert(msg); end
+    def alert(msg, duration=2); end
 
     def update_settings(s); # hash with key 'alert_should_animate' (bool) and/or 'alert_default_delay' (number)
 
