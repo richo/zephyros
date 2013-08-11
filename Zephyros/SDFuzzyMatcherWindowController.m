@@ -31,17 +31,6 @@
 
 
 
-NSPoint SDGetTopLeftPointOfView(NSView* view) {
-    NSPoint pointInWindow = [view convertPoint:NSZeroPoint toView:nil];
-    pointInWindow.y -= [view frame].size.height;
-    NSRect rectInWindow = NSZeroRect;
-    rectInWindow.origin = pointInWindow;
-    NSRect rectInScreen = [[view window] convertRectToScreen:rectInWindow];
-    return rectInScreen.origin;
-}
-
-
-
 @implementation SDFuzzyMatcherWindowController
 
 - (NSString*) windowNibName {
