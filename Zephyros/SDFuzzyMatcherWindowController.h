@@ -23,8 +23,6 @@
 
 @property id<SDKilledDelegate>killedDelegate;
 
-- (void) attachToField:(NSTextField*)otherField;
-
 - (void) positionWindowAndShow;
 
 @end

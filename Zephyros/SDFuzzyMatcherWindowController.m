@@ -24,9 +24,6 @@
 @property NSIndexSet* selectionIndexes;
 @property long selection;
 
-@property BOOL attached;
-@property id oldDelegate;
-
 @property long chosenIdx;
 @property BOOL actuallyChoseOne;
 
@@ -66,29 +63,12 @@ NSPoint SDGetTopLeftPointOfView(NSView* view) {
 }
 
 - (void) positionWindowAndShow {
-    if (!self.attached)
-        [[self window] center];
-    
+    [[self window] center];
     [self showWindow:self];
 }
 
-- (void) attachToField:(NSTextField*)otherField {
-    self.window.styleMask = NSBorderlessWindowMask;
-    
-    self.oldDelegate = otherField.delegate;
-    otherField.delegate = self;
-    
-    self.tryTextField = otherField;
-    self.attached = YES;
-    
-    [self resizeWindowOrElse];
-    
-    NSPoint topLeftPoint = SDGetTopLeftPointOfView(self.tryTextField);
-    [self.window setFrameTopLeftPoint:topLeftPoint];
-}
-
 - (void) resizeWindowOrElse {
-    CGFloat margin = (self.attached? 0 : 8);
+    CGFloat margin = 8;
     
     NSRect windowFrame = [self.window frame];
     NSRect innerWindowFrame = [[self.window contentView] frame];
@@ -104,14 +84,12 @@ NSPoint SDGetTopLeftPointOfView(NSView* view) {
     NSRect fieldFrame;
     CGFloat extraWindowHeight = 0;
     
-    if (!self.attached) {
-        fieldFrame = self.tryTextField.frame;
-        fieldFrame.origin.y = margin + NSMaxY(tableFrame);
-        fieldFrame.origin.x = margin;
-        fieldFrame.size.width = tableFrame.size.width;
-        
-        extraWindowHeight = fieldFrame.size.height + margin;
-    }
+    fieldFrame = self.tryTextField.frame;
+    fieldFrame.origin.y = margin + NSMaxY(tableFrame);
+    fieldFrame.origin.x = margin;
+    fieldFrame.size.width = tableFrame.size.width;
+    
+    extraWindowHeight = fieldFrame.size.height + margin;
     
     windowFrame.size.width = diffX + tableFrame.size.width + (margin * 2.0);
     windowFrame.size.height = diffY + tableFrame.size.height + (margin * 2.0) + extraWindowHeight;
@@ -119,15 +97,10 @@ NSPoint SDGetTopLeftPointOfView(NSView* view) {
     [self.window setFrame:windowFrame display:NO];
     self.choicesTableContainer.frame = tableFrame;
     
-    if (!self.attached) {
-        self.tryTextField.frame = fieldFrame;
-    }
+    self.tryTextField.frame = fieldFrame;
 }
 
 - (void) chooseCurrentChoice {
-    if (self.attached)
-        self.tryTextField.delegate = self.oldDelegate;
-    
     self.actuallyChoseOne = YES;
     self.chosenIdx = self.selection;
     
@@ -135,9 +108,6 @@ NSPoint SDGetTopLeftPointOfView(NSView* view) {
 }
 
 - (void) justGiveUp {
-    if (self.attached)
-        self.tryTextField.delegate = self.oldDelegate;
-    
     [self close];
 }
 

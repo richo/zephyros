@@ -19,11 +19,4 @@
        choseCallback:(void(^)(long chosenIndex))choseCallback
     canceledCallback:(dispatch_block_t)canceledCallback;
 
-+ (void) showChoices:(NSArray*)choices
-           charsWide:(int)charsWide
-           linesTall:(int)linesTall
-             onField:(NSTextField*)field
-       choseCallback:(void(^)(long chosenIndex))choseCallback
-    canceledCallback:(dispatch_block_t)canceledCallback;
-
 @end
