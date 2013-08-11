@@ -12,7 +12,9 @@
 #define SDLogMessageTypeUser @"SDLogMessageTypeUser"
 #define SDLogMessageTypeREPL @"SDLogMessageTypeREPL"
 
-@interface SDLogWindowController : NSWindowController <NSWindowDelegate>
+#import "SDClient.h"
+
+@interface SDLogWindowController : NSWindowController <NSWindowDelegate, SDClientDelegate>
 
 + (SDLogWindowController*) sharedLogWindowController;
 
