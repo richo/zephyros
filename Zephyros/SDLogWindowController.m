@@ -14,15 +14,9 @@
 
 @interface SDLogWindowController ()
 
-@property IBOutlet NSTextField* replTextField;
-@property NSMutableArray* replHistory;
-@property NSInteger replHistoryPos;
-
 @property IBOutlet WebView* webView;
 @property (copy) dispatch_block_t beforeReady;
 @property BOOL ready;
-
-@property SDClient* replClient;
 
 @end
 
@@ -41,27 +35,6 @@
     return @"LogWindow";
 }
 
-- (void) sendResponse:(id)msg {
-    NSData* strData = [NSJSONSerialization dataWithJSONObject:msg options:0 error:NULL];
-    NSString* str = [[NSString alloc] initWithData:strData encoding:NSUTF8StringEncoding];
-    
-    [self show:str type:SDLogMessageTypeREPL];
-    [self.replTextField setStringValue:@""];
-}
-
-- (IBAction) evalFromRepl:(id)sender {
-    NSString* command = [sender stringValue];
-    
-    NSArray* jsonCmd = [NSJSONSerialization JSONObjectWithData:[command dataUsingEncoding:NSUTF8StringEncoding] options:0 error:NULL];
-    
-    [self log:command type:SDLogMessageTypeREPL];
-    
-    [self.replClient handleRequest:jsonCmd];
-    
-    [self.replHistory addObject:command];
-    self.replHistoryPos = [self.replHistory count];
-}
-
 - (IBAction) clearLog:(id)sender {
     DOMDocument* doc = [self.webView mainFrameDocument];
     [doc body].innerHTML = @"";
@@ -76,48 +49,13 @@
     }
 }
 
-- (void) showCurrentReplHistoryItem {
-    NSString* str = @"";
-    
-    if (self.replHistoryPos < [self.replHistory count])
-        str = [self.replHistory objectAtIndex:self.replHistoryPos];
-    
-    [self.replTextField setStringValue:str];
-    NSText* fieldEditor = [[self.replTextField window] fieldEditor:YES forObject:self.replTextField];
-    [fieldEditor moveToEndOfLine:self];
-}
-
-- (BOOL)control:(NSControl *)control textView:(NSTextView *)textView doCommandBySelector:(SEL)command {
-    if (command == @selector(moveUp:)) {
-        // move LOWER in list
-        self.replHistoryPos = MAX(self.replHistoryPos - 1, 0);
-        [self showCurrentReplHistoryItem];
-        return YES;
-    }
-    else if (command == @selector(moveDown:)) {
-        // move HIGHER in list
-        self.replHistoryPos = MIN(self.replHistoryPos + 1, [self.replHistory count]);
-        [self showCurrentReplHistoryItem];
-        return YES;
-    }
-    return NO;
-}
-
-- (void) keyDown:(NSEvent *)theEvent {
-    NSLog(@"key down! %@", theEvent);
-}
-
 //- (void) windowDidBecomeKey:(NSNotification *)notification {
 //    self.window.level = NSNormalWindowLevel;
 //}
 
 - (void) windowDidLoad {
-    self.replClient = [[SDClient alloc] init];
-    self.replClient.delegate = self;
-    
     self.window.level = NSFloatingWindowLevel;
     
-    self.replHistory = [NSMutableArray array];
     self.webView.frameLoadDelegate = self;
     
     NSURL* path = [[NSBundle mainBundle] URLForResource:@"logwindow" withExtension:@"html"];
@@ -142,7 +80,6 @@
         
         NSString* classname = [@{SDLogMessageTypeError: @"error",
                                SDLogMessageTypeUser: @"user",
-                               SDLogMessageTypeREPL: @"repl",
                                SDLogMessageTypeRequest: @"request",
                                SDLogMessageTypeResponse: @"response"} objectForKey:type];
         
