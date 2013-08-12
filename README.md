@@ -179,6 +179,9 @@ bind("D", ["cmd", "shift"], function() {
 
 **NOTE:** This auto-updater won't work if you're on version 3.x or 2.x due to [this securty fix](https://github.com/sdegutis/zephyros/pull/21).<br>[Download Zephyros-4.3.zip](https://raw.github.com/sdegutis/zephyros/master/Builds/Zephyros-LATEST.app.tar.gz) directly instead.
 
+- HEAD
+    - Added `zepl` tool for communicating with Zephyros via plain JSON
+    - Made Log window waaaay better
 - 4.4.1
     - Ruby API handles UTF-8 strings properly
 - 4.4
