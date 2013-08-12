@@ -41,7 +41,7 @@
     return @"LogWindow";
 }
 
-- (void) sendMessage:(id)msg {
+- (void) sendResponse:(id)msg {
     NSData* strData = [NSJSONSerialization dataWithJSONObject:msg options:0 error:NULL];
     NSString* str = [[NSString alloc] initWithData:strData encoding:NSUTF8StringEncoding];
     
@@ -54,7 +54,7 @@
     
     NSArray* jsonCmd = [NSJSONSerialization JSONObjectWithData:[command dataUsingEncoding:NSUTF8StringEncoding] options:0 error:NULL];
     
-    [self.replClient handleMessage:jsonCmd];
+    [self.replClient handleRequest:jsonCmd];
     
     [self.replHistory addObject:command];
     self.replHistoryPos = [self.replHistory count];
@@ -132,17 +132,17 @@
         self.beforeReady = blk;
 }
 
-- (void) show:(NSString*)message type:(NSString*)type {
-    if (!self.window.isVisible) {
-        [self showWindow:nil];
-    }
+- (void) log:(NSString*)message type:(NSString*)type {
+    [self window]; // le sigh
     
     [self doWhenReady:^{
         DOMDocument* doc = [self.webView mainFrameDocument];
         
         NSString* classname = [@{SDLogMessageTypeError: @"error",
                                SDLogMessageTypeUser: @"user",
-                               SDLogMessageTypeREPL: @"repl"} objectForKey:type];
+                               SDLogMessageTypeREPL: @"repl",
+                               SDLogMessageTypeRequest: @"request",
+                               SDLogMessageTypeResponse: @"response"} objectForKey:type];
         
         NSDateFormatter* stampFormatter = [[NSDateFormatter alloc] init];
         stampFormatter.dateStyle = NSDateFormatterNoStyle;
@@ -162,6 +162,14 @@
         
         [[self.webView windowScriptObject] evaluateWebScript:@"window.scrollTo(0, document.body.scrollHeight);"];
     }];
+}
+
+- (void) show:(NSString*)message type:(NSString*)type {
+    if (!self.window.isVisible) {
+        [self showWindow:nil];
+    }
+    
+    [self log:message type:type];
 }
 
 @end

@@ -11,6 +11,8 @@
 #define SDLogMessageTypeError @"SDLogMessageTypeError"
 #define SDLogMessageTypeUser @"SDLogMessageTypeUser"
 #define SDLogMessageTypeREPL @"SDLogMessageTypeREPL"
+#define SDLogMessageTypeRequest @"SDLogMessageTypeRequest"
+#define SDLogMessageTypeResponse @"SDLogMessageTypeResponse"
 
 #import "SDClient.h"
 
@@ -19,5 +21,6 @@
 + (SDLogWindowController*) sharedLogWindowController;
 
 - (void) show:(NSString*)message type:(NSString*)type;
+- (void) log:(NSString*)message type:(NSString*)type;
 
 @end

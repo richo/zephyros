@@ -18,8 +18,6 @@
 
 - (void) waitForNewMessage;
 
-- (void) sendMessage:(id)msg;
-
 @property (copy) void(^disconnectedHandler)(SDClientBackend* me);
 
 @end

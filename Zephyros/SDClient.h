@@ -10,14 +10,14 @@
 
 @protocol SDClientDelegate <NSObject>
 
-- (void) sendMessage:(id)msg;
+- (void) sendResponse:(id)msg;
 
 @end
 
 
 @interface SDClient : NSObject
 
-- (void) handleMessage:(NSArray*)msg;
+- (void) handleRequest:(NSArray*)msg;
 
 - (void) destroy;
 
