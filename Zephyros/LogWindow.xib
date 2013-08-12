@@ -136,7 +136,7 @@
 						<object class="NSBox" id="427681236">
 							<reference key="NSNextResponder" ref="1006"/>
 							<int key="NSvFlags">34</int>
-							<string key="NSFrame">{{0, 40}, {433, 5}}</string>
+							<string key="NSFrame">{{0, 39}, {433, 5}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="221428549"/>
