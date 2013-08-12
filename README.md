@@ -44,11 +44,13 @@ You can script Zephyros from any language, using [this simple protocol](Docs/Pro
 
 These languages might be fun to write one in:
 
-- Using node.js (see [issue 17](../../issues/17))
-- Using Lua
-- Using Elixir
-- Using Rust
-- Using Racket
+- Scala
+- Haskell
+- Lua
+- Elixir
+- Rust
+- Racket
+- node.js (see [issue 17](../../issues/17))
 
 If you want to do one, please [open an issue](https://github.com/sdegutis/zephyros/issues/new) so we can coordinate. That way nobody does extra work.
 
