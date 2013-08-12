@@ -62,7 +62,7 @@
                                                        type:SDLogMessageTypeError];
 }
 
-- (void) handleMessage:(NSArray*)msg {
+- (void) handleRequest:(NSArray*)msg {
     if ([msg count] < 3) {
         [self showAPIError:[NSString stringWithFormat:@"API error: invalid message: %@", msg]];
         return;
@@ -143,7 +143,7 @@
 }
 
 - (void) sendResponse:(id)result forID:(NSNumber*)msgID {
-    [self.delegate sendMessage:@[msgID, [self convertObj:result]]];
+    [self.delegate sendResponse:@[msgID, [self convertObj:result]]];
 //    NSLog(@"%@", self.returnedObjects);
 }
 

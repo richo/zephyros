@@ -36,10 +36,13 @@
                           tag:0];
 }
 
-- (void) sendMessage:(id)msg {
+- (void) sendResponse:(id)msg {
 //    NSLog(@"sending [%@]", msg);
     
     NSData* data = [NSJSONSerialization dataWithJSONObject:msg options:0 error:NULL];
+    
+    NSString* dataStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    [[SDLogWindowController sharedLogWindowController] log:dataStr type:SDLogMessageTypeResponse];
     
 //    NSString* tempStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     NSString* len = [NSString stringWithFormat:@"%ld", [data length]];
@@ -70,16 +73,18 @@
     else if (tag == 1) {
         NSError* __autoreleasing error;
         id obj = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+        NSString* rawJson = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         
         if (obj == nil) {
-            NSString* rawJson = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
             [self showAPIError:[NSString stringWithFormat:@"API Error: expected valid JSON message, got: %@", rawJson]];
             [self waitForNewMessage];
-            return;
         }
-        
-        [self.client handleMessage:obj];
-        [self waitForNewMessage];
+        else {
+            [[SDLogWindowController sharedLogWindowController] log:rawJson type:SDLogMessageTypeRequest];
+            
+            [self.client handleRequest:obj];
+            [self waitForNewMessage];
+        }
     }
 }
 
