@@ -25,7 +25,6 @@
 		945AD7C217A8692A00578BEB /* NSString+Score.m in Sources */ = {isa = PBXBuildFile; fileRef = 945AD7BC17A8692A00578BEB /* NSString+Score.m */; };
 		9463D43417A77E2C00A3E905 /* SDGeometry.m in Sources */ = {isa = PBXBuildFile; fileRef = 9463D43317A77E2C00A3E905 /* SDGeometry.m */; };
 		9466562217AFA5EE00B68607 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9466562117AFA5EE00B68607 /* ApplicationServices.framework */; };
-		946B3AAF1721C5C800FB05F3 /* logwindow.html in Resources */ = {isa = PBXBuildFile; fileRef = 946B3AAE1721C5C800FB05F3 /* logwindow.html */; };
 		946C596217B7CF6A0021A540 /* SDClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 946C596117B7CF6A0021A540 /* SDClient.m */; };
 		94779BD117A85CB000649169 /* Licenses in Resources */ = {isa = PBXBuildFile; fileRef = 94779BD017A85CB000649169 /* Licenses */; };
 		947DC99317A5BC990082D095 /* SDPreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 947DC99117A5BC990082D095 /* SDPreferencesWindowController.m */; };
@@ -134,7 +133,6 @@
 		9463D43317A77E2C00A3E905 /* SDGeometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDGeometry.m; sourceTree = "<group>"; };
 		9466561F17AFA58400B68607 /* HIToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HIToolbox.framework; path = System/Library/Frameworks/Carbon.framework/Frameworks/HIToolbox.framework; sourceTree = SDKROOT; };
 		9466562117AFA5EE00B68607 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
-		946B3AAE1721C5C800FB05F3 /* logwindow.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = logwindow.html; sourceTree = "<group>"; };
 		946C596017B7CF6A0021A540 /* SDClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDClient.h; sourceTree = "<group>"; };
 		946C596117B7CF6A0021A540 /* SDClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDClient.m; sourceTree = "<group>"; };
 		94779BD017A85CB000649169 /* Licenses */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Licenses; sourceTree = SOURCE_ROOT; };
@@ -295,7 +293,6 @@
 				94DAFB521719B99A00526003 /* LogWindow.xib */,
 				94DAFB4F1719B98500526003 /* SDLogWindowController.h */,
 				94DAFB501719B98500526003 /* SDLogWindowController.m */,
-				946B3AAE1721C5C800FB05F3 /* logwindow.html */,
 			);
 			name = "Log Window";
 			sourceTree = "<group>";
@@ -580,7 +577,6 @@
 				94454B38171B4179003EF64E /* AlertWindow.xib in Resources */,
 				947E995F171D18B6006F30AC /* Credits.rtf in Resources */,
 				94E0964E171EDBA6002D8668 /* dsa_pub.pem in Resources */,
-				946B3AAF1721C5C800FB05F3 /* logwindow.html in Resources */,
 				947DC99417A5BC990082D095 /* SDPreferencesWindow.xib in Resources */,
 				94779BD117A85CB000649169 /* Licenses in Resources */,
 				945AD7BE17A8692A00578BEB /* SDFuzzyMatcherWindow.xib in Resources */,

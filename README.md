@@ -227,7 +227,6 @@ bind("D", ["cmd", "shift"], function() {
 
 Are you good at stuff? We could use these things:
 
-* Better CSS styling in [the Log Window](Zephyros/logwindow.html)
 * Better app icon
 * Better menu bar icon
 
