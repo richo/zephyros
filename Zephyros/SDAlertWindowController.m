@@ -23,7 +23,7 @@
 
 @interface SDAlertWindowController : NSWindowController
 
-- (void) show:(NSString*)oneLineMsg duration:(CGFloat)duration;
+- (void) show:(NSString*)oneLineMsg duration:(CGFloat)duration pushDownBy:(CGFloat)adjustment;
 
 @property (weak) id<SDAlertHoraMortisNostraeDelegate> delegate;
 
@@ -58,9 +58,21 @@
 }
 
 - (void) show:(NSString*)oneLineMsg duration:(CGFloat)duration {
+    CGFloat absoluteTop;
+    
+    if ([self.visibleAlerts count] == 0) {
+        NSScreen* currentScreen = [NSScreen mainScreen];
+        CGRect screenRect = [currentScreen frame];
+        absoluteTop = screenRect.size.height / 1.55; // pretty good spot
+    }
+    else {
+        SDAlertWindowController* ctrl = [self.visibleAlerts lastObject];
+        absoluteTop = NSMinY([[ctrl window] frame]) - 3.0;
+    }
+    
     SDAlertWindowController* alert = [[SDAlertWindowController alloc] init];
     alert.delegate = self;
-    [alert show:oneLineMsg duration:duration];
+    [alert show:oneLineMsg duration:duration pushDownBy:absoluteTop];
     [self.visibleAlerts addObject:alert];
 }
 
@@ -101,13 +113,11 @@
 //    self.collectionBehavior = NSWindowCollectionBehaviorCanJoinAllSpaces | NSWindowCollectionBehaviorStationary;
 }
 
-- (void) show:(NSString*)oneLineMsg duration:(CGFloat)duration {
+- (void) show:(NSString*)oneLineMsg duration:(CGFloat)duration pushDownBy:(CGFloat)adjustment {
     NSDisableScreenUpdates();
     
     [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(fadeWindowOut) object:nil];
     [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(closeAndResetWindow) object:nil];
-    
-//    [self closeAndResetWindow];
     
     [NSAnimationContext beginGrouping];
     [[NSAnimationContext currentContext] setDuration:0.01];
@@ -115,13 +125,22 @@
     [NSAnimationContext endGrouping];
     
     [self useTitleAndResize:[oneLineMsg description]];
-    
-    [self.window center];
+    [self setFrameWithAdjustment:adjustment];
     [self showWindow:self];
-    
     [self performSelector:@selector(fadeWindowOut) withObject:nil afterDelay:duration];
     
     NSEnableScreenUpdates();
+}
+
+- (void) setFrameWithAdjustment:(CGFloat)pushDownBy {
+    NSScreen* currentScreen = [NSScreen mainScreen];
+    CGRect screenRect = [currentScreen frame];
+    CGRect winRect = [[self window] frame];
+    
+    winRect.origin.x = (screenRect.size.width / 2.0) - (winRect.size.width / 2.0);
+    winRect.origin.y = pushDownBy - winRect.size.height;
+    
+    [self.window setFrame:winRect display:NO];
 }
 
 - (void) fadeWindowOut {
