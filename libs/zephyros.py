@@ -34,7 +34,9 @@ class ZephClient(object):
             while True:
                 in_str = self.sock.recv(1)
                 if in_str == '\n':
-                     break
+                    break
+                if in_str == '':
+                    raise RuntimeError("socket connection broken")
                 len_str += in_str
 
             len_num = int(len_str)
