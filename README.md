@@ -23,17 +23,6 @@ At it's core, Zephyros just runs quietly in your menu bar, and listens for your 
 
 You typically write a script that binds global hot keys to do stuff, like moving or resizing windows.
 
-#### Some languages you can use
-
-- [Using Clojure](Docs/Clojure.md)
-- [Using Ruby](Docs/Ruby.md)
-- [Using Python](Docs/Python.md)
-- [Using Go](Docs/Go.md)
-- [Using JavaScript](Docs/JavaScript.md)
-- [Using CoffeeScript](Docs/CoffeeScript.md)
-
-Don't see your favorite language here? See the [using other languages](#using-other-languages) section.
-
 #### Stuff you can do
 
 - find the focused window
@@ -47,7 +36,16 @@ Don't see your favorite language here? See the [using other languages](#using-ot
 - get free pizza (okay not really)
 - and more!
 
-Is the API missing something you need? File an issue and let me know!
+#### Some languages you can use
+
+- [Using Clojure](Docs/Clojure.md)
+- [Using Ruby](Docs/Ruby.md)
+- [Using Python](Docs/Python.md)
+- [Using Go](Docs/Go.md)
+- [Using JavaScript](Docs/JavaScript.md)
+- [Using CoffeeScript](Docs/CoffeeScript.md)
+
+Don't see your favorite language here? See the [using other languages](#using-other-languages) section.
 
 #### Auto-reloading configs
 
