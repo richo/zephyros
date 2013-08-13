@@ -27,6 +27,11 @@
 		9466562217AFA5EE00B68607 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9466562117AFA5EE00B68607 /* ApplicationServices.framework */; };
 		946C596217B7CF6A0021A540 /* SDClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 946C596117B7CF6A0021A540 /* SDClient.m */; };
 		94779BD117A85CB000649169 /* Licenses in Resources */ = {isa = PBXBuildFile; fileRef = 94779BD017A85CB000649169 /* Licenses */; };
+		947DC89317B9D18700F2128F /* SDClientProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 947DC89217B9D18700F2128F /* SDClientProxy.m */; };
+		947DC89617B9D19F00F2128F /* SDTopLevelClientProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 947DC89517B9D19F00F2128F /* SDTopLevelClientProxy.m */; };
+		947DC89917B9D1B800F2128F /* SDWindowClientProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 947DC89817B9D1B800F2128F /* SDWindowClientProxy.m */; };
+		947DC89C17B9D1C100F2128F /* SDAppClientProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 947DC89B17B9D1C100F2128F /* SDAppClientProxy.m */; };
+		947DC89F17B9D1D100F2128F /* SDScreenClientProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 947DC89E17B9D1D100F2128F /* SDScreenClientProxy.m */; };
 		947DC99317A5BC990082D095 /* SDPreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 947DC99117A5BC990082D095 /* SDPreferencesWindowController.m */; };
 		947DC99417A5BC990082D095 /* SDPreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 947DC99217A5BC990082D095 /* SDPreferencesWindow.xib */; };
 		947DC99D17A5D0940082D095 /* SDPathWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 947DC99C17A5D0940082D095 /* SDPathWatcher.m */; };
@@ -136,6 +141,16 @@
 		946C596017B7CF6A0021A540 /* SDClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDClient.h; sourceTree = "<group>"; };
 		946C596117B7CF6A0021A540 /* SDClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDClient.m; sourceTree = "<group>"; };
 		94779BD017A85CB000649169 /* Licenses */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Licenses; sourceTree = SOURCE_ROOT; };
+		947DC89117B9D18700F2128F /* SDClientProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDClientProxy.h; sourceTree = "<group>"; };
+		947DC89217B9D18700F2128F /* SDClientProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDClientProxy.m; sourceTree = "<group>"; };
+		947DC89417B9D19F00F2128F /* SDTopLevelClientProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDTopLevelClientProxy.h; sourceTree = "<group>"; };
+		947DC89517B9D19F00F2128F /* SDTopLevelClientProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDTopLevelClientProxy.m; sourceTree = "<group>"; };
+		947DC89717B9D1B800F2128F /* SDWindowClientProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWindowClientProxy.h; sourceTree = "<group>"; };
+		947DC89817B9D1B800F2128F /* SDWindowClientProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDWindowClientProxy.m; sourceTree = "<group>"; };
+		947DC89A17B9D1C100F2128F /* SDAppClientProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDAppClientProxy.h; sourceTree = "<group>"; };
+		947DC89B17B9D1C100F2128F /* SDAppClientProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDAppClientProxy.m; sourceTree = "<group>"; };
+		947DC89D17B9D1D100F2128F /* SDScreenClientProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDScreenClientProxy.h; sourceTree = "<group>"; };
+		947DC89E17B9D1D100F2128F /* SDScreenClientProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDScreenClientProxy.m; sourceTree = "<group>"; };
 		947DC99017A5BC990082D095 /* SDPreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDPreferencesWindowController.h; sourceTree = "<group>"; };
 		947DC99117A5BC990082D095 /* SDPreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDPreferencesWindowController.m; sourceTree = "<group>"; };
 		947DC99217A5BC990082D095 /* SDPreferencesWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SDPreferencesWindow.xib; sourceTree = "<group>"; };
@@ -264,6 +279,21 @@
 				945AD7BC17A8692A00578BEB /* NSString+Score.m */,
 			);
 			name = "Fuzzy Matcher";
+			sourceTree = "<group>";
+		};
+		947DC89017B9D17A00F2128F /* Client Proxies */ = {
+			isa = PBXGroup;
+			children = (
+				947DC89417B9D19F00F2128F /* SDTopLevelClientProxy.h */,
+				947DC89517B9D19F00F2128F /* SDTopLevelClientProxy.m */,
+				947DC89717B9D1B800F2128F /* SDWindowClientProxy.h */,
+				947DC89817B9D1B800F2128F /* SDWindowClientProxy.m */,
+				947DC89A17B9D1C100F2128F /* SDAppClientProxy.h */,
+				947DC89B17B9D1C100F2128F /* SDAppClientProxy.m */,
+				947DC89D17B9D1D100F2128F /* SDScreenClientProxy.h */,
+				947DC89E17B9D1D100F2128F /* SDScreenClientProxy.m */,
+			);
+			name = "Client Proxies";
 			sourceTree = "<group>";
 		};
 		947DC98B17A5B9400082D095 /* Events */ = {
@@ -470,6 +500,9 @@
 				94B255AA17A9B5E2008CFD26 /* SDClientBackend.m */,
 				946C596017B7CF6A0021A540 /* SDClient.h */,
 				946C596117B7CF6A0021A540 /* SDClient.m */,
+				947DC89117B9D18700F2128F /* SDClientProxy.h */,
+				947DC89217B9D18700F2128F /* SDClientProxy.m */,
+				947DC89017B9D17A00F2128F /* Client Proxies */,
 			);
 			name = Clients;
 			sourceTree = "<group>";
@@ -624,6 +657,11 @@
 				94E02EE817AB462A005AE3E8 /* SDInsetHorizontalLine.m in Sources */,
 				94DC5FDD17ADAC3700274A92 /* SDShellCommand.m in Sources */,
 				946C596217B7CF6A0021A540 /* SDClient.m in Sources */,
+				947DC89317B9D18700F2128F /* SDClientProxy.m in Sources */,
+				947DC89617B9D19F00F2128F /* SDTopLevelClientProxy.m in Sources */,
+				947DC89917B9D1B800F2128F /* SDWindowClientProxy.m in Sources */,
+				947DC89C17B9D1C100F2128F /* SDAppClientProxy.m in Sources */,
+				947DC89F17B9D1D100F2128F /* SDScreenClientProxy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
