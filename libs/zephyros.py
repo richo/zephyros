@@ -186,9 +186,9 @@ class Api(Proxy):
     def running_apps(self): return [App(x) for x in  self._send_sync('running_apps')]
     def bind(self, key, mods, fn):
         def tmp_fn(obj): fn()
-        zeph.send_message([0, 'bind', key, mods], callback=tmp_fn)
+        zeph.send_message([self.id, 'bind', key, mods], callback=tmp_fn)
     def choose_from(self, lst, title, lines, chars, fn):
-        zeph.send_message([0, 'choose_from', lst, title, lines, chars], callback=fn, infinite=False)
+        zeph.send_message([self.id, 'choose_from', lst, title, lines, chars], callback=fn, infinite=False)
     def listen(self, event, fn):
         def tmp_fn(obj):
             if event == "window_created":       fn(Window(obj))
@@ -202,6 +202,6 @@ class Api(Proxy):
             elif event == "app_shown":          fn(App(obj))
             elif event == "screens_changed":    fn()
             elif event == "mouse_moved":        fn(obj)
-        zeph.send_message([0, 'listen', event], callback=tmp_fn)
+        zeph.send_message([self.id, 'listen', event], callback=tmp_fn)
 
 api = Api(None)
