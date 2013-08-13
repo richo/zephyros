@@ -46,11 +46,12 @@
 }
 
 - (id) bind:(NSArray*)args msgID:(id)msgID {
-//    [self check:args forTypes:@[[NSString self], [NSArray self]] inMethod:_cmd];
+    SDTypeCheckArg(NSString, key, 0);
+    SDTypeCheckArg(NSArray, mods, 0);
     
     SDHotKey* hotkey = [[SDHotKey alloc] init];
-    hotkey.key = [[args objectAtIndex:0] uppercaseString];
-    hotkey.modifiers = [[args objectAtIndex:1] valueForKeyPath:@"uppercaseString"];
+    hotkey.key = [key uppercaseString];
+    hotkey.modifiers = [mods valueForKeyPath:@"uppercaseString"];
     hotkey.fn = ^{
         [self.client sendResponse:nil forID:msgID];
     };
