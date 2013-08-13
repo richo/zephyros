@@ -17,18 +17,16 @@
 
 ### Experimenting with the protocol
 
-You can use `zepl`, which is found at `Zephyros.app/Contents/Resources/libs/zepl/zepl`. It lets you send JSON to Zephyros, and shows you all responses.
+You can use `zepl` to send JSON to Zephyros, and see all responses. (It's nicer with `rlwrap`, found in homebrew.)
 
 ```bash
-$ rlwrap path/to/zepl
+$ rlwrap /Applications/Zephyros.app/Contents/Resources/libs/zepl/zepl
 -> [0, null, "alert", "hello world", 2]
 <- [0,null]
 ->
 ```
 
-(It's easiest to use with rlwrap, which you can get via homebrew.)
-
-I think it'd be easier if `zepl` was a Homebrew package. But one of their rules is that authors shouldn't submit their own tools, someone else has to. Maybe that someone is you? :)
+It might be easier if `zepl` was a Homebrew package. But one of their rules is that authors shouldn't submit their own tools, someone else has to. Maybe that someone is you? :)
 
 ### Pseudo-sync
 
