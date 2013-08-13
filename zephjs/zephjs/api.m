@@ -137,6 +137,8 @@ NSString* sd_js_api() {
     "    fn(idx) if first == 3\n"
     "  SDZephJS.sharedZeph().sendAsyncMessage_responses_callbackJSFunc_([NSNull.null(), 'choose_from', list, title, lines, chars], 2, trampolineFn)\n"
     "log = (str) -> SDZephJS.sharedZeph().sendSyncMessage([NSNull.null(), 'log', str])\n"
+    "showBox = (str) -> SDZephJS.sharedZeph().sendSyncMessage([NSNull.null(), 'show_box', str])\n"
+    "hideBox = -> SDZephJS.sharedZeph().sendSyncMessage([NSNull.null(), 'hide_box'])\n"
     "update_settings = (s) -> SDZephJS.sharedZeph().sendSyncMessage([NSNull.null(), 'update_settings', s])\n"
     "require = (file) -> SDZephJS.sharedZeph().requireFromJS(file)\n"
     "alert = (str, delay = NSNull.null()) -> SDZephJS.sharedZeph().sendSyncMessage([NSNull.null(), 'alert', str, delay])\n"

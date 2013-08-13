@@ -13,7 +13,7 @@
 
 *The OS X window manager for hackers*
 
-* Current version: **4.4.1**
+* Current version: **4.5**
 * Requires: OS X 10.8 and up
 * Download: get [.zip file](https://raw.github.com/sdegutis/zephyros/master/Builds/Zephyros-LATEST.app.tar.gz), unzip, right-click app, choose "Open"
 
@@ -179,9 +179,14 @@ bind("D", ["cmd", "shift"], function() {
 
 **NOTE:** This auto-updater won't work if you're on version 3.x or 2.x due to [this securty fix](https://github.com/sdegutis/zephyros/pull/21).<br>[Download Zephyros-4.3.zip](https://raw.github.com/sdegutis/zephyros/master/Builds/Zephyros-LATEST.app.tar.gz) directly instead.
 
-- HEAD
+- 4.5
     - Added `zepl` tool for communicating with Zephyros via plain JSON
-    - Made Log window waaaay better
+        - Use it with `rlwrap` (from homebrew) for best results
+    - Several UI improvements
+    - Added `show_box(str)` and `hide_box` to all APIs
+    - Added `mouse_moved` listenable-event
+    - Better API error-reporting
+    - Makes sure auto-launched process dies when Zephyros exits
 - 4.4.1
     - Ruby API handles UTF-8 strings properly
 - 4.4
