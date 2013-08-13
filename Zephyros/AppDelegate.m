@@ -60,6 +60,10 @@
     self.statusItem.highlightMode = YES;
 }
 
+- (void) applicationWillTerminate:(NSNotification *)notification {
+    [[SDConfigLauncher sharedConfigLauncher] unlaunch];
+}
+
 - (IBAction) accidentally93mb:(id)sender {
     [NSApp activateIgnoringOtherApps:YES];
     NSRunAlertPanel(@"Accidentally 93mb", @"are.. are you sure? this is dangerous...", @"wat", @"😕", nil);
