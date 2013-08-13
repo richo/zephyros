@@ -89,7 +89,7 @@
         @try {
             #pragma clang diagnostic push // in' as you're shovin', and I'm slippin' back into... the gap again
             #pragma clang diagnostic ignored "-Warc-performSelector-leaks" // *plonk*
-            result = [self performSelector:sel withObject:args withObject:msgID];
+            result = [recv performSelector:sel withObject:args withObject:msgID];
             #pragma clang diagnostic pop // rocks aren't all they're cracked up to be
         }
         @catch (NSException *exception) {
