@@ -48,11 +48,6 @@ You typically write a script that binds global hot keys to do stuff, like moving
 
 Don't see your favorite language here? See the [using other languages](#using-other-languages) section.
 
-#### Auto-reloading configs
-
-* Automatically reload your config file whenever it (or anything you choose) changes.
-* Bind a global hot key to reloading it.
-
 ### Example Configs
 
 #### Ruby [(docs)](Docs/Ruby.md)
