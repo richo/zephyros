@@ -77,10 +77,20 @@
     NSArray* args = [msg subarrayWithRange:NSMakeRange(3, [msg count] - 3)];
     SDClientProxy* recv = [self.returnedObjects objectForKey:recvID];
     
+    SEL sel = NSSelectorFromString([[meth stringByReplacingOccurrencesOfString:@"?" withString:@"_q"] stringByAppendingString:@":msgID:"]);
+    
+    if (![recv respondsToSelector:sel]) {
+        [self showAPIError:[NSString stringWithFormat:@"API Error: Could not find method [%@] on object of type [%@]", meth, [self className]]];
+        [self sendResponse:nil forID:msgID];
+    }
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         id result = nil;
         @try {
-            result = [recv call:meth args:args msgID:msgID];
+            #pragma clang diagnostic push // in' as you're shovin', and I'm slippin' back into... the gap again
+            #pragma clang diagnostic ignored "-Warc-performSelector-leaks" // *plonk*
+            result = [self performSelector:sel withObject:args withObject:msgID];
+            #pragma clang diagnostic pop // rocks aren't all they're cracked up to be
         }
         @catch (NSException *exception) {
             [self showAPIError:[exception description]];
