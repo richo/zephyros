@@ -15,6 +15,9 @@
 @property (weak) SDClient* client;
 @property id receiver;
 
+- (void) argumentError:(SEL)sel index:(int)idx wantedClass:(Class)klass got:(id)realArg;
+- (void) arrayError:(SEL)sel index:(int)idx wantedClass:(Class)klass got:(id)realArg;
+
 @end
 
 
@@ -23,15 +26,24 @@
 #define SDTypeCheckArg(klass, name, idx) \
 klass* name; \
 do { \
-id arg = [args objectAtIndex:idx]; \
-if (![arg isKindOfClass:[klass self]]) { \
-[self.client showAPIError:[NSString stringWithFormat:@"API Error: in method [%@] on object of type [%@], argument %d was expected to be type %@ but was %@", \
-NSStringFromSelector(_cmd), \
-[self className], \
-idx, \
-[klass self], \
-[arg className]]]; \
-return nil; \
-} \
-name = arg; \
-} while(0) \
+    id arg = [args objectAtIndex:idx]; \
+    if (![arg isKindOfClass:[klass self]]) { \
+        [self argumentError:_cmd index:idx wantedClass:[klass self] got:arg]; \
+        return nil; \
+    } \
+    name = arg; \
+} while(0)
+
+
+
+#define SDTypeCheckArray(ary, klass) \
+do { \
+    int idx = 0; \
+    for (id obj in ary) { \
+        if (![obj isKindOfClass:[klass self]]) { \
+            [self arrayError:_cmd index:idx wantedClass:[klass self] got:obj]; \
+            return nil; \
+        } \
+        idx++; \
+    } \
+} while(0)

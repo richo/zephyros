@@ -62,6 +62,7 @@
 							<string key="NSFrame">{{568, 2}, {52, 17}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="1060017535">
@@ -208,7 +209,7 @@
 													<reference key="NSTableView" ref="436320999"/>
 												</object>
 												<object class="NSTableColumn" id="1004346941">
-													<double key="NSWidth">451</double>
+													<double key="NSWidth">503</double>
 													<double key="NSMinWidth">40</double>
 													<double key="NSMaxWidth">1000</double>
 													<object class="NSTableHeaderCell" key="NSHeaderCell">
@@ -289,7 +290,7 @@
 									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 									<reference key="NSTarget" ref="164622819"/>
 									<string key="NSAction">_doScroller:</string>
-									<double key="NSPercent">0.92753623188405798</double>
+									<double key="NSPercent">0.93927125506072873</double>
 								</object>
 								<object class="NSScroller" id="1033394671">
 									<reference key="NSNextResponder" ref="164622819"/>
@@ -344,7 +345,7 @@
 					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="164622819"/>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {2560, 1418}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<string key="NSFrameAutosaveName">configProb</string>
 				<bool key="NSAutorecalculatesContentBorderThicknessMinY">NO</bool>
@@ -409,14 +410,14 @@
 							<string key="NSLabel">value: arrangedObjects.type</string>
 							<string key="NSBinding">value</string>
 							<string key="NSKeyPath">arrangedObjects.type</string>
-							<dictionary key="NSOptions">
-								<boolean value="NO" key="NSConditionallySetsEnabled"/>
-								<string key="NSValueTransformerName">SDLogTypeTransformer</string>
-							</dictionary>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSValueTransformerName</string>
+								<string key="NS.object.0">SDLogTypeTransformer</string>
+							</object>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">66</int>
+					<int key="connectionID">68</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -647,7 +648,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">67</int>
+			<int key="maxID">68</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

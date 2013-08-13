@@ -25,17 +25,20 @@
 }
 
 - (id) set_frame:(NSArray*)args msgID:(id)msgID {
-    [self.receiver setFrame: SDRectFromDict([args objectAtIndex:0])];
+    SDTypeCheckArg(NSDictionary, frame, 0);
+    [self.receiver setFrame: SDRectFromDict(frame)];
     return nil;
 }
 
 - (id) set_top_left:(NSArray*)args msgID:(id)msgID {
-    [self.receiver setTopLeft: SDPointFromDict([args objectAtIndex:0])];
+    SDTypeCheckArg(NSDictionary, top_left, 0);
+    [self.receiver setTopLeft: SDPointFromDict(top_left)];
     return nil;
 }
 
 - (id) set_size:(NSArray*)args msgID:(id)msgID {
-    [self.receiver setSize: SDSizeFromDict([args objectAtIndex:0])];
+    SDTypeCheckArg(NSDictionary, size, 0);
+    [self.receiver setSize: SDSizeFromDict(size)];
     return nil;
 }
 

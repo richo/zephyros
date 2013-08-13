@@ -47,7 +47,8 @@
 
 - (id) bind:(NSArray*)args msgID:(id)msgID {
     SDTypeCheckArg(NSString, key, 0);
-    SDTypeCheckArg(NSArray, mods, 0);
+    SDTypeCheckArg(NSArray, mods, 1);
+    SDTypeCheckArray(mods, NSString);
     
     SDHotKey* hotkey = [[SDHotKey alloc] init];
     hotkey.key = [key uppercaseString];
@@ -67,8 +68,12 @@
 }
 
 - (id) unbind:(NSArray*)args msgID:(id)msgID {
-    NSString* key = [[args objectAtIndex:0] uppercaseString];
-    NSArray* modifiers = [[args objectAtIndex:1] valueForKeyPath:@"uppercaseString"];
+    SDTypeCheckArg(NSString, key, 0);
+    SDTypeCheckArg(NSArray, mods, 1);
+    SDTypeCheckArray(mods, NSString);
+    
+    key = [key uppercaseString];
+    NSArray* modifiers = [mods valueForKeyPath:@"uppercaseString"];
     
     SDHotKey* foundHotkey;
     for (SDHotKey* existingHotkey in self.hotkeys) {
@@ -89,8 +94,10 @@
 }
 
 - (id) listen:(NSArray*)args msgID:(id)msgID {
+    SDTypeCheckArg(NSString, event, 0);
+    
     SDEventListener* listener = [[SDEventListener alloc] init];
-    listener.eventName = [args objectAtIndex:0];
+    listener.eventName = event;
     listener.fn = ^(id thing) {
         [self.client sendResponse:thing forID:msgID];
     };
@@ -107,7 +114,7 @@
 }
 
 - (id) update_settings:(NSArray*)args msgID:(id)msgID {
-    NSDictionary* settings = [args objectAtIndex:0];
+    SDTypeCheckArg(NSDictionary, settings, 0);
     
     NSNumber* shouldAnimate = [settings objectForKey:@"alert_should_animate"];
     if ([shouldAnimate isKindOfClass: [NSNumber self]])
@@ -149,19 +156,21 @@
 }
 
 - (id) log:(NSArray*)args msgID:(id)msgID {
-    [[SDLogWindowController sharedLogWindowController] show:[args objectAtIndex:0]
+    SDTypeCheckArg(NSString, str, 0);
+    
+    [[SDLogWindowController sharedLogWindowController] show:str
                                                        type:SDLogMessageTypeUser];
     return nil;
 }
 
 - (id) alert:(NSArray*)args msgID:(id)msgID {
-    NSString* msg = [args objectAtIndex:0];
+    SDTypeCheckArg(NSString, msg, 0);
     NSNumber* duration = [args objectAtIndex:1];
-    
     if (duration == nil || [duration isEqual: [NSNull null]]) {
         [[SDAlerts sharedAlerts] show:msg];
     }
     else {
+        SDTypeCheckArg(NSNumber, duration, 1);
         [[SDAlerts sharedAlerts] show:msg
                              duration:[duration doubleValue]];
     }
@@ -170,10 +179,11 @@
 }
 
 - (id) choose_from:(NSArray*)args msgID:(id)msgID {
-    NSArray* list = [args objectAtIndex:0];
-    NSString* title = [args objectAtIndex:1];
-    NSNumber* lines = [args objectAtIndex:2];
-    NSNumber* chars = [args objectAtIndex:3];
+    SDTypeCheckArg(NSArray, list, 0);
+    SDTypeCheckArg(NSString, title, 1);
+    SDTypeCheckArg(NSNumber, lines, 2);
+    SDTypeCheckArg(NSNumber, chars, 3);
+    SDTypeCheckArray(list, NSString);
     
     [NSApp activateIgnoringOtherApps:YES];
     [SDFuzzyMatcher showChoices:list
