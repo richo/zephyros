@@ -99,8 +99,6 @@
 }
 
 - (void) refreshLogs:(id)alwaysNil {
-    [self window]; // le sigh
-    
     [self willChangeValueForKey:@"logs"];
     [self didChangeValueForKey:@"logs"];
     
