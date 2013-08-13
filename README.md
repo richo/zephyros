@@ -25,6 +25,7 @@ You typically write a script that binds global hot keys to do stuff, like moving
 
 #### Stuff you can do
 
+- register for callbacks on global hotkeys
 - find the focused window
 - determine window sizes and positions
 - move and resize windows
