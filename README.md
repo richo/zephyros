@@ -32,21 +32,7 @@ You typically write a script that binds global hot keys to do stuff, like moving
 - [Using JavaScript](Docs/JavaScript.md)
 - [Using CoffeeScript](Docs/CoffeeScript.md)
 
-#### Want to add another language?
-
-You can script Zephyros from any language, using [this simple protocol](Docs/Protocol.md).
-
-These languages might be fun to write one in:
-
-- Scala
-- Haskell
-- Lua
-- Elixir
-- Rust
-- Racket
-- node.js (see [issue 17](../../issues/17))
-
-If you want to do one, please [open an issue](https://github.com/sdegutis/zephyros/issues/new) so we can coordinate. That way nobody does extra work.
+Don't see your favorite language here? See the [using other languages](#using-other-languages) section.
 
 #### Stuff you can do
 
@@ -159,6 +145,16 @@ bind("D", ["cmd", "shift"], function() {
   win.setFrame(frame)
 })
 ```
+
+#### Using other languages
+
+You can script Zephyros from nearly any language. Just write a client that talks to Zephyros using [this simple protocol](Docs/Protocol.md).
+
+Here's what people are working on:
+
+- node.js (see [issue 17](../../issues/17))
+
+If you want to do one, please [open an issue](https://github.com/sdegutis/zephyros/issues/new) so we can coordinate. That way nobody does extra work.
 
 #### More configs
 
