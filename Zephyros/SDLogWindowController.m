@@ -76,6 +76,14 @@
 //    self.window.level = NSNormalWindowLevel;
 //}
 
+- (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {
+    SDLog* log = [self.logs objectAtIndex:row];
+    NSArray* lines = [log.json componentsSeparatedByString:@"\n"];
+    NSUInteger numRows = MAX(1, [lines count] - 1);
+    CGFloat normalHeight = [tableView rowHeight];
+    return normalHeight * (CGFloat)numRows;
+}
+
 - (void) windowDidLoad {
     self.window.level = NSFloatingWindowLevel;
     [[self window] center];
