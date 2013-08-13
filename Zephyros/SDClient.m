@@ -37,6 +37,7 @@
         self.topLevel.client = self;
         
         [self.returnedObjects setObject:self.topLevel forKey:[NSNull null]];
+        [self.returnedObjects setObject:self.topLevel forKey:@0]; // backwards compatibility :'(
     }
     return self;
 }
@@ -77,10 +78,15 @@
     NSArray* args = [msg subarrayWithRange:NSMakeRange(3, [msg count] - 3)];
     SDClientProxy* recv = [self.returnedObjects objectForKey:recvID];
     
+    if (recv == nil) {
+        [self showAPIError:[NSString stringWithFormat:@"API Error: Could not find receiver with ID %@", recvID]];
+        [self sendResponse:nil forID:msgID];
+    }
+    
     SEL sel = NSSelectorFromString([[meth stringByReplacingOccurrencesOfString:@"?" withString:@"_q"] stringByAppendingString:@":msgID:"]);
     
     if (![recv respondsToSelector:sel]) {
-        [self showAPIError:[NSString stringWithFormat:@"API Error: Could not find method [%@] on object of type [%@]", meth, [self className]]];
+        [self showAPIError:[NSString stringWithFormat:@"API Error: Could not find method %@.%@", [recv className], meth]];
         [self sendResponse:nil forID:msgID];
     }
     
