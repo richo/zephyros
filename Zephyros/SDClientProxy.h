@@ -8,6 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+#import "SDClient.h"
+
 @interface SDClientProxy : NSObject
+
+@property SDClient* client;
+@property NSNumber* msgID;
+@property id receiver;
 
 @end

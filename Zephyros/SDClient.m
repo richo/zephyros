@@ -18,9 +18,10 @@
 #import "SDLogWindowController.h"
 #import "SDAlertWindowController.h"
 
-#import "SDAppProxy.h"
-#import "SDWindowProxy.h"
-#import "SDScreenProxy.h"
+#import "SDTopLevelClientProxy.h"
+#import "SDAppClientProxy.h"
+#import "SDWindowClientProxy.h"
+#import "SDScreenClientProxy.h"
 
 #import "SDGeometry.h"
 
@@ -103,7 +104,7 @@
     });
 }
 
-- (NSNumber*) storeObj:(id)obj {
+- (NSNumber*) storeObj:(id)obj withWrapper:(Class)wrapper {
     if (!self.returnedObjects)
         self.returnedObjects = [NSMutableDictionary dictionary];
     
@@ -135,8 +136,14 @@
         
         return newArray;
     }
-    else if ([obj isKindOfClass:[SDWindowProxy self]] || [obj isKindOfClass:[SDScreenProxy self]] || [obj isKindOfClass:[SDAppProxy self]]) {
-        return [self storeObj:obj];
+    else if ([obj isKindOfClass:[SDWindowProxy self]]) {
+        return [self storeObj:obj withWrapper:[SDWindowClientProxy self]];
+    }
+    else if ([obj isKindOfClass:[SDScreenProxy self]]) {
+        return [self storeObj:obj withWrapper:[SDScreenClientProxy self]];
+    }
+    else if ([obj isKindOfClass:[SDAppProxy self]]) {
+        return [self storeObj:obj withWrapper:[SDAppClientProxy self]];
     }
     
     return obj;

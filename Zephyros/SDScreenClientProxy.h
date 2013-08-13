@@ -8,6 +8,8 @@
 
 #import "SDClientProxy.h"
 
+#import "SDScreenProxy.h"
+
 @interface SDScreenClientProxy : SDClientProxy
 
 @end

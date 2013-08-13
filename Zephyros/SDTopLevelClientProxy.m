@@ -10,4 +10,16 @@
 
 @implementation SDTopLevelClientProxy
 
++ (id) method:(SEL)sel args:(NSArray*)types {
+    return nil;
+}
+
++ (NSDictionary*) mappings {
+    return @{@"bind": [self method:@selector(bind:mods:) args:@[[NSString self], [NSArray self]]]};
+}
+
+- (id) bind:(NSString*)key mods:(NSArray*)mods {
+    return nil;
+}
+
 @end
