@@ -227,11 +227,11 @@
                                 
                                 NSNumber* shouldAnimate = [settings objectForKey:@"alert_should_animate"];
                                 if ([shouldAnimate isKindOfClass: [NSNumber self]])
-                                    [[SDAlertWindowController sharedAlertWindowController] setAlertAnimates:[shouldAnimate boolValue]];
+                                    [SDAlerts sharedAlerts].alertAnimates = [shouldAnimate boolValue];
                                 
                                 NSNumber* defaultDuration = [settings objectForKey:@"alert_default_delay"];
                                 if ([defaultDuration isKindOfClass: [NSNumber self]])
-                                    [SDAlertWindowController sharedAlertWindowController].alertDisappearDelay = [defaultDuration doubleValue];
+                                    [SDAlerts sharedAlerts].alertDisappearDelay = [defaultDuration doubleValue];
                                 
                                 return nil;
                             },
@@ -257,8 +257,17 @@
                                 return [SDAppProxy runningApps];
                             },
                             @"alert": ^id(SDClient* client, NSNumber* msgID, id recv, NSArray* args) {
-                                [[SDAlertWindowController sharedAlertWindowController] show:[args objectAtIndex:0]
-                                                                                      delay:[args objectAtIndex:1]];
+                                NSString* msg = [args objectAtIndex:0];
+                                NSNumber* duration = [args objectAtIndex:1];
+                                
+                                if (duration == nil || [duration isEqual: [NSNull null]]) {
+                                    [[SDAlerts sharedAlerts] show:msg];
+                                }
+                                else {
+                                    [[SDAlerts sharedAlerts] show:msg
+                                                         duration:[duration doubleValue]];
+                                }
+                                
                                 return nil;
                             },
                             @"log": ^id(SDClient* client, NSNumber* msgID, id recv, NSArray* args) {

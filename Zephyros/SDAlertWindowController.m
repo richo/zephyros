@@ -10,6 +10,74 @@
 
 #import <QuartzCore/QuartzCore.h>
 
+
+
+
+@protocol SDAlertHoraMortisNostraeDelegate <NSObject>
+
+- (void) oraPro:(id)nobis;
+
+@end
+
+
+
+@interface SDAlertWindowController : NSWindowController
+
+- (void) show:(NSString*)oneLineMsg duration:(CGFloat)duration;
+
+@property (weak) id<SDAlertHoraMortisNostraeDelegate> delegate;
+
+@end
+
+
+
+
+
+@interface SDAlerts () <SDAlertHoraMortisNostraeDelegate>
+
+@property NSMutableArray* visibleAlerts;
+
+@end
+
+
+@implementation SDAlerts
+
++ (SDAlerts*) sharedAlerts {
+    static SDAlerts* sharedAlerts;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedAlerts = [[SDAlerts alloc] init];
+        sharedAlerts.alertDisappearDelay = 1.0;
+        sharedAlerts.visibleAlerts = [NSMutableArray array];
+    });
+    return sharedAlerts;
+}
+
+- (void) show:(NSString*)oneLineMsg {
+    [self show:oneLineMsg duration:self.alertDisappearDelay];
+}
+
+- (void) show:(NSString*)oneLineMsg duration:(CGFloat)duration {
+    SDAlertWindowController* alert = [[SDAlertWindowController alloc] init];
+    alert.delegate = self;
+    [alert show:oneLineMsg duration:duration];
+    [self.visibleAlerts addObject:alert];
+}
+
+- (void) oraPro:(id)nobis {
+    [self.visibleAlerts removeObject:nobis];
+}
+
+@end
+
+
+
+
+
+
+
+
+
 @interface SDAlertWindowController ()
 
 @property IBOutlet NSTextField* textField;
@@ -19,22 +87,8 @@
 
 @implementation SDAlertWindowController
 
-+ (SDAlertWindowController*) sharedAlertWindowController {
-    static SDAlertWindowController* sharedAlertWindowController;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        sharedAlertWindowController = [[SDAlertWindowController alloc] init];
-        sharedAlertWindowController.alertDisappearDelay = 1.0;
-    });
-    return sharedAlertWindowController;
-}
-
 - (NSString*) windowNibName {
     return @"AlertWindow";
-}
-
-- (void) setAlertAnimates:(BOOL)alertAnimates {
-    self.window.animationBehavior = (alertAnimates ? NSWindowAnimationBehaviorAlertPanel : NSWindowAnimationBehaviorNone);
 }
 
 - (void) windowDidLoad {
@@ -43,20 +97,17 @@
     self.window.opaque = NO;
     self.window.level = NSFloatingWindowLevel;
     self.window.ignoresMouseEvents = YES;
-    self.window.animationBehavior = NSWindowAnimationBehaviorAlertPanel;
+    self.window.animationBehavior = ([SDAlerts sharedAlerts].alertAnimates ? NSWindowAnimationBehaviorAlertPanel : NSWindowAnimationBehaviorNone);
 //    self.collectionBehavior = NSWindowCollectionBehaviorCanJoinAllSpaces | NSWindowCollectionBehaviorStationary;
 }
 
-- (void) show:(NSString*)oneLineMsg delay:(NSNumber*)delay {
-    if (delay == nil || delay == (id)[NSNull null])
-        delay = @(self.alertDisappearDelay);
-    
+- (void) show:(NSString*)oneLineMsg duration:(CGFloat)duration {
     NSDisableScreenUpdates();
     
     [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(fadeWindowOut) object:nil];
     [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(closeAndResetWindow) object:nil];
     
-    [self closeAndResetWindow];
+//    [self closeAndResetWindow];
     
     [NSAnimationContext beginGrouping];
     [[NSAnimationContext currentContext] setDuration:0.01];
@@ -68,7 +119,7 @@
     [self.window center];
     [self showWindow:self];
     
-    [self performSelector:@selector(fadeWindowOut) withObject:nil afterDelay:[delay doubleValue]];
+    [self performSelector:@selector(fadeWindowOut) withObject:nil afterDelay:duration];
     
     NSEnableScreenUpdates();
 }
@@ -85,6 +136,8 @@
 - (void) closeAndResetWindow {
     [[self window] orderOut:nil];
     [[self window] setAlphaValue:1.0];
+    
+    [self.delegate oraPro:self];
 }
 
 - (void) useTitleAndResize:(NSString*)title {

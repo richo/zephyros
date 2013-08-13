@@ -39,8 +39,7 @@
                                                           firstTime = NO;
                                                       }
                                                       else {
-                                                          [[SDAlertWindowController sharedAlertWindowController] show:@"Launched Zephyros Script"
-                                                                                                                delay:nil];
+                                                          [[SDAlerts sharedAlerts] show:@"Launched Zephyros Script"];
                                                       }
                                                   }];
     
@@ -48,8 +47,7 @@
                                                       object:nil
                                                        queue:nil
                                                   usingBlock:^(NSNotification *note) {
-                                                      [[SDAlertWindowController sharedAlertWindowController] show:@"Zephyros Script Ended"
-                                                                                                            delay:nil];
+                                                      [[SDAlerts sharedAlerts] show:@"Zephyros Script Ended"];
                                                   }];
     
     [[SDClientListener sharedListener] startListening];
@@ -85,8 +83,8 @@
     [[SDConfigLauncher sharedConfigLauncher] launchConfigMaybe];
     [[SDAppStalker sharedAppStalker] beginStalking];
     
-    [[SDAlertWindowController sharedAlertWindowController] show:@"Zephyros power, activate!"
-                                                          delay:@1.5];
+    [[SDAlerts sharedAlerts] show:@"Zephyros power, activate!"
+                         duration:1.5];
 }
 
 - (IBAction) showPreferencesWindow:(id)sender {
