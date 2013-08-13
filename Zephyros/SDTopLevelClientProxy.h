@@ -10,4 +10,6 @@
 
 @interface SDTopLevelClientProxy : SDClientProxy
 
+- (void) destroy;
+
 @end

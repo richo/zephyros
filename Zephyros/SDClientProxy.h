@@ -12,8 +12,10 @@
 
 @interface SDClientProxy : NSObject
 
-@property SDClient* client;
-@property NSNumber* msgID;
+@property (weak) SDClient* client;
 @property id receiver;
+
+- (id) call:(NSString*)meth args:(NSArray*)args msgID:(id)msgID;
+//- (void) check:(NSArray*)args forTypes:(NSArray*)types inMethod:(SEL)method;
 
 @end

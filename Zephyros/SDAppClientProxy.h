@@ -12,4 +12,6 @@
 
 @interface SDAppClientProxy : SDClientProxy
 
+@property SDAppProxy* receiver;
+
 @end

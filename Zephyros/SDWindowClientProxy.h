@@ -12,4 +12,6 @@
 
 @interface SDWindowClientProxy : SDClientProxy
 
+@property SDWindowProxy* receiver;
+
 @end
