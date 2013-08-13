@@ -167,11 +167,11 @@
 - (id) alert:(NSArray*)args msgID:(id)msgID {
     SDTypeCheckArg(NSString, msg, 0);
     NSNumber* duration = [args objectAtIndex:1];
-    if (duration == nil || [duration isEqual: [NSNull null]]) {
+    
+    if ([duration isEqual: [NSNull null]]) {
         [[SDAlerts sharedAlerts] show:msg];
     }
     else {
-        SDTypeCheckArg(NSNumber, duration, 1);
         [[SDAlerts sharedAlerts] show:msg
                              duration:[duration doubleValue]];
     }
@@ -191,10 +191,11 @@
 }
 
 - (id) choose_from:(NSArray*)args msgID:(id)msgID {
-    SDTypeCheckArg(NSArray, list, 0);
     SDTypeCheckArg(NSString, title, 1);
     SDTypeCheckArg(NSNumber, lines, 2);
     SDTypeCheckArg(NSNumber, chars, 3);
+    
+    SDTypeCheckArg(NSArray, list, 0);
     SDTypeCheckArray(list, NSString);
     
     [NSApp activateIgnoringOtherApps:YES];

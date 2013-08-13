@@ -384,6 +384,7 @@
 				94873F3F17191F40000AC0A6 /* AppDelegate.h */,
 				94873F4017191F40000AC0A6 /* AppDelegate.m */,
 				94E02EE217AB1D19005AE3E8 /* Clients */,
+				947DC89017B9D17A00F2128F /* Client Proxies */,
 				945AD7A017A866FE00578BEB /* Fuzzy Matcher */,
 				947DC99517A5BCA90082D095 /* Preferences */,
 				947DC99617A5BCD30082D095 /* Log Window */,
@@ -518,7 +519,6 @@
 				946C596117B7CF6A0021A540 /* SDClient.m */,
 				947DC89117B9D18700F2128F /* SDClientProxy.h */,
 				947DC89217B9D18700F2128F /* SDClientProxy.m */,
-				947DC89017B9D17A00F2128F /* Client Proxies */,
 			);
 			name = Clients;
 			sourceTree = "<group>";
