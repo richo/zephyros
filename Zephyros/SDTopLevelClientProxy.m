@@ -15,6 +15,7 @@
 #import "SDConfigLauncher.h"
 #import "SDAlertWindowController.h"
 #import "SDLogWindowController.h"
+#import "SDBoxWindowController.h"
 
 #import "SDWindowProxy.h"
 
@@ -175,6 +176,17 @@
                              duration:[duration doubleValue]];
     }
     
+    return nil;
+}
+
+- (id) show_box:(NSArray*)args msgID:(id)msgID {
+    SDTypeCheckArg(NSString, text, 0);
+    [[SDBoxWindowController sharedBox] showWithText:text];
+    return nil;
+}
+
+- (id) hide_box:(NSArray*)args msgID:(id)msgID {
+    [[SDBoxWindowController sharedBox] hide];
     return nil;
 }
 
