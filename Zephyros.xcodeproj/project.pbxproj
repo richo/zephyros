@@ -17,6 +17,7 @@
 		94454B37171B4179003EF64E /* SDAlertWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94454B35171B4179003EF64E /* SDAlertWindowController.m */; };
 		94454B38171B4179003EF64E /* AlertWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94454B36171B4179003EF64E /* AlertWindow.xib */; };
 		94454B3F171B479B003EF64E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94454B3E171B479B003EF64E /* QuartzCore.framework */; };
+		9458EC5017BA79610077CBB8 /* SDMouseFollower.m in Sources */ = {isa = PBXBuildFile; fileRef = 9458EC4F17BA79610077CBB8 /* SDMouseFollower.m */; };
 		945AD7BD17A8692A00578BEB /* SDFuzzyMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 945AD7B317A8692A00578BEB /* SDFuzzyMatcher.m */; };
 		945AD7BE17A8692A00578BEB /* SDFuzzyMatcherWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 945AD7B417A8692A00578BEB /* SDFuzzyMatcherWindow.xib */; };
 		945AD7BF17A8692A00578BEB /* SDFuzzyMatcherWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 945AD7B617A8692A00578BEB /* SDFuzzyMatcherWindowController.m */; };
@@ -125,6 +126,8 @@
 		94454B35171B4179003EF64E /* SDAlertWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDAlertWindowController.m; sourceTree = "<group>"; };
 		94454B36171B4179003EF64E /* AlertWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlertWindow.xib; sourceTree = "<group>"; };
 		94454B3E171B479B003EF64E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		9458EC4E17BA79610077CBB8 /* SDMouseFollower.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDMouseFollower.h; sourceTree = "<group>"; };
+		9458EC4F17BA79610077CBB8 /* SDMouseFollower.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDMouseFollower.m; sourceTree = "<group>"; };
 		945AD7B217A8692A00578BEB /* SDFuzzyMatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDFuzzyMatcher.h; sourceTree = "<group>"; };
 		945AD7B317A8692A00578BEB /* SDFuzzyMatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDFuzzyMatcher.m; sourceTree = "<group>"; };
 		945AD7B417A8692A00578BEB /* SDFuzzyMatcherWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SDFuzzyMatcherWindow.xib; sourceTree = "<group>"; };
@@ -308,6 +311,8 @@
 				94D07FB91723BACB00CF44E9 /* SDAppStalker.m */,
 				94D07FBB1723C61C00CF44E9 /* SDEventListener.h */,
 				94D07FBC1723C61C00CF44E9 /* SDEventListener.m */,
+				9458EC4E17BA79610077CBB8 /* SDMouseFollower.h */,
+				9458EC4F17BA79610077CBB8 /* SDMouseFollower.m */,
 			);
 			name = Events;
 			sourceTree = "<group>";
@@ -680,6 +685,7 @@
 				947DC89C17B9D1C100F2128F /* SDAppClientProxy.m in Sources */,
 				947DC89F17B9D1D100F2128F /* SDScreenClientProxy.m in Sources */,
 				94BC236317BA150800BB4FDF /* SDBoxWindowController.m in Sources */,
+				9458EC5017BA79610077CBB8 /* SDMouseFollower.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

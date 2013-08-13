@@ -19,6 +19,7 @@
 
 #import "SDAlertWindowController.h"
 #import "SDClientListener.h"
+#import "SDMouseFollower.h"
 
 
 @interface AppDelegate ()

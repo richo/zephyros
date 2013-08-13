@@ -10,6 +10,7 @@
 
 #import "SDHotKey.h"
 #import "SDEventListener.h"
+#import "SDMouseFollower.h"
 
 #import "SDFuzzyMatcher.h"
 #import "SDConfigLauncher.h"
@@ -96,6 +97,11 @@
 
 - (id) listen:(NSArray*)args msgID:(id)msgID {
     SDTypeCheckArg(NSString, event, 0);
+    
+    if ([[event uppercaseString] isEqualToString:@"MOUSE_MOVED"]) {
+        // only incur the cost for those who wish to pay the price
+        [[SDMouseFollower sharedFollower] startListening];
+    }
     
     SDEventListener* listener = [[SDEventListener alloc] init];
     listener.eventName = event;
