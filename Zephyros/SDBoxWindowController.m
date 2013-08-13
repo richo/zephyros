@@ -79,8 +79,6 @@
     
     textFrame.origin = NSMakePoint(10, 10);
     [self.textField setFrame:textFrame];
-    
-    NSLog(@"%@", NSStringFromRect(self.textField.frame));
 }
 
 @end
