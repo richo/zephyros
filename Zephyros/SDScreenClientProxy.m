@@ -36,7 +36,7 @@
         [self.receiver rotateTo: deg];
     }
     else {
-        [self.client showAPIError:[NSString stringWithFormat:@"Rotation must be to either 0, 90, 180, or 270 degrees. Got: %d", deg]];
+        SDLogError(@"Error: Rotation must be to either 0, 90, 180, or 270 degrees. Got: %d", deg);
     }
     
     return nil;

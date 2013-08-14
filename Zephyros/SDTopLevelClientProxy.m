@@ -67,7 +67,7 @@
         [self.hotkeys addObject:hotkey];
     }
     else {
-        [self.client showAPIError:[@"Can't bind: " stringByAppendingString: [hotkey hotKeyDescription]]];
+        SDLogError(@"Can't bind: %@", [hotkey hotKeyDescription]);
     }
     
     return @-1;
