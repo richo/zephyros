@@ -36,8 +36,8 @@
 
 @interface SDLog : NSObject
 @property NSString* type;
-@property NSString* time;
-@property NSString* json;
+@property NSDate* time;
+@property NSString* message;
 @end
 @implementation SDLog
 @end
@@ -72,16 +72,31 @@
     [self didChangeValueForKey:@"logs"];
 }
 
-//- (void) windowDidBecomeKey:(NSNotification *)notification {
-//    self.window.level = NSNormalWindowLevel;
-//}
-
 - (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {
     SDLog* log = [self.logs objectAtIndex:row];
-    NSArray* lines = [log.json componentsSeparatedByString:@"\n"];
+    NSArray* lines = [log.message componentsSeparatedByString:@"\n"];
     NSUInteger numRows = MAX(1, [lines count] - 1);
     CGFloat normalHeight = [tableView rowHeight];
     return normalHeight * (CGFloat)numRows;
+}
+
+- (IBAction) copy:(id)sender {
+    NSIndexSet* indices = [self.logTableView selectedRowIndexes];
+    NSArray* selectedLogs = [self.logs objectsAtIndexes:indices];
+    
+    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"HH:mm:ss"];
+    
+    NSMutableString* toCopy = [NSMutableString string];
+    
+    for (SDLog* log in selectedLogs) {
+        [toCopy appendFormat:@"%@ - %@ - %@\n", log.type, [formatter stringFromDate:log.time], log.message];
+    }
+    
+    NSPasteboard* pasteBoard = [NSPasteboard generalPasteboard];
+    
+    [pasteBoard declareTypes:[NSArray arrayWithObject:NSStringPboardType] owner:nil];
+    [pasteBoard setString:toCopy forType:NSStringPboardType];
 }
 
 - (void) windowDidLoad {
@@ -92,13 +107,9 @@
 - (void) log:(NSString*)message type:(NSString*)type {
     SDLog* log = [[SDLog alloc] init];
     
-    NSDateFormatter* stampFormatter = [[NSDateFormatter alloc] init];
-    stampFormatter.dateStyle = NSDateFormatterNoStyle;
-    stampFormatter.timeStyle = kCFDateFormatterMediumStyle;
-    
-    log.time = [stampFormatter stringFromDate:[NSDate date]];
-    log.json = message;
+    log.time = [NSDate date];
     log.type = type;
+    log.message = message;
     
     [self.logs addObject:log];
     
