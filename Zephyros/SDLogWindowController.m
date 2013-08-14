@@ -20,13 +20,13 @@
 + (Class)transformedValueClass { return [NSImage self]; }
 + (BOOL)allowsReverseTransformation { return NO; }
 - (id)transformedValue:(id)value {
-    if ([value isEqual:SDLogMessageTypeError])
+    if ([value intValue] == SDLogMessageTypeError)
         return [NSImage imageNamed:NSImageNameStatusUnavailable];
-    if ([value isEqual:SDLogMessageTypeUser])
+    if ([value intValue] == SDLogMessageTypeUser)
         return [NSImage imageNamed:NSImageNameStatusPartiallyAvailable];
-    if ([value isEqual:SDLogMessageTypeRequest])
+    if ([value intValue] == SDLogMessageTypeRequest)
         return [NSImage imageNamed:NSImageNameStatusNone];
-    if ([value isEqual:SDLogMessageTypeResponse])
+    if ([value intValue] == SDLogMessageTypeResponse)
         return [NSImage imageNamed:NSImageNameStatusAvailable];
     return nil;
 }
@@ -35,7 +35,7 @@
 
 
 @interface SDLog : NSObject
-@property NSString* type;
+@property SDLogMessageType type;
 @property NSDate* time;
 @property NSString* message;
 @end
@@ -90,7 +90,18 @@
     NSMutableString* toCopy = [NSMutableString string];
     
     for (SDLog* log in selectedLogs) {
-        [toCopy appendFormat:@"%@ - %@ - %@\n", log.type, [formatter stringFromDate:log.time], log.message];
+        NSString* typeString;
+        
+        if (log.type == SDLogMessageTypeError)
+            typeString = @"ERR";
+        else if (log.type == SDLogMessageTypeRequest)
+            typeString = @"REQ";
+        else if (log.type == SDLogMessageTypeResponse)
+            typeString = @"RSP";
+        else if (log.type == SDLogMessageTypeUser)
+            typeString = @"USR";
+        
+        [toCopy appendFormat:@"%@ - %@ - %@\n", typeString, [formatter stringFromDate:log.time], log.message];
     }
     
     NSPasteboard* pasteBoard = [NSPasteboard generalPasteboard];
@@ -104,7 +115,7 @@
     [[self window] center];
 }
 
-- (void) log:(NSString*)message type:(NSString*)type {
+- (void) log:(NSString*)message type:(SDLogMessageType)type {
     SDLog* log = [[SDLog alloc] init];
     
     log.time = [NSDate date];
@@ -125,7 +136,7 @@
     [self.logTableView scrollRowToVisible:lastRow];
 }
 
-- (void) show:(NSString*)message type:(NSString*)type {
+- (void) show:(NSString*)message type:(SDLogMessageType)type {
     if (!self.window.isVisible) {
         [self showWindow:nil];
     }
