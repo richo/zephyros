@@ -9,6 +9,7 @@
 #import "SDScreenClientProxy.h"
 
 #import "SDGeometry.h"
+#import "SDLogWindowController.h"
 
 @implementation SDScreenClientProxy
 
