@@ -232,8 +232,9 @@ Are you good at stuff? We could use these things:
 
 ### Special Thanks
 
-- To everyone.
-    - You're great!
+- To [@pd](https://github.com/pd), for all the great ideas and help in the beginning
+- To [@muescha](https://github.com/muescha), for the constant flow of feature requests, pull requests, and bug reports
+- To everyone. You're great!
 
 ### License
 
