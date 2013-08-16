@@ -2,7 +2,7 @@
 
 * Clients connect to Zephyros via TCP
 * All messages are simple JSON arrays
-* Messages in both directions are encoded as `json.length.to_s + "\n" + json`
+* Messages in both directions are encoded as `json.bytesize.to_s + "\n" + json`
 * Each message to Zephyros will be [msg_id, receiver_id, method, *args]
     * msg_id can be of any type you choose, as long as it's unique per request
     * receiver_id can be windows_id, app_id, or screen_id
