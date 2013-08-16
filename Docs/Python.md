@@ -105,8 +105,8 @@ class Api(Proxy):
     def main_screen(self)
     def all_screens(self)
     def running_apps(self)
-    def bind(self, key, mods, fn)  # uses [this list](https://github.com/sdegutis/zephyros/blob/master/Zephyros/SDKeyBindingTranslator.m#L148) of key strings and modifiers.
-    def unbind(self, key, mods)    # uses [this list](https://github.com/sdegutis/zephyros/blob/master/Zephyros/SDKeyBindingTranslator.m#L148) of key strings and modifiers.
+    def bind(self, key, mods, fn)  # see note below
+    def unbind(self, key, mods)    # see note below
     def choose_from(self, lst, title, lines, chars, fn)
     def update_settings(self, s) # dict with key 'alert_should_animate' (bool) and/or 'alert_default_delay' (number)
     def listen(self, event, fn):
@@ -126,3 +126,5 @@ class Api(Proxy):
 
 api = Api(0)
 ```
+
+The function `bind` and `unbind` uses this [key strings and modifiers](https://github.com/sdegutis/zephyros/blob/master/Zephyros/SDKeyBindingTranslator.m#L148).

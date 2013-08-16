@@ -30,11 +30,13 @@ lein exec path/to/my-zeph.clj
 
 #### API
 
+The function `bind` and `unbind` uses this [key strings and modifiers](https://github.com/sdegutis/zephyros/blob/master/Zephyros/SDKeyBindingTranslator.m#L148).
+
 ```clojure
 ;; top level
 
-(defn bind [key mods f])   ;; uses [this list](https://github.com/sdegutis/zephyros/blob/master/Zephyros/SDKeyBindingTranslator.m#L148) of key strings and modifiers.
-(defn unbind [key mods])   ;; uses [this list](https://github.com/sdegutis/zephyros/blob/master/Zephyros/SDKeyBindingTranslator.m#L148) of key strings and modifiers.
+(defn bind [key mods f])
+(defn unbind [key mods])
 
 (defn listen [event f])
   ;; 'window_created' args: [win]

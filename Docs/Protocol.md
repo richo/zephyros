@@ -67,11 +67,12 @@ choose_from        | list, title, lines_tall, chars_wide     | 0, followed by: c
 update_settings    | map of strings to values *(see note 3)* |
 
 
-note 1:
+##### note 1: Key Strings and modifiers
 
-The function `bind` and `unbind` uses [this list](https://github.com/sdegutis/zephyros/blob/master/Zephyros/SDKeyBindingTranslator.m#L148) of key strings and modifiers.
+The function `bind` and `unbind` uses this [key strings and modifiers](https://github.com/sdegutis/zephyros/blob/master/Zephyros/SDKeyBindingTranslator.m#L148).
 
-note 2:
+##### note 2: Event Names
+
 ```ruby
         # 'window_created', callback args: (win)
         # 'window_minimized', callback args: (win)
@@ -86,7 +87,8 @@ note 2:
         # 'mouse_moved', callback args: (movement)
 ```
 
-note 3:
+##### note 3: Settings
+
 ```ruby
 {:alert_should_animate => false, :alert_default_delay => 0.5}
 ```
