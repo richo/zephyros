@@ -46,25 +46,51 @@ end
 
 #### Top level
 
-Name               | Args                                | Return value
--------------------|-------------------------------------|--------------------
-bind               | key, [modifier, ...]                | nil, followed by: callback, ...
-listen             | event_name                          | nil, followed by: callback, ...
-unbind             | key, [modifier, ...]                |
-relaunch_config    |                                     |
-clipboard_contents |                                     | string
-focused_window     |                                     | [window_id](#window)
-visible_windows    |                                     | [[window_id](#window), ...]
-all_windows        |                                     | [[window_id](#window), ...]
-main_screen        |                                     | [screen_id](#screen)
-all_screens        |                                     | [[screen_id](#screen), ...]
-running_apps       |                                     | [[app_id](#app), ...]
-alert              | msg, duration_sec                   |
-log                | msg                                 |
-show_box           | msg                                 |
-hide_box           |                                     |
-choose_from        | list, title, lines_tall, chars_wide | 0, followed by: chosen index or nil if canceled
-update_settings    | map of strings to values            |
+Name               | Args                                    | Return value
+-------------------|-----------------------------------------|--------------------
+bind               | key, [modifier, ...]  *(see note 1)*    | nil, followed by: callback, ...
+unbind             | key, [modifier, ...]  *(see note 1)*    |
+listen             | event_name            *(see note 2)*    | nil, followed by: callback, ...
+relaunch_config    |                                         |
+clipboard_contents |                                         | string
+focused_window     |                                         | [window_id](#window)
+visible_windows    |                                         | [[window_id](#window), ...]
+all_windows        |                                         | [[window_id](#window), ...]
+main_screen        |                                         | [screen_id](#screen)
+all_screens        |                                         | [[screen_id](#screen), ...]
+running_apps       |                                         | [[app_id](#app), ...]
+alert              | msg, duration_sec                       |
+log                | msg                                     |
+show_box           | msg                                     |
+hide_box           |                                         |
+choose_from        | list, title, lines_tall, chars_wide     | 0, followed by: chosen index or nil if canceled
+update_settings    | map of strings to values *(see note 3)* |
+
+
+note 1:
+
+The function `bind` and `unbind` uses [this list](https://github.com/sdegutis/zephyros/blob/master/Zephyros/SDKeyBindingTranslator.m#L148) of key strings and modifiers.
+
+note 2:
+```ruby
+        # 'window_created', callback args: (win)
+        # 'window_minimized', callback args: (win)
+        # 'window_unminimized', callback args: (win)
+        # 'window_moved', callback args: (win)
+        # 'window_resized', callback args: (win)
+        # 'app_launched', callback args: (app)
+        # 'app_died', callback args: (app)
+        # 'app_hidden', callback args: (app)
+        # 'app_shown', callback args: (app)
+        # 'screens_changed', callback args: ()
+        # 'mouse_moved', callback args: (movement)
+```
+
+note 3:
+```ruby
+{:alert_should_animate => false, :alert_default_delay => 0.5}
+```
+
 
 #### Window
 
@@ -111,12 +137,13 @@ kill9           |      |
 
 #### Screen
 
-Name                          | Args         | Return value
-------------------------------|--------------|--------------
-frame_including_dock_and_menu | {x, y, w, h} |
-frame_without_dock_or_menu    | {x, y, w, h} |
-previous_screen               |              | [screen_id](#screen)
-next_screen                   |              | [screen_id](#screen)
+Name                          | Args                              | Return value
+------------------------------|-----------------------------------|--------------
+frame_including_dock_and_menu | {x, y, w, h}                      |
+frame_without_dock_or_menu    | {x, y, w, h}                      |
+previous_screen               |                                   | [screen_id](#screen)
+next_screen                   |                                   | [screen_id](#screen)
+rotate_to                     | degree *(only: 0,90,180, or 270)* |
 
 #### Events
 

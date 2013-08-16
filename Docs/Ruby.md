@@ -21,7 +21,7 @@ ruby path/to/my-script.rb
 
 #### API
 
-The function `API.bind` uses [this list](https://github.com/sdegutis/zephyros/blob/master/Zephyros/SDKeyBindingTranslator.m#L148) of key strings.
+
 
 ```ruby
 class API
@@ -30,8 +30,8 @@ class API
 
     def reload_config; end
 
-    def bind(key, mods, &blk); end
-    def unbind(key, mods); end
+    def bind(key, mods, &blk); end   # uses [this list](https://github.com/sdegutis/zephyros/blob/master/Zephyros/SDKeyBindingTranslator.m#L148) of key strings and modifiers.
+    def unbind(key, mods); end       # uses [this list](https://github.com/sdegutis/zephyros/blob/master/Zephyros/SDKeyBindingTranslator.m#L148) of key strings and modifiers.
 
     def log(str); end
     def alert(msg, duration=2); end
