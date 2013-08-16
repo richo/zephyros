@@ -5,6 +5,7 @@
 * Messages in both directions are encoded as `json.length.to_s + "\n" + json`
 * Each message to Zephyros will be [msg_id, receiver_id, method, *args]
     * msg_id can be of any type you choose, as long as it's unique per request
+    * receiver_id can be windows_id, app_id, or screen_id
 * Each response from Zephyros will be [msg_id, value]
     * Each response can be matched to its request by msg_id
     * Every message will get at least one response
@@ -71,21 +72,11 @@ update_settings    | map of strings to values *(see note 3)* |
 
 The function `bind` and `unbind` uses this [key strings and modifiers](https://github.com/sdegutis/zephyros/blob/master/Zephyros/SDKeyBindingTranslator.m#L148).
 
-##### note 2: Event Names
 
-```ruby
-        # 'window_created', callback args: (win)
-        # 'window_minimized', callback args: (win)
-        # 'window_unminimized', callback args: (win)
-        # 'window_moved', callback args: (win)
-        # 'window_resized', callback args: (win)
-        # 'app_launched', callback args: (app)
-        # 'app_died', callback args: (app)
-        # 'app_hidden', callback args: (app)
-        # 'app_shown', callback args: (app)
-        # 'screens_changed', callback args: ()
-        # 'mouse_moved', callback args: (movement)
-```
+##### note 2: Event names
+
+see section [Events](#events)
+
 
 ##### note 3: Settings
 
@@ -93,6 +84,7 @@ The function `bind` and `unbind` uses this [key strings and modifiers](https://g
 {:alert_should_animate => false, :alert_default_delay => 0.5}
 ```
 
+### Receiver
 
 #### Window
 
@@ -147,7 +139,10 @@ previous_screen               |                                   | [screen_id](
 next_screen                   |                                   | [screen_id](#screen)
 rotate_to                     | degree *(only: 0,90,180, or 270)* |
 
-#### Events
+
+### Events
+
+Events are used for `listen`
 
 Event name          | Callback parameter list
 --------------------|-------------------------
