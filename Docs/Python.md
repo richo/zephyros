@@ -80,6 +80,7 @@ class Screen(Proxy):
     def frame_without_dock_or_menu(self)
     def previous_screen(self)
     def next_screen(self)
+    def rotate_to(self, degrees)  # degree only: 0,90,180, or 270
 
 class App(Proxy):
     def visible_windows(self)
@@ -104,8 +105,8 @@ class Api(Proxy):
     def main_screen(self)
     def all_screens(self)
     def running_apps(self)
-    def bind(self, key, mods, fn)
-    def unbind(self, key, mods)
+    def bind(self, key, mods, fn)  # see note below
+    def unbind(self, key, mods)    # see note below
     def choose_from(self, lst, title, lines, chars, fn)
     def update_settings(self, s) # dict with key 'alert_should_animate' (bool) and/or 'alert_default_delay' (number)
     def listen(self, event, fn):
@@ -125,3 +126,5 @@ class Api(Proxy):
 
 api = Api(0)
 ```
+
+The function `bind` and `unbind` uses this [key strings and modifiers](https://github.com/sdegutis/zephyros/blob/master/Zephyros/SDKeyBindingTranslator.m#L148).

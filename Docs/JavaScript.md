@@ -24,6 +24,9 @@ For your convenience, [underscore.js 1.4.4](http://underscorejs.org/) is pre-loa
 
 #### Top Level
 
+
+The function `bind()` and `unbind()` uses this [key strings and modifiers](https://github.com/sdegutis/zephyros/blob/master/Zephyros/SDKeyBindingTranslator.m#L148).
+
 ```coffeescript
 property (API) api
 
@@ -65,7 +68,6 @@ property (API) api
 - (void) doAfter(Number sec, Function fn)
 ```
 
-The function `bind()` uses [this list](https://github.com/sdegutis/zephyros/blob/master/Zephyros/SDKeyBindingTranslator.m#L148) of key strings.
 
 #### Type: `API`
 
@@ -135,6 +137,7 @@ class-property (number) Window.gridMarginY # default: 5
 
 - (Screen) nextScreen()
 - (Screen) previousScreen()
+- rotateTo (Number) degree         # only: 0,90,180, or 270
 ```
 
 #### Type: `App`
