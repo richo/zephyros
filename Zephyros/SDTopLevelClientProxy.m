@@ -167,8 +167,8 @@
 - (id) log:(NSArray*)args msgID:(id)msgID {
     SDTypeCheckArg(NSString, str, 0);
     
-    [[SDLogWindowController sharedLogWindowController] show:str
-                                                       type:SDLogMessageTypeUser];
+    [[SDLogWindowController sharedLogWindowController] log:str
+                                                      type:SDLogMessageTypeUser];
     return nil;
 }
 
