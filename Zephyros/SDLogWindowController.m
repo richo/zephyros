@@ -116,6 +116,13 @@
     
     [self.logs addObject:log];
     
+    NSInteger maxLogs = [[NSUserDefaults standardUserDefaults] integerForKey:@"MAX_LOGS"];
+    if (maxLogs == 0)
+        maxLogs = 1000;
+    
+    if ([self.logs count] > maxLogs)
+        [self.logs removeObjectsInRange:NSMakeRange(0, [self.logs count] - maxLogs)];
+    
     [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(refreshLogs:) object:nil];
     [self performSelector:@selector(refreshLogs:) withObject:nil afterDelay:0.1];
 }
