@@ -33,6 +33,7 @@ func ChooseFrom(list []string, title string, linesTall int, charsWide int, fn fu
 //     'window_unminimized' args: [win]
 //     'window_moved' args: [win]
 //     'window_resized' args: [win]
+//     'focus_changed' args: [win]
 //     'app_launched' args: [app]
 //     'app_died' args: [app]
 //     'app_hidden' args: [app]

@@ -204,6 +204,7 @@ class Api(Proxy):
             elif event == "window_unminimized": fn(Window(obj))
             elif event == "window_moved":       fn(Window(obj))
             elif event == "window_resized":     fn(Window(obj))
+            elif event == "focus_changed":      fn(Window(obj))
             elif event == "app_launched":       fn(App(obj))
             elif event == "app_died":           fn(App(obj))
             elif event == "app_hidden":         fn(App(obj))

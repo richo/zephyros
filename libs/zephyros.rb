@@ -247,6 +247,7 @@ class API
         when 'window_unminimized' then blk.call Window.new arg
         when 'window_moved' then blk.call Window.new arg
         when 'window_resized' then blk.call Window.new arg
+        when 'focus_changed' then blk.call Window.new arg
         when 'app_launched' then blk.call App.new arg
         when 'app_died' then blk.call App.new arg
         when 'app_hidden' then blk.call App.new arg

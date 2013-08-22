@@ -151,6 +151,7 @@ NSString* sd_js_api() {
     "  trampolineFn = (thing) ->\n"
     "    switch event\n"
     "      when 'window_created' then fn Window.fromNS(thing)\n"
+    "      when 'focus_changed' then fn Window.fromNS(thing)\n"
     "      when 'window_created' then fn Window.fromNS(thing)\n"
     "      when 'window_minimized' then fn Window.fromNS(thing)\n"
     "      when 'window_unminimized' then fn Window.fromNS(thing)\n"
