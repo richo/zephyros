@@ -171,7 +171,8 @@ If you want to do one, please [open an issue](https://github.com/sdegutis/zephyr
     - Added 'focus_changed' event to all APIs
     - Now only keeps (or (get-user-default "MAX_LOGS") 1000) logs
     - Now only pops up log window for error
-    - Uses new menubar icon, courtesy of [danielepolencic](https://github.com/danielepolencic/)
+    - New menubar icon, courtesy of [danielepolencic](https://github.com/danielepolencic/)
+    - New app icon based on the new menubar icon
     - Removes that lame meme joke
 - 4.5.1
     - More resilient to script errors
