@@ -69,7 +69,8 @@ void obsessiveWindowCallback(AXObserverRef observer, AXUIElementRef element, CFS
     }
     else if (CFEqual(notification, kAXApplicationActivatedNotification)) {
         SDWindowProxy* window = [SDWindowProxy focusedWindow];
-        sendNotificationButNotTooOften(SDListenEventFocusChanged, window);
+        if (window)
+            sendNotificationButNotTooOften(SDListenEventFocusChanged, window);
     }
 }
 
