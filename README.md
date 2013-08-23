@@ -13,7 +13,7 @@
 
 *The OS X window manager for hackers*
 
-* Current version: **4.5.1**
+* Current version: **4.5.2**
 * Requires: OS X 10.8 and up
 * Download: get [.zip file](https://raw.github.com/sdegutis/zephyros/master/Builds/Zephyros-LATEST.app.tar.gz), unzip, right-click app, choose "Open"
 
@@ -167,7 +167,7 @@ If you want to do one, please [open an issue](https://github.com/sdegutis/zephyr
 
 **NOTE:** This auto-updater won't work if you're on version 3.x or 2.x due to [this securty fix](https://github.com/sdegutis/zephyros/pull/21).<br>Instead, [click here to download it](https://raw.github.com/sdegutis/zephyros/master/Builds/Zephyros-LATEST.app.tar.gz).
 
-- HEAD
+- 4.5.2
     - Added 'focus_changed' event to all APIs
     - Now only keeps (or (get-user-default "MAX_LOGS") 1000) logs
     - Now only pops up log window for error
