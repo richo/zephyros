@@ -54,8 +54,8 @@
     [[SDClientListener sharedListener] startListening];
     
     self.statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
+    [[NSImage imageNamed:@"statusitem"] setTemplate:YES];
     self.statusItem.image = [NSImage imageNamed:@"statusitem"];
-    self.statusItem.alternateImage = [NSImage imageNamed:@"statusitem_pressed"];
     self.statusItem.menu = self.statusItemMenu;
     self.statusItem.highlightMode = YES;
 }
