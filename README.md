@@ -168,7 +168,11 @@ If you want to do one, please [open an issue](https://github.com/sdegutis/zephyr
 **NOTE:** This auto-updater won't work if you're on version 3.x or 2.x due to [this securty fix](https://github.com/sdegutis/zephyros/pull/21).<br>Instead, [click here to download it](https://raw.github.com/sdegutis/zephyros/master/Builds/Zephyros-LATEST.app.tar.gz).
 
 - HEAD
-    - Adds 'focus_changed' event to all APIs
+    - Added 'focus_changed' event to all APIs
+    - Now only keeps (or (get-user-default "MAX_LOGS") 1000) logs
+    - Now only pops up log window for error
+    - Uses new menubar icon, courtesy of [danielepolencic](https://github.com/danielepolencic/)
+    - Removes that lame meme joke
 - 4.5.1
     - More resilient to script errors
     - Added `screen.rotate_to` to all APIs
