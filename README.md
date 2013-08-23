@@ -229,17 +229,11 @@ If you want to do one, please [open an issue](https://github.com/sdegutis/zephyr
 - 2.6
     - First version anyone should care about
 
-### Help Needed
-
-Are you good at stuff? We could use these things:
-
-* Better app icon
-* Better menu bar icon
-
 ### Special Thanks
 
-- To [@pd](https://github.com/pd), for all the great ideas and help in the beginning
-- To [@muescha](https://github.com/muescha), for the constant flow of feature requests, pull requests, and bug reports
+- To [pd](https://github.com/pd), for all the great ideas and help in the beginning
+- To [muescha](https://github.com/muescha), for the constant flow of feature requests, pull requests, and bug reports
+- To [danielepolencic](https://github.com/danielepolencic/), for the new menu bar icon
 - To everyone. You're great!
 
 ### License
