@@ -64,22 +64,6 @@
     [[SDConfigLauncher sharedConfigLauncher] unlaunch];
 }
 
-- (IBAction) accidentally93mb:(id)sender {
-    [NSApp activateIgnoringOtherApps:YES];
-    NSRunAlertPanel(@"Accidentally 93mb", @"are.. are you sure? this is dangerous...", @"wat", @"😕", nil);
-    
-    NSArray* strs = @[@"http://i3.kym-cdn.com/photos/images/original/000/190/279/ss.jpg",
-                      @"http://i3.kym-cdn.com/photos/images/original/000/239/273/553.png",
-                      @"http://i1.kym-cdn.com/photos/images/original/000/363/382/602.png",
-                      @"http://i2.kym-cdn.com/photos/images/original/000/343/061/254.png",
-                      ];
-    
-    NSUInteger randomIndex = arc4random() % [strs count];
-    
-    NSString* str = [strs objectAtIndex:randomIndex];
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:str]];
-}
-
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"launchCommand": @"ruby ~/zephyros.rb   # or whatever"}];
     
