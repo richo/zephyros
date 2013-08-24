@@ -93,7 +93,7 @@ wait_on_callbacks
 
 ```python
 import sys
-sys.path.insert(0, '/Applications/Zephyros.app/Contents/Resources/libs/zephyros.py')
+sys.path.insert(0, '/Applications/Zephyros.app/Contents/Resources/libs')
 import zephyros
 
 @zephyros.zephyros
@@ -165,7 +165,7 @@ If you want to do one, please [open an issue](https://github.com/sdegutis/zephyr
 
 ### Change log
 
-**NOTE:** This auto-updater won't work if you're on version 3.x or 2.x due to [this securty fix](https://github.com/sdegutis/zephyros/pull/21).<br>Instead, [click here to download it](https://raw.github.com/sdegutis/zephyros/master/Builds/Zephyros-LATEST.app.tar.gz).
+**NOTE:** This auto-updater won't work if you're on version 3.x or 2.x due to [this security fix](https://github.com/sdegutis/zephyros/pull/21).<br>Instead, [click here to download it](https://raw.github.com/sdegutis/zephyros/master/Builds/Zephyros-LATEST.app.tar.gz).
 
 - 4.5.2
     - Added 'focus_changed' event to all APIs
