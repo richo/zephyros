@@ -167,6 +167,9 @@ If you want to do one, please [open an issue](https://github.com/sdegutis/zephyr
 
 **NOTE:** This auto-updater won't work if you're on version 3.x or 2.x due to [this security fix](https://github.com/sdegutis/zephyros/pull/21).<br>Instead, [click here to download it](https://raw.github.com/sdegutis/zephyros/master/Builds/Zephyros-LATEST.app.tar.gz).
 
+- HEAD
+    - Adds protocol-level support for Unix sockets
+    - Converts some built-in APIs to use Unix sockets
 - 4.5.2
     - Added 'focus_changed' event to all APIs
     - Now only keeps (or (get-user-default "MAX_LOGS") 1000) logs
