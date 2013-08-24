@@ -12,7 +12,7 @@ end
 class Zeph
 
   def initialize
-    @sock = TCPSocket.new 'localhost', 1235
+    @sock = UNIXSocket.new '/tmp/zephyros.sock'
     @id = 0
     @queues = {}
 
