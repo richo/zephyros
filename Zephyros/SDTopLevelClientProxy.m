@@ -42,6 +42,8 @@
 }
 
 - (void) destroy {
+//    NSLog(@"destrying bindings and listeners");
+    
     for (SDHotKey* hotkey in self.hotkeys) {
         [hotkey unbind];
     }
@@ -52,6 +54,8 @@
 }
 
 - (id) bind:(NSArray*)args msgID:(id)msgID {
+//    NSLog(@"binding");
+    
     SDTypeCheckArg(NSString, key, 0);
     SDTypeCheckArrayArg(mods, NSString, 1);
     

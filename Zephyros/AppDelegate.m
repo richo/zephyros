@@ -65,7 +65,10 @@
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    [[NSUserDefaults standardUserDefaults] registerDefaults:@{@"launchCommand": @"ruby ~/zephyros.rb   # or whatever"}];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:@{
+     @"launchCommand": @"ruby ~/zephyros.rb   # or whatever",
+                                 SDTCPSocketPortDefaultsKey: @1235,
+     }];
     
     [self prepareStatusItem];
     
