@@ -148,7 +148,10 @@
     self.queues = [NSMutableDictionary dictionary];
     
     self.sock = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
-    BOOL connected = [self.sock connectToHost:@"localhost" onPort:1235 error:NULL];
+    BOOL connected = [self.sock connectToUrl:[NSURL fileURLWithPath:@"/tmp/zephyros.sock"]
+                                 withTimeout:FOREVER
+                                       error:NULL];
+//    BOOL connected = [self.sock connectToHost:@"localhost" onPort:1235 error:NULL];
     
     [self waitForNewMessage];
     return connected;
