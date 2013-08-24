@@ -13,7 +13,7 @@
 
 #import "GCDAsyncSocket.h"
 
-#define FOREVER (60.0 * 60.0 * 24.0 * 365.0)
+#define FOREVER (-1)
 
 
 // copied verbatim from http://nullpointer.ph/questions/339/how-do-you-implement-a-thread-safe-queue-for-objective-c
