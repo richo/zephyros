@@ -52,6 +52,8 @@ property (API) api
 - (void) unbind(String key, Array<String> modifiers)
 
 - (void) listen(String eventName, Function callback) # see Events section below
+- (void) unlisten(String eventName)
+
 - (void) chooseFrom(Array<String> list, String title, Number linesTall, Number charsWide, Function callback) # fn called with chosen idx or null if canceled
 
 - (void) reloadConfig()

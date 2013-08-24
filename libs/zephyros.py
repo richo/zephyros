@@ -197,6 +197,7 @@ class Api(Proxy):
         zeph.send_message([self.id, 'bind', key, mods], callback=tmp_fn)
     def choose_from(self, lst, title, lines, chars, fn):
         zeph.send_message([self.id, 'choose_from', lst, title, lines, chars], callback=fn, infinite=False)
+    def unlisten(self, event): self._send_sync('unlisten', event)
     def listen(self, event, fn):
         def tmp_fn(obj):
             if event == "window_created":       fn(Window(obj))

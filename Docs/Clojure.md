@@ -39,6 +39,9 @@ The function `bind` and `unbind` uses this [key strings and modifiers](https://g
 (defn unbind [key mods])
 
 (defn listen [event f])
+(defn unlisten [event])
+  ;; Valid events and their param-lists:
+  ;;
   ;; 'window_created' args: [win]
   ;; 'window_minimized' args: [win]
   ;; 'window_unminimized' args: [win]

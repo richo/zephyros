@@ -56,6 +56,7 @@ class API
 
     def running_apps; end
 
+    def unlisten(event); end
     def listen(event, &blk); end
         # 'window_created', callback args: (win)
         # 'window_minimized', callback args: (win)

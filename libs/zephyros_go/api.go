@@ -72,6 +72,10 @@ func Unbind(key string, mods []string) {
 	send(0, nil, false, "unbind", key, mods)
 }
 
+func Unlisten(event string) {
+	send(0, nil, false, "unlisten", event)
+}
+
 func Log(msg string) {
 	send(0, nil, false, "log", msg)
 }

@@ -121,6 +121,22 @@
     return @-1;
 }
 
+- (id) unlisten:(NSArray*)args msgID:(id)msgID {
+    SDTypeCheckArg(NSString, event, 0);
+    
+    for (SDEventListener* listener in self.listeners) {
+        if ([listener.eventName isEqualToString:event]) {
+            [listener stopListening];
+            
+            dispatch_async(dispatch_get_current_queue(), ^{
+                [self.listeners removeObject: listener];
+            });
+        }
+    }
+    
+    return nil;
+}
+
 - (id) relaunch_config:(NSArray*)args msgID:(id)msgID {
     [[SDConfigLauncher sharedConfigLauncher] launchConfigMaybe];
     return nil;
