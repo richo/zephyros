@@ -159,3 +159,4 @@ app_hidden          | [[app_id](#app)]
 app_shown           | [[app_id](#app)]
 screens_changed     | []
 mouse_moved         | [{x: number, y: number, deltaX: number, deltaY: number, dragged: bool [, whichButton: int] }] where whichButton is only there when you drag, and is one of [-1, 0, 1] representing [left, middle, right]
+modifiers_changed   | an array containing any (or none) of ['CTRL', 'CMD', 'ALT', 'SHIFT', 'FN'] ... note: a change can mean key up or key down

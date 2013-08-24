@@ -52,7 +52,8 @@ The function `bind` and `unbind` uses this [key strings and modifiers](https://g
   ;; 'app_hidden' args: [app]
   ;; 'app_shown' args: [app]
   ;; 'screens_changed' args: []
-  ;; 'mouse_moved' args: [movement]
+  ;; 'mouse_moved' args: [movement] (see Protocol.md for details)
+  ;; 'modifiers_changed' args: [mods] (see Protocol.md for details)
 
 
 (defn get-focused-window [])

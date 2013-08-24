@@ -122,7 +122,8 @@ class Api(Proxy):
             elif event == "app_hidden":         fn(App(obj))
             elif event == "app_shown":          fn(App(obj))
             elif event == "screens_changed":    fn()
-            elif event == "mouse_moved":        fn(movement)
+            elif event == "mouse_moved":        fn(movement)  # see Protocol.md for details
+            elif event == "modifiers_changed":  fn(movement)  # see Protocol.md for details
         zeph.send_message([0, 'listen', event], callback=tmp_fn)
 
 api = Api(0)

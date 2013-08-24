@@ -191,5 +191,6 @@ The rest you'll have to look up for yourself.
 'app_hidden', callback args: (app)
 'app_shown', callback args: (app)
 'screens_changed', callback args: ()
-'mouse_moved', callback args: (movement)
+'mouse_moved', callback args: (movement) ... see Protocol.md for details
+'modifiers_changed', callback args: (mods) ... see Protocol.md for details
 ```
