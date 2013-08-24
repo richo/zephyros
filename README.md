@@ -172,6 +172,7 @@ If you want to do one, please [open an issue](https://github.com/sdegutis/zephyr
     - Converted all built-in APIs (except Clojure) to connect via the unix socket
         - **NOTE:** if you're using Clojure, change the Preferences to use TCP and restart Zephyros
     - Adds `unlisten` method to all APIs
+    - Adds `modifiers_changed` event to all APIs
 - 4.5.2
     - Added 'focus_changed' event to all APIs
     - Now only keeps (or (get-user-default "MAX_LOGS") 1000) logs
