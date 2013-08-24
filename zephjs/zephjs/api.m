@@ -164,6 +164,7 @@ NSString* sd_js_api() {
     "      when 'app_shown' then fn App.fromNS(thing)\n"
     "      when 'screens_changed' then fn()\n"
     "      when 'mouse_moved' then fn(thing)\n"
+    "      when 'modifiers_changed' then fn(thing)\n"
     "  SDZephJS.sharedZeph().sendAsyncMessage_responses_callbackJSFunc_([NSNull.null(), 'listen', event], -1, trampolineFn)\n"
     
     "";

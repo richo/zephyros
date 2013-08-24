@@ -39,7 +39,8 @@ func ChooseFrom(list []string, title string, linesTall int, charsWide int, fn fu
 //     'app_hidden' args: [app]
 //     'app_shown' args: [app]
 //     'screens_changed' args: []
-//     'mouse_moved' args: [mouseMovement]
+//     'mouse_moved' args: [mouseMovement] (see Protocol.md for details)
+//     'modifiers_changed' args: [mods] (see Protocol.md for details)
 func Listen(event string, fn interface{}) {
 	fnValue := reflect.ValueOf(fn)
 	fnType := fnValue.Type()

@@ -51,8 +51,6 @@
                                                       [[SDAlerts sharedAlerts] show:@"Zephyros Script Ended"];
                                                   }];
     
-    [[SDClientListener sharedListener] startListening];
-    
     self.statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
     [[NSImage imageNamed:@"statusitem"] setTemplate:YES];
     self.statusItem.image = [NSImage imageNamed:@"statusitem"];
@@ -72,6 +70,7 @@
     
     [self prepareStatusItem];
     
+    [[SDClientListener sharedListener] startListening];
     [[SDConfigLauncher sharedConfigLauncher] launchConfigMaybe];
     [[SDAppStalker sharedAppStalker] beginStalking];
     

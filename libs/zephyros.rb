@@ -254,6 +254,7 @@ class API
         when 'app_shown' then blk.call App.new arg
         when 'screens_changed' then blk.call
         when 'mouse_moved' then blk.call arg
+        when 'modifiers_changed' then blk.call arg
         end
       end
     end

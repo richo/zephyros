@@ -26,6 +26,7 @@
 		94696E1417C8271D0018631C /* zephyros.icns in Resources */ = {isa = PBXBuildFile; fileRef = 94696E1317C8271D0018631C /* zephyros.icns */; };
 		946C596217B7CF6A0021A540 /* SDClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 946C596117B7CF6A0021A540 /* SDClient.m */; };
 		94779BD117A85CB000649169 /* Licenses in Resources */ = {isa = PBXBuildFile; fileRef = 94779BD017A85CB000649169 /* Licenses */; };
+		9478F8D017C87CB30053DE2C /* SDModifierKeysListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 9478F8CF17C87CB30053DE2C /* SDModifierKeysListener.m */; };
 		947DC89317B9D18700F2128F /* SDClientProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 947DC89217B9D18700F2128F /* SDClientProxy.m */; };
 		947DC89617B9D19F00F2128F /* SDTopLevelClientProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 947DC89517B9D19F00F2128F /* SDTopLevelClientProxy.m */; };
 		947DC89917B9D1B800F2128F /* SDWindowClientProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 947DC89817B9D1B800F2128F /* SDWindowClientProxy.m */; };
@@ -143,6 +144,8 @@
 		946C596017B7CF6A0021A540 /* SDClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDClient.h; sourceTree = "<group>"; };
 		946C596117B7CF6A0021A540 /* SDClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDClient.m; sourceTree = "<group>"; };
 		94779BD017A85CB000649169 /* Licenses */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Licenses; sourceTree = SOURCE_ROOT; };
+		9478F8CE17C87CB30053DE2C /* SDModifierKeysListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDModifierKeysListener.h; sourceTree = "<group>"; };
+		9478F8CF17C87CB30053DE2C /* SDModifierKeysListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDModifierKeysListener.m; sourceTree = "<group>"; };
 		947DC89117B9D18700F2128F /* SDClientProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDClientProxy.h; sourceTree = "<group>"; };
 		947DC89217B9D18700F2128F /* SDClientProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDClientProxy.m; sourceTree = "<group>"; };
 		947DC89417B9D19F00F2128F /* SDTopLevelClientProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDTopLevelClientProxy.h; sourceTree = "<group>"; };
@@ -310,6 +313,8 @@
 				94D07FBC1723C61C00CF44E9 /* SDEventListener.m */,
 				9458EC4E17BA79610077CBB8 /* SDMouseFollower.h */,
 				9458EC4F17BA79610077CBB8 /* SDMouseFollower.m */,
+				9478F8CE17C87CB30053DE2C /* SDModifierKeysListener.h */,
+				9478F8CF17C87CB30053DE2C /* SDModifierKeysListener.m */,
 			);
 			name = Events;
 			sourceTree = "<group>";
@@ -682,6 +687,7 @@
 				947DC89F17B9D1D100F2128F /* SDScreenClientProxy.m in Sources */,
 				94BC236317BA150800BB4FDF /* SDBoxWindowController.m in Sources */,
 				9458EC5017BA79610077CBB8 /* SDMouseFollower.m in Sources */,
+				9478F8D017C87CB30053DE2C /* SDModifierKeysListener.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

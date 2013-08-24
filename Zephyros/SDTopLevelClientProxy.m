@@ -11,6 +11,7 @@
 #import "SDHotKey.h"
 #import "SDEventListener.h"
 #import "SDMouseFollower.h"
+#import "SDModifierKeysListener.h"
 
 #import "SDFuzzyMatcher.h"
 #import "SDConfigLauncher.h"
@@ -107,6 +108,10 @@
     if ([[event uppercaseString] isEqualToString:@"MOUSE_MOVED"]) {
         // only incur the cost for those who wish to pay the price
         [[SDMouseFollower sharedFollower] startListening];
+    }
+    else if ([[event uppercaseString] isEqualToString:@"MODIFIERS_CHANGED"]) {
+        // only incur the cost for those who wish to pay the price
+        [[SDModifierKeysListener sharedListener] startListening];
     }
     
     SDEventListener* listener = [[SDEventListener alloc] init];
