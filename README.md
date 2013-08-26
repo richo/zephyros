@@ -161,13 +161,7 @@ bind("D", ["cmd", "shift"], function() {
 
 #### Using other languages
 
-You can script Zephyros from nearly any language. Just write a client that talks to Zephyros using [this simple protocol](#api).
-
-Here's what people are working on:
-
-- node.js (see [issue 17](../../issues/17))
-
-If you want to do one, please [open an issue](https://github.com/sdegutis/zephyros/issues/new) so we can coordinate. That way nobody does extra work.
+You can script Zephyros from nearly any language. See [this page](Docs/Protocol.md) for details.
 
 #### More configs
 
