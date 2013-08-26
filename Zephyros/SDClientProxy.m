@@ -10,15 +10,30 @@
 
 #import "SDLogWindowController.h"
 
+@interface SDClientProxy ()
+
+@property int refRetainCount;
+
+@end
+
 @implementation SDClientProxy
 
-- (void) delayDeath {
-    dispatch_group_enter(self.dieGroup);
-    double delayInSeconds = 60.0;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        dispatch_group_leave(self.dieGroup);
-    });
+- (void) reallyDie {
+    self.whenFinallyDead();
+}
+
+- (void) retainRef {
+    [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(reallyDie) object:nil];
+    
+    self.refRetainCount++;
+}
+
+- (void) releaseRef {
+    self.refRetainCount--;
+    
+    if (self.refRetainCount == 0) {
+        [self performSelector:@selector(reallyDie) withObject:nil afterDelay:5.0];
+    }
 }
 
 - (id) check:(NSArray*)args atIndex:(int)idx forType:(Class)klass inFn:(SEL)fn {

@@ -136,4 +136,14 @@ The function `bind` and `unbind` uses this [key strings and modifiers](https://g
 (defn next-screen [screen])
 (defn previous-screen [screen])
 (defn rotate-to [screen degrees])
+
+
+;; any resource type
+
+(defn retain [resource])
+(defn release [resource])
+
+;; These methods must be used when you want to keep a refernce around longer than a single callback.
+;; Retain increments the retain-count and release decrements it. When it reaches 0, it will be garbage-collected after 5 seconds.
+;; When you first get a resource back, it starts with a retain-count of 0.
 ```

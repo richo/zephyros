@@ -38,7 +38,11 @@
     return self;
 }
 
-- (void) delayDeath {
+- (void) retainRef {
+    // no-op
+}
+
+- (void) releaseRef {
     // no-op
 }
 

@@ -87,6 +87,15 @@ see section [Events](#events)
 
 ### Receiver
 
+#### Any receiver type
+
+These are used when you wish to keep a reference around longer than just a callback.
+
+Name     | Args  | Return value
+---------|-------|-------------
+retain   |       |
+release  |       |
+
 #### Window
 
 Name                         | Args         | Return value
