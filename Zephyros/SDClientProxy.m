@@ -84,4 +84,14 @@
     return obj;
 }
 
+- (id) retain:(NSArray*)args msgID:(id)msgID {
+    [self retainRef];
+    return nil;
+}
+
+- (id) release:(NSArray*)args msgID:(id)msgID {
+    [self releaseRef];
+    return nil;
+}
+
 @end
