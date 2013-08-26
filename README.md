@@ -48,8 +48,6 @@ You typically write a script that binds global hot keys to do stuff, like moving
 
 Note: all the languages use the same [underlying API](Docs/Protocol.md).
 
-Don't see your favorite language here? See the [using other languages](#using-other-languages) section.
-
 #### Frequently Asked Questions
 
 1. **How does Zephyros compare to Slate?**
