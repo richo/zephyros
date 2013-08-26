@@ -37,10 +37,6 @@ You typically write a script that binds global hot keys to do stuff, like moving
 - get free pizza (okay not really)
 - and more!
 
-#### API
-
-All languages use the same [API](Docs/Protocol.md).
-
 #### Some languages you can use
 
 - [Using Clojure](Docs/Clojure.md)
@@ -50,7 +46,23 @@ All languages use the same [API](Docs/Protocol.md).
 - [Using JavaScript](Docs/JavaScript.md)
 - [Using CoffeeScript](Docs/CoffeeScript.md)
 
+Note: all the languages use the same [underlying API](Docs/Protocol.md).
+
 Don't see your favorite language here? See the [using other languages](#using-other-languages) section.
+
+#### Frequently Asked Questions
+
+1. How does Zephyros compare to Slate?
+    - They're both script-oriented and hacker-friendly.
+    - Zephyros was originally a fork of Slate but was rewritten for performance and flexibility.
+    - Zephyros runs your scripts out-of-process which helps Zephyros to be highly stable.
+    - Zephyros has a few more events and API calls, and lacks a few of Slate's GUI-specific features.
+    - Zephyros is actively maintained.
+2. How does Zephyros compare to Spectacle/Divvy/SizeUp/Moom/etc?
+    - Zephyros is meant to be scripted. It has a very minimal UI, but a full-featured API.
+    - Zephyros is free and open source. Some of the alternatives are neither.
+3. Isn't it inefficient to run scripts out-of-process communicating over Unix sockets?
+    - No.
 
 ### Example Configs
 
@@ -164,8 +176,6 @@ If you want to do one, please [open an issue](https://github.com/sdegutis/zephyr
 - #zephyros on irc.freenode.org
 
 ### Change log
-
-**NOTE:** This auto-updater won't work if you're on version 3.x or 2.x due to [this security fix](https://github.com/sdegutis/zephyros/pull/21).<br>Instead, [click here to download it](https://raw.github.com/sdegutis/zephyros/master/Builds/Zephyros-LATEST.app.tar.gz).
 
 - 5.0
     - Added protocol-level support for Unix sockets, making it the default
