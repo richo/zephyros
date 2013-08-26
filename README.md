@@ -173,6 +173,7 @@ If you want to do one, please [open an issue](https://github.com/sdegutis/zephyr
         - **NOTE:** if you're using Clojure, change the Preferences to use TCP and restart Zephyros
     - Adds `unlisten` method to all APIs
     - Adds `modifiers_changed` event to all APIs
+    - Adds `retain` and `release` methods, to keep a handle on a resource for as long as you want (i.e. between callbacks)
 - 4.5.2
     - Added 'focus_changed' event to all APIs
     - Now only keeps (or (get-user-default "MAX_LOGS") 1000) logs
