@@ -52,17 +52,20 @@ Don't see your favorite language here? See the [using other languages](#using-ot
 
 #### Frequently Asked Questions
 
-1. How does Zephyros compare to Slate?
+1. **How does Zephyros compare to Slate?**
     - They're both script-oriented and hacker-friendly.
-    - Zephyros was originally a fork of Slate but was rewritten for performance and flexibility.
-    - Zephyros runs your scripts out-of-process which helps Zephyros to be highly stable.
-    - Zephyros has a few more events and API calls, and lacks a few of Slate's GUI-specific features.
-    - Zephyros is actively maintained.
-2. How does Zephyros compare to Spectacle/Divvy/SizeUp/Moom/etc?
-    - Zephyros is meant to be scripted. It has a very minimal UI, but a full-featured API.
-    - Zephyros is free and open source. Some of the alternatives are neither.
-3. Isn't it inefficient to run scripts out-of-process communicating over Unix sockets?
+    - It can be scripted in nearly any language. Slate can only be scripted in JavaScript.
+    - It was originally a fork of Slate but was rewritten for performance and flexibility.
+    - It runs your scripts out-of-process which helps it to be highly stable.
+    - It has a few more events and API calls, and lacks a few of Slate's GUI-specific features.
+    - It's actively maintained.
+2. **How does Zephyros compare to Spectacle/Divvy/SizeUp/Moom/etc?**
+    - It's meant to be scripted. It has a very minimal UI, but a full-featured API.
+    - It's free and open source. Some of the alternatives are neither.
+3. **Isn't it inefficient to run scripts out-of-process communicating over Unix sockets?**
     - No.
+4. **This app is great! How can I thank you?**
+    - I dunno. Tell your friends about it?
 
 ### Example Configs
 
