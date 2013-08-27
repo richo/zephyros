@@ -36,6 +36,8 @@
         self.topLevel = [[SDTopLevelClientProxy alloc] init];
         self.topLevel.client = self;
         
+        self.undoManager = [[NSUndoManager alloc] init];
+        
         [self.returnedObjects setObject:self.topLevel forKey:[NSNull null]];
         [self.returnedObjects setObject:self.topLevel forKey:@0]; // backwards compatibility :'(
     }

@@ -12,6 +12,10 @@
 
 @implementation SDWindowClientProxy
 
+- (void) dealloc {
+    NSLog(@"bye");
+}
+
 - (id) title:(NSArray*)args msgID:(id)msgID {
     return [self.receiver title];
 }
@@ -25,6 +29,11 @@
 }
 
 - (id) set_frame:(NSArray*)args msgID:(id)msgID {
+    NSRect f = [self.receiver frame];
+    [[[self.client undoManager] prepareWithInvocationTarget:self]
+     set_frame:@[SDDictFromRect(f)]
+     msgID:msgID];
+    
     SDTypeCheckArg(NSDictionary, frame, 0);
     [self.receiver setFrame: SDRectFromDict(frame)];
     return nil;
