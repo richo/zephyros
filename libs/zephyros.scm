@@ -132,3 +132,20 @@
 
 (define (screen window)
   (sync-get-value (list window "screen")))
+
+;; Operations on app
+
+(define (hidden? app)
+  (sync-get-value (list app "hidden?")))
+
+(define (show app)
+  (send (list app "show") noop))
+
+(define (hide app)
+  (send (list app "hide") noop))
+
+(define (kill app)
+  (send (list app "kill") noop))
+
+(define (kill9 app)
+  (send (list app "kill9") noop))
