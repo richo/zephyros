@@ -1,7 +1,7 @@
 ### Zephyros Protocol
 
-* Clients connect to Zephyros via TCP
-* All messages are simple JSON arrays
+* Clients connect to Zephyros using either Unix domain sockets, or TCP at a user-configurable port (defaults to 1235)
+* All messages sent and received are simple JSON arrays
 * Messages in both directions are encoded as `json.bytesize.to_s + "\n" + json`
 * Each message to Zephyros will be [msg_id, receiver_id, method, *args]
     * msg_id can be of any type you choose, as long as it's unique per request
@@ -27,11 +27,9 @@ $ rlwrap /Applications/Zephyros.app/Contents/Resources/libs/zepl/zepl
 ->
 ```
 
-It might be easier if `zepl` was a Homebrew package. But one of their rules is that authors shouldn't submit their own tools, someone else has to. Maybe that someone is you? :)
-
 ### Pseudo-sync
 
-Technically the protocol is asynchronous, to allow for callbacks. But it's nicer to just write `win.title()` and have it return the title directly. The pseudo-sync trick solves this problem. This is the basic idea, using Ruby:
+Technically the protocol is asynchronous, to allow for callbacks. But it's nicer to just write `win.title()` and have it return the title directly. The pseudo-sync trick solves this problem. This is the basic idea, using Ruby pseudo-code:
 
 ```ruby
 def send_sync(args)
