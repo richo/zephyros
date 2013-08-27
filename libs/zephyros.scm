@@ -58,7 +58,7 @@
   (call/next-id (lambda (id)
     (register-callback id thunk)
     (with-output-to-port zeph-out (lambda ()
-      (let* ((payload (apply vector id 'null datum))
+      (let* ((payload (apply vector id datum))
              (json-payload (json->string payload))
              (json-length (string-length json-payload)))
         (write-string (number->string json-length))
@@ -80,21 +80,21 @@
 ;; Begin userfacing API
 
 (define (alert message duration)
-  (send (list "alert" message duration) noop))
+  (send (list 'null "alert" message duration) noop))
 
 (define (log message)
-  (send (list "log" message) noop))
+  (send (list 'null "log" message) noop))
 
 (define (bind key mod thunk)
-  (send (list "bind" key (transform-modifiers mod))
+  (send (list 'null "bind" key (transform-modifiers mod))
         (lambda (arg)
           (if (equal? 'null arg)
             (thunk)))))
 
 (define call/focused-window
   (lambda (thunk)
-    (send (list "focused_window") thunk)))
+    (send (list 'null "focused_window") thunk)))
 
 (define call/visible-windows
   (lambda (thunk)
-    (send (list "visible_windows") thunk)))
+    (send (list 'null "visible_windows") thunk)))
