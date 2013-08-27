@@ -103,9 +103,15 @@
   (lambda (thunk)
     (send (list 'null "focused_window") thunk)))
 
+(define (focused-window)
+  (sync-get-value (list 'null "focused_window")))
+
 (define call/visible-windows
   (lambda (thunk)
     (send (list 'null "visible_windows") thunk)))
+
+(define (visible-windows)
+  (sync-get-value (list 'null "visible_windows")))
 
 ;; Operations on window
 
