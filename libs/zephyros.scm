@@ -33,6 +33,17 @@
         (write-string "\n")
         (write-string json-payload)))))))
 
+;; Begin internal helpers
+
+(define (transform-modifiers modifiers)
+  (apply vector (map (lambda (m) (case m
+                             ((shift) "SHIFT")
+                             ((ctrl) "CTRL")
+                             ((alt) "ALT")
+                             ((cmd) "CMD")))
+               modifiers)))
+
+
 ;; Begin userfacing API
 
 (define (alert message duration)
