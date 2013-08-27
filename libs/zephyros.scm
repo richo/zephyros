@@ -1,7 +1,9 @@
-; Requires the medea egg
+; Requires the medea and unix-sockets eggs
 ; $ chicken-install medea
+; $ chicken-install unix-sockets
 
 (use tcp)
+(use unix-sockets)
 (use srfi-69)
 (use medea)
 
@@ -26,8 +28,14 @@
       (string->number port)
       1235)))
 
+(define *zephyros-path*
+  (let ((path (get-environment-variable "ZEPHYROS_PATH")))
+    (or path "/tmp/zephyros.sock")))
+
 (define-values (zeph-in zeph-out)
-  (tcp-connect *zephyros-host* *zephyros-port*))
+  (if (file-exists? *zephyros-path*)
+    (unix-connect *zephyros-path*)
+    (tcp-connect *zephyros-host* *zephyros-port*)))
 
 (define (callback-mainloop)
   (with-input-from-port zeph-in (lambda ()
