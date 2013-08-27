@@ -141,8 +141,8 @@ kill9           |      |
 
 Name                          | Args                              | Return value
 ------------------------------|-----------------------------------|--------------
-frame_including_dock_and_menu | {x, y, w, h}                      |
-frame_without_dock_or_menu    | {x, y, w, h}                      |
+frame_including_dock_and_menu |                                   | {x, y, w, h}
+frame_without_dock_or_menu    |                                   | {x, y, w, h}
 previous_screen               |                                   | [screen_id](#screen)
 next_screen                   |                                   | [screen_id](#screen)
 rotate_to                     | degree *(only: 0,90,180, or 270)* |
