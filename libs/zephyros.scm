@@ -77,6 +77,8 @@
                              ((cmd) "CMD")))
                modifiers)))
 
+(define (sync-get-value args)
+  (call/cc (lambda (cc) (send args (lambda (arg) (cc arg))))))
 
 ;; Begin userfacing API
 
@@ -107,3 +109,9 @@
 
 (define (minimize window)
   (send (list window "minimize") noop))
+
+(define (title window)
+  (sync-get-value (list window "title")))
+
+(define (frame window)
+  (sync-get-value (list window "frame")))
