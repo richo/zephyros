@@ -47,7 +47,13 @@
       (callback (vector-ref json 1)))
     (callback-mainloop))))
 
-(thread-start! (make-thread callback-mainloop))
+(define callback-handler
+  (make-thread callback-mainloop))
+
+(thread-start! callback-handler)
+
+(define (join-handler!)
+  (thread-join! callback-handler))
 
 (define call/next-id
   (let ((value 0))
