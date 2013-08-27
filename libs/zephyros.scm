@@ -82,3 +82,11 @@
         (lambda (arg)
           (if (equal? 'null arg)
             (thunk)))))
+
+(define call/focused-window
+  (lambda (thunk)
+    (send (list "focused_window") thunk)))
+
+(define call/visible-windows
+  (lambda (thunk)
+    (send (list "visible_windows") thunk)))
