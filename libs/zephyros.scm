@@ -4,6 +4,7 @@
 
 (use tcp)
 (use unix-sockets)
+(use srfi-18)
 (use srfi-69)
 (use medea)
 
