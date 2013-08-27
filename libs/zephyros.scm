@@ -13,6 +13,9 @@
 (define (register-callback id thunk)
   (hash-table-set! callbacks id thunk))
 
+(define noop
+  (lambda (arg) (void)))
+
 (define *zephyros-host*
   (let ((host (get-environment-variable "ZEPHYROS_HOST")))
     (or host "localhost")))
@@ -30,8 +33,9 @@
   (with-input-from-port zeph-in (lambda ()
     (let* ((len (string->number (read-line)))
            (json (read-json (read-string len)))
-           (callback (hash-table-ref/default callbacks (vector-ref json 0) void)))
-      (callback))
+           (callback (hash-table-ref/default callbacks (vector-ref json 0) noop)))
+      (display json)
+      (callback (vector-ref json 1)))
     (callback-mainloop))))
 
 (thread-start! (make-thread callback-mainloop))
@@ -68,10 +72,13 @@
 ;; Begin userfacing API
 
 (define (alert message duration)
-  (send (list "alert" message duration) void))
+  (send (list "alert" message duration) noop))
 
 (define (log message)
-  (send (list "log" message) void))
+  (send (list "log" message) noop))
 
 (define (bind key mod thunk)
-  (send (list "bind" key (transform-modifiers mod)) thunk))
+  (send (list "bind" key (transform-modifiers mod))
+        (lambda (arg)
+          (if (equal? 'null arg)
+            (thunk)))))
