@@ -43,7 +43,6 @@
     (let* ((len (string->number (read-line)))
            (json (read-json (read-string len)))
            (callback (hash-table-ref/default callbacks (vector-ref json 0) noop)))
-      (display json)
       (callback (vector-ref json 1)))
     (callback-mainloop))))
 
