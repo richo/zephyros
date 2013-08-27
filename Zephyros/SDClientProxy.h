@@ -19,6 +19,8 @@
 - (void) retainRef;
 - (void) releaseRef;
 
+- (id) withUndo;
+
 - (id) check:(NSArray*)args atIndex:(int)idx forType:(Class)klass inFn:(SEL)fn;
 - (NSArray*) check:(NSArray*)args atIndex:(int)idx forElementType:(Class)klass inFn:(SEL)fn;
 

@@ -22,6 +22,12 @@
     self.whenFinallyDead();
 }
 
+- (id) withUndo {
+    [self retainRef];
+    [self releaseRef];
+    return [[self.client undoManager] prepareWithInvocationTarget:self];
+}
+
 - (void) retainRef {
     [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(reallyDie) object:nil];
     
