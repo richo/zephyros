@@ -13,6 +13,7 @@
 @implementation SDWindowClientProxy
 
 - (void) dealloc {
+    [[self.client undoManager] removeAllActionsWithTarget:self];
     NSLog(@"bye");
 }
 
