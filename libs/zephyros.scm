@@ -98,3 +98,11 @@
 (define call/visible-windows
   (lambda (thunk)
     (send (list 'null "visible_windows") thunk)))
+
+;; Operations on window
+
+(define (maximize window)
+  (send (list window "maximize") noop))
+
+(define (minimize window)
+  (send (list window "minimize") noop))
