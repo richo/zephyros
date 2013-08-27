@@ -17,9 +17,17 @@
 
 (bind "D" ["Cmd" "Shift"]
       (fn []
+        (alert "hello world" 1)
+        (let [win (get-focused-window)
+              f (get-frame win)
+              f (update-in f [:x] + 10)]
+          (set-frame win f))))
+
+(bind "F" ["Cmd" "Shift"]
+      (fn []
         (alert "hello world" 1)))
 
-@listen-for-callbacks ;; necessary when you use (bind) or (listen)
+@listen-for-callbacks
 ```
 
 #### Run

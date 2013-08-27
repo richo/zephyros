@@ -46,7 +46,11 @@ You typically write a script that binds global hot keys to do stuff, like moving
 - [Using JavaScript](Docs/JavaScript.md)
 - [Using CoffeeScript](Docs/CoffeeScript.md)
 
-Note: all the languages use the same [underlying API](Docs/Protocol.md).
+**Note:** all the languages use the same [underlying API](Docs/Protocol.md).
+
+You can script Zephyros from nearly any language. See [this page](Docs/Protocol.md) for details.
+
+* The [wiki home page](https://github.com/sdegutis/zephyros/wiki) has other people's configs, configs that emulate apps, and useful tricks
 
 #### Frequently Asked Questions
 
@@ -64,107 +68,6 @@ Note: all the languages use the same [underlying API](Docs/Protocol.md).
     - No.
 4. **This app is great! How can I thank you?**
     - I dunno. Tell your friends about it?
-
-### Example Configs
-
-#### Ruby [(docs)](Docs/Ruby.md)
-
-```ruby
-require '/Applications/Zephyros.app/Contents/Resources/libs/zephyros.rb'
-
-# push to top half of screen
-API.bind "K", ["cmd", "alt", "ctrl"] do
-  win = API.focused_window
-  frame = win.screen.frame_without_dock_or_menu
-  frame.h /= 2
-  win.frame = frame
-end
-
-wait_on_callbacks
-```
-
-#### Clojure [(docs)](Docs/Clojure.md)
-
-```clojure
-(use '[leiningen.exec :only (deps)])
-(deps '[[org.clojure/data.json "0.2.2"]])
-
-(load-file "/Applications/Zephyros.app/Contents/Resources/libs/zephyros.clj")
-
-(bind "D" ["Cmd" "Shift"]
-      (fn []
-        (alert "hello world" 1)
-        (let [win (get-focused-window)
-              f (get-frame win)
-              f (update-in f [:x] + 10)]
-          (set-frame win f))))
-
-@listen-for-callbacks ;; necessary when you use (bind) or (listen)
-```
-
-#### Python [(docs)](Docs/Python.md)
-
-```python
-import sys
-sys.path.insert(0, '/Applications/Zephyros.app/Contents/Resources/libs')
-import zephyros
-
-@zephyros.zephyros
-def myscript():
-    def nudge_window():
-        win = zephyros.api.focused_window()
-        f = win.frame()
-        f.x += 10
-        win.set_frame(f)
-
-    def show_window_title():
-        zephyros.api.alert(zephyros.api.focused_window().title())
-
-    zephyros.api.bind('D', ['Cmd', 'Shift'], show_window_title)
-    zephyros.api.bind('F', ['Cmd', 'Shift'], nudge_window)
-```
-
-#### Go [(docs)](Docs/Go.md)
-
-```go
-package main
-
-import (
-	. "../../Applications/Zephyros.app/Contents/Resources/libs/zephyros_go"
-)
-
-func main() {
-    Bind("D", []string{"Cmd", "Shift"}, func() {
-        Alert("hello world", 1)
-        win := FocusedWindow()
-        frame := win.Frame()
-        frame.X += 10
-        win.SetFrame(frame)
-    })
-
-    ListenForCallbacks()
-}
-```
-
-#### JavaScript / CoffeeScript [(docs)](Docs/JavaScript.md)
-
-```ruby
-bind("D", ["cmd", "shift"], function() {
-  var win = api.focusedWindow()
-  frame = win.frame()
-  frame.x += 10
-  win.setFrame(frame)
-})
-```
-
-#### Using other languages
-
-You can script Zephyros from nearly any language. See [this page](Docs/Protocol.md) for details.
-
-#### More configs
-
-* [The author's config](https://github.com/sdegutis/dotfiles/blob/master/stuff/zeph.rb)
-* Look in the [wiki home page](https://github.com/sdegutis/zephyros/wiki) for other people's configs (including a SizeUp emulator)
 
 ### Community
 

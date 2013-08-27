@@ -1,6 +1,17 @@
 ## Zephyros - JavaScript API
 
-### To run:
+#### Sample Script
+
+```ruby
+bind("D", ["cmd", "shift"], function() {
+  var win = api.focusedWindow()
+  frame = win.frame()
+  frame.x += 10
+  win.setFrame(frame)
+})
+```
+
+#### Run
 
 ```bash
 /Applications/Zephyros.app/Contents/MacOS/zephjs myscript.js
@@ -10,7 +21,7 @@
 /Applications/Zephyros.app/Contents/MacOS/zephjs myscript.coffee
 ```
 
-### API
+#### API
 
 * [Top Level](#top-level)
 * [Type "API"](#type-api)

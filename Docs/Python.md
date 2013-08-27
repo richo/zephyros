@@ -1,6 +1,6 @@
 ## Zephyros - Python API
 
-#### Setup Script
+#### Sample Script
 
 ```python
 import sys
