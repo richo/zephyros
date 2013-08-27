@@ -46,9 +46,7 @@ You typically write a script that binds global hot keys to do stuff, like moving
 - [Using JavaScript](Docs/JavaScript.md)
 - [Using CoffeeScript](Docs/CoffeeScript.md)
 
-**Note:** all the languages use the same [underlying API](Docs/Protocol.md).
-
-You can script Zephyros from nearly any language. See [this page](Docs/Protocol.md) for details.
+**Note:** all the languages use the same simple [underlying API](Docs/Protocol.md).
 
 * The [wiki home page](https://github.com/sdegutis/zephyros/wiki) has other people's configs, configs that emulate apps, and useful tricks
 
