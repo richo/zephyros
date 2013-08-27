@@ -149,3 +149,11 @@
 
 (define (kill9 app)
   (send (list app "kill9") noop))
+
+;; Operations on screen
+
+(define (previous-screen screen)
+  (sync-get-value (list screen "previous_screen")))
+
+(define (next-screen screen)
+  (sync-get-value (list screen "next_screen")))
