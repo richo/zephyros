@@ -72,3 +72,6 @@
 
 (define (log message)
   (send (list "log" message) void))
+
+(define (bind key mod thunk)
+  (send (list "bind" key (transform-modifiers mod)) thunk))
