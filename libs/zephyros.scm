@@ -107,11 +107,28 @@
 (define (maximize window)
   (send (list window "maximize") noop))
 
+(define (un-minimize window)
+  (send (list window "un_minimize") noop))
+
 (define (minimize window)
   (send (list window "minimize") noop))
+
+;; Sync getters
 
 (define (title window)
   (sync-get-value (list window "title")))
 
 (define (frame window)
   (sync-get-value (list window "frame")))
+
+(define (top_left window)
+  (sync-get-value (list window "top_left")))
+
+(define (size window)
+  (sync-get-value (list window "size")))
+
+(define (app window)
+  (sync-get-value (list window "app")))
+
+(define (screen window)
+  (sync-get-value (list window "screen")))
