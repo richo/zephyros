@@ -124,6 +124,9 @@
 (define (minimize window)
   (send (list window "minimize") noop))
 
+(define (set-frame window dim)
+  (send (list window "set_frame" dim) noop))
+
 ;; Sync getters
 
 (define (title window)
@@ -168,3 +171,9 @@
 
 (define (next-screen screen)
   (sync-get-value (list screen "next_screen")))
+
+(define (frame-including-dock-and-menu screen)
+  (sync-get-value (list screen "frame_including_dock_and_menu")))
+
+(define (frame-without-dock-or-menu screen)
+  (sync-get-value (list screen "frame_without_dock_or_menu")))
