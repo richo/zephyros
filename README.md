@@ -63,11 +63,7 @@ You typically write a script that binds global hot keys to do stuff, like moving
     - It's meant to be scripted. It has a very minimal UI, but a full-featured API.
     - It's free and open source. Some of the alternatives are neither.
 3. **Isn't it inefficient to have two processes running all the time?**
-    - No.
-4. **Okay, but isn't it inefficient to have them communicating over unix domain sockets?**
-    - No.
-5. **Are you sure?**
-    - Yes.
+    - No. Compare [Chrome's usage with one window open](Graphics/chrome-usage.png) and [Zephyros's usage after moving some windows around](Graphics/zephyros-usage.png).
 
 ### Community
 
