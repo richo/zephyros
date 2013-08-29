@@ -77,7 +77,7 @@
     }
     
     if (!app) {
-        NSLog(@"uhh... ok?");
+        NSLog(@"cannot stop observing dead app, was not being observed.");
         return;
     }
     
