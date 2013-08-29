@@ -2,7 +2,7 @@
 
 * Clients connect to Zephyros using either Unix domain sockets, or TCP at a user-configurable port (defaults to 1235)
 * All messages sent and received are simple JSON arrays
-* Messages in both directions are encoded as `json.bytesize.to_s + "\n" + json`
+* Messages in both directions are encoded as `json.to_s + "\n"`
 * Each message to Zephyros will be [msg_id, receiver_id, method, *args]
     * msg_id can be of any type you choose, as long as it's unique per request
     * receiver_id can be windows_id, app_id, or screen_id
