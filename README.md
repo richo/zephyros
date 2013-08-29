@@ -64,8 +64,6 @@ You typically write a script that binds global hot keys to do stuff, like moving
     - It's free and open source. Some of the alternatives are neither.
 3. **Isn't it inefficient to run scripts out-of-process communicating over Unix sockets?**
     - No.
-4. **This app is great! How can I thank you?**
-    - I dunno. Tell your friends about it?
 
 ### Community
 
