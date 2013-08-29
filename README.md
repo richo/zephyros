@@ -75,6 +75,9 @@ You typically write a script that binds global hot keys to do stuff, like moving
 
 ### Change log
 
+- HEAD
+    - Performance improvements
+    - Simplifid Zephyros-protocol a little bit
 - 5.0
     - Added protocol-level support for Unix sockets, making it the default
     - Converted all built-in APIs (except Clojure) to connect via the unix socket
