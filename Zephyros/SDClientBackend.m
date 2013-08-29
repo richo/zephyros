@@ -11,7 +11,7 @@
 #import "SDClient.h"
 #import "SDLogWindowController.h"
 
-#define FOREVER (60*60*24*365)
+#define FOREVER (-1)
 
 @interface SDClientBackend ()
 
