@@ -64,8 +64,8 @@ You typically write a script that binds global hot keys to do stuff, like moving
     - It's free and open source. Some of the alternatives are neither.
 3. **Isn't it inefficient to have two processes running all the time?**
     - No. Compare:
-        - [Chrome's usage with one window open](Graphics/chrome-usage.png)
-        - [Zephyros's usage after moving some windows around](Graphics/zephyros-usage.png).
+        - [Chrome's usage with one window open](https://raw.github.com/sdegutis/zephyros/master/Graphics/chrome-usage.png)
+        - [Zephyros's usage after moving some windows around](https://raw.github.com/sdegutis/zephyros/master/Graphics/zephyros-usage.png).
 
 ### Community
 
