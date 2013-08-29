@@ -62,8 +62,12 @@ You typically write a script that binds global hot keys to do stuff, like moving
 2. **How does Zephyros compare to Spectacle/Divvy/SizeUp/Moom/etc?**
     - It's meant to be scripted. It has a very minimal UI, but a full-featured API.
     - It's free and open source. Some of the alternatives are neither.
-3. **Isn't it inefficient to run scripts out-of-process communicating over Unix sockets?**
+3. **Isn't it inefficient to have two processes running all the time?**
     - No.
+4. **Okay, but isn't it inefficient to have them communicating over unix domain sockets?**
+    - No.
+5. **Are you sure?**
+    - Yes.
 
 ### Community
 
