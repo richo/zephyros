@@ -46,13 +46,13 @@ You typically write a script that binds global hot keys to do stuff, like moving
 - [Using JavaScript](Docs/JavaScript.md)
 - [Using CoffeeScript](Docs/CoffeeScript.md)
 
-**Note:** all the languages use the same simple [underlying API](Docs/Protocol.md).
+**Note:** all the languages use the same simple [underlying protocol](Docs/Protocol.md).
 
 * The [wiki home page](https://github.com/sdegutis/zephyros/wiki) has other people's configs, configs that emulate apps, and useful tricks
 
 #### Frequently Asked Questions
 
-1. *How does Zephyros compare to Slate?*
+1. How does Zephyros compare to Slate?
 
    Zephyros was originally a fork of Slate, but was rewritten for
    performance and stability improvements, and flexibility. This
@@ -62,7 +62,7 @@ You typically write a script that binds global hot keys to do stuff, like moving
    Zephyros has a few more API calls and listen-able events, but lacks
    a few of Slate's GUI-specific features.
 
-2. *How does Zephyros compare to Spectacle/Divvy/SizeUp/Moom/AppGrid/etc?*
+2. How does Zephyros compare to Spectacle / Divvy / SizeUp / Moom / AppGrid / etc?
 
    Zephyros just gives you an API which you can use to build up your
    own functionality for managing your windows however you'd
@@ -73,12 +73,12 @@ You typically write a script that binds global hot keys to do stuff, like moving
    Also, Zephyros is free, open source, and actively maintained. Some
    of the alternatives are neither.
 
-3. *Isn't it inefficient to have two processes running all the time?*
+3. Isn't it inefficient to have two processes running all the time?
 
    Nope. Compare
    [Chrome's usage after opening one window](https://raw.github.com/sdegutis/zephyros/master/Graphics/chrome-usage.png)
    and
-   [Zephyros's usage after moving some windows around](https://raw.github.com/sdegutis/zephyros/master/Graphics/zephyros-usage.png)
+   [Zephyros's usage after moving some windows around](https://raw.github.com/sdegutis/zephyros/master/Graphics/zephyros-usage.png).
 
 ### Change log
 
