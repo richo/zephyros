@@ -174,13 +174,13 @@
         CFRelease(sizeStorage);
 }
 
-- (SDScreenProxy*) screen {
+- (NSScreen*) screen {
     CGRect windowFrame = [self frame];
     
     CGFloat lastVolume = 0;
-    SDScreenProxy* lastScreen = nil;
+    NSScreen* lastScreen = nil;
     
-    for (SDScreenProxy* screen in [SDScreenProxy allScreens]) {
+    for (NSScreen* screen in [NSScreen screens]) {
         CGRect screenFrame = [screen frameIncludingDockAndMenu];
         CGRect intersection = CGRectIntersection(windowFrame, screenFrame);
         CGFloat volume = intersection.size.width * intersection.size.height;

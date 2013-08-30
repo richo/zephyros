@@ -12,6 +12,6 @@
 
 @interface SDScreenClientProxy : SDClientProxy
 
-@property SDScreenProxy* receiver;
+@property NSScreen* receiver;
 
 @end

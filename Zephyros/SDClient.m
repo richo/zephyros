@@ -147,7 +147,7 @@
     else if ([obj isKindOfClass:[SDWindowProxy self]]) {
         return [self storeObj:obj withWrapper:[SDWindowClientProxy self]];
     }
-    else if ([obj isKindOfClass:[SDScreenProxy self]]) {
+    else if ([obj isKindOfClass:[NSScreen self]]) {
         return [self storeObj:obj withWrapper:[SDScreenClientProxy self]];
     }
     else if ([obj isKindOfClass:[SDAppProxy self]]) {

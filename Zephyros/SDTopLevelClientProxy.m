@@ -192,11 +192,11 @@
 }
 
 - (id) main_screen:(NSArray*)args msgID:(id)msgID {
-    return [SDScreenProxy mainScreen];
+    return [NSScreen mainScreen];
 }
 
 - (id) all_screens:(NSArray*)args msgID:(id)msgID {
-    return [SDScreenProxy allScreens];
+    return [NSScreen screens];
 }
 
 - (id) running_apps:(NSArray*)args msgID:(id)msgID {

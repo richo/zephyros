@@ -42,7 +42,7 @@
 
 // other
 
-- (SDScreenProxy*) screen;
+- (NSScreen*) screen;
 - (SDAppProxy*) app;
 
 - (BOOL) isNormalWindow;
