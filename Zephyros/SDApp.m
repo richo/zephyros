@@ -15,11 +15,14 @@
 
 #import "SDAppStalker.h"
 
+#import "SDObserver.h"
+
 @interface SDApp ()
 
 @property AXUIElementRef app;
 @property (readwrite) pid_t pid;
-@property AXObserverRef observer;
+
+@property NSMutableArray* observers;
 
 - (id) initWithElement:(AXUIElementRef)element;
 
@@ -28,50 +31,6 @@
 void sendNotificationButNotTooOften(NSString* name, id thing) {
     NSNotification* note = [NSNotification notificationWithName:name object:nil userInfo:@{@"thing": thing}];
     [[NSNotificationQueue defaultQueue] enqueueNotification:note postingStyle:NSPostNow];
-}
-
-void obsessiveWindowCallback(AXObserverRef observer, AXUIElementRef element, CFStringRef notification, void *refcon) {
-    if (CFEqual(notification, kAXWindowCreatedNotification)) {
-        SDWindow* window = [[SDWindow alloc] initWithElement:element];
-        sendNotificationButNotTooOften(SDListenEventWindowCreated, window);
-    }
-    else if (CFEqual(notification, kAXWindowMovedNotification)) {
-        SDWindow* window = [[SDWindow alloc] initWithElement:element];
-        sendNotificationButNotTooOften(SDListenEventWindowMoved, window);
-    }
-    else if (CFEqual(notification, kAXWindowResizedNotification)) {
-        SDWindow* window = [[SDWindow alloc] initWithElement:element];
-        sendNotificationButNotTooOften(SDListenEventWindowResized, window);
-    }
-    else if (CFEqual(notification, kAXWindowMiniaturizedNotification)) {
-        SDWindow* window = [[SDWindow alloc] initWithElement:element];
-        sendNotificationButNotTooOften(SDListenEventWindowMinimized, window);
-    }
-    else if (CFEqual(notification, kAXWindowDeminiaturizedNotification)) {
-        SDWindow* window = [[SDWindow alloc] initWithElement:element];
-        sendNotificationButNotTooOften(SDListenEventWindowUnminimized, window);
-    }
-    else if (CFEqual(notification, kAXApplicationHiddenNotification)) {
-        SDApp* app = [[SDApp alloc] initWithElement:element];
-        sendNotificationButNotTooOften(SDListenEventAppHidden, app);
-    }
-    else if (CFEqual(notification, kAXApplicationShownNotification)) {
-        SDApp* app = [[SDApp alloc] initWithElement:element];
-        sendNotificationButNotTooOften(SDListenEventAppShown, app);
-    }
-    else if (CFEqual(notification, kAXFocusedWindowChangedNotification)) {
-        SDWindow* window = [[SDWindow alloc] initWithElement:element];
-        sendNotificationButNotTooOften(SDListenEventFocusChanged, window);
-    }
-    else if (CFEqual(notification, kAXMainWindowChangedNotification)) {
-        SDWindow* window = [[SDWindow alloc] initWithElement:element];
-        sendNotificationButNotTooOften(SDListenEventFocusChanged, window);
-    }
-    else if (CFEqual(notification, kAXApplicationActivatedNotification)) {
-        SDWindow* window = [SDWindow focusedWindow];
-        if (window)
-            sendNotificationButNotTooOften(SDListenEventFocusChanged, window);
-    }
 }
 
 @implementation SDApp
@@ -102,6 +61,7 @@ void obsessiveWindowCallback(AXObserverRef observer, AXUIElementRef element, CFS
 
 - (id) initWithPID:(pid_t)pid {
     if (self = [super init]) {
+        self.observers = [NSMutableArray array];
         self.pid = pid;
         self.app = AXUIElementCreateApplication(pid);
     }
@@ -109,6 +69,8 @@ void obsessiveWindowCallback(AXObserverRef observer, AXUIElementRef element, CFS
 }
 
 - (void) dealloc {
+    self.observers = nil; // this will make them un-observe
+    
     if (self.app)
         CFRelease(self.app);
 }
@@ -161,11 +123,11 @@ void obsessiveWindowCallback(AXObserverRef observer, AXUIElementRef element, CFS
 }
 
 - (void) show {
-    [self setAppProperty:NSAccessibilityHiddenAttribute withValue:[NSNumber numberWithLong:NO]];
+    [self setAppProperty:NSAccessibilityHiddenAttribute withValue:@NO];
 }
 
 - (void) hide {
-    [self setAppProperty:NSAccessibilityHiddenAttribute withValue:[NSNumber numberWithLong:YES]];
+    [self setAppProperty:NSAccessibilityHiddenAttribute withValue:@YES];
 }
 
 - (NSString*) title {
@@ -181,48 +143,60 @@ void obsessiveWindowCallback(AXObserverRef observer, AXUIElementRef element, CFS
 }
 
 - (void) startObservingStuff {
-    AXObserverRef observer;
-    AXError err = AXObserverCreate(self.pid, obsessiveWindowCallback, &observer);
-    if (err != kAXErrorSuccess) {
-//        NSLog(@"start observing stuff failed at point #1 with: %d", err);
-        return;
-    }
+    [self.observers addObject: [SDObserver observe:kAXWindowCreatedNotification on:self.app callback:^(AXUIElementRef element) {
+        SDWindow* window = [[SDWindow alloc] initWithElement:element];
+        sendNotificationButNotTooOften(SDListenEventWindowCreated, window);
+    }]];
     
-    self.observer = observer;
-    AXObserverAddNotification(self.observer, self.app, kAXWindowCreatedNotification, NULL);
-    AXObserverAddNotification(self.observer, self.app, kAXWindowMovedNotification, NULL);
-    AXObserverAddNotification(self.observer, self.app, kAXWindowResizedNotification, NULL);
-    AXObserverAddNotification(self.observer, self.app, kAXWindowMiniaturizedNotification, NULL);
-    AXObserverAddNotification(self.observer, self.app, kAXWindowDeminiaturizedNotification, NULL);
-    AXObserverAddNotification(self.observer, self.app, kAXApplicationHiddenNotification, NULL);
-    AXObserverAddNotification(self.observer, self.app, kAXApplicationShownNotification, NULL);
-    AXObserverAddNotification(self.observer, self.app, kAXFocusedWindowChangedNotification, NULL);
-    AXObserverAddNotification(self.observer, self.app, kAXApplicationActivatedNotification, NULL);
-    AXObserverAddNotification(self.observer, self.app, kAXMainWindowChangedNotification, NULL);
+    [self.observers addObject: [SDObserver observe:kAXWindowMovedNotification on:self.app callback:^(AXUIElementRef element) {
+        SDWindow* window = [[SDWindow alloc] initWithElement:element];
+        sendNotificationButNotTooOften(SDListenEventWindowMoved, window);
+    }]];
     
-    CFRunLoopAddSource([[NSRunLoop currentRunLoop] getCFRunLoop],
-                       AXObserverGetRunLoopSource(self.observer),
-                       kCFRunLoopDefaultMode);
+    [self.observers addObject: [SDObserver observe:kAXWindowResizedNotification on:self.app callback:^(AXUIElementRef element) {
+        SDWindow* window = [[SDWindow alloc] initWithElement:element];
+        sendNotificationButNotTooOften(SDListenEventWindowResized, window);
+    }]];
+    
+    [self.observers addObject: [SDObserver observe:kAXWindowMiniaturizedNotification on:self.app callback:^(AXUIElementRef element) {
+        SDWindow* window = [[SDWindow alloc] initWithElement:element];
+        sendNotificationButNotTooOften(SDListenEventWindowMinimized, window);
+    }]];
+    
+    [self.observers addObject: [SDObserver observe:kAXWindowDeminiaturizedNotification on:self.app callback:^(AXUIElementRef element) {
+        SDWindow* window = [[SDWindow alloc] initWithElement:element];
+        sendNotificationButNotTooOften(SDListenEventWindowUnminimized, window);
+    }]];
+    
+    [self.observers addObject: [SDObserver observe:kAXApplicationHiddenNotification on:self.app callback:^(AXUIElementRef element) {
+        SDApp* app = [[SDApp alloc] initWithElement:element];
+        sendNotificationButNotTooOften(SDListenEventAppHidden, app);
+    }]];
+    
+    [self.observers addObject: [SDObserver observe:kAXApplicationShownNotification on:self.app callback:^(AXUIElementRef element) {
+        SDApp* app = [[SDApp alloc] initWithElement:element];
+        sendNotificationButNotTooOften(SDListenEventAppShown, app);
+    }]];
+    
+    [self.observers addObject: [SDObserver observe:kAXFocusedWindowChangedNotification on:self.app callback:^(AXUIElementRef element) {
+        SDWindow* window = [[SDWindow alloc] initWithElement:element];
+        sendNotificationButNotTooOften(SDListenEventFocusChanged, window);
+    }]];
+    
+    [self.observers addObject: [SDObserver observe:kAXApplicationActivatedNotification on:self.app callback:^(AXUIElementRef element) {
+        SDWindow* window = [SDWindow focusedWindow];
+        if (window)
+            sendNotificationButNotTooOften(SDListenEventFocusChanged, window);
+    }]];
+    
+    [self.observers addObject: [SDObserver observe:kAXMainWindowChangedNotification on:self.app callback:^(AXUIElementRef element) {
+        SDWindow* window = [[SDWindow alloc] initWithElement:element];
+        sendNotificationButNotTooOften(SDListenEventFocusChanged, window);
+    }]];
 }
 
 - (void) stopObservingStuff {
-    CFRunLoopRemoveSource([[NSRunLoop currentRunLoop] getCFRunLoop],
-                          AXObserverGetRunLoopSource(self.observer),
-                          kCFRunLoopDefaultMode);
-    
-    AXObserverRemoveNotification(self.observer, self.app, kAXWindowCreatedNotification);
-    AXObserverRemoveNotification(self.observer, self.app, kAXWindowMovedNotification);
-    AXObserverRemoveNotification(self.observer, self.app, kAXWindowResizedNotification);
-    AXObserverRemoveNotification(self.observer, self.app, kAXWindowMiniaturizedNotification);
-    AXObserverRemoveNotification(self.observer, self.app, kAXWindowDeminiaturizedNotification);
-    AXObserverRemoveNotification(self.observer, self.app, kAXApplicationHiddenNotification);
-    AXObserverRemoveNotification(self.observer, self.app, kAXApplicationShownNotification);
-    AXObserverRemoveNotification(self.observer, self.app, kAXFocusedWindowChangedNotification);
-    AXObserverRemoveNotification(self.observer, self.app, kAXApplicationActivatedNotification);
-    AXObserverRemoveNotification(self.observer, self.app, kAXMainWindowChangedNotification);
-    
-    CFRelease(self.observer);
-    self.observer = nil;
+    [self.observers removeAllObjects];
 }
 
 - (id) getAppProperty:(NSString*)propType withDefaultValue:(id)defaultValue {

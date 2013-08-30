@@ -22,6 +22,7 @@
 		945AD7C117A8692A00578BEB /* SDChoice.m in Sources */ = {isa = PBXBuildFile; fileRef = 945AD7BA17A8692A00578BEB /* SDChoice.m */; };
 		945AD7C217A8692A00578BEB /* NSString+Score.m in Sources */ = {isa = PBXBuildFile; fileRef = 945AD7BC17A8692A00578BEB /* NSString+Score.m */; };
 		94628B9C17D145570056DDDA /* MACollectionUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 94628B9B17D145570056DDDA /* MACollectionUtilities.m */; };
+		94628B9F17D14B510056DDDA /* SDObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 94628B9E17D14B510056DDDA /* SDObserver.m */; };
 		9463D43417A77E2C00A3E905 /* SDGeometry.m in Sources */ = {isa = PBXBuildFile; fileRef = 9463D43317A77E2C00A3E905 /* SDGeometry.m */; };
 		9466562217AFA5EE00B68607 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9466562117AFA5EE00B68607 /* ApplicationServices.framework */; };
 		94696E1417C8271D0018631C /* zephyros.icns in Resources */ = {isa = PBXBuildFile; fileRef = 94696E1317C8271D0018631C /* zephyros.icns */; };
@@ -139,6 +140,8 @@
 		945AD7BC17A8692A00578BEB /* NSString+Score.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Score.m"; sourceTree = "<group>"; };
 		94628B9A17D145570056DDDA /* MACollectionUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MACollectionUtilities.h; sourceTree = "<group>"; };
 		94628B9B17D145570056DDDA /* MACollectionUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MACollectionUtilities.m; sourceTree = "<group>"; };
+		94628B9D17D14B510056DDDA /* SDObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDObserver.h; sourceTree = "<group>"; };
+		94628B9E17D14B510056DDDA /* SDObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDObserver.m; sourceTree = "<group>"; };
 		9463D43217A77E2C00A3E905 /* SDGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDGeometry.h; sourceTree = "<group>"; };
 		9463D43317A77E2C00A3E905 /* SDGeometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDGeometry.m; sourceTree = "<group>"; };
 		9466561F17AFA58400B68607 /* HIToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HIToolbox.framework; path = System/Library/Frameworks/Carbon.framework/Frameworks/HIToolbox.framework; sourceTree = SDKROOT; };
@@ -328,6 +331,8 @@
 				9458EC4F17BA79610077CBB8 /* SDMouseFollower.m */,
 				9478F8CE17C87CB30053DE2C /* SDModifierKeysListener.h */,
 				9478F8CF17C87CB30053DE2C /* SDModifierKeysListener.m */,
+				94628B9D17D14B510056DDDA /* SDObserver.h */,
+				94628B9E17D14B510056DDDA /* SDObserver.m */,
 			);
 			name = Events;
 			sourceTree = "<group>";
@@ -703,6 +708,7 @@
 				9458EC5017BA79610077CBB8 /* SDMouseFollower.m in Sources */,
 				9478F8D017C87CB30053DE2C /* SDModifierKeysListener.m in Sources */,
 				94628B9C17D145570056DDDA /* MACollectionUtilities.m in Sources */,
+				94628B9F17D14B510056DDDA /* SDObserver.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
