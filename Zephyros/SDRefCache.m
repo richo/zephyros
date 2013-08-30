@@ -35,7 +35,7 @@
 - (id) storeRef:(id)ref {
     NSArray* keys = [self.objects allKeysForObject: ref];
     
-    NSLog(@"REF: %@", [[ref valueForKey:@"receiver"] title]);
+//    NSLog(@"REF: %@", [[ref valueForKey:@"receiver"] title]);
     NSLog(@"KEYS: %@", keys);
     
     if ([keys count] == 0) {
