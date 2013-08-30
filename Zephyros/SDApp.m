@@ -113,6 +113,15 @@ void obsessiveWindowCallback(AXObserverRef observer, AXUIElementRef element, CFS
         CFRelease(self.app);
 }
 
+- (BOOL) isEqual:(SDApp*)object {
+    return ([self isKindOfClass: [object class]] &&
+            self.pid == object.pid);
+}
+
+- (NSUInteger) hash {
+    return self.pid;
+}
+
 - (NSArray*) visibleWindows {
     if ([SDUniversalAccessHelper complainIfNeeded])
         return nil;

@@ -289,7 +289,7 @@
 			name = "Fuzzy Matcher";
 			sourceTree = "<group>";
 		};
-		947DC89017B9D17A00F2128F /* Client Proxies */ = {
+		947DC89017B9D17A00F2128F /* References */ = {
 			isa = PBXGroup;
 			children = (
 				947DC89417B9D19F00F2128F /* SDTopLevelRef.h */,
@@ -301,7 +301,7 @@
 				947DC89D17B9D1D100F2128F /* SDScreenRef.h */,
 				947DC89E17B9D1D100F2128F /* SDScreenRef.m */,
 			);
-			name = "Client Proxies";
+			name = References;
 			sourceTree = "<group>";
 		};
 		947DC98B17A5B9400082D095 /* Events */ = {
@@ -392,13 +392,13 @@
 				94873F3F17191F40000AC0A6 /* AppDelegate.h */,
 				94873F4017191F40000AC0A6 /* AppDelegate.m */,
 				94E02EE217AB1D19005AE3E8 /* Clients */,
-				947DC89017B9D17A00F2128F /* Client Proxies */,
+				947DC89017B9D17A00F2128F /* References */,
 				945AD7A017A866FE00578BEB /* Fuzzy Matcher */,
 				947DC99517A5BCA90082D095 /* Preferences */,
 				947DC99617A5BCD30082D095 /* Log Window */,
 				94873F611719222D000AC0A6 /* Alert Window */,
 				94BC235F17BA14F500BB4FDF /* Box */,
-				94D07FB71723BAAE00CF44E9 /* Proxies */,
+				94D07FB71723BAAE00CF44E9 /* Resource Proxies */,
 				94E02EE017AB1B14005AE3E8 /* Hot keys */,
 				947DC98B17A5B9400082D095 /* Events */,
 				94E02EEE17AB536D005AE3E8 /* Launcher */,
@@ -485,7 +485,7 @@
 			name = Box;
 			sourceTree = "<group>";
 		};
-		94D07FB71723BAAE00CF44E9 /* Proxies */ = {
+		94D07FB71723BAAE00CF44E9 /* Resource Proxies */ = {
 			isa = PBXGroup;
 			children = (
 				94873F6B171937BC000AC0A6 /* SDWindow.h */,
@@ -495,7 +495,7 @@
 				94D07FB41723B16900CF44E9 /* SDApp.h */,
 				94D07FB51723B16900CF44E9 /* SDApp.m */,
 			);
-			name = Proxies;
+			name = "Resource Proxies";
 			sourceTree = "<group>";
 		};
 		94E02EE017AB1B14005AE3E8 /* Hot keys */ = {

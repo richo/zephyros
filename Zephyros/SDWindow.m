@@ -34,6 +34,15 @@
         CFRelease(self.window);
 }
 
+- (BOOL) isEqual:(SDWindow*)other {
+    return ([self isKindOfClass: [other class]] &&
+            CFEqual(self.window, other.window));
+}
+
+- (NSUInteger) hash {
+    return CFHash(self.window);
+}
+
 + (NSArray*) allWindows {
     if ([SDUniversalAccessHelper complainIfNeeded])
         return nil;
