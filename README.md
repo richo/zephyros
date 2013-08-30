@@ -55,11 +55,11 @@ You typically write a script that binds global hot keys to do stuff, like moving
 1. How does Zephyros compare to Slate?
 
    Zephyros was originally a fork of Slate, but was rewritten for
-   performance and stability improvements, and flexibility. This
-   allowed Zephyros to be scripted in many languages, whereas Slate is
-   only scripted in JavaScript. Zephyros has a few more API calls and
-   listen-able events, but lacks a few of Slate's GUI-specific
-   features.
+   performance and stability improvements, and flexibility. One
+   benefit is that Zephyros can be scripted in many languages, whereas
+   Slate can only be scripted in JavaScript. Zephyros has a few more
+   API calls and listen-able events, but lacks a few of Slate's
+   GUI-specific features.
 
 2. How does Zephyros compare to Spectacle / Divvy / SizeUp / Moom / AppGrid / etc?
 
