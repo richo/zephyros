@@ -32,7 +32,7 @@ static void observer_callback(AXObserverRef observer, AXUIElementRef element, CF
 + (SDObserver*) observe:(CFStringRef)event on:(AXUIElementRef)thing callback:(void(^)(AXUIElementRef element))callback {
     SDObserver* o = [[SDObserver alloc] init];
     o.thing = thing;
-    o.event = event;
+    o.event = CFRetain(event);
     o.callback = callback;
     [o startObserving];
     return o;
@@ -40,6 +40,7 @@ static void observer_callback(AXObserverRef observer, AXUIElementRef element, CF
 
 - (void) dealloc {
     [self stopObserving];
+    CFRelease(self.event);
 }
 
 - (void) stopObserving {
