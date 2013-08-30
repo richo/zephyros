@@ -10,10 +10,10 @@
 
 #import "SDLogWindowController.h"
 
-#import "SDTopLevelClientProxy.h"
-#import "SDAppClientProxy.h"
-#import "SDWindowClientProxy.h"
-#import "SDScreenClientProxy.h"
+#import "SDTopLevelRef.h"
+#import "SDAppRef.h"
+#import "SDWindowRef.h"
+#import "SDScreenRef.h"
 
 #import "SDClient.h"
 
@@ -22,7 +22,7 @@
 @property int64_t maxRespObjID;
 @property NSMutableDictionary* returnedObjects;
 
-@property SDTopLevelClientProxy* topLevel;
+@property SDTopLevelRef* topLevel;
 
 @end
 
@@ -33,7 +33,7 @@
     if (self = [super init]) {
         self.returnedObjects = [NSMutableDictionary dictionary];
         
-        self.topLevel = [[SDTopLevelClientProxy alloc] init];
+        self.topLevel = [[SDTopLevelRef alloc] init];
         self.topLevel.client = self;
         
         self.undoManager = [[NSUndoManager alloc] init];
@@ -73,7 +73,7 @@
     }
     
     NSArray* args = [msg subarrayWithRange:NSMakeRange(3, [msg count] - 3)];
-    SDClientProxy* recv = [self.returnedObjects objectForKey:recvID];
+    SDReference* recv = [self.returnedObjects objectForKey:recvID];
     [recv retainRef];
     [recv releaseRef];
     
@@ -112,7 +112,7 @@
     self.maxRespObjID++;
     NSNumber* newMaxID = @(self.maxRespObjID);
     
-    SDClientProxy* wrappedObj = [[wrapper alloc] init];
+    SDReference* wrappedObj = [[wrapper alloc] init];
     wrappedObj.client = self;
     wrappedObj.receiver = obj;
     
@@ -144,14 +144,14 @@
         
         return newArray;
     }
-    else if ([obj isKindOfClass:[SDWindowProxy self]]) {
-        return [self storeObj:obj withWrapper:[SDWindowClientProxy self]];
+    else if ([obj isKindOfClass:[SDWindow self]]) {
+        return [self storeObj:obj withWrapper:[SDWindowRef self]];
     }
     else if ([obj isKindOfClass:[NSScreen self]]) {
-        return [self storeObj:obj withWrapper:[SDScreenClientProxy self]];
+        return [self storeObj:obj withWrapper:[SDScreenRef self]];
     }
-    else if ([obj isKindOfClass:[SDAppProxy self]]) {
-        return [self storeObj:obj withWrapper:[SDAppClientProxy self]];
+    else if ([obj isKindOfClass:[SDApp self]]) {
+        return [self storeObj:obj withWrapper:[SDAppRef self]];
     }
     
     return obj;

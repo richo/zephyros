@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 Giant Robot Software. All rights reserved.
 //
 
-#import "SDAppClientProxy.h"
+#import "SDAppRef.h"
 
-@implementation SDAppClientProxy
+@implementation SDAppRef
 
 - (id) all_windows:(NSArray*)args msgID:(id)msgID {
     return [self.receiver allWindows];

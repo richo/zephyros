@@ -6,16 +6,16 @@
 //  Copyright (c) 2013 Giant Robot Software. All rights reserved.
 //
 
-#import "SDAppProxy.h"
+#import "SDApp.h"
 
-#import "SDWindowProxy.h"
+#import "SDWindow.h"
 #import "SDUniversalAccessHelper.h"
 
-#import "SDWindowProxy.h"
+#import "SDWindow.h"
 
 #import "SDAppStalker.h"
 
-@interface SDAppProxy ()
+@interface SDApp ()
 
 @property AXUIElementRef app;
 @property (readwrite) pid_t pid;
@@ -32,49 +32,49 @@ void sendNotificationButNotTooOften(NSString* name, id thing) {
 
 void obsessiveWindowCallback(AXObserverRef observer, AXUIElementRef element, CFStringRef notification, void *refcon) {
     if (CFEqual(notification, kAXWindowCreatedNotification)) {
-        SDWindowProxy* window = [[SDWindowProxy alloc] initWithElement:element];
+        SDWindow* window = [[SDWindow alloc] initWithElement:element];
         sendNotificationButNotTooOften(SDListenEventWindowCreated, window);
     }
     else if (CFEqual(notification, kAXWindowMovedNotification)) {
-        SDWindowProxy* window = [[SDWindowProxy alloc] initWithElement:element];
+        SDWindow* window = [[SDWindow alloc] initWithElement:element];
         sendNotificationButNotTooOften(SDListenEventWindowMoved, window);
     }
     else if (CFEqual(notification, kAXWindowResizedNotification)) {
-        SDWindowProxy* window = [[SDWindowProxy alloc] initWithElement:element];
+        SDWindow* window = [[SDWindow alloc] initWithElement:element];
         sendNotificationButNotTooOften(SDListenEventWindowResized, window);
     }
     else if (CFEqual(notification, kAXWindowMiniaturizedNotification)) {
-        SDWindowProxy* window = [[SDWindowProxy alloc] initWithElement:element];
+        SDWindow* window = [[SDWindow alloc] initWithElement:element];
         sendNotificationButNotTooOften(SDListenEventWindowMinimized, window);
     }
     else if (CFEqual(notification, kAXWindowDeminiaturizedNotification)) {
-        SDWindowProxy* window = [[SDWindowProxy alloc] initWithElement:element];
+        SDWindow* window = [[SDWindow alloc] initWithElement:element];
         sendNotificationButNotTooOften(SDListenEventWindowUnminimized, window);
     }
     else if (CFEqual(notification, kAXApplicationHiddenNotification)) {
-        SDAppProxy* app = [[SDAppProxy alloc] initWithElement:element];
+        SDApp* app = [[SDApp alloc] initWithElement:element];
         sendNotificationButNotTooOften(SDListenEventAppHidden, app);
     }
     else if (CFEqual(notification, kAXApplicationShownNotification)) {
-        SDAppProxy* app = [[SDAppProxy alloc] initWithElement:element];
+        SDApp* app = [[SDApp alloc] initWithElement:element];
         sendNotificationButNotTooOften(SDListenEventAppShown, app);
     }
     else if (CFEqual(notification, kAXFocusedWindowChangedNotification)) {
-        SDWindowProxy* window = [[SDWindowProxy alloc] initWithElement:element];
+        SDWindow* window = [[SDWindow alloc] initWithElement:element];
         sendNotificationButNotTooOften(SDListenEventFocusChanged, window);
     }
     else if (CFEqual(notification, kAXMainWindowChangedNotification)) {
-        SDWindowProxy* window = [[SDWindowProxy alloc] initWithElement:element];
+        SDWindow* window = [[SDWindow alloc] initWithElement:element];
         sendNotificationButNotTooOften(SDListenEventFocusChanged, window);
     }
     else if (CFEqual(notification, kAXApplicationActivatedNotification)) {
-        SDWindowProxy* window = [SDWindowProxy focusedWindow];
+        SDWindow* window = [SDWindow focusedWindow];
         if (window)
             sendNotificationButNotTooOften(SDListenEventFocusChanged, window);
     }
 }
 
-@implementation SDAppProxy
+@implementation SDApp
 
 + (NSArray*) runningApps {
     if ([SDUniversalAccessHelper complainIfNeeded])
@@ -83,7 +83,7 @@ void obsessiveWindowCallback(AXObserverRef observer, AXUIElementRef element, CFS
     NSMutableArray* apps = [NSMutableArray array];
     
     for (NSRunningApplication* runningApp in [[NSWorkspace sharedWorkspace] runningApplications]) {
-        SDAppProxy* app = [[SDAppProxy alloc] initWithPID:[runningApp processIdentifier]];
+        SDApp* app = [[SDApp alloc] initWithPID:[runningApp processIdentifier]];
         [apps addObject:app];
     }
     
@@ -117,7 +117,7 @@ void obsessiveWindowCallback(AXObserverRef observer, AXUIElementRef element, CFS
     if ([SDUniversalAccessHelper complainIfNeeded])
         return nil;
     
-    return [[self allWindows] filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(SDWindowProxy* win, NSDictionary *bindings) {
+    return [[self allWindows] filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(SDWindow* win, NSDictionary *bindings) {
         return ![[win app] isHidden]
         && ![win isWindowMinimized]
         && [win isNormalWindow];
@@ -133,7 +133,7 @@ void obsessiveWindowCallback(AXObserverRef observer, AXUIElementRef element, CFS
         for (NSInteger i = 0; i < CFArrayGetCount(_windows); i++) {
             AXUIElementRef win = CFArrayGetValueAtIndex(_windows, i);
             
-            SDWindowProxy* window = [[SDWindowProxy alloc] initWithElement:win];
+            SDWindow* window = [[SDWindow alloc] initWithElement:win];
             [windows addObject:window];
         }
         CFRelease(_windows);

@@ -10,7 +10,7 @@
 
 #import "SDClient.h"
 
-@interface SDClientProxy : NSObject
+@interface SDReference : NSObject
 
 @property (weak) SDClient* client;
 @property id receiver;

@@ -6,11 +6,11 @@
 //  Copyright (c) 2013 Giant Robot Software. All rights reserved.
 //
 
-#import "SDClientProxy.h"
+#import "SDReference.h"
 
 #import "NSScreen+SDScreenResource.h"
 
-@interface SDScreenClientProxy : SDClientProxy
+@interface SDScreenRef : SDReference
 
 @property NSScreen* receiver;
 

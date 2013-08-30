@@ -6,17 +6,17 @@
 //  Copyright (c) 2013 Giant Robot Software. All rights reserved.
 //
 
-#import "SDClientProxy.h"
+#import "SDReference.h"
 
 #import "SDLogWindowController.h"
 
-@interface SDClientProxy ()
+@interface SDReference ()
 
 @property int refRetainCount;
 
 @end
 
-@implementation SDClientProxy
+@implementation SDReference
 
 - (void) reallyDie {
     self.whenFinallyDead();

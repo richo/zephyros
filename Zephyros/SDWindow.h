@@ -8,10 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-#import "SDAppProxy.h"
+#import "SDApp.h"
 #import "NSScreen+SDScreenResource.h"
 
-@interface SDWindowProxy : NSObject
+@interface SDWindow : NSObject
 
 - (id) initWithElement:(AXUIElementRef)win;
 
@@ -19,7 +19,7 @@
 
 + (NSArray*) allWindows;
 + (NSArray*) visibleWindows;
-+ (SDWindowProxy*) focusedWindow;
++ (SDWindow*) focusedWindow;
 - (NSArray*) otherWindowsOnSameScreen;
 - (NSArray*) otherWindowsOnAllScreens;
 
@@ -43,7 +43,7 @@
 // other
 
 - (NSScreen*) screen;
-- (SDAppProxy*) app;
+- (SDApp*) app;
 
 - (BOOL) isNormalWindow;
 

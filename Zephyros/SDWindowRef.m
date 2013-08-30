@@ -6,15 +6,15 @@
 //  Copyright (c) 2013 Giant Robot Software. All rights reserved.
 //
 
-#import "SDWindowClientProxy.h"
+#import "SDWindowRef.h"
 
 #import "SDGeometry.h"
 
-@implementation SDWindowClientProxy
+@implementation SDWindowRef
 
 - (void) dealloc {
     [[self.client undoManager] removeAllActionsWithTarget:self];
-    NSLog(@"bye");
+//    NSLog(@"bye");
 }
 
 - (id) title:(NSArray*)args msgID:(id)msgID {

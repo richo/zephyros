@@ -6,12 +6,12 @@
 //  Copyright (c) 2013 Giant Robot Software. All rights reserved.
 //
 
-#import "SDScreenClientProxy.h"
+#import "SDScreenRef.h"
 
 #import "SDGeometry.h"
 #import "SDLogWindowController.h"
 
-@implementation SDScreenClientProxy
+@implementation SDScreenRef
 
 - (id) frame_including_dock_and_menu:(NSArray*)args msgID:(id)msgID {
     return SDDictFromRect([self.receiver frameIncludingDockAndMenu]);

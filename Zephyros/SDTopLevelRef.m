@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Giant Robot Software. All rights reserved.
 //
 
-#import "SDTopLevelClientProxy.h"
+#import "SDTopLevelRef.h"
 
 #import "SDHotKey.h"
 #import "SDEventListener.h"
@@ -19,16 +19,16 @@
 #import "SDLogWindowController.h"
 #import "SDBoxWindowController.h"
 
-#import "SDWindowProxy.h"
+#import "SDWindow.h"
 
-@interface SDTopLevelClientProxy ()
+@interface SDTopLevelRef ()
 
 @property NSMutableArray* hotkeys;
 @property NSMutableArray* listeners;
 
 @end
 
-@implementation SDTopLevelClientProxy
+@implementation SDTopLevelRef
 
 - (id) init {
     if (self = [super init]) {
@@ -180,15 +180,15 @@
 }
 
 - (id) focused_window:(NSArray*)args msgID:(id)msgID {
-    return [SDWindowProxy focusedWindow];
+    return [SDWindow focusedWindow];
 }
 
 - (id) visible_windows:(NSArray*)args msgID:(id)msgID {
-    return [SDWindowProxy visibleWindows];
+    return [SDWindow visibleWindows];
 }
 
 - (id) all_windows:(NSArray*)args msgID:(id)msgID {
-    return [SDWindowProxy allWindows];
+    return [SDWindow allWindows];
 }
 
 - (id) main_screen:(NSArray*)args msgID:(id)msgID {
@@ -200,7 +200,7 @@
 }
 
 - (id) running_apps:(NSArray*)args msgID:(id)msgID {
-    return [SDAppProxy runningApps];
+    return [SDApp runningApps];
 }
 
 - (id) log:(NSArray*)args msgID:(id)msgID {

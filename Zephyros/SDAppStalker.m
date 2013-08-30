@@ -8,7 +8,7 @@
 
 #import "SDAppStalker.h"
 
-#import "SDAppProxy.h"
+#import "SDApp.h"
 
 @interface SDAppStalker ()
 
@@ -31,7 +31,7 @@
     self.apps = [NSMutableArray array];
     
     for (NSRunningApplication* runningApp in [[NSWorkspace sharedWorkspace] runningApplications]) {
-        SDAppProxy* app = [[SDAppProxy alloc] initWithRunningApp:runningApp];
+        SDApp* app = [[SDApp alloc] initWithRunningApp:runningApp];
         [self.apps addObject:app];
         [app startObservingStuff];
     }
@@ -45,7 +45,7 @@
 - (void) appLaunched:(NSNotification*)note {
     NSRunningApplication *launchedApp = [[note userInfo] objectForKey:NSWorkspaceApplicationKey];
     
-    SDAppProxy* app = [[SDAppProxy alloc] initWithRunningApp:launchedApp];
+    SDApp* app = [[SDApp alloc] initWithRunningApp:launchedApp];
     [self.apps addObject:app];
     [app startObservingStuff];
     
@@ -59,10 +59,10 @@
     
     [[NSNotificationCenter defaultCenter] postNotificationName:SDListenEventAppClosed
                                                         object:nil
-                                                      userInfo:@{@"thing": [[SDAppProxy alloc] initWithRunningApp:deadApp]}];
+                                                      userInfo:@{@"thing": [[SDApp alloc] initWithRunningApp:deadApp]}];
     
-    SDAppProxy* app;
-    for (SDAppProxy* couldBeThisApp in self.apps) {
+    SDApp* app;
+    for (SDApp* couldBeThisApp in self.apps) {
         if ([deadApp processIdentifier] == couldBeThisApp.pid) {
             app = couldBeThisApp;
             break;
