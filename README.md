@@ -57,10 +57,9 @@ You typically write a script that binds global hot keys to do stuff, like moving
    Zephyros was originally a fork of Slate, but was rewritten for
    performance and stability improvements, and flexibility. This
    allowed Zephyros to be scripted in many languages, whereas Slate is
-   only scripted in JavaScript.
-
-   Zephyros has a few more API calls and listen-able events, but lacks
-   a few of Slate's GUI-specific features.
+   only scripted in JavaScript. Zephyros has a few more API calls and
+   listen-able events, but lacks a few of Slate's GUI-specific
+   features.
 
 2. How does Zephyros compare to Spectacle / Divvy / SizeUp / Moom / AppGrid / etc?
 
@@ -68,10 +67,8 @@ You typically write a script that binds global hot keys to do stuff, like moving
    own functionality for managing your windows however you'd
    like. Your script can be as minimal or as complex as you want,
    since it's really just a program written in your favorite language
-   that controls Zephyros.
-
-   Also, Zephyros is free, open source, and actively maintained. Some
-   of the alternatives are neither.
+   that controls Zephyros. Also, Zephyros is free, open source, and
+   actively maintained. Some of the alternatives are neither.
 
 3. Isn't it inefficient to have two processes running all the time?
 
