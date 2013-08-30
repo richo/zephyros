@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #import "SDAppProxy.h"
-#import "SDScreenProxy.h"
+#import "NSScreen+SDScreenResource.h"
 
 @interface SDWindowProxy : NSObject
 

@@ -8,7 +8,7 @@
 
 #import "SDClientProxy.h"
 
-#import "SDScreenProxy.h"
+#import "NSScreen+SDScreenResource.h"
 
 @interface SDScreenClientProxy : SDClientProxy
 

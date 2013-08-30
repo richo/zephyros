@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Giant Robot Software. All rights reserved.
 //
 
-#import "SDScreenProxy.h"
+#import "NSScreen+SDScreenResource.h"
 
 #import "SDGeometry.h"
 
