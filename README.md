@@ -53,19 +53,32 @@ You typically write a script that binds global hot keys to do stuff, like moving
 #### Frequently Asked Questions
 
 1. **How does Zephyros compare to Slate?**
-    - They're both script-oriented and hacker-friendly.
-    - It can be scripted in nearly any language. Slate can only be scripted in JavaScript.
-    - It was originally a fork of Slate but was rewritten for performance and flexibility.
-    - It runs your scripts out-of-process which helps it to be highly stable.
-    - It has a few more events and API calls, and lacks a few of Slate's GUI-specific features.
-    - It's actively maintained.
-2. **How does Zephyros compare to Spectacle/Divvy/SizeUp/Moom/etc?**
-    - It's meant to be scripted. It has a very minimal UI, but a full-featured API.
-    - It's free and open source. Some of the alternatives are neither.
+
+Zephyros was originally a fork of Slate, but was rewritten for
+performance and stability improvements, and flexibility. This allowed
+Zephyros to be scripted in many languages, whereas Slate is only
+scripted in JavaScript.
+
+Zephyros has a few more API calls and listen-able events, but lacks a
+few of Slate's GUI-specific features.
+
+2. **How does Zephyros compare to Spectacle/Divvy/SizeUp/Moom/AppGrid/etc?**
+
+Zephyros just gives you an API which you can use to build up your own
+functionality for managing your windows however you'd like. Your
+script can be as minimal or as complex as you want, since it's really
+just a program written in your favorite language that controls
+Zephyros.
+
+Also, Zephyros is free, open source, and actively maintained. Some of
+the alternatives are neither.
+
 3. **Isn't it inefficient to have two processes running all the time?**
-    - Nope:
-        - [Chrome's usage with one window open](https://raw.github.com/sdegutis/zephyros/master/Graphics/chrome-usage.png)
-        - [Zephyros's usage after moving some windows around](https://raw.github.com/sdegutis/zephyros/master/Graphics/zephyros-usage.png)
+
+Nope. Compare
+[Chrome's usage after opening one window](https://raw.github.com/sdegutis/zephyros/master/Graphics/chrome-usage.png)
+and
+[Zephyros's usage after moving some windows around](https://raw.github.com/sdegutis/zephyros/master/Graphics/zephyros-usage.png)
 
 ### Change log
 
