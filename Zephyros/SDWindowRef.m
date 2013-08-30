@@ -105,6 +105,10 @@
 }
 
 - (id) focus_window:(NSArray*)args msgID:(id)msgID {
+//    SDWindow* win = [SDWindow focusedWindow];
+    
+//    SDWindowRef* thisRef = [SDWindowRef refWith:]
+    
 //    [SDWindowProxy focusedWindow]
 //    [[self withUndo] un_minimize:@[]
 //                           msgID:msgID];

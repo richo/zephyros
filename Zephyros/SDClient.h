@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+#import "SDRefCache.h"
+
 @protocol SDClientDelegate <NSObject>
 
 - (void) sendResponse:(id)msg;
@@ -25,6 +27,7 @@
 
 @property NSUndoManager* undoManager;
 
+@property SDRefCache* refCache;
 
 
 // for client-proxies

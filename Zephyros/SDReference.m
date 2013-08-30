@@ -18,6 +18,15 @@
 
 @implementation SDReference
 
+- (BOOL) isEqual:(SDReference*)other {
+    return ([self isKindOfClass: [other class]] &&
+            [self.receiver isEqual: other.receiver]);
+}
+
+- (NSUInteger) hash {
+    return [self.receiver hash];
+}
+
 - (void) reallyDie {
     self.whenFinallyDead();
 }

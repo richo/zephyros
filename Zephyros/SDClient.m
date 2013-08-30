@@ -19,9 +19,6 @@
 
 @interface SDClient ()
 
-@property int64_t maxRespObjID;
-@property NSMutableDictionary* returnedObjects;
-
 @property SDTopLevelRef* topLevel;
 
 @end
@@ -31,15 +28,15 @@
 
 - (id) init {
     if (self = [super init]) {
-        self.returnedObjects = [NSMutableDictionary dictionary];
+        self.refCache = [[SDRefCache alloc] init];
         
         self.topLevel = [[SDTopLevelRef alloc] init];
         self.topLevel.client = self;
         
         self.undoManager = [[NSUndoManager alloc] init];
         
-        [self.returnedObjects setObject:self.topLevel forKey:[NSNull null]];
-        [self.returnedObjects setObject:self.topLevel forKey:@0]; // backwards compatibility :'(
+        [self.refCache store:self.topLevel withKey:[NSNull null]];
+        [self.refCache store:self.topLevel withKey:@0]; // backwards compatibility :'(
     }
     return self;
 }
@@ -73,7 +70,7 @@
     }
     
     NSArray* args = [msg subarrayWithRange:NSMakeRange(3, [msg count] - 3)];
-    SDReference* recv = [self.returnedObjects objectForKey:recvID];
+    SDReference* recv = [self.refCache refForKey: recvID];
     [recv retainRef];
     [recv releaseRef];
     
@@ -109,20 +106,15 @@
 }
 
 - (NSNumber*) storeObj:(id)obj withWrapper:(Class)wrapper {
-    self.maxRespObjID++;
-    NSNumber* newMaxID = @(self.maxRespObjID);
-    
     SDReference* wrappedObj = [[wrapper alloc] init];
     wrappedObj.client = self;
     wrappedObj.receiver = obj;
     
-    [self.returnedObjects setObject:wrappedObj
-                             forKey:newMaxID];
+    NSNumber* newMaxID = [self.refCache storeRef: wrappedObj];
     
     __weak SDClient* _self = self;
-    
     wrappedObj.whenFinallyDead = ^{
-        [_self.returnedObjects removeObjectForKey:newMaxID];
+        [_self.refCache removeRefForKey: newMaxID];
     };
     
     [wrappedObj retainRef];
