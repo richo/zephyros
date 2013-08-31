@@ -17,21 +17,21 @@
 
 @interface SDScreenRef ()
 
-@property id deathObserver;
+@property (copy) void(^deathCallback)();
 
 @end
 
 @implementation SDScreenRef
 
 - (void) whenDead:(void(^)())block {
-    __weak SDScreenRef* _self = self;
-    self.deathObserver = [[NSNotificationCenter defaultCenter] addObserverForName:SDListenEventScreensChanged
-                                                                           object:nil
-                                                                            queue:nil
-                                                                       usingBlock:^(NSNotification *note) {
-                                                                           [[NSNotificationCenter defaultCenter] removeObserver:_self.deathObserver];
-                                                                           block();
-                                                                       }];
+    self.deathCallback = block;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(screensChanged:) name:SDListenEventScreensChanged object:nil];
+}
+
+- (void) screensChanged:(NSNotification*)note {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    self.deathCallback();
+    self.deathCallback = nil;
 }
 
 - (id) frame_including_dock_and_menu:(NSArray*)args msgID:(id)msgID {

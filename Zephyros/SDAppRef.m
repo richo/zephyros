@@ -15,23 +15,23 @@
 
 @interface SDAppRef ()
 
-@property id deathObserver;
+@property (copy) void(^deathCallback)();
 
 @end
 
 @implementation SDAppRef
 
 - (void) whenDead:(void(^)())block {
-    __weak SDAppRef* _self = self;
-    self.deathObserver = [[NSNotificationCenter defaultCenter] addObserverForName:SDListenEventAppClosed
-                                                                           object:nil
-                                                                            queue:nil
-                                                                       usingBlock:^(NSNotification *note) {
-                                                                           if ([[[note userInfo] objectForKey:@"thing"] isEqual: _self.resource]) {
-                                                                               [[NSNotificationCenter defaultCenter] removeObserver:_self.deathObserver];
-                                                                               block();
-                                                                           }
-                                                                       }];
+    self.deathCallback = block;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appClosed:) name:SDListenEventAppClosed object:nil];
+}
+
+- (void) appClosed:(NSNotification*)note {
+    if ([[[note userInfo] objectForKey:@"thing"] isEqual: self.resource]) {
+        [[NSNotificationCenter defaultCenter] removeObserver:self];
+        self.deathCallback();
+        self.deathCallback = nil;
+    }
 }
 
 - (id) all_windows:(NSArray*)args msgID:(id)msgID {
