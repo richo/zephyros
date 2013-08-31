@@ -13,7 +13,7 @@
 @implementation SDReference
 
 - (void) dealloc {
-    NSLog(@"ref was deallocated: %@", self.resource);
+//    NSLog(@"ref was deallocated: %@", self.resource);
     [[self.client undoManager] removeAllActionsWithTarget:self];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
