@@ -91,10 +91,8 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         id result = nil;
         @try {
-            #pragma clang diagnostic push
-            #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-            result = [recv performSelector:sel withObject:args withObject:msgID];
-            #pragma clang diagnostic pop
+            IMP meth = [recv methodForSelector:sel];
+            result = meth(recv, sel, args, msgID);
         }
         @catch (NSException *exception) {
             SDLogError([exception description]);
