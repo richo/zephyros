@@ -12,7 +12,7 @@
 
 @interface SDRefCache ()
 
-@property int64_t maxRespObjID;
+@property int64_t maxID;
 @property NSMutableDictionary* objects;
 
 @end
@@ -42,19 +42,19 @@
 //    NSLog(@"KEYS: %@", keys);
     
     if ([keys count] == 0) {
-        self.maxRespObjID++;
-        NSNumber* newMaxID = @(self.maxRespObjID);
+        NSNumber* refID = @(++self.maxID);
         
         [self.objects setObject:ref
-                         forKey:newMaxID];
+                         forKey:refID];
         
         __weak SDRefCache* _self = self;
         [ref whenDead: ^{
-            NSLog(@"removed obj: %@", [_self refForKey: newMaxID]);
-            [_self removeRefForKey:newMaxID];
+//            NSLog(@"all objs: %@", _self.objects);
+//            NSLog(@"removing obj: %@", [_self refForKey: refID]);
+            [_self removeRefForKey:refID];
         }];
         
-        return newMaxID;
+        return refID;
     }
     else if ([keys count] == 1) {
         return [keys lastObject];
