@@ -8,6 +8,8 @@
 
 #import "SDRefCache.h"
 
+#import "SDReference.h"
+
 @interface SDRefCache ()
 
 @property int64_t maxRespObjID;
@@ -24,18 +26,18 @@
     return self;
 }
 
-- (void) store:(id)obj withKey:(id)key {
+- (void) store:(SDReference*)obj withKey:(id)key {
     [self.objects setObject:obj forKey:key];
 }
 
-- (id) refForKey:(id)key {
+- (SDReference*) refForKey:(id)key {
     return [self.objects objectForKey:key];
 }
 
-- (id) storeRef:(id)ref {
+- (id) storeRef:(SDReference*)ref {
     NSArray* keys = [self.objects allKeysForObject: ref];
     
-//    NSLog(@"REF: %@", [[ref valueForKey:@"receiver"] title]);
+//    NSLog(@"REF: %@", [[ref valueForKey:@"resource"] title]);
     NSLog(@"KEYS: %@", keys);
     
     if ([keys count] == 0) {
@@ -44,6 +46,12 @@
         
         [self.objects setObject:ref
                          forKey:newMaxID];
+        
+        __weak SDRefCache* _self = self;
+        ref.whenFinallyDead = ^{
+            NSLog(@"death called");
+            [_self removeRefForKey:newMaxID];
+        };
         
         return newMaxID;
     }

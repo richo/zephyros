@@ -18,13 +18,17 @@
 
 @implementation SDReference
 
+- (void) dealloc {
+//    NSLog(@"bye from %@", self.resource);
+}
+
 - (BOOL) isEqual:(SDReference*)other {
     return ([self isKindOfClass: [other class]] &&
-            [self.receiver isEqual: other.receiver]);
+            [self.resource isEqual: other.resource]);
 }
 
 - (NSUInteger) hash {
-    return [self.receiver hash];
+    return [self.resource hash];
 }
 
 - (void) reallyDie {
@@ -35,6 +39,10 @@
     [self retainRef];
     [self releaseRef];
     return [[self.client undoManager] prepareWithInvocationTarget:self];
+}
+
+- (void) whenDead:(void(^)())block {
+    // no-op
 }
 
 - (void) retainRef {
@@ -97,6 +105,17 @@
     }
     
     return obj;
+}
+
++ (id) store:(id)resource client:(SDClient*)client {
+    SDReference* ref = [[self alloc] init];
+    ref.client = client;
+    ref.resource = resource;
+    
+    [ref retainRef];
+    [ref releaseRef];
+    
+    return [client.refCache storeRef: ref];
 }
 
 - (id) retain:(NSArray*)args msgID:(id)msgID {

@@ -55,7 +55,7 @@
     
     if ([msgID isEqual:[NSNull null]]) {
         SDLogError(@"API error: invalid message id: %@", msgID);
-        [self sendResponse:nil forID:msgID];
+        [self sendResponse:[NSNull null] forID:msgID];
         return;
     }
     
@@ -65,7 +65,7 @@
     
     if (![meth isKindOfClass:[NSString self]] || [[meth stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length] == 0) {
         SDLogError(@"API error: invalid method name: %@", meth);
-        [self sendResponse:nil forID:msgID];
+        [self sendResponse:[NSNull null] forID:msgID];
         return;
     }
     
@@ -75,8 +75,8 @@
     [recv releaseRef];
     
     if (recv == nil) {
-        SDLogError(@"API Error: Could not find receiver with ID %@", recvID);
-        [self sendResponse:nil forID:msgID];
+        SDLogError(@"API Error: Could not find resource with ID %@", recvID);
+        [self sendResponse:[NSNull null] forID:msgID];
         return;
     }
     
@@ -84,7 +84,7 @@
     
     if (![recv respondsToSelector:sel]) {
         SDLogError(@"API Error: Could not find method %@.%@", [recv className], meth);
-        [self sendResponse:nil forID:msgID];
+        [self sendResponse:[NSNull null] forID:msgID];
         return;
     }
     
@@ -105,52 +105,8 @@
     });
 }
 
-- (NSNumber*) storeObj:(id)obj withWrapper:(Class)wrapper {
-    SDReference* wrappedObj = [[wrapper alloc] init];
-    wrappedObj.client = self;
-    wrappedObj.receiver = obj;
-    
-    NSNumber* newMaxID = [self.refCache storeRef: wrappedObj];
-    
-    __weak SDClient* _self = self;
-    wrappedObj.whenFinallyDead = ^{
-        [_self.refCache removeRefForKey: newMaxID];
-    };
-    
-    [wrappedObj retainRef];
-    [wrappedObj releaseRef];
-    
-    return newMaxID;
-}
-
-- (id) convertObj:(id)obj {
-    if (obj == nil) {
-        return [NSNull null];
-    }
-    else if ([obj isKindOfClass:[NSArray self]]) {
-        NSMutableArray* newArray = [NSMutableArray array];
-        
-        for (id child in obj) {
-            [newArray addObject:[self convertObj:child]];
-        }
-        
-        return newArray;
-    }
-    else if ([obj isKindOfClass:[SDWindow self]]) {
-        return [self storeObj:obj withWrapper:[SDWindowRef self]];
-    }
-    else if ([obj isKindOfClass:[NSScreen self]]) {
-        return [self storeObj:obj withWrapper:[SDScreenRef self]];
-    }
-    else if ([obj isKindOfClass:[SDApp self]]) {
-        return [self storeObj:obj withWrapper:[SDAppRef self]];
-    }
-    
-    return obj;
-}
-
 - (void) sendResponse:(id)result forID:(NSNumber*)msgID {
-    [self.delegate sendResponse:@[msgID, [self convertObj:result]]];
+    [self.delegate sendResponse:@[msgID, result]];
 }
 
 @end

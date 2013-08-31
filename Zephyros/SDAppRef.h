@@ -12,6 +12,6 @@
 
 @interface SDAppRef : SDReference
 
-@property SDApp* receiver;
+@property SDApp* resource;
 
 @end

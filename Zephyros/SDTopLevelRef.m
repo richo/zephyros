@@ -21,6 +21,12 @@
 
 #import "SDWindow.h"
 
+#import "SDWindowRef.h"
+#import "SDScreenRef.h"
+#import "SDAppRef.h"
+
+#import "MACollectionUtilities.h"
+
 @interface SDTopLevelRef ()
 
 @property NSMutableArray* hotkeys;
@@ -60,12 +66,12 @@
 
 - (id) undo:(NSArray*)args msgID:(id)msgID {
     [[self.client undoManager] undo];
-    return nil;
+    return [NSNull null];
 }
 
 - (id) redo:(NSArray*)args msgID:(id)msgID {
     [[self.client undoManager] redo];
-    return nil;
+    return [NSNull null];
 }
 
 - (id) bind:(NSArray*)args msgID:(id)msgID {
@@ -78,7 +84,7 @@
     hotkey.key = [key uppercaseString];
     hotkey.modifiers = [mods valueForKeyPath:@"uppercaseString"];
     hotkey.fn = ^{
-        [self.client sendResponse:nil forID:msgID];
+        [self.client sendResponse:[NSNull null] forID:msgID];
     };
     
     if ([hotkey bind]) {
@@ -131,7 +137,22 @@
     SDEventListener* listener = [[SDEventListener alloc] init];
     listener.eventName = event;
     listener.fn = ^(id thing) {
-        [self.client sendResponse:thing forID:msgID];
+        id ref = thing;
+        
+        if (thing == nil) {
+            ref = [NSNull null];
+        }
+        else if ([thing isKindOfClass:[SDWindow self]]) {
+            ref = [SDWindowRef store:thing client:self.client];
+        }
+        else if ([thing isKindOfClass:[SDApp self]]) {
+            ref = [SDAppRef store:thing client:self.client];
+        }
+        else if ([thing isKindOfClass:[NSScreen self]]) {
+            ref = [SDScreenRef store:thing client:self.client];
+        }
+        
+        [self.client sendResponse:ref forID:msgID];
     };
     
     [listener startListening];
@@ -153,12 +174,12 @@
         }
     }
     
-    return nil;
+    return [NSNull null];
 }
 
 - (id) relaunch_config:(NSArray*)args msgID:(id)msgID {
     [[SDConfigLauncher sharedConfigLauncher] launchConfigMaybe];
-    return nil;
+    return [NSNull null];
 }
 
 - (id) update_settings:(NSArray*)args msgID:(id)msgID {
@@ -172,7 +193,7 @@
     if ([defaultDuration isKindOfClass: [NSNumber self]])
         [SDAlerts sharedAlerts].alertDisappearDelay = [defaultDuration doubleValue];
     
-    return nil;
+    return [NSNull null];
 }
 
 - (id) clipboard_contents:(NSArray*)args msgID:(id)msgID {
@@ -180,27 +201,27 @@
 }
 
 - (id) focused_window:(NSArray*)args msgID:(id)msgID {
-    return [SDWindow focusedWindow];
+    return [SDWindowRef store:[SDWindow focusedWindow] client:self.client];
 }
 
 - (id) visible_windows:(NSArray*)args msgID:(id)msgID {
-    return [SDWindow visibleWindows];
+    return MAP([SDWindow visibleWindows], [SDWindowRef store:obj client:self.client]);
 }
 
 - (id) all_windows:(NSArray*)args msgID:(id)msgID {
-    return [SDWindow allWindows];
+    return MAP([SDWindow allWindows], [SDWindowRef store:obj client:self.client]);
 }
 
 - (id) main_screen:(NSArray*)args msgID:(id)msgID {
-    return [NSScreen mainScreen];
+    return [SDScreenRef store:[NSScreen mainScreen] client:self.client];
 }
 
 - (id) all_screens:(NSArray*)args msgID:(id)msgID {
-    return [NSScreen screens];
+    return MAP([NSScreen screens], [SDScreenRef store:obj client:self.client]);
 }
 
 - (id) running_apps:(NSArray*)args msgID:(id)msgID {
-    return [SDApp runningApps];
+    return MAP([SDApp runningApps], [SDAppRef store:obj client:self.client]);
 }
 
 - (id) log:(NSArray*)args msgID:(id)msgID {
@@ -208,7 +229,7 @@
     
     [[SDLogWindowController sharedLogWindowController] log:str
                                                       type:SDLogMessageTypeUser];
-    return nil;
+    return [NSNull null];
 }
 
 - (id) alert:(NSArray*)args msgID:(id)msgID {
@@ -223,18 +244,18 @@
                              duration:[duration doubleValue]];
     }
     
-    return nil;
+    return [NSNull null];
 }
 
 - (id) show_box:(NSArray*)args msgID:(id)msgID {
     SDTypeCheckArg(NSString, text, 0);
     [[SDBoxWindowController sharedBox] showWithText:text];
-    return nil;
+    return [NSNull null];
 }
 
 - (id) hide_box:(NSArray*)args msgID:(id)msgID {
     [[SDBoxWindowController sharedBox] hide];
-    return nil;
+    return [NSNull null];
 }
 
 - (id) choose_from:(NSArray*)args msgID:(id)msgID {

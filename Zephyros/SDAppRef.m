@@ -8,42 +8,45 @@
 
 #import "SDAppRef.h"
 
+#import "MACollectionUtilities.h"
+#import "SDWindowRef.h"
+
 @implementation SDAppRef
 
 - (id) all_windows:(NSArray*)args msgID:(id)msgID {
-    return [self.receiver allWindows];
+    return MAP([self.resource allWindows], [SDWindowRef store:obj client:self.client]);
 }
 
 - (id) visible_windows:(NSArray*)args msgID:(id)msgID {
-    return [self.receiver visibleWindows];
+    return MAP([self.resource visibleWindows], [SDWindowRef store:obj client:self.client]);
 }
 
 - (id) title:(NSArray*)args msgID:(id)msgID {
-    return [self.receiver title];
+    return [self.resource title];
 }
 
 - (id) hidden_q:(NSArray*)args msgID:(id)msgID {
-    return @([self.receiver isHidden]);
+    return @([self.resource isHidden]);
 }
 
 - (id) show:(NSArray*)args msgID:(id)msgID {
-    [self.receiver show];
-    return nil;
+    [self.resource show];
+    return [NSNull null];
 }
 
 - (id) hide:(NSArray*)args msgID:(id)msgID {
-    [self.receiver hide];
-    return nil;
+    [self.resource hide];
+    return [NSNull null];
 }
 
 - (id) kill:(NSArray*)args msgID:(id)msgID {
-    [self.receiver kill];
-    return nil;
+    [self.resource kill];
+    return [NSNull null];
 }
 
 - (id) kill9:(NSArray*)args msgID:(id)msgID {
-    [self.receiver kill9];
-    return nil;
+    [self.resource kill9];
+    return [NSNull null];
 }
 
 @end

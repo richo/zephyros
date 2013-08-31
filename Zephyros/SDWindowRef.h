@@ -12,6 +12,6 @@
 
 @interface SDWindowRef : SDReference
 
-@property SDWindow* receiver;
+@property SDWindow* resource;
 
 @end

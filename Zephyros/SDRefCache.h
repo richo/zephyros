@@ -8,13 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
+@class SDReference;
+
 @interface SDRefCache : NSObject
 
-- (id) refForKey:(id)key;
-- (id) storeRef:(id)ref;
+- (SDReference*) refForKey:(id)key;
+- (id) storeRef:(SDReference*)ref;
 - (void) removeRefForKey:(id)key;
 
 // only used for top-level obj
-- (void) store:(id)obj withKey:(id)key;
+- (void) store:(SDReference*)obj withKey:(id)key;
 
 @end

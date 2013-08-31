@@ -12,6 +12,6 @@
 
 @interface SDScreenRef : SDReference
 
-@property NSScreen* receiver;
+@property NSScreen* resource;
 
 @end

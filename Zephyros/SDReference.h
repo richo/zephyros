@@ -13,11 +13,15 @@
 @interface SDReference : NSObject
 
 @property (weak) SDClient* client;
-@property id receiver;
+@property id resource;
 @property (copy) void(^whenFinallyDead)();
 
 - (void) retainRef;
 - (void) releaseRef;
+
+- (void) whenDead:(void(^)())block;
+
++ (id) store:(id)resource client:(SDClient*)client;
 
 - (id) withUndo;
 
