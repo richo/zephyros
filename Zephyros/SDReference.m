@@ -81,11 +81,10 @@
     return obj;
 }
 
-+ (id) store:(id)resource client:(SDClient*)client {
++ (id) withResource:(id)resource {
     SDReference* ref = [[self alloc] init];
-    ref.client = client;
     ref.resource = resource;
-    return [client.refCache storeRef: ref];
+    return ref;
 }
 
 @end

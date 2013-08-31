@@ -17,7 +17,7 @@
 
 - (void) whenDead:(void(^)())block;
 
-+ (id) store:(id)resource client:(SDClient*)client;
++ (id) withResource:(id)resource;
 
 - (id) withUndo;
 

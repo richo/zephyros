@@ -35,11 +35,11 @@
 }
 
 - (id) all_windows:(NSArray*)args msgID:(id)msgID {
-    return MAP([self.resource allWindows], [SDWindowRef store:obj client:self.client]);
+    return MAP([self.resource allWindows], [self.client store: [SDWindowRef withResource: obj]]);
 }
 
 - (id) visible_windows:(NSArray*)args msgID:(id)msgID {
-    return MAP([self.resource visibleWindows], [SDWindowRef store:obj client:self.client]);
+    return MAP([self.resource visibleWindows], [self.client store: [SDWindowRef withResource: obj]]);
 }
 
 - (id) title:(NSArray*)args msgID:(id)msgID {

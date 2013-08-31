@@ -17,9 +17,12 @@
 
 #import "SDClient.h"
 
+#import "SDRefCache.h"
+
 @interface SDClient ()
 
 @property SDTopLevelRef* topLevel;
+@property SDRefCache* refCache;
 
 @end
 
@@ -103,6 +106,11 @@
 
 - (void) sendResponse:(id)result forID:(NSNumber*)msgID {
     [self.delegate sendResponse:@[msgID, result]];
+}
+
+- (id) store:(SDReference*)ref {
+    ref.client = self;
+    return [self.refCache storeRef: ref];
 }
 
 @end

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "SDRefCache.h"
+@class SDReference;
 
 @protocol SDClientDelegate <NSObject>
 
@@ -27,11 +27,10 @@
 
 @property NSUndoManager* undoManager;
 
-@property SDRefCache* refCache;
 
-
-// for client-proxies
+// for refs:
 
 - (void) sendResponse:(id)result forID:(NSNumber*)msgID;
+- (id) store:(SDReference*)ref;
 
 @end

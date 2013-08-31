@@ -137,13 +137,13 @@
             ref = [NSNull null];
         }
         else if ([thing isKindOfClass:[SDWindow self]]) {
-            ref = [SDWindowRef store:thing client:_self.client];
+            ref = [_self.client store: [SDWindowRef withResource: thing]];
         }
         else if ([thing isKindOfClass:[SDApp self]]) {
-            ref = [SDAppRef store:thing client:_self.client];
+            ref = [_self.client store: [SDAppRef withResource: thing]];
         }
         else if ([thing isKindOfClass:[NSScreen self]]) {
-            ref = [SDScreenRef store:thing client:_self.client];
+            ref = [_self.client store: [SDScreenRef withResource: thing]];
         }
         else {
             ref = thing;
@@ -198,27 +198,27 @@
 }
 
 - (id) focused_window:(NSArray*)args msgID:(id)msgID {
-    return [SDWindowRef store:[SDWindow focusedWindow] client:self.client];
+    return [self.client store: [SDWindowRef withResource: [SDWindow focusedWindow]]];
 }
 
 - (id) visible_windows:(NSArray*)args msgID:(id)msgID {
-    return MAP([SDWindow visibleWindows], [SDWindowRef store:obj client:self.client]);
+    return MAP([SDWindow visibleWindows], [self.client store: [SDWindowRef withResource: obj]]);
 }
 
 - (id) all_windows:(NSArray*)args msgID:(id)msgID {
-    return MAP([SDWindow allWindows], [SDWindowRef store:obj client:self.client]);
+    return MAP([SDWindow allWindows], [self.client store: [SDWindowRef withResource: obj]]);
 }
 
 - (id) main_screen:(NSArray*)args msgID:(id)msgID {
-    return [SDScreenRef store:[NSScreen mainScreen] client:self.client];
+    return [self.client store: [SDScreenRef withResource: [NSScreen mainScreen]]];
 }
 
 - (id) all_screens:(NSArray*)args msgID:(id)msgID {
-    return MAP([NSScreen screens], [SDScreenRef store:obj client:self.client]);
+    return MAP([NSScreen screens], [self.client store: [SDScreenRef withResource: obj]]);
 }
 
 - (id) running_apps:(NSArray*)args msgID:(id)msgID {
-    return MAP([SDApp runningApps], [SDAppRef store:obj client:self.client]);
+    return MAP([SDApp runningApps], [self.client store: [SDAppRef withResource: obj]]);
 }
 
 - (id) log:(NSArray*)args msgID:(id)msgID {

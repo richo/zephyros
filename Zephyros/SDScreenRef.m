@@ -43,11 +43,11 @@
 }
 
 - (id) next_screen:(NSArray*)args msgID:(id)msgID {
-    return [SDScreenRef store:[self.resource nextScreen] client:self.client];
+    return [self.client store: [SDScreenRef withResource: [self.resource nextScreen]]];
 }
 
 - (id) previous_screen:(NSArray*)args msgID:(id)msgID {
-    return [SDScreenRef store:[self.resource previousScreen] client:self.client];
+    return [self.client store: [SDScreenRef withResource: [self.resource previousScreen]]];
 }
 
 - (id) rotate_to:(NSArray*)args msgID:(id)msgID {

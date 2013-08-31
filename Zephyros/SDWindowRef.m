@@ -44,11 +44,11 @@
 }
 
 - (id) other_windows_on_same_screen:(NSArray*)args msgID:(id)msgID {
-    return MAP([self.resource otherWindowsOnSameScreen], [SDWindowRef store:obj client:self.client]);
+    return MAP([self.resource otherWindowsOnSameScreen], [self.client store: [SDWindowRef withResource: obj]]);
 }
 
 - (id) other_windows_on_all_screens:(NSArray*)args msgID:(id)msgID {
-    return MAP([self.resource otherWindowsOnAllScreens], [SDWindowRef store:obj client:self.client]);
+    return MAP([self.resource otherWindowsOnAllScreens], [self.client store: [SDWindowRef withResource: obj]]);
 }
 
 - (id) set_frame:(NSArray*)args msgID:(id)msgID {
@@ -119,11 +119,11 @@
 }
 
 - (id) app:(NSArray*)args msgID:(id)msgID {
-    return [SDAppRef store:[self.resource app] client:self.client];
+    return [self.client store: [SDAppRef withResource: [self.resource app]]];
 }
 
 - (id) screen:(NSArray*)args msgID:(id)msgID {
-    return [SDScreenRef store:[self.resource screen] client:self.client];
+    return [self.client store: [SDScreenRef withResource: [self.resource screen]]];
 }
 
 - (id) focus_window:(NSArray*)args msgID:(id)msgID {
@@ -139,19 +139,19 @@
 }
 
 - (id) windows_to_north:(NSArray*)args msgID:(id)msgID {
-    return MAP([self.resource windowsToNorth], [SDWindowRef store:obj client:self.client]);
+    return MAP([self.resource windowsToNorth], [self.client store: [SDWindowRef withResource: obj]]);
 }
 
 - (id) windows_to_south:(NSArray*)args msgID:(id)msgID {
-    return MAP([self.resource windowsToSouth], [SDWindowRef store:obj client:self.client]);
+    return MAP([self.resource windowsToSouth], [self.client store: [SDWindowRef withResource: obj]]);
 }
 
 - (id) windows_to_west:(NSArray*)args msgID:(id)msgID {
-    return MAP([self.resource windowsToWest], [SDWindowRef store:obj client:self.client]);
+    return MAP([self.resource windowsToWest], [self.client store: [SDWindowRef withResource: obj]]);
 }
 
 - (id) windows_to_east:(NSArray*)args msgID:(id)msgID {
-    return MAP([self.resource windowsToEast], [SDWindowRef store:obj client:self.client]);
+    return MAP([self.resource windowsToEast], [self.client store: [SDWindowRef withResource: obj]]);
 }
 
 - (id) focus_window_left:(NSArray*)args msgID:(id)msgID {
