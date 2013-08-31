@@ -1,6 +1,8 @@
 - HEAD
     - Performance improvements
     - Simplifid Zephyros-protocol a little bit
+    - References now last as long as the resource they refer to exists
+    - Removed the newly-unnecessary `retain` and `release` methods
 - 5.0
     - Added protocol-level support for Unix sockets, making it the default
     - Converted all built-in APIs (except Clojure) to connect via the unix socket
