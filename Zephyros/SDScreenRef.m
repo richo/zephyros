@@ -13,7 +13,26 @@
 
 #import "SDScreenRef.h"
 
+#import "SDAppStalker.h"
+
+@interface SDScreenRef ()
+
+@property id deathObserver;
+
+@end
+
 @implementation SDScreenRef
+
+- (void) whenDead:(void(^)())block {
+    __weak SDScreenRef* _self = self;
+    self.deathObserver = [[NSNotificationCenter defaultCenter] addObserverForName:SDListenEventScreensChanged
+                                                                           object:nil
+                                                                            queue:nil
+                                                                       usingBlock:^(NSNotification *note) {
+                                                                           [[NSNotificationCenter defaultCenter] removeObserver:_self.deathObserver];
+                                                                           block();
+                                                                       }];
+}
 
 - (id) frame_including_dock_and_menu:(NSArray*)args msgID:(id)msgID {
     return SDDictFromRect([self.resource frameIncludingDockAndMenu]);

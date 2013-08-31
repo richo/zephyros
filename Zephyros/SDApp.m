@@ -148,6 +148,11 @@ void sendNotificationButNotTooOften(NSString* name, id thing) {
         sendNotificationButNotTooOften(SDListenEventWindowCreated, window);
     }]];
     
+    [self.observers addObject: [SDObserver observe:kAXUIElementDestroyedNotification on:self.app callback:^(AXUIElementRef element) {
+        SDWindow* window = [[SDWindow alloc] initWithElement:element];
+        sendNotificationButNotTooOften(SDListenEventWindowClosed, window);
+    }]];
+    
     [self.observers addObject: [SDObserver observe:kAXWindowMovedNotification on:self.app callback:^(AXUIElementRef element) {
         SDWindow* window = [[SDWindow alloc] initWithElement:element];
         sendNotificationButNotTooOften(SDListenEventWindowMoved, window);

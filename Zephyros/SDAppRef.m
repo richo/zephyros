@@ -11,7 +11,28 @@
 #import "MACollectionUtilities.h"
 #import "SDWindowRef.h"
 
+#import "SDAppStalker.h"
+
+@interface SDAppRef ()
+
+@property id deathObserver;
+
+@end
+
 @implementation SDAppRef
+
+- (void) whenDead:(void(^)())block {
+    __weak SDAppRef* _self = self;
+    self.deathObserver = [[NSNotificationCenter defaultCenter] addObserverForName:SDListenEventAppClosed
+                                                                           object:nil
+                                                                            queue:nil
+                                                                       usingBlock:^(NSNotification *note) {
+                                                                           if ([[[note userInfo] objectForKey:@"thing"] isEqual: _self.resource]) {
+                                                                               [[NSNotificationCenter defaultCenter] removeObserver:_self.deathObserver];
+                                                                               block();
+                                                                           }
+                                                                       }];
+}
 
 - (id) all_windows:(NSArray*)args msgID:(id)msgID {
     return MAP([self.resource allWindows], [SDWindowRef store:obj client:self.client]);

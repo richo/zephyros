@@ -10,16 +10,11 @@
 
 #import "SDLogWindowController.h"
 
-@interface SDReference ()
-
-@property int refRetainCount;
-
-@end
-
 @implementation SDReference
 
 - (void) dealloc {
-//    NSLog(@"bye from %@", self.resource);
+    NSLog(@"bye from %@", self.resource);
+    [[self.client undoManager] removeAllActionsWithTarget:self];
 }
 
 - (BOOL) isEqual:(SDReference*)other {
@@ -31,32 +26,11 @@
     return [self.resource hash];
 }
 
-- (void) reallyDie {
-    self.whenFinallyDead();
-}
-
 - (id) withUndo {
-    [self retainRef];
-    [self releaseRef];
     return [[self.client undoManager] prepareWithInvocationTarget:self];
 }
 
 - (void) whenDead:(void(^)())block {
-    // no-op
-}
-
-- (void) retainRef {
-    [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(reallyDie) object:nil];
-    
-    self.refRetainCount++;
-}
-
-- (void) releaseRef {
-    self.refRetainCount--;
-    
-    if (self.refRetainCount == 0) {
-        [self performSelector:@selector(reallyDie) withObject:nil afterDelay:5.0];
-    }
 }
 
 - (id) check:(NSArray*)args atIndex:(int)idx forType:(Class)klass inFn:(SEL)fn {
@@ -111,10 +85,6 @@
     SDReference* ref = [[self alloc] init];
     ref.client = client;
     ref.resource = resource;
-    
-    [ref retainRef];
-    [ref releaseRef];
-    
     return [client.refCache storeRef: ref];
 }
 

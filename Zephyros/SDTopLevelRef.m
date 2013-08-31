@@ -44,14 +44,6 @@
     return self;
 }
 
-- (void) retainRef {
-    // no-op
-}
-
-- (void) releaseRef {
-    // no-op
-}
-
 - (void) destroy {
 //    NSLog(@"destrying bindings and listeners");
     
@@ -137,7 +129,7 @@
     SDEventListener* listener = [[SDEventListener alloc] init];
     listener.eventName = event;
     listener.fn = ^(id thing) {
-        id ref = thing;
+        id ref;
         
         if (thing == nil) {
             ref = [NSNull null];
@@ -150,6 +142,9 @@
         }
         else if ([thing isKindOfClass:[NSScreen self]]) {
             ref = [SDScreenRef store:thing client:self.client];
+        }
+        else {
+            ref = thing;
         }
         
         [self.client sendResponse:ref forID:msgID];

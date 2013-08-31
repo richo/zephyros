@@ -15,10 +15,27 @@
 #import "SDAppRef.h"
 #import "SDScreenRef.h"
 
+#import "SDAppStalker.h"
+
+@interface SDWindowRef ()
+
+@property id deathObserver;
+
+@end
+
 @implementation SDWindowRef
 
-- (void) dealloc {
-    [[self.client undoManager] removeAllActionsWithTarget:self];
+- (void) whenDead:(void(^)())block {
+    __weak SDWindowRef* _self = self;
+    self.deathObserver = [[NSNotificationCenter defaultCenter] addObserverForName:SDListenEventWindowClosed
+                                                                           object:nil
+                                                                            queue:nil
+                                                                       usingBlock:^(NSNotification *note) {
+                                                                           if ([[[note userInfo] objectForKey:@"thing"] isEqual: _self.resource]) {
+                                                                               [[NSNotificationCenter defaultCenter] removeObserver:_self.deathObserver];
+                                                                               block();
+                                                                           }
+                                                                       }];
 }
 
 - (id) title:(NSArray*)args msgID:(id)msgID {

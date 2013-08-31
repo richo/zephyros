@@ -71,8 +71,6 @@
     
     NSArray* args = [msg subarrayWithRange:NSMakeRange(3, [msg count] - 3)];
     SDReference* recv = [self.refCache refForKey: recvID];
-    [recv retainRef];
-    [recv releaseRef];
     
     if (recv == nil) {
         SDLogError(@"API Error: Could not find resource with ID %@", recvID);
