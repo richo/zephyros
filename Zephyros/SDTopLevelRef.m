@@ -126,6 +126,8 @@
         [[SDModifierKeysListener sharedListener] startListening];
     }
     
+    __weak SDTopLevelRef* _self = self;
+    
     SDEventListener* listener = [[SDEventListener alloc] init];
     listener.eventName = event;
     listener.fn = ^(id thing) {
@@ -135,19 +137,19 @@
             ref = [NSNull null];
         }
         else if ([thing isKindOfClass:[SDWindow self]]) {
-            ref = [SDWindowRef store:thing client:self.client];
+            ref = [SDWindowRef store:thing client:_self.client];
         }
         else if ([thing isKindOfClass:[SDApp self]]) {
-            ref = [SDAppRef store:thing client:self.client];
+            ref = [SDAppRef store:thing client:_self.client];
         }
         else if ([thing isKindOfClass:[NSScreen self]]) {
-            ref = [SDScreenRef store:thing client:self.client];
+            ref = [SDScreenRef store:thing client:_self.client];
         }
         else {
             ref = thing;
         }
         
-        [self.client sendResponse:ref forID:msgID];
+        [_self.client sendResponse:ref forID:msgID];
     };
     
     [listener startListening];
