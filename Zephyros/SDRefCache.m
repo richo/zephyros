@@ -35,11 +35,11 @@
 }
 
 - (id) storeRef:(SDReference*)ref {
-    NSLog(@"ALL: %@", self.objects);
+//    NSLog(@"ALL: %@", self.objects);
     NSArray* keys = [self.objects allKeysForObject: ref];
     
 //    NSLog(@"REF: %@", [[ref valueForKey:@"resource"] title]);
-    NSLog(@"KEYS: %@", keys);
+//    NSLog(@"KEYS: %@", keys);
     
     if ([keys count] == 0) {
         self.maxRespObjID++;
@@ -50,7 +50,7 @@
         
         __weak SDRefCache* _self = self;
         [ref whenDead: ^{
-            NSLog(@"death called");
+            NSLog(@"removed obj: %@", [_self refForKey: newMaxID]);
             [_self removeRefForKey:newMaxID];
         }];
         

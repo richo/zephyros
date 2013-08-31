@@ -33,6 +33,7 @@
                                                                        usingBlock:^(NSNotification *note) {
                                                                            if ([[[note userInfo] objectForKey:@"thing"] isEqual: _self.resource]) {
                                                                                [[NSNotificationCenter defaultCenter] removeObserver:_self.deathObserver];
+                                                                               _self.deathObserver = nil;
                                                                                block();
                                                                            }
                                                                        }];
