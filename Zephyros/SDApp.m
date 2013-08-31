@@ -17,6 +17,7 @@
 
 #import "SDObserver.h"
 
+
 @interface SDApp ()
 
 @property AXUIElementRef app;
@@ -28,10 +29,6 @@
 
 @end
 
-void sendNotificationButNotTooOften(NSString* name, id thing) {
-    NSNotification* note = [NSNotification notificationWithName:name object:nil userInfo:@{@"thing": thing}];
-    [[NSNotificationQueue defaultQueue] enqueueNotification:note postingStyle:NSPostNow];
-}
 
 @implementation SDApp
 
@@ -142,61 +139,66 @@ void sendNotificationButNotTooOften(NSString* name, id thing) {
     [[NSRunningApplication runningApplicationWithProcessIdentifier:self.pid] forceTerminate];
 }
 
+- (void) sendJustOneNotification:(NSString*)name withThing:(id)thing {
+    NSNotification* note = [NSNotification notificationWithName:name object:nil userInfo:@{@"thing": thing}];
+    [[NSNotificationQueue defaultQueue] enqueueNotification:note postingStyle:NSPostNow];
+}
+
 - (void) startObservingStuff {
     [self.observers addObject: [SDObserver observe:kAXWindowCreatedNotification on:self.app callback:^(AXUIElementRef element) {
         SDWindow* window = [[SDWindow alloc] initWithElement:element];
-        sendNotificationButNotTooOften(SDListenEventWindowCreated, window);
+        [self sendJustOneNotification:SDListenEventWindowCreated withThing:window];
     }]];
     
     [self.observers addObject: [SDObserver observe:kAXUIElementDestroyedNotification on:self.app callback:^(AXUIElementRef element) {
         SDWindow* window = [[SDWindow alloc] initWithElement:element];
-        sendNotificationButNotTooOften(SDListenEventWindowClosed, window);
+        [self sendJustOneNotification:SDListenEventWindowClosed withThing:window];
     }]];
     
     [self.observers addObject: [SDObserver observe:kAXWindowMovedNotification on:self.app callback:^(AXUIElementRef element) {
         SDWindow* window = [[SDWindow alloc] initWithElement:element];
-        sendNotificationButNotTooOften(SDListenEventWindowMoved, window);
+        [self sendJustOneNotification:SDListenEventWindowMoved withThing:window];
     }]];
     
     [self.observers addObject: [SDObserver observe:kAXWindowResizedNotification on:self.app callback:^(AXUIElementRef element) {
         SDWindow* window = [[SDWindow alloc] initWithElement:element];
-        sendNotificationButNotTooOften(SDListenEventWindowResized, window);
+        [self sendJustOneNotification:SDListenEventWindowResized withThing:window];
     }]];
     
     [self.observers addObject: [SDObserver observe:kAXWindowMiniaturizedNotification on:self.app callback:^(AXUIElementRef element) {
         SDWindow* window = [[SDWindow alloc] initWithElement:element];
-        sendNotificationButNotTooOften(SDListenEventWindowMinimized, window);
+        [self sendJustOneNotification:SDListenEventWindowMinimized withThing:window];
     }]];
     
     [self.observers addObject: [SDObserver observe:kAXWindowDeminiaturizedNotification on:self.app callback:^(AXUIElementRef element) {
         SDWindow* window = [[SDWindow alloc] initWithElement:element];
-        sendNotificationButNotTooOften(SDListenEventWindowUnminimized, window);
+        [self sendJustOneNotification:SDListenEventWindowUnminimized withThing:window];
     }]];
     
     [self.observers addObject: [SDObserver observe:kAXApplicationHiddenNotification on:self.app callback:^(AXUIElementRef element) {
         SDApp* app = [[SDApp alloc] initWithElement:element];
-        sendNotificationButNotTooOften(SDListenEventAppHidden, app);
+        [self sendJustOneNotification:SDListenEventAppHidden withThing:app];
     }]];
     
     [self.observers addObject: [SDObserver observe:kAXApplicationShownNotification on:self.app callback:^(AXUIElementRef element) {
         SDApp* app = [[SDApp alloc] initWithElement:element];
-        sendNotificationButNotTooOften(SDListenEventAppShown, app);
+        [self sendJustOneNotification:SDListenEventAppShown withThing:app];
     }]];
     
     [self.observers addObject: [SDObserver observe:kAXFocusedWindowChangedNotification on:self.app callback:^(AXUIElementRef element) {
         SDWindow* window = [[SDWindow alloc] initWithElement:element];
-        sendNotificationButNotTooOften(SDListenEventFocusChanged, window);
+        [self sendJustOneNotification:SDListenEventFocusChanged withThing:window];
     }]];
     
     [self.observers addObject: [SDObserver observe:kAXApplicationActivatedNotification on:self.app callback:^(AXUIElementRef element) {
         SDWindow* window = [SDWindow focusedWindow];
         if (window)
-            sendNotificationButNotTooOften(SDListenEventFocusChanged, window);
+            [self sendJustOneNotification:SDListenEventFocusChanged withThing:window];
     }]];
     
     [self.observers addObject: [SDObserver observe:kAXMainWindowChangedNotification on:self.app callback:^(AXUIElementRef element) {
         SDWindow* window = [[SDWindow alloc] initWithElement:element];
-        sendNotificationButNotTooOften(SDListenEventFocusChanged, window);
+        [self sendJustOneNotification:SDListenEventFocusChanged withThing:window];
     }]];
 }
 
