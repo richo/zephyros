@@ -40,8 +40,7 @@
 
 (define (callback-mainloop)
   (with-input-from-port zeph-in (lambda ()
-    (let* ((len (string->number (read-line)))
-           (json (read-json (read-string len)))
+    (let* ((json (read-json (read-line)))
            (callback (hash-table-ref/default callbacks (vector-ref json 0) noop)))
       (callback (vector-ref json 1)))
     (callback-mainloop))))
@@ -65,11 +64,9 @@
     (register-callback id thunk)
     (with-output-to-port zeph-out (lambda ()
       (let* ((payload (apply vector id datum))
-             (json-payload (json->string payload))
-             (json-length (string-length json-payload)))
-        (write-string (number->string json-length))
-        (write-string "\n")
-        (write-string json-payload))))
+             (json-payload (json->string payload)))
+        (write-string json-payload)
+        (write-string "\n"))))
     id)))
 
 ;; Begin internal helpers
