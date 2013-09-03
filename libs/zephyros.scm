@@ -2,13 +2,10 @@
 ; $ chicken-install medea
 ; $ chicken-install unix-sockets
 
-(use tcp)
 (use unix-sockets)
 (use srfi-18)
 (use srfi-69)
 (use medea)
-
-(tcp-read-timeout #f)
 
 (define callbacks
   (make-hash-table))
@@ -19,24 +16,12 @@
 (define noop
   (lambda (arg) (void)))
 
-(define *zephyros-host*
-  (let ((host (get-environment-variable "ZEPHYROS_HOST")))
-    (or host "localhost")))
-
-(define *zephyros-port*
-  (let ((port (get-environment-variable "ZEPHYROS_PORT")))
-    (if port
-      (string->number port)
-      1235)))
-
 (define *zephyros-path*
   (let ((path (get-environment-variable "ZEPHYROS_PATH")))
     (or path "/tmp/zephyros.sock")))
 
 (define-values (zeph-in zeph-out)
-  (if (file-exists? *zephyros-path*)
-    (unix-connect *zephyros-path*)
-    (tcp-connect *zephyros-host* *zephyros-port*)))
+               (unix-connect *zephyros-path*))
 
 (define (callback-mainloop)
   (with-input-from-port zeph-in (lambda ()
