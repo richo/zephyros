@@ -96,19 +96,28 @@
           (if (equal? 'null arg)
             (thunk)))))
 
-(define call/focused-window
-  (lambda (thunk)
-    (send (list 'null "focused_window") thunk)))
+(define-syntax define-getter
+  (syntax-rules ()
+    ((define-getter name call/name variable)
+     (begin
+       (define call/name
+         (lambda (variable thunk)
+           (send (list variable (string-translate* (symbol->string 'name) '(("-" . "_")))) thunk)))
+       (define name
+         (lambda (variable)
+           (sync-get-value (list variable (string-translate* (symbol->string 'name) '(("-" . "_")))))))))
+    ((define-getter name call/name)
+     (begin
+       (define call/name
+         (lambda (thunk)
+           (send (list 'null (string-translate* (symbol->string 'name) '(("-" . "_")))) thunk)))
+       (define name
+         (lambda ()
+           (sync-get-value (list 'null (string-translate* (symbol->string 'name) '(("-" . "_")))))))))))
 
-(define (focused-window)
-  (sync-get-value (list 'null "focused_window")))
+(define-getter focused-window call/focused-window)
 
-(define call/visible-windows
-  (lambda (thunk)
-    (send (list 'null "visible_windows") thunk)))
-
-(define (visible-windows)
-  (sync-get-value (list 'null "visible_windows")))
+(define-getter visible-windows call/visible-windows)
 
 ;; Operations on window
 
@@ -126,31 +135,21 @@
 
 ;; Sync getters
 
-(define (title window)
-  (sync-get-value (list window "title")))
+(define-getter title call/title window)
 
-(define (frame window)
-  (sync-get-value (list window "frame")))
+(define-getter frame call/frame window)
 
-(define (top_left window)
-  (sync-get-value (list window "top_left")))
+(define-getter top-left call/top-left window)
 
-(define (size window)
-  (sync-get-value (list window "size")))
+(define-getter size call/size window)
 
-(define (app window)
-  (sync-get-value (list window "app")))
+(define-getter app call/app window)
 
-(define (screen window)
-  (sync-get-value (list window "screen")))
-
-(define call/screen
-  (lambda (window thunk) (send (list window "screen") thunk)))
+(define-getter screen call/screen window)
 
 ;; Operations on app
 
-(define (hidden? app)
-  (sync-get-value (list app "hidden?")))
+(define-getter hidden? call/hidden? app)
 
 (define (show app)
   (send (list app "show") noop))
@@ -166,20 +165,12 @@
 
 ;; Operations on screen
 
-(define (previous-screen screen)
-  (sync-get-value (list screen "previous_screen")))
+(define-getter previous-screen call/previous-screen screen)
 
-(define (next-screen screen)
-  (sync-get-value (list screen "next_screen")))
+(define-getter next-screen call/next-screen screen)
 
-(define (frame-including-dock-and-menu screen)
-  (sync-get-value (list screen "frame_including_dock_and_menu")))
+(define-getter frame-including-dock-and-menu call/frame-including-dock-and-menu screen)
 
-(define (call/frame-including-dock-and-menu screen thunk)
-  (send (list screen "frame_without_dock_or_menu") thunk))
+(define-getter frame-including-dock-and-menu call/frame-including-dock-and-menu screen)
 
-(define (frame-without-dock-or-menu screen)
-  (sync-get-value (list screen "frame_without_dock_or_menu")))
-
-(define (call/frame-without-dock-or-menu screen thunk)
-  (send (list screen "frame_without_dock_or_menu") thunk))
+(define-getter frame-without-dock-or-menu call/frame-without-dock-or-menu screen)
