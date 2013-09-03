@@ -144,6 +144,9 @@
 (define (screen window)
   (sync-get-value (list window "screen")))
 
+(define call/screen
+  (lambda (window thunk) (send (list window "screen") thunk)))
+
 ;; Operations on app
 
 (define (hidden? app)
@@ -172,5 +175,11 @@
 (define (frame-including-dock-and-menu screen)
   (sync-get-value (list screen "frame_including_dock_and_menu")))
 
+(define (call/frame-including-dock-and-menu screen thunk)
+  (send (list screen "frame_without_dock_or_menu") thunk))
+
 (define (frame-without-dock-or-menu screen)
   (sync-get-value (list screen "frame_without_dock_or_menu")))
+
+(define (call/frame-without-dock-or-menu screen thunk)
+  (send (list screen "frame_without_dock_or_menu") thunk))
