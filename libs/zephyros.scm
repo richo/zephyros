@@ -81,6 +81,18 @@
           (if (equal? 'null arg)
             (thunk)))))
 
+(define (unbind key mod)
+  (send (list 'null "unbind" key (transform-modifiers mod)) noop))
+
+(define (listen event thunk)
+  (send (list 'null "listen" event)
+        (lambda (arg)
+          (if (equal? 'null arg)
+            (thunk)))))
+
+(define (unlisten event)
+  (send (list 'null "unlisten" event) noop))
+
 (define-syntax define-getter
   (syntax-rules ()
     ((define-getter name call/name variable)
@@ -104,6 +116,16 @@
 
 (define-getter visible-windows call/visible-windows)
 
+(define-getter clipboard-contents call/clipboard-contents)
+
+(define-getter all-windows call/all-windows)
+
+(define-getter main-screen call/main-screen)
+
+(define-getter all-screens call/all-screens)
+
+(define-getter running-apps call/running-apps)
+
 ;; Operations on window
 
 (define (maximize window)
@@ -117,6 +139,9 @@
 
 (define (set-frame window dim)
   (send (list window "set_frame" dim) noop))
+
+(define (set-top-left window dim)
+  (send (list window "set_top_left" dim) noop))
 
 ;; Sync getters
 
