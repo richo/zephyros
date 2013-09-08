@@ -92,8 +92,9 @@
     
     CFTypeRef win;
     AXError result = AXUIElementCopyAttributeValue(app, (CFStringRef)NSAccessibilityFocusedWindowAttribute, &win);
-    CFRelease(app);
-    
+    if (app)
+        CFRelease(app);
+
     if (result == kAXErrorSuccess) {
         SDWindowProxy* window = [[SDWindowProxy alloc] init];
         window.window = win;
