@@ -41,13 +41,13 @@
 - (CGFloat) scoreAgainst:(NSString *)anotherString fuzziness:(NSNumber *)fuzziness options:(NSStringScoreOption)options
      invalidCharacterSet:(NSCharacterSet *)invalidCharacterSet decomposedString:(NSString *)string {
     NSString *otherString = [[[anotherString decomposedStringWithCanonicalMapping] componentsSeparatedByCharactersInSet:invalidCharacterSet] componentsJoinedByString:@""];
-    
+
     // If the string is equal to the abbreviation, perfect match.
     if([string isEqualToString:otherString]) return (CGFloat) 1.0f;
-    
+
     //if it's not a perfect match and is empty return 0
     if([otherString length] == 0) return (CGFloat) 0.0f;
-    
+
     CGFloat totalCharacterScore = 0;
     NSUInteger otherStringLength = [otherString length];
     NSUInteger stringLength = [string length];
@@ -80,32 +80,32 @@
         //make these next few lines leverage NSNotfound, methinks.
         rangeChrLowercase = [string rangeOfString:lowerChr];
         rangeChrUppercase = [string rangeOfString:upperChr];
-        
+
         if(rangeChrLowercase.location == NSNotFound && rangeChrUppercase.location == NSNotFound){
             if(fuzziness){
                 fuzzies += 1 - fuzzinessFloat;
             } else {
                 return 0; // this is an error!
             }
-            
+
         } else if (rangeChrLowercase.location != NSNotFound && rangeChrUppercase.location != NSNotFound){
             indexInString = MIN(rangeChrLowercase.location, rangeChrUppercase.location);
-            
+
         } else if(rangeChrLowercase.location != NSNotFound || rangeChrUppercase.location != NSNotFound){
             indexInString = rangeChrLowercase.location != NSNotFound ? rangeChrLowercase.location : rangeChrUppercase.location;
-            
+
         } else {
             indexInString = MIN(rangeChrLowercase.location, rangeChrUppercase.location);
-            
+
         }
-        
+
         // Set base score for matching chr
-        
+
         // Same case bonus.
         if(indexInString != NSNotFound && [string characterAtIndex:indexInString] == chr){
             characterScore += 0.1;
         }
-        
+
         // Consecutive letter & start-of-string bonus
         if(indexInString == 0){
             // Increase the score when matching first character of the remainder of the string
@@ -125,39 +125,39 @@
                 characterScore += 0.8;
             }
         }
-        
+
         // Left trim the already matched part of the string
         // (forces sequential matching).
         if(indexInString != NSNotFound){
             string = [string substringFromIndex:indexInString + 1];
         }
-        
+
         totalCharacterScore += characterScore;
     }
-    
+
     if(NSStringScoreOptionFavorSmallerWords == (options & NSStringScoreOptionFavorSmallerWords)){
         // Weigh smaller words higher
         return totalCharacterScore / stringLength;
-    } 
-    
+    }
+
     otherStringScore = totalCharacterScore / otherStringLength;
-    
+
     if(NSStringScoreOptionReducedLongStringPenalty == (options & NSStringScoreOptionReducedLongStringPenalty)){
         // Reduce the penalty for longer words
         CGFloat percentageOfMatchedString = otherStringLength / stringLength;
         CGFloat wordScore = otherStringScore * percentageOfMatchedString;
         finalScore = (wordScore + otherStringScore) / 2;
-        
+
     } else {
         finalScore = ((otherStringScore * ((CGFloat)(otherStringLength) / (CGFloat)(stringLength))) + otherStringScore) / 2;
     }
-    
+
     finalScore = finalScore / fuzzies;
-    
+
     if(startOfStringBonus && finalScore + 0.15 < 1){
         finalScore += 0.15;
     }
-    
+
     return finalScore;
 }
 

@@ -79,14 +79,14 @@ void obsessiveWindowCallback(AXObserverRef observer, AXUIElementRef element, CFS
 + (NSArray*) runningApps {
     if ([SDUniversalAccessHelper complainIfNeeded])
         return nil;
-    
+
     NSMutableArray* apps = [NSMutableArray array];
-    
+
     for (NSRunningApplication* runningApp in [[NSWorkspace sharedWorkspace] runningApplications]) {
         SDAppProxy* app = [[SDAppProxy alloc] initWithPID:[runningApp processIdentifier]];
         [apps addObject:app];
     }
-    
+
     return apps;
 }
 
@@ -116,7 +116,7 @@ void obsessiveWindowCallback(AXObserverRef observer, AXUIElementRef element, CFS
 - (NSArray*) visibleWindows {
     if ([SDUniversalAccessHelper complainIfNeeded])
         return nil;
-    
+
     return [[self allWindows] filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(SDWindowProxy* win, NSDictionary *bindings) {
         return ![[win app] isHidden]
         && ![win isWindowMinimized]
@@ -126,19 +126,19 @@ void obsessiveWindowCallback(AXObserverRef observer, AXUIElementRef element, CFS
 
 - (NSArray*) allWindows {
     NSMutableArray* windows = [NSMutableArray array];
-    
+
     CFArrayRef _windows;
     AXError result = AXUIElementCopyAttributeValues(self.app, kAXWindowsAttribute, 0, 100, &_windows);
     if (result == kAXErrorSuccess) {
         for (NSInteger i = 0; i < CFArrayGetCount(_windows); i++) {
             AXUIElementRef win = CFArrayGetValueAtIndex(_windows, i);
-            
+
             SDWindowProxy* window = [[SDWindowProxy alloc] initWithElement:win];
             [windows addObject:window];
         }
         CFRelease(_windows);
     }
-    
+
     return windows;
 }
 
@@ -178,7 +178,7 @@ void obsessiveWindowCallback(AXObserverRef observer, AXUIElementRef element, CFS
 //        NSLog(@"start observing stuff failed at point #1 with: %d", err);
         return;
     }
-    
+
     self.observer = observer;
     AXObserverAddNotification(self.observer, self.app, kAXWindowCreatedNotification, NULL);
     AXObserverAddNotification(self.observer, self.app, kAXWindowMovedNotification, NULL);
@@ -190,7 +190,7 @@ void obsessiveWindowCallback(AXObserverRef observer, AXUIElementRef element, CFS
     AXObserverAddNotification(self.observer, self.app, kAXFocusedWindowChangedNotification, NULL);
     AXObserverAddNotification(self.observer, self.app, kAXApplicationActivatedNotification, NULL);
     AXObserverAddNotification(self.observer, self.app, kAXMainWindowChangedNotification, NULL);
-    
+
     CFRunLoopAddSource([[NSRunLoop currentRunLoop] getCFRunLoop],
                        AXObserverGetRunLoopSource(self.observer),
                        kCFRunLoopDefaultMode);
@@ -200,7 +200,7 @@ void obsessiveWindowCallback(AXObserverRef observer, AXUIElementRef element, CFS
     CFRunLoopRemoveSource([[NSRunLoop currentRunLoop] getCFRunLoop],
                           AXObserverGetRunLoopSource(self.observer),
                           kCFRunLoopDefaultMode);
-    
+
     AXObserverRemoveNotification(self.observer, self.app, kAXWindowCreatedNotification);
     AXObserverRemoveNotification(self.observer, self.app, kAXWindowMovedNotification);
     AXObserverRemoveNotification(self.observer, self.app, kAXWindowResizedNotification);
@@ -211,7 +211,7 @@ void obsessiveWindowCallback(AXObserverRef observer, AXUIElementRef element, CFS
     AXObserverRemoveNotification(self.observer, self.app, kAXFocusedWindowChangedNotification);
     AXObserverRemoveNotification(self.observer, self.app, kAXApplicationActivatedNotification);
     AXObserverRemoveNotification(self.observer, self.app, kAXMainWindowChangedNotification);
-    
+
     CFRelease(self.observer);
     self.observer = nil;
 }
@@ -220,7 +220,7 @@ void obsessiveWindowCallback(AXObserverRef observer, AXUIElementRef element, CFS
     CFTypeRef _someProperty;
     if (AXUIElementCopyAttributeValue(self.app, (__bridge CFStringRef)propType, &_someProperty) == kAXErrorSuccess)
         return CFBridgingRelease(_someProperty);
-    
+
     return defaultValue;
 }
 

@@ -99,10 +99,10 @@
         currentRecorder.recording = NO;
         currentRecorder = flag ? self : nil;
     }
-    
+
     // Only enabled view supports recording
     if (flag && !self.enabled) return;
-    
+
     if (_recording != flag) {
         _recording = flag;
         self.shortcutPlaceholder = nil;
@@ -165,7 +165,7 @@
     if (self.shortcutValue) {
         [self drawInRect:self.bounds withTitle:MASShortcutChar(self.recording ? kMASShortcutGlyphEscape : kMASShortcutGlyphDeleteLeft)
                alignment:NSRightTextAlignment state:NSOffState];
-        
+
         CGRect shortcutRect;
         [self getShortcutRect:&shortcutRect hintRect:NULL];
         NSString *title = (self.recording
@@ -181,7 +181,7 @@
         if (self.recording)
         {
             [self drawInRect:self.bounds withTitle:MASShortcutChar(kMASShortcutGlyphEscape) alignment:NSRightTextAlignment state:NSOffState];
-            
+
             CGRect shortcutRect;
             [self getShortcutRect:&shortcutRect hintRect:NULL];
             NSString *title = (_hinting
@@ -268,15 +268,15 @@
 - (void)updateTrackingAreas
 {
     [super updateTrackingAreas];
-    
+
     if (_hintArea) {
         [self removeTrackingArea:_hintArea];
         _hintArea = nil;
     }
-    
+
     // Forbid hinting if view is disabled
     if (!self.enabled) return;
-    
+
     CGRect hintRect;
     [self getShortcutRect:NULL hintRect:&hintRect];
     NSTrackingAreaOptions options = (NSTrackingMouseEnteredAndExited | NSTrackingActiveAlways | NSTrackingAssumeInside);
@@ -313,7 +313,7 @@ void *kUserDataHint = &kUserDataHint;
     if (_hintToolTipTag) {
         [self removeToolTip:_hintToolTipTag], _hintToolTipTag = 0;
     }
-    
+
     if ((self.shortcutValue == nil) || self.recording || !self.enabled) return;
 
     CGRect shortcutRect, hintRect;
@@ -340,7 +340,7 @@ void *kUserDataHint = &kUserDataHint;
     static BOOL isActive = NO;
     if (isActive == shouldActivate) return;
     isActive = shouldActivate;
-    
+
     static id eventMonitor = nil;
     if (shouldActivate) {
         __weak MASShortcutView *weakSelf = self;
@@ -411,7 +411,7 @@ void *kUserDataHint = &kUserDataHint;
     static BOOL isActive = NO;
     if (isActive == shouldActivate) return;
     isActive = shouldActivate;
-    
+
     static id observer = nil;
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     if (shouldActivate) {

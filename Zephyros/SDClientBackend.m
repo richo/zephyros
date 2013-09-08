@@ -38,12 +38,12 @@
 
 - (void) sendResponse:(id)msg {
 //    NSLog(@"sending [%@]", msg);
-    
+
     NSData* data = [NSJSONSerialization dataWithJSONObject:msg options:0 error:NULL];
-    
+
     NSString* dataStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     [[SDLogWindowController sharedLogWindowController] log:dataStr type:SDLogMessageTypeResponse];
-    
+
     [self.sock writeData:data withTimeout:3 tag:0];
     [self.sock writeData:[GCDAsyncSocket LFData] withTimeout:3 tag:0];
 }
@@ -52,14 +52,14 @@
     NSError* __autoreleasing error;
     id obj = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
     NSString* rawJson = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    
+
     if (obj == nil) {
         SDLogError(@"API Error: expected valid JSON message, got: %@", rawJson);
         [self waitForNewMessage];
     }
     else {
         [[SDLogWindowController sharedLogWindowController] log:rawJson type:SDLogMessageTypeRequest];
-        
+
         [self.client handleRequest:obj];
         [self waitForNewMessage];
     }

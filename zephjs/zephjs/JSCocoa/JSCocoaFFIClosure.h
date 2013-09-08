@@ -30,11 +30,11 @@
 	ffi_closure*	closure;
 #endif
 	ffi_type**		argTypes;
-	
+
 	NSMutableArray*	encodings;
-	
+
 	JSObjectRef		jsThisObject;
-	
+
 	BOOL			isObjC;
 }
 

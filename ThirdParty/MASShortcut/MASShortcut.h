@@ -24,7 +24,7 @@ enum {
 	kMASShortcutGlyphPageUp = 0x21DE,
 	kMASShortcutGlyphTabRight = 0x21E5,
 	kMASShortcutGlyphReturn = 0x2305,
-	kMASShortcutGlyphReturnR2L = 0x21A9,	
+	kMASShortcutGlyphReturnR2L = 0x21A9,
 	kMASShortcutGlyphPadClear = 0x2327,
 	kMASShortcutGlyphNorthwestArrow = 0x2196,
 	kMASShortcutGlyphSoutheastArrow = 0x2198,

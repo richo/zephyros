@@ -28,9 +28,9 @@
 - (void) startListening {
     if (self.isListening)
         return;
-    
+
     self.isListening = YES;
-    
+
     CFMachPortRef p = CGEventTapCreate(kCGHIDEventTap,
                                        kCGHeadInsertEventTap,
                                        kCGEventTapOptionListenOnly,
@@ -47,20 +47,20 @@ static CGEventRef callbackFunction(CGEventTapProxy proxy,
                                    void *userInfo)
 {
     CGEventFlags curAltkey = CGEventGetFlags(event);
-    
+
     NSMutableArray* mods = [NSMutableArray arrayWithCapacity:5];
     if (curAltkey & kCGEventFlagMaskAlternate) [mods addObject:@"ALT"];
     if (curAltkey & kCGEventFlagMaskShift) [mods addObject:@"SHIFT"];
     if (curAltkey & kCGEventFlagMaskControl) [mods addObject:@"CTRL"];
     if (curAltkey & kCGEventFlagMaskCommand) [mods addObject:@"CMD"];
     if (curAltkey & kCGEventFlagMaskSecondaryFn) [mods addObject:@"FN"];
-    
+
     NSNotification* note = [NSNotification notificationWithName:SDListenEventModifiersChanged
                                                          object:nil
                                                        userInfo:@{@"thing": mods}];
-    
+
     [[NSNotificationCenter defaultCenter] postNotification:note];
-    
+
     return event;
 }
 

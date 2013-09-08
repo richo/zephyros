@@ -24,9 +24,9 @@ static NSMutableDictionary *relocatableKeys;
         kVK_ANSI_Grave, kVK_ANSI_Equal, kVK_ANSI_Minus, kVK_ANSI_RightBracket,
         kVK_ANSI_LeftBracket, kVK_ANSI_Quote, kVK_ANSI_Semicolon, kVK_ANSI_Backslash,
         kVK_ANSI_Comma, kVK_ANSI_Slash, kVK_ANSI_Period };
-    
+
     relocatableKeys = [[NSMutableDictionary alloc] init];
-    
+
     TISInputSourceRef currentKeyboard = TISCopyCurrentKeyboardInputSource();
     CFDataRef layoutData = TISGetInputSourceProperty(currentKeyboard,
                                                      kTISPropertyUnicodeKeyLayoutData);
@@ -34,7 +34,7 @@ static NSMutableDictionary *relocatableKeys;
     UInt32 keysDown = 0;
     UniChar chars[4];
     UniCharCount realLength;
-    
+
     for (int i = 0 ; i < sizeof(relocatableKeyCodes)/sizeof(relocatableKeyCodes[0]) ; i++) {
         UCKeyTranslate(keyboardLayout,
                        relocatableKeyCodes[i],
@@ -46,11 +46,11 @@ static NSMutableDictionary *relocatableKeys;
                        sizeof(chars) / sizeof(chars[0]),
                        &realLength,
                        chars);
-        
+
         [relocatableKeys setObject:[NSNumber numberWithInt:relocatableKeyCodes[i]]
                             forKey:[NSString stringWithCharacters:chars length:1]];
     }
-    
+
     CFRelease(currentKeyboard);
     return;
 }
@@ -62,7 +62,7 @@ static NSMutableDictionary *relocatableKeys;
         return [keycode intValue];
     } else {
         str = [str uppercaseString];
-        
+
         // you should prefer typing these in upper-case in your config file,
         // since they look more unique (and less confusing) that way
         if ([str isEqualToString:@"F1"]) return kVK_F1;
@@ -85,7 +85,7 @@ static NSMutableDictionary *relocatableKeys;
         if ([str isEqualToString:@"F18"]) return kVK_F18;
         if ([str isEqualToString:@"F19"]) return kVK_F19;
         if ([str isEqualToString:@"F20"]) return kVK_F20;
-    
+
         // you should prefer typing these in lower-case in your config file,
         // since there's no concern for ambiguity/confusion with words, just with chars.
         if ([str isEqualToString:@"PAD."]) return kVK_ANSI_KeypadDecimal;
@@ -106,7 +106,7 @@ static NSMutableDictionary *relocatableKeys;
         if ([str isEqualToString:@"PAD9"]) return kVK_ANSI_Keypad9;
         if ([str isEqualToString:@"PAD_CLEAR"]) return kVK_ANSI_KeypadClear;
         if ([str isEqualToString:@"PAD_ENTER"]) return kVK_ANSI_KeypadEnter;
-        
+
         if ([str isEqualToString:@"RETURN"]) return kVK_Return;
         if ([str isEqualToString:@"TAB"]) return kVK_Tab;
         if ([str isEqualToString:@"SPACE"]) return kVK_Space;
@@ -122,27 +122,27 @@ static NSMutableDictionary *relocatableKeys;
         if ([str isEqualToString:@"RIGHT"]) return kVK_RightArrow;
         if ([str isEqualToString:@"DOWN"]) return kVK_DownArrow;
         if ([str isEqualToString:@"UP"]) return kVK_UpArrow;
-        
+
         //    // aww, this would have been really cool. oh well.
         //    if ([str isEqualToString:@"VOL_UP"]) return kVK_VolumeUp;
         //    if ([str isEqualToString:@"VOL_DOWN"]) return kVK_VolumeDown;
         //    if ([str isEqualToString:@"RIGHT_SHIFT"]) return kVK_RightShift;
     }
-    
+
     // TODO: make this do something smarter than return -1 for unknowns
     return -1;
 }
 
 + (NSUInteger) modifierFlagsForStrings:(NSArray*)strs {
     strs = [strs valueForKeyPath:@"uppercaseString"];
-    
+
     NSUInteger result = 0;
-    
+
     if ([strs containsObject:@"SHIFT"]) result |= NSShiftKeyMask;
     if ([strs containsObject:@"CTRL"]) result |= NSControlKeyMask;
     if ([strs containsObject:@"ALT"]) result |= NSAlternateKeyMask;
     if ([strs containsObject:@"CMD"]) result |= NSCommandKeyMask;
-    
+
     return result;
 }
 

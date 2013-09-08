@@ -48,11 +48,11 @@
 
 - (void) destroy {
 //    NSLog(@"destrying bindings and listeners");
-    
+
     for (SDHotKey* hotkey in self.hotkeys) {
         [hotkey unbind];
     }
-    
+
     for (SDEventListener* listener in self.listeners) {
         [listener stopListening];
     }
@@ -70,34 +70,34 @@
 
 - (id) bind:(NSArray*)args msgID:(id)msgID {
 //    NSLog(@"binding");
-    
+
     SDTypeCheckArg(NSString, key, 0);
     SDTypeCheckArrayArg(mods, NSString, 1);
-    
+
     SDHotKey* hotkey = [[SDHotKey alloc] init];
     hotkey.key = [key uppercaseString];
     hotkey.modifiers = [mods valueForKeyPath:@"uppercaseString"];
     hotkey.fn = ^{
         [self.client sendResponse:nil forID:msgID];
     };
-    
+
     if ([hotkey bind]) {
         [self.hotkeys addObject:hotkey];
     }
     else {
         SDLogError(@"Can't bind: %@", [hotkey hotKeyDescription]);
     }
-    
+
     return @-1;
 }
 
 - (id) unbind:(NSArray*)args msgID:(id)msgID {
     SDTypeCheckArg(NSString, key, 0);
     SDTypeCheckArrayArg(mods, NSString, 1);
-    
+
     key = [key uppercaseString];
     NSArray* modifiers = [mods valueForKeyPath:@"uppercaseString"];
-    
+
     SDHotKey* foundHotkey;
     for (SDHotKey* existingHotkey in self.hotkeys) {
         if ([existingHotkey.key isEqual: key] && [existingHotkey.modifiers isEqual: modifiers]) {
@@ -105,7 +105,7 @@
             break;
         }
     }
-    
+
     if (foundHotkey) {
         [foundHotkey unbind];
         [self.hotkeys removeObject:foundHotkey];
@@ -118,7 +118,7 @@
 
 - (id) listen:(NSArray*)args msgID:(id)msgID {
     SDTypeCheckArg(NSString, event, 0);
-    
+
     if ([[event uppercaseString] isEqualToString:@"MOUSE_MOVED"]) {
         // only incur the cost for those who wish to pay the price
         [[SDMouseFollower sharedFollower] startListening];
@@ -127,32 +127,32 @@
         // only incur the cost for those who wish to pay the price
         [[SDModifierKeysListener sharedListener] startListening];
     }
-    
+
     SDEventListener* listener = [[SDEventListener alloc] init];
     listener.eventName = event;
     listener.fn = ^(id thing) {
         [self.client sendResponse:thing forID:msgID];
     };
-    
+
     [listener startListening];
     [self.listeners addObject:listener];
-    
+
     return @-1;
 }
 
 - (id) unlisten:(NSArray*)args msgID:(id)msgID {
     SDTypeCheckArg(NSString, event, 0);
-    
+
     for (SDEventListener* listener in self.listeners) {
         if ([listener.eventName isEqualToString:event]) {
             [listener stopListening];
-            
+
             dispatch_async(dispatch_get_current_queue(), ^{
                 [self.listeners removeObject: listener];
             });
         }
     }
-    
+
     return nil;
 }
 
@@ -163,15 +163,15 @@
 
 - (id) update_settings:(NSArray*)args msgID:(id)msgID {
     SDTypeCheckArg(NSDictionary, settings, 0);
-    
+
     NSNumber* shouldAnimate = [settings objectForKey:@"alert_should_animate"];
     if ([shouldAnimate isKindOfClass: [NSNumber self]])
         [SDAlerts sharedAlerts].alertAnimates = [shouldAnimate boolValue];
-    
+
     NSNumber* defaultDuration = [settings objectForKey:@"alert_default_delay"];
     if ([defaultDuration isKindOfClass: [NSNumber self]])
         [SDAlerts sharedAlerts].alertDisappearDelay = [defaultDuration doubleValue];
-    
+
     return nil;
 }
 
@@ -205,7 +205,7 @@
 
 - (id) log:(NSArray*)args msgID:(id)msgID {
     SDTypeCheckArg(NSString, str, 0);
-    
+
     [[SDLogWindowController sharedLogWindowController] log:str
                                                       type:SDLogMessageTypeUser];
     return nil;
@@ -214,7 +214,7 @@
 - (id) alert:(NSArray*)args msgID:(id)msgID {
     SDTypeCheckArg(NSString, msg, 0);
     NSNumber* duration = [args objectAtIndex:1];
-    
+
     if ([duration isEqual: [NSNull null]]) {
         [[SDAlerts sharedAlerts] show:msg];
     }
@@ -222,7 +222,7 @@
         [[SDAlerts sharedAlerts] show:msg
                              duration:[duration doubleValue]];
     }
-    
+
     return nil;
 }
 
@@ -242,7 +242,7 @@
     SDTypeCheckArg(NSString, title, 1);
     SDTypeCheckArg(NSNumber, lines, 2);
     SDTypeCheckArg(NSNumber, chars, 3);
-    
+
     [NSApp activateIgnoringOtherApps:YES];
     [SDFuzzyMatcher showChoices:list
                       charsWide:[chars intValue]

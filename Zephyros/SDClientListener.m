@@ -45,16 +45,16 @@
 
 - (void) startListening {
     [self.clients makeObjectsPerformSelector:@selector(disconnect)];
-    
+
 //    NSLog(@"re-listening");
-    
+
     self.sock.delegate = nil;
     [self.sock disconnect];
     self.sock = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
-    
+
     NSError* __autoreleasing error;
     BOOL worked;
-    
+
     NSInteger socketType = [[NSUserDefaults standardUserDefaults] integerForKey:SDScriptSocketTypeDefaultsKey];
     if (socketType == 0) {
         worked = [self.sock acceptOnUrl:[NSURL fileURLWithPath:@"/tmp/zephyros.sock"]
@@ -66,11 +66,11 @@
                                          port:tcpPort
                                         error:&error];
     }
-    
+
     if (!worked) {
         SDLogError(@"Zephyros failed to start listening for scripts. Here's why: %@", error);
         SDLogError(@"Trying again in 60 seconds.");
-        
+
         double delayInSeconds = 60.0;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
@@ -87,7 +87,7 @@
     newSocket.delegate = client;
     client.sock = newSocket;
     [self.clients addObject:client];
-    
+
     [client waitForNewMessage];
 }
 

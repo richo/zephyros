@@ -15,13 +15,13 @@
 	NSString *title;
 	NSDate *date;
 	NSString *itemDescription;
-	
+
 	NSURL *releaseNotesURL;
-	
-	NSString *DSASignature;	
+
+	NSString *DSASignature;
 	NSString *minimumSystemVersion;
     NSString *maximumSystemVersion;
-	
+
 	NSURL *fileURL;
 	NSString *versionString;
 	NSString *displayVersionString;
@@ -29,7 +29,7 @@
 	NSDictionary *deltaUpdates;
 
 	NSDictionary *propertiesDictionary;
-	
+
 	NSURL *infoURL;	// UK 2007-08-31
 }
 

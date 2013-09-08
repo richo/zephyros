@@ -43,14 +43,14 @@
                                                           [[SDAlerts sharedAlerts] show:@"Launched Zephyros Script"];
                                                       }
                                                   }];
-    
+
     [[NSNotificationCenter defaultCenter] addObserverForName:SDScriptDiedNotification
                                                       object:nil
                                                        queue:nil
                                                   usingBlock:^(NSNotification *note) {
                                                       [[SDAlerts sharedAlerts] show:@"Zephyros Script Ended"];
                                                   }];
-    
+
     self.statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
     [[NSImage imageNamed:@"statusitem"] setTemplate:YES];
     self.statusItem.image = [NSImage imageNamed:@"statusitem"];
@@ -65,19 +65,19 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     NSString* runScript = [[NSUserDefaults standardUserDefaults] stringForKey:SDLaunchCommandDefaultsKey];
     BOOL usesLeinExec = (runScript != nil) && [runScript rangeOfString:@"lein exec"].location != NSNotFound;
-    
+
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{
      @"launchCommand": @"ruby ~/zephyros.rb   # or whatever",
                                  SDTCPSocketPortDefaultsKey: @1235,
                               SDScriptSocketTypeDefaultsKey: @(usesLeinExec ? 1 : 0),
      }];
-    
+
     [self prepareStatusItem];
-    
+
     [[SDClientListener sharedListener] startListening];
     [[SDConfigLauncher sharedConfigLauncher] launchConfigMaybe];
     [[SDAppStalker sharedAppStalker] beginStalking];
-    
+
     [[SDAlerts sharedAlerts] show:@"Zephyros power, activate!"
                          duration:1.5];
 }

@@ -37,14 +37,14 @@
 	NSString*	xml;
 	NSString*	methodName;
 	NSString*	structureName;
-	
+
 	NSString*	declaredType;
 	void*		rawPointer;
 
 	id			object;
 
 	Method		method;
-	
+
 	JSValueRef	jsValue;
 	JSContextRef	ctx;
 	unsigned int	externalJSValueIndex;
@@ -54,7 +54,7 @@
 	// Disabled because retaining the context crashes in 32 bits, but works in 64 bit.
 	// May be reenabled someday.
 //	JSContextGroupRef	contextGroup;
-	
+
 	BOOL		isAutoCall;
 	BOOL		retainObject;
 	// Disabled because of a crash on i386. Release globalContext last.

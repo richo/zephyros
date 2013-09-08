@@ -53,7 +53,7 @@ typedef struct	JSValueRefAndContextRef JSValueRefAndContextRef;
 
 	// JSLint : used for ObjJ syntax, class syntax, return if
 	BOOL				useJSLint;
-	
+
 	// Auto call zero arg methods : allow NSWorkspace.sharedWorkspace instead of NSWorkspace.sharedWorkspace()
 	BOOL				useAutoCall;
 	// Allow setting javascript values on boxed objects (which are collected after nulling all references to them)
@@ -63,7 +63,7 @@ typedef struct	JSValueRefAndContextRef JSValueRefAndContextRef;
 
 	// Log all exceptions to NSLog, even if they're caught later by downstream Javascript (in f(g()), log even if f catches after g threw)
 	BOOL				logAllExceptions;
-	
+
 	//
 	// Safe dealloc (For ObjC classes written in Javascript)
 	//	- (void)dealloc cannot be overloaded as it is called during JS GC, which forbids new JS code execution.
@@ -72,10 +72,10 @@ typedef struct	JSValueRefAndContextRef JSValueRefAndContextRef;
 	//
 	BOOL				useSafeDealloc;
 
-	
+
 	NSMutableDictionary*	boxedObjects;
-	
-	
+
+
 }
 
 @property (assign) id delegate;
@@ -355,9 +355,9 @@ JSValueRef	valueOfCallback(JSContextRef ctx, JSObjectRef function, JSObjectRef t
 #   define SMALL_STRUCT_LIMIT	4
 #elif defined(__ppc64__)
 #   define SMALL_STRUCT_LIMIT	8
-#elif defined(__i386__) 
+#elif defined(__i386__)
 #   define SMALL_STRUCT_LIMIT 	8
-#elif defined(__x86_64__) 
+#elif defined(__x86_64__)
 #   define SMALL_STRUCT_LIMIT	16
 #elif TARGET_OS_IPHONE
 // TOCHECK
@@ -379,7 +379,7 @@ Some more doc
 	__jsCocoaController
 		Instance variables set on ObjC classes written in Javascript.
 		These variables enable classes to store Javascript values in them.
-	
+
 */
 
 

@@ -39,12 +39,12 @@ void fsEventsCallback(ConstFSEventStreamRef streamRef, void *clientCallBackInfo,
 
 + (SDPathWatcher*) watcherFor:(NSArray*)pathsToWatch {
     SDPathWatcher* watcher = [[SDPathWatcher alloc] init];
-    
+
     if ([pathsToWatch count] == 0)
         return nil;
-    
+
     pathsToWatch = [pathsToWatch valueForKeyPath:@"stringByStandardizingPath"];
-    
+
     FSEventStreamContext context;
     context.info = NULL;
     context.version = 0;
@@ -60,7 +60,7 @@ void fsEventsCallback(ConstFSEventStreamRef streamRef, void *clientCallBackInfo,
                                          kFSEventStreamCreateFlagWatchRoot | kFSEventStreamCreateFlagNoDefer | kFSEventStreamCreateFlagFileEvents);
     FSEventStreamScheduleWithRunLoop(watcher.stream, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode);
     FSEventStreamStart(watcher.stream);
-    
+
     return watcher;
 }
 

@@ -35,7 +35,7 @@
     NSStringScoreOption opts = NSStringScoreOptionFavorSmallerWords & NSStringScoreOptionReducedLongStringPenalty;
 //    NSStringScoreOption opts = NSStringScoreOptionReducedLongStringPenalty;
 //    NSStringScoreOption opts = NSStringScoreOptionFavorSmallerWords;
-    
+
     self.score = [self.actualString scoreAgainst:self.tryString
                                        fuzziness:self.fuzziness
                                          options:opts

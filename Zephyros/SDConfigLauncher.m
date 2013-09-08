@@ -42,13 +42,13 @@
 - (void) launchConfigMaybe {
     dispatch_async(dispatch_get_main_queue(), ^{
         [[SDBoxWindowController sharedBox] hide];
-        
+
         NSString* cmd = [[NSUserDefaults standardUserDefaults] stringForKey:SDLaunchCommandDefaultsKey];
         BOOL shouldLaunchConfig = [[NSUserDefaults standardUserDefaults] boolForKey:SDRunMyScriptDefaultsKey] && [cmd length] > 0;
-        
+
         if (shouldLaunchConfig) {
             [self unlaunch];
-            
+
             double delayInSeconds = 0.15;
             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
             dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
@@ -59,7 +59,7 @@
             [self unlaunch];
             self.configWatcher = nil;
         }
-        
+
         [self watchPathsMaybe];
     });
 }
@@ -67,7 +67,7 @@
 - (void) watchPathsMaybe {
     BOOL shouldLaunchConfig = [[NSUserDefaults standardUserDefaults] boolForKey:SDRunMyScriptDefaultsKey];
     BOOL shouldWatchPaths = [[NSUserDefaults standardUserDefaults] boolForKey:SDUseRelaunchPathsDefaultsKey];
-    
+
     if (shouldLaunchConfig && shouldWatchPaths)
         [self watchPaths];
     else
@@ -105,12 +105,12 @@
 
 - (void) prelaunchMaybe {
     BOOL shouldPrelaunch = [[NSUserDefaults standardUserDefaults] boolForKey:SDRunCommandFirstDefaultsKey];
-    
+
     if (!shouldPrelaunch)
         return;
-    
+
     NSString* prelaunchCmd = [[NSUserDefaults standardUserDefaults] stringForKey:SDPrerunCommandDefaultsKey];
-    
+
     NSTask* task = [NSTask launchedTaskWithLaunchPath:@"/bin/bash" arguments:@[@"-l", @"-c", prelaunchCmd]];
     [task waitUntilExit];
 }
@@ -118,15 +118,15 @@
 - (void) launch {
 //    NSLog(@"launching");
     [self prelaunchMaybe];
-    
+
     NSString* cmd = [[NSUserDefaults standardUserDefaults] stringForKey:SDLaunchCommandDefaultsKey];
-    
+
     self.launchedTask = [[SDShellCommand alloc] init];
     self.launchedTask.cmd = cmd;
     self.launchedTask.gotStdout = ^(NSFileHandle* handle) {
         NSData* data = [handle availableData];
         NSString* str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        
+
         dispatch_async(dispatch_get_main_queue(), ^{
             [[SDLogWindowController sharedLogWindowController] log:str
                                                               type:SDLogMessageTypeUser];
@@ -135,22 +135,22 @@
     self.launchedTask.gotStderr = ^(NSFileHandle* handle) {
         NSData* data = [handle availableData];
         NSString* str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        
+
         dispatch_async(dispatch_get_main_queue(), ^{
             [[SDLogWindowController sharedLogWindowController] log:str
                                                               type:SDLogMessageTypeError];
         });
     };
-    
+
     __weak SDConfigLauncher* punyself = self;
     self.launchedTask.died = ^{
         punyself.isRunning = NO;
         [[NSNotificationCenter defaultCenter] postNotificationName:SDScriptDiedNotification object:nil];
         punyself.launchedTask = nil;
     };
-    
+
     [self.launchedTask launch];
-    
+
     self.isRunning = YES;
     [[NSNotificationCenter defaultCenter] postNotificationName:SDScriptLaunchedNotification object:nil];
 }

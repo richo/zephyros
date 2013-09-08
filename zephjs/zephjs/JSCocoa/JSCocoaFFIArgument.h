@@ -24,7 +24,7 @@
 	void*		ptr;
 
 	ffi_type	structureType;
-	
+
 	id			customData;
 	BOOL		isReturnValue;
 	BOOL		ownsStorage;

@@ -83,14 +83,14 @@
                                                       usingBlock:^(NSNotification *note) {
                                                           self.scriptRunning = YES;
                                                       }];
-        
+
         [[NSNotificationCenter defaultCenter] addObserverForName:SDScriptDiedNotification
                                                           object:nil
                                                            queue:nil
                                                       usingBlock:^(NSNotification *note) {
                                                           self.scriptRunning = NO;
                                                       }];
-        
+
         self.tempRelaunchPaths = [[NSUserDefaults standardUserDefaults] stringForKey:SDRelaunchPathsDefaultsKey];
     }
     return self;
@@ -102,7 +102,7 @@
 
 - (void) show {
     self.scriptRunning = [SDConfigLauncher sharedConfigLauncher].isRunning;
-    
+
     [[self window] center];
     self.window.level = NSFloatingWindowLevel;
     [self showWindow:self];
@@ -133,7 +133,7 @@
     [self willChangeValueForKey:@"watchedPathsHasChanges"];
     [self setValue:self.tempRelaunchPaths forKeyPath:@"defaults.values.relaunchPaths"];
     [self didChangeValueForKey:@"watchedPathsHasChanges"];
-    
+
     [[SDConfigLauncher sharedConfigLauncher] watchPaths];
 }
 
@@ -175,7 +175,7 @@
 
 - (IBAction) migrate3xConfigs:(id)sender {
     NSInteger result = NSRunAlertPanel(@"Migrate 3.x configs", @"This will change what's in the \"Bash Command\" field above the button. Are you sure?", @"Wait, no!", @"Just do it already", nil);
-    
+
     if (result == 0) {
         [self willChangeValueForKey:@"watchedPathsHasChanges"];
         [self setValue:[self newBashCommandString] forKeyPath:@"defaults.values.launchCommand"];
@@ -186,10 +186,10 @@
 - (NSString*) newBashCommandString {
     NSString* zephjs = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"Contents/MacOS/zephjs"];
     NSString* config = @"~/.zephyros.js";
-    
+
     if ([[NSFileManager defaultManager] fileExistsAtPath:[@"~/.zephyros.coffee" stringByStandardizingPath]])
         config = @"~/.zephyros.coffee";
-    
+
     return [NSString stringWithFormat:@"%@ %@", zephjs, config];
 }
 
@@ -200,7 +200,7 @@
 - (void) restartListener {
     [[SDConfigLauncher sharedConfigLauncher] unlaunch];
     [[SDClientListener sharedListener] startListening];
-    
+
     double delayInSeconds = 1.0;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_current_queue(), ^(void){

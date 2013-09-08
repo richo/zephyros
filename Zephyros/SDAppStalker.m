@@ -29,13 +29,13 @@
 
 - (void) beginStalking {
     self.apps = [NSMutableArray array];
-    
+
     for (NSRunningApplication* app in [[NSWorkspace sharedWorkspace] runningApplications]) {
         [self stalkApp:app];
     }
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didChangeScreenParams:) name:NSApplicationDidChangeScreenParametersNotification object:nil];
-    
+
     [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self selector:@selector(appLaunched:) name:NSWorkspaceDidLaunchApplicationNotification object:nil];
     [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self selector:@selector(appDied:) name:NSWorkspaceDidTerminateApplicationNotification object:nil];
 }
@@ -58,11 +58,11 @@
 
 - (void) stalkApp:(NSRunningApplication*)runningApp {
     SDAppProxy* app = [[SDAppProxy alloc] initWithRunningApp:runningApp];
-    
+
     [[NSNotificationCenter defaultCenter] postNotificationName:SDListenEventAppOpened
                                                         object:nil
                                                       userInfo:@{@"thing": app}];
-    
+
     [self.apps addObject:app];
     [app startObservingStuff];
 }
@@ -75,15 +75,15 @@
             break;
         }
     }
-    
+
     if (!app) {
         NSLog(@"cannot stop observing dead app, was not being observed.");
         return;
     }
-    
+
     [app stopObservingStuff];
     [self.apps removeObject:app];
-    
+
     [[NSNotificationCenter defaultCenter] postNotificationName:SDListenEventAppClosed
                                                         object:nil
                                                       userInfo:@{@"thing": app}];

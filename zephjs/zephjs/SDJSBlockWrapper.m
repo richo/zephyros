@@ -21,7 +21,7 @@
     if (self = [super init]) {
         self.mainContext = [[JSCocoa controllerFromContext:fn.ctx] ctx];
         self.actualFn = fn.value;
-        
+
         JSValueProtect(self.mainContext, self.actualFn);
     }
     return self;

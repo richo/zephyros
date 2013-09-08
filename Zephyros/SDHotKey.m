@@ -23,7 +23,7 @@
 - (MASShortcut*) shortcutObject {
     NSUInteger code = [SDKeyBindingTranslator keyCodeForString:self.key];
     NSUInteger mods = [SDKeyBindingTranslator modifierFlagsForStrings:self.modifiers];
-    
+
     return [MASShortcut shortcutWithKeyCode:code modifierFlags:mods];
 }
 

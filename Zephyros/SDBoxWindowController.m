@@ -31,7 +31,7 @@
 
 - (void)windowDidLoad {
     [super windowDidLoad];
-    
+
     self.window.styleMask = NSBorderlessWindowMask;
     self.window.backgroundColor = [NSColor clearColor];
     self.window.opaque = NO;
@@ -42,7 +42,7 @@
 
 - (void) showWithText:(NSString*)text {
     [self window]; // sigh; required cuz nib hasnt loaded yet
-    
+
     [self useTitleAndResize:text];
     [self relegateWindowToCorner];
     [self showWindow:self];
@@ -55,28 +55,28 @@
 - (void) relegateWindowToCorner {
     NSScreen* currentScreen = [NSScreen mainScreen];
     NSRect screenBounds = [currentScreen visibleFrame];
-    
+
     screenBounds = NSInsetRect(screenBounds, 20, 20);
-    
+
 	NSRect windowFrame = [[self window] frame];
-    
+
     windowFrame.origin.x = NSMinX(screenBounds);
     windowFrame.origin.y = NSMaxY(screenBounds) - NSHeight(windowFrame);
-    
+
 	[[self window] setFrame:windowFrame display:NO];
 }
 
 - (void) useTitleAndResize:(NSString*)title {
     self.textField.stringValue = title;
     [self.textField sizeToFit];
-    
+
     NSRect textFrame = self.textField.frame;
-    
+
 	NSRect windowFrame = [[self window] frame];
 	windowFrame.size.width = [self.textField frame].size.width + 20.0;
 	windowFrame.size.height = [self.textField frame].size.height + 20.0;
 	[[self window] setFrame:windowFrame display:NO];
-    
+
     textFrame.origin = NSMakePoint(10, 10);
     [self.textField setFrame:textFrame];
 }

@@ -33,7 +33,7 @@
     NSRect f = [self.receiver frame];
     [[self withUndo] set_frame:@[SDDictFromRect(f)]
                          msgID:msgID];
-    
+
     SDTypeCheckArg(NSDictionary, frame, 0);
     [self.receiver setFrame: SDRectFromDict(frame)];
     return nil;
@@ -43,7 +43,7 @@
     NSPoint tl = [self.receiver topLeft];
     [[self withUndo] set_top_left:@[SDDictFromPoint(tl)]
                             msgID:msgID];
-    
+
     SDTypeCheckArg(NSDictionary, top_left, 0);
     [self.receiver setTopLeft: SDPointFromDict(top_left)];
     return nil;
@@ -53,7 +53,7 @@
     NSSize s = [self.receiver size];
     [[self withUndo] set_size:@[SDDictFromSize(s)]
                         msgID:msgID];
-    
+
     SDTypeCheckArg(NSDictionary, size, 0);
     [self.receiver setSize: SDSizeFromDict(size)];
     return nil;
@@ -75,7 +75,7 @@
     NSRect f = [self.receiver frame];
     [[self withUndo] set_frame:@[SDDictFromRect(f)]
                          msgID:msgID];
-    
+
     [self.receiver maximize];
     return nil;
 }
@@ -83,7 +83,7 @@
 - (id) minimize:(NSArray*)args msgID:(id)msgID {
     [[self withUndo] un_minimize:@[]
                            msgID:msgID];
-    
+
     [self.receiver minimize];
     return nil;
 }
@@ -91,7 +91,7 @@
 - (id) un_minimize:(NSArray*)args msgID:(id)msgID {
     [[self withUndo] minimize:@[]
                         msgID:msgID];
-    
+
     [self.receiver unMinimize];
     return nil;
 }
@@ -108,7 +108,7 @@
 //    [SDWindowProxy focusedWindow]
 //    [[self withUndo] un_minimize:@[]
 //                           msgID:msgID];
-    
+
     return @([self.receiver focusWindow]);
 }
 

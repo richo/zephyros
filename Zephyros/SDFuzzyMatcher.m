@@ -37,24 +37,24 @@
     canceledCallback:(dispatch_block_t)canceledCallback
 {
     NSMutableArray* realChoices = [NSMutableArray array];
-    
+
     for (NSString* choice in choices) {
         [realChoices addObject:[SDChoice choiceWithString:choice]];
     }
-    
+
     SDFuzzyMatcherWindowController* fuzzyMatcherWindowController = [[SDFuzzyMatcherWindowController alloc] init];
     fuzzyMatcherWindowController.choices = [realChoices copy];
     fuzzyMatcherWindowController.choseCallback = choseCallback;
     fuzzyMatcherWindowController.canceledCallback = canceledCallback;
     fuzzyMatcherWindowController.listSize = NSMakeSize(charsWide, linesTall);
-    
+
     SDFuzzyMatcher* matcher = [SDFuzzyMatcher sharedFuzzyMatcher];
-    
+
     [matcher.waiters addObject:fuzzyMatcherWindowController];
     fuzzyMatcherWindowController.killedDelegate = matcher;
-    
+
     fuzzyMatcherWindowController.window.title = windowTitle; // forces the window to load; but meh.
-    
+
     [fuzzyMatcherWindowController positionWindowAndShow];
 }
 

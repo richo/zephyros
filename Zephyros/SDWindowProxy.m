@@ -37,13 +37,13 @@
 + (NSArray*) allWindows {
     if ([SDUniversalAccessHelper complainIfNeeded])
         return nil;
-    
+
     NSMutableArray* windows = [NSMutableArray array];
-    
+
     for (SDAppProxy* app in [SDAppProxy runningApps]) {
         [windows addObjectsFromArray:[app allWindows]];
     }
-    
+
     return windows;
 }
 
@@ -54,7 +54,7 @@
 + (NSArray*) visibleWindows {
     if ([SDUniversalAccessHelper complainIfNeeded])
         return nil;
-    
+
     return [[self allWindows] filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(SDWindowProxy* win, NSDictionary *bindings) {
         return ![[win app] isHidden]
         && ![win isWindowMinimized]
@@ -86,10 +86,10 @@
 + (SDWindowProxy*) focusedWindow {
     if ([SDUniversalAccessHelper complainIfNeeded])
         return nil;
-    
+
     CFTypeRef app;
     AXUIElementCopyAttributeValue([self systemWideElement], kAXFocusedApplicationAttribute, &app);
-    
+
     CFTypeRef win;
     AXError result = AXUIElementCopyAttributeValue(app, (CFStringRef)NSAccessibilityFocusedWindowAttribute, &win);
     if (app)
@@ -100,7 +100,7 @@
         window.window = win;
         return window;
     }
-    
+
     return nil;
 }
 
@@ -120,7 +120,7 @@
 - (CGPoint) topLeft {
     CFTypeRef positionStorage;
     AXError result = AXUIElementCopyAttributeValue(self.window, (CFStringRef)NSAccessibilityPositionAttribute, &positionStorage);
-    
+
     CGPoint topLeft;
     if (result == kAXErrorSuccess) {
         if (!AXValueGetValue(positionStorage, kAXValueCGPointType, (void *)&topLeft)) {
@@ -132,17 +132,17 @@
         NSLog(@"could not get window topLeft");
         topLeft = CGPointZero;
     }
-    
+
     if (positionStorage)
         CFRelease(positionStorage);
-    
+
     return topLeft;
 }
 
 - (CGSize) size {
     CFTypeRef sizeStorage;
     AXError result = AXUIElementCopyAttributeValue(self.window, (CFStringRef)NSAccessibilitySizeAttribute, &sizeStorage);
-    
+
     CGSize size;
     if (result == kAXErrorSuccess) {
         if (!AXValueGetValue(sizeStorage, kAXValueCGSizeType, (void *)&size)) {
@@ -154,10 +154,10 @@
         NSLog(@"could not get window size");
         size = CGSizeZero;
     }
-    
+
     if (sizeStorage)
         CFRelease(sizeStorage);
-    
+
     return size;
 }
 
@@ -177,21 +177,21 @@
 
 - (SDScreenProxy*) screen {
     CGRect windowFrame = [self frame];
-    
+
     CGFloat lastVolume = 0;
     SDScreenProxy* lastScreen = nil;
-    
+
     for (SDScreenProxy* screen in [SDScreenProxy allScreens]) {
         CGRect screenFrame = [screen frameIncludingDockAndMenu];
         CGRect intersection = CGRectIntersection(windowFrame, screenFrame);
         CGFloat volume = intersection.size.width * intersection.size.height;
-        
+
         if (volume > lastVolume) {
             lastVolume = volume;
             lastScreen = screen;
         }
     }
-    
+
     return lastScreen;
 }
 
@@ -214,7 +214,7 @@
         NSLog(@"ERROR: Could not change focus to window");
         return NO;
     }
-    
+
     ProcessSerialNumber psn;
     GetProcessForPID([self processIdentifier], &psn);
     OSStatus focusAppResult = SetFrontProcessWithOptions(&psn, kSetFrontProcessFrontWindowOnly);
@@ -238,7 +238,7 @@
     CFTypeRef _someProperty;
     if (AXUIElementCopyAttributeValue(self.window, (__bridge CFStringRef)propType, &_someProperty) == kAXErrorSuccess)
         return CFBridgingRelease(_someProperty);
-    
+
     return defaultValue;
 }
 
@@ -284,36 +284,36 @@ NSPoint SDMidpoint(NSRect r) {
 {
     SDWindowProxy* thisWindow = [SDWindowProxy focusedWindow];
     NSPoint startingPoint = SDMidpoint([thisWindow frame]);
-    
+
     NSArray* otherWindows = [thisWindow otherWindowsOnAllScreens];
     NSMutableArray* closestOtherWindows = [NSMutableArray arrayWithCapacity:[otherWindows count]];
-    
+
     for (SDWindowProxy* win in otherWindows) {
         NSPoint otherPoint = SDMidpoint([win frame]);
-        
+
         double deltaX = otherPoint.x - startingPoint.x;
         double deltaY = otherPoint.y - startingPoint.y;
-        
+
         if (shouldDisregardFn(deltaX, deltaY))
             continue;
-        
+
         double angle = atan2(deltaY, deltaX);
         double distance = hypot(deltaX, deltaY);
-        
+
         double angleDifference = whichDirectionFn(angle);
-        
+
         double score = distance / cos(angleDifference / 2.0);
-        
+
         [closestOtherWindows addObject:@{
          @"score": @(score),
          @"win": win,
          }];
     }
-    
+
     NSArray* sortedOtherWindows = [closestOtherWindows sortedArrayUsingComparator:^NSComparisonResult(NSDictionary* pair1, NSDictionary* pair2) {
         return [[pair1 objectForKey:@"score"] compare: [pair2 objectForKey:@"score"]];
     }];
-    
+
     return sortedOtherWindows;
 }
 

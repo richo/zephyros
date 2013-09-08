@@ -152,7 +152,7 @@ NSString *const MASShortcutModifierFlags = @"ModifierFlags";
         case kVK_PageDown: return MASShortcutChar(kMASShortcutGlyphPageDown);
         case kVK_Tab: return MASShortcutChar(kMASShortcutGlyphTabRight);
         case kVK_Return: return MASShortcutChar(kMASShortcutGlyphReturnR2L);
-            
+
         // Keypad
         case kVK_ANSI_Keypad0: return @"0";
         case kVK_ANSI_Keypad1: return @"1";
@@ -172,12 +172,12 @@ NSString *const MASShortcutModifierFlags = @"ModifierFlags";
         case kVK_ANSI_KeypadEnter: return MASShortcutChar(kMASShortcutGlyphReturn);
         case kVK_ANSI_KeypadMinus: return @"–";
         case kVK_ANSI_KeypadEquals: return @"=";
-            
+
         // Hardcode
         case 119: return MASShortcutChar(kMASShortcutGlyphSoutheastArrow);
         case 115: return MASShortcutChar(kMASShortcutGlyphNorthwestArrow);
     }
-    
+
     // Everything else should be printable so look it up in the current keyboard
     OSStatus error = noErr;
     NSString *keystroke = nil;
@@ -196,7 +196,7 @@ NSString *const MASShortcutModifierFlags = @"ModifierFlags";
         }
         CFRelease(inputSource);
     }
-    
+
     // Validate keystroke
     if (keystroke.length) {
         static NSMutableCharacterSet *validChars = nil;
@@ -213,7 +213,7 @@ NSString *const MASShortcutModifierFlags = @"ModifierFlags";
             }
         }
     }
-    
+
     // Finally, we've got a shortcut!
     return keystroke.uppercaseString;
 }
@@ -288,16 +288,16 @@ BOOL MASShortcutAllowsAnyHotkeyWithOptionModifier = NO;
 {
     for (NSMenuItem *menuItem in menu.itemArray) {
         if (menuItem.hasSubmenu && [self isKeyEquivalent:keyEquivalent flags:flags takenInMenu:menuItem.submenu error:outError]) return YES;
-        
+
         BOOL equalFlags = (MASShortcutClear(menuItem.keyEquivalentModifierMask) == flags);
         BOOL equalHotkeyLowercase = [menuItem.keyEquivalent.lowercaseString isEqualToString:keyEquivalent];
-        
+
         // Check if the cases are different, we know ours is lower and that shift is included in our modifiers
         // If theirs is capitol, we need to add shift to their modifiers
         if (equalHotkeyLowercase && ![menuItem.keyEquivalent isEqualToString:keyEquivalent]) {
             equalFlags = (MASShortcutClear(menuItem.keyEquivalentModifierMask | NSShiftKeyMask) == flags);
         }
-        
+
         if (equalFlags && equalHotkeyLowercase) {
             if (outError) {
                 NSString *format = NSLocalizedString(@"This shortcut cannot be used because it is already used by the menu item ‘%@’.",
