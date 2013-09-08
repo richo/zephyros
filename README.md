@@ -45,6 +45,7 @@ You typically write a script that binds global hot keys to do stuff, like moving
 - [Using Go](Docs/Go.md)
 - [Using JavaScript](Docs/JavaScript.md)
 - [Using CoffeeScript](Docs/CoffeeScript.md)
+- [Using Node.js](https://github.com/danielepolencic/zephyros)
 
 **Note:** all the languages use the same simple [underlying protocol](Docs/Protocol.md).
 
