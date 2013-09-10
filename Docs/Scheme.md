@@ -2,10 +2,10 @@
 
 #### Setup
 
-* Install `unix-sockets` and `medea`
 ```bash
-chicken-install unix-sockets
-chicken-install medea
+$ brew install chicken
+$ chicken-install unix-sockets
+$ chicken-install medea
 ```
 
 #### Sample Script
