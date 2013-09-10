@@ -59,7 +59,10 @@
      (alter chans assoc msg-id chan))
     (write conn (format "%s\n" json-str))
     {:kill #(dosync (alter chans dissoc msg-id))
-     :get #(second (.take chan))}))
+     :get #(let [val (second (.take chan))]
+             (if (= val "__api_exception__")
+               (throw (Exception. "API Exception. (See above.)"))
+               val))}))
 
 (defn get-one-value [& args]
   (let [resp (send-msg args)
