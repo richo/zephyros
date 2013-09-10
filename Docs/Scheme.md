@@ -39,6 +39,10 @@ chicken-install medea
          (y (cdr (assoc 'y dim))))
     (set-top-left win `((x . ,x) (y . ,y))))))
 
+; If you're not running in a repl (eg, csi -s zeph.scm)
+; You must join the handler thread to avoid exiting
+(join-handler!)
+
 ```
 
 #### API
