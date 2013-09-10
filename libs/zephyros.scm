@@ -69,7 +69,7 @@
                modifiers)))
 
 (define (sync-get-value args)
-  (call/cc (lambda (cc) (send args (lambda (arg) (cc arg))))))
+  (call/cc (lambda (cc) (send args (lambda (arg) (cc arg))) (callback-mainloop))))
 
 ;; Begin userfacing API
 
