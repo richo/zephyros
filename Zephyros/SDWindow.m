@@ -10,9 +10,8 @@
 
 #import "SDApp.h"
 
+#import "NSScreen+SilicaExtension.h"
 #import "SDUniversalAccessHelper.h"
-
-#import "SDGeometry.h"
 
 @interface SDWindow ()
 
