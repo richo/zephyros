@@ -101,7 +101,9 @@
     
     CFTypeRef win;
     AXError result = AXUIElementCopyAttributeValue(app, (CFStringRef)NSAccessibilityFocusedWindowAttribute, &win);
-    CFRelease(app);
+    
+    if (app)
+        CFRelease(app);
     
     if (result == kAXErrorSuccess) {
         SDWindow* window = [[SDWindow alloc] init];
