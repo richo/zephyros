@@ -1,8 +1,8 @@
-HEAD
+5.1
     - Performance improvements
     - Simplifid Zephyros-protocol a little bit
-    - References now last as long as the resource they refer to exists
-        - Removed the thusly-unnecessary `retain` and `release` methods
+    - Removed `retain` and `release` methods
+        - References are now valid as long as the resource they refer to exists
     - Some bug fixes (thanks @richo and @bwinton)
     - Adds Chicken Scheme API (written by @richo)
 
