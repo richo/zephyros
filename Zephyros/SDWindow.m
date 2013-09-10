@@ -99,16 +99,17 @@
     CFTypeRef app;
     AXUIElementCopyAttributeValue([self systemWideElement], kAXFocusedApplicationAttribute, &app);
     
-    CFTypeRef win;
-    AXError result = AXUIElementCopyAttributeValue(app, (CFStringRef)NSAccessibilityFocusedWindowAttribute, &win);
-    
-    if (app)
+    if (app) {
+        CFTypeRef win;
+        AXError result = AXUIElementCopyAttributeValue(app, (CFStringRef)NSAccessibilityFocusedWindowAttribute, &win);
+        
         CFRelease(app);
-    
-    if (result == kAXErrorSuccess) {
-        SDWindow* window = [[SDWindow alloc] init];
-        window.window = win;
-        return window;
+        
+        if (result == kAXErrorSuccess) {
+            SDWindow* window = [[SDWindow alloc] init];
+            window.window = win;
+            return window;
+        }
     }
     
     return nil;
