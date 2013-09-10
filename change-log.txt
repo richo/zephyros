@@ -2,8 +2,9 @@ HEAD
     - Performance improvements
     - Simplifid Zephyros-protocol a little bit
     - References now last as long as the resource they refer to exists
-    - Removed the newly-unnecessary `retain` and `release` methods
+        - Removed the thusly-unnecessary `retain` and `release` methods
     - Some bug fixes (thanks @richo and @bwinton)
+    - Adds Chicken Scheme API (written by @richo)
 
 5.0
     - Added protocol-level support for Unix sockets, making it the default
