@@ -1,6 +1,10 @@
 ; Requires the medea and unix-sockets eggs
 ; $ chicken-install medea
 ; $ chicken-install unix-sockets
+;
+; If you're running this in the background (not attached to a repl),
+; eg, csi -s .zeph.scm
+; You must call (join-handler!) after setting up all your binds to ensure you don't return.
 
 (use unix-sockets)
 (use srfi-18)
