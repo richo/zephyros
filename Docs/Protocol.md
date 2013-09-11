@@ -81,9 +81,14 @@ see section [Events](#events)
 
 ##### note 3: Settings
 
-```ruby
-{:alert_should_animate => false, :alert_default_delay => 0.5}
-```
+Key                  | Value type
+---------------------|---------------------
+alert_should_animate | bool
+alert_default_delay  | double (seconds)
+box_font_name        | string
+box_font_size        | double (point size)
+
+Multiple key/value pairs can be updated simultaneously.
 
 ### Receiver
 

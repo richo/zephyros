@@ -198,6 +198,18 @@
     if ([defaultDuration isKindOfClass: [NSNumber self]])
         [SDAlerts sharedAlerts].alertDisappearDelay = [defaultDuration doubleValue];
     
+    NSDisableScreenUpdates();
+    
+    NSString* boxFontName = [settings objectForKey:@"box_font_name"];
+    if ([boxFontName isKindOfClass: [NSString self]])
+        [[SDBoxWindowController sharedBox] setFontName:boxFontName];
+    
+    NSNumber* boxFontSize = [settings objectForKey:@"box_font_size"];
+    if ([boxFontSize isKindOfClass: [NSNumber self]])
+        [[SDBoxWindowController sharedBox] setFontSize:[boxFontSize doubleValue]];
+    
+    NSEnableScreenUpdates();
+    
     return [NSNull null];
 }
 
