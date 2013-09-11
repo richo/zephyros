@@ -65,6 +65,8 @@ show_box           | msg                                     |
 hide_box           |                                         |
 choose_from        | list, title, lines_tall, chars_wide     | 0, followed by: chosen index or nil if canceled
 update_settings    | map of strings to values *(see note 3)* |
+undo               |                                         |
+redo               |                                         |
 
 
 ##### note 1: Key Strings and modifiers

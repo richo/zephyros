@@ -79,6 +79,12 @@
 (define (log message)
   (send (list 'null "log" message) noop))
 
+(define (undo)
+  (send (list 'null "undo") noop))
+
+(define (redo)
+  (send (list 'null "redo") noop))
+
 (define (bind key mod thunk)
   (send (list 'null "bind" key (transform-modifiers mod))
         (lambda (arg)

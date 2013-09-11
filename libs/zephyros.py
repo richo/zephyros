@@ -179,6 +179,8 @@ class App(Proxy):
     def kill9(self): return self._send_sync("kill9")
 
 class Api(Proxy):
+    def undo(self): self._send_sync('undo')
+    def redo(self): self._send_sync('redo')
     def alert(self, msg, duration=None): self._send_sync('alert', msg, duration)
     def log(self, msg): self._send_sync('log', msg)
     def show_box(self, msg): self._send_sync('show_box', msg)

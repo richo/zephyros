@@ -57,12 +57,20 @@
 }
 
 - (id) undo:(NSArray*)args msgID:(id)msgID {
-    [[self.client undoManager] undo];
+    if ([[self.client undoManager] canUndo])
+        [[self.client undoManager] undo];
+    else
+        NSBeep();
+    
     return [NSNull null];
 }
 
 - (id) redo:(NSArray*)args msgID:(id)msgID {
-    [[self.client undoManager] redo];
+    if ([[self.client undoManager] canRedo])
+        [[self.client undoManager] redo];
+    else
+        NSBeep();
+    
     return [NSNull null];
 }
 

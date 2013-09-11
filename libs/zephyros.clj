@@ -132,6 +132,9 @@
 (defn relaunch-config [] (get-one-value top-level-obj "relaunch_config"))
 (defn get-clipboard-contents [] (get-one-value top-level-obj "clipboard_contents"))
 
+(defn undo [] (get-one-value top-level-obj "undo"))
+(defn redo [] (get-one-value top-level-obj "redo"))
+
 
 
 ;; window
