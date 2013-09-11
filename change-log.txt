@@ -1,5 +1,6 @@
 5.1.1
-    - Fixed a not-so-theoretical race condition
+    - Fixed a not-so-theoretical race condition which
+      caused Zephyros to crash pretty easily.
 
 5.1
     - Performance improvements
