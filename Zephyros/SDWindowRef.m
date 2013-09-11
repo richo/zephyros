@@ -31,10 +31,12 @@
 }
 
 - (void) windowClosed:(NSNotification*)note {
-    if ([[[note userInfo] objectForKey:@"thing"] isEqual: self.resource]) {
-        [[NSNotificationCenter defaultCenter] removeObserver:self];
-        self.deathCallback();
-        self.deathCallback = nil;
+    @synchronized(self) {
+        if ([[[note userInfo] objectForKey:@"thing"] isEqual: self.resource]) {
+            [[NSNotificationCenter defaultCenter] removeObserver:self];
+            self.deathCallback();
+            self.deathCallback = nil;
+        }
     }
 }
 

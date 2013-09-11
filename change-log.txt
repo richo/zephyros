@@ -1,3 +1,6 @@
+5.1.1
+    - Fixed a not-so-theoretical race condition
+
 5.1
     - Performance improvements
     - Simplifid Zephyros-protocol a little bit
