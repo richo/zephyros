@@ -50,9 +50,8 @@
 (define (send datum thunk)
   (call/next-id (lambda (id)
     (register-callback id thunk)
-      (let* ((payload (apply vector id datum))
-             (json-payload (json->string payload)))
-        (write-string json-payload #f zeph-out)
+      (let ((payload (apply vector id datum)))
+        (write-json payload zeph-out)
         (write-string "\n" #f zeph-out))
     id)))
 
