@@ -28,11 +28,10 @@
                (unix-connect *zephyros-path*))
 
 (define (callback-mainloop)
-  (with-input-from-port zeph-in (lambda ()
-    (let* ((json (read-json (read-line)))
-           (callback (hash-table-ref/default callbacks (vector-ref json 0) noop)))
-      (callback (vector-ref json 1)))
-    (callback-mainloop))))
+  (let* ((json (read-json (read-line zeph-in)))
+         (callback (hash-table-ref/default callbacks (vector-ref json 0) noop)))
+    (callback (vector-ref json 1)))
+  (callback-mainloop))
 
 (define callback-handler
   (make-thread callback-mainloop))
@@ -51,11 +50,9 @@
 (define (send datum thunk)
   (call/next-id (lambda (id)
     (register-callback id thunk)
-    (with-output-to-port zeph-out (lambda ()
-      (let* ((payload (apply vector id datum))
-             (json-payload (json->string payload)))
-        (write-string json-payload)
-        (write-string "\n"))))
+      (let ((payload (apply vector id datum)))
+        (write-json payload zeph-out)
+        (write-string "\n" #f zeph-out))
     id)))
 
 ;; Begin internal helpers
