@@ -58,11 +58,11 @@ property (API) api
 - (void) log(String str)                   # shows up in the log window
 - (void) alert(String str[, Number delay]) # shows in a fancy alert; optional delay is seconds
 
-- (void) bind(String key,              # case-insensitive single-character string; see link above
+- (void) bind(String key,              # case-insensitive single-character string; see note above
               Array<String> modifiers, # may contain any number of: "cmd", "ctrl", "alt", "shift"
               Function fn)             # javascript fn that takes no args; return val is ignored
 
-- (void) unbind(String key, Array<String> modifiers) # see comments above
+- (void) unbind(String key, Array<String> modifiers) # see note above
 
 - (void) listen(String eventName, Function callback) # see Events section below
 - (void) unlisten(String eventName) # see Events section below
@@ -71,7 +71,7 @@ property (API) api
 
 - (void) reloadConfig()
 
-- (void) update_settings(Hash s) # see link above 
+- (void) update_settings(Hash s) # see note above 
 
 - (void) undo()
 - (void) redo()
