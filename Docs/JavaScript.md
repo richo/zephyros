@@ -38,6 +38,8 @@ For your convenience, [underscore.js 1.4.4](http://underscorejs.org/) is pre-loa
 
 The function `bind()` and `unbind()` uses this [key strings and modifiers](https://github.com/sdegutis/zephyros/blob/master/Zephyros/SDKeyBindingTranslator.m#L148).
 
+The function `update_settings` uses this [keys and values](Protocol.md#note-3-update-settings-keys).
+
 ```coffeescript
 property (API) api
 
@@ -56,18 +58,20 @@ property (API) api
 - (void) log(String str)                   # shows up in the log window
 - (void) alert(String str[, Number delay]) # shows in a fancy alert; optional delay is seconds
 
-- (void) bind(String key,              # case-insensitive single-character string; see link below
+- (void) bind(String key,              # case-insensitive single-character string; see link above
               Array<String> modifiers, # may contain any number of: "cmd", "ctrl", "alt", "shift"
               Function fn)             # javascript fn that takes no args; return val is ignored
 
-- (void) unbind(String key, Array<String> modifiers)
+- (void) unbind(String key, Array<String> modifiers) # see comments above
 
 - (void) listen(String eventName, Function callback) # see Events section below
-- (void) unlisten(String eventName)
+- (void) unlisten(String eventName) # see Events section below
 
 - (void) chooseFrom(Array<String> list, String title, Number linesTall, Number charsWide, Function callback) # fn called with chosen idx or null if canceled
 
 - (void) reloadConfig()
+
+- (void) update_settings(Hash s) # see link above 
 
 - (void) undo()
 - (void) redo()
