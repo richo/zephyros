@@ -76,17 +76,19 @@ The function `bind` and `unbind` uses this [key strings and modifiers](https://g
 
 ##### note 2: Event names
 
-see section [Events](#events)
+The function `listen` and `unlisten` uses this [Events](#events)
 
 
 ##### note 3: Update Settings Keys
 
-Key                  | Value type
----------------------|---------------------
-alert_should_animate | bool
-alert_default_delay  | double (seconds)
-box_font_name        | string
-box_font_size        | double (point size)
+The function `update_settings` uses a map this keys and values:
+
+Key                  | Value type          | Default Value
+---------------------|---------------------|----------------
+alert_should_animate | bool                | false
+alert_default_delay  | double (seconds)    | 1.0
+box_font_name        | string              | 'Lucida Grande' / 'LucidaGrande'
+box_font_size        | double (point size) | 24.0
 
 Multiple key/value pairs can be updated simultaneously.
 
