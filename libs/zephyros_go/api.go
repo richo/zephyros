@@ -97,7 +97,12 @@ func Redo() {
 	send(0, nil, false, "redo")
 }
 
-// Value keys are "alert_should_animate" (bool) and/or "alert_default_delay" (number)
+// Value keys are:
+//     Key 	Value type
+//     alert_should_animate     bool
+//     alert_default_delay      double (seconds)
+//     box_font_name            string
+//     box_font_size            double (point size)
 func UpdateSettings(msg map[string]interface{}) {
 	send(0, nil, false, "update_settings", msg)
 }
