@@ -45,8 +45,8 @@ The function `update-settings` uses this [keys and values](Protocol.md#note-3-up
 ```clojure
 ;; top level
 
-(defn bind [key mods f]) ;; see notes above
-(defn unbind [key mods]) ;; see notes above
+(defn bind [key mods f]) ;; see note above
+(defn unbind [key mods]) ;; see note above
 
 (defn listen [event f])
 (defn unlisten [event])
@@ -70,7 +70,7 @@ The function `update-settings` uses this [keys and values](Protocol.md#note-3-up
 (defn get-visible-windows [])
 (defn get-all-windows [])
 
-(defn update-settings [s]) ;; map - see notes above
+(defn update-settings [s]) ;; map - see note above
 
 (defn get-main-screen [])
 (defn get-all-screens [])
