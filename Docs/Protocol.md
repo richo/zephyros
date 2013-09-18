@@ -34,8 +34,7 @@ Technically the protocol is asynchronous, to allow for callbacks. But it's nicer
 ```ruby
 def send_sync(args)
     queue = Queue.new(1) # a thread-safe queue
-    send_async(args) do |return_val|
-        queue.put(return_val)
+    send_async(args)t(return_val)
     end
     return queue.get # this blocks
 end
@@ -47,10 +46,10 @@ end
 
 Name               | Args                                    | Return value
 -------------------|-----------------------------------------|--------------------
-bind               | key, [modifier, ...]  *(see note 1)*    | nil, followed by: callback, ...
-unbind             | key, [modifier, ...]  *(see note 1)*    |
-listen             | event_name            *(see note 2)*    | nil, followed by: callback, ...
-unlisten           | event_name            *(see note 2)*    | nil
+bind               | key, [modifier, ...]  *[(see note 1)](#note-1-key-strings-and-modifiers)*    | nil, followed by: callback, ...
+unbind             | key, [modifier, ...]  *[(see note 1)](#note-1-key-strings-and-modifiers)*    |
+listen             | event_name            *[(see note 2)](#note-2-event-names)*    | nil, followed by: callback, ...
+unlisten           | event_name            *[(see note 2)](#note-2-event-names)*    | nil
 relaunch_config    |                                         |
 clipboard_contents |                                         | string
 focused_window     |                                         | [window_id](#window)
@@ -59,12 +58,13 @@ all_windows        |                                         | [[window_id](#win
 main_screen        |                                         | [screen_id](#screen)
 all_screens        |                                         | [[screen_id](#screen), ...]
 running_apps       |                                         | [[app_id](#app), ...]
-alert              | msg, duration_sec                       |
+alert              | msg, duration_sec                      do |return_val|
+        queue.pu  |
 log                | msg                                     |
 show_box           | msg                                     |
 hide_box           |                                         |
 choose_from        | list, title, lines_tall, chars_wide     | 0, followed by: chosen index or nil if canceled
-update_settings    | map of strings to values *(see note 3)* |
+update_settings    | map of strings to values *[(see note 3)](#note-3-update-settings-keys)* |
 undo               |                                         |
 redo               |                                         |
 
@@ -79,7 +79,7 @@ The function `bind` and `unbind` uses this [key strings and modifiers](https://g
 see section [Events](#events)
 
 
-##### note 3: Settings
+##### note 3: Update Settings Keys
 
 Key                  | Value type
 ---------------------|---------------------
