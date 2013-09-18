@@ -14,11 +14,11 @@ bind("D", ["cmd", "shift"], function() {
 #### Run
 
 ```bash
-/Applications/Zephyros.app/Contents/MacOS/zephjs myscript.js
+./Zephyros.app/Contents/MacOS/zephjs myscript.js
 
 # or
 
-/Applications/Zephyros.app/Contents/MacOS/zephjs myscript.coffee
+./Zephyros.app/Contents/MacOS/zephjs myscript.coffee
 ```
 
 #### API
@@ -38,7 +38,7 @@ For your convenience, [underscore.js 1.4.4](http://underscorejs.org/) is pre-loa
 
 The function `bind()` and `unbind()` uses this [key strings and modifiers](https://github.com/sdegutis/zephyros/blob/master/Zephyros/SDKeyBindingTranslator.m#L148).
 
-The function `update_settings` uses this [keys and values](Protocol.md#note-3-update-settings-keys).
+The function `updateSettings` uses this [keys and values](Protocol.md#note-3-update-settings-keys).
 
 ```coffeescript
 property (API) api
@@ -71,7 +71,7 @@ property (API) api
 
 - (void) reloadConfig()
 
-- (void) update_settings(Hash s) # see note above 
+- (void) updateSettings(Hash s) # see note above 
 
 - (void) undo()
 - (void) redo()
