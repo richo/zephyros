@@ -34,7 +34,8 @@ Technically the protocol is asynchronous, to allow for callbacks. But it's nicer
 ```ruby
 def send_sync(args)
     queue = Queue.new(1) # a thread-safe queue
-    send_async(args)t(return_val)
+    send_async(args) do |return_val|
+        queue.put(return_val)
     end
     return queue.get # this blocks
 end
@@ -58,8 +59,7 @@ all_windows        |                                         | [[window_id](#win
 main_screen        |                                         | [screen_id](#screen)
 all_screens        |                                         | [[screen_id](#screen), ...]
 running_apps       |                                         | [[app_id](#app), ...]
-alert              | msg, duration_sec                      do |return_val|
-        queue.pu  |
+alert              | msg, duration_sec                       |
 log                | msg                                     |
 show_box           | msg                                     |
 hide_box           |                                         |
