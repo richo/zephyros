@@ -118,6 +118,7 @@ NSString* sd_js_api() {
     "  runningApps: -> mapToJS SDZephJS.sharedZeph().sendSyncMessage([NSNull.null(), 'running_apps']), App.fromNS\n"
     "  allWindows: -> mapToJS SDZephJS.sharedZeph().sendSyncMessage([NSNull.null(), 'all_windows']), Window.fromNS\n"
     "  visibleWindows: -> mapToJS SDZephJS.sharedZeph().sendSyncMessage([NSNull.null(), 'visible_windows']), Window.fromNS\n"
+    "  visibleWindowsMostRecentFirst: -> mapToJS SDZephJS.sharedZeph().sendSyncMessage([NSNull.null(), 'visible_windows_most_recent_first']), Window.fromNS\n"
     "  focusedWindow: -> Window.fromNS SDZephJS.sharedZeph().sendSyncMessage([NSNull.null(), 'focused_window'])\n"
     "  mainScreen: -> SDZephJS.sharedZeph().sendSyncMessage([NSNull.null(), 'main_screen'])\n"
     "  allScreens: -> mapToJS SDZephJS.sharedZeph().sendSyncMessage([NSNull.null(), 'all_screens']), Screen.fromNS\n"
