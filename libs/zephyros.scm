@@ -133,6 +133,13 @@
 
 (define-getter running-apps call/running-apps)
 
+(define-getter show-box call/show-box msg)
+
+(define (undo)
+  (send (list 'null "undo") noop))
+(define (redo)
+  (send (list 'null "redo") noop))
+
 ;; Operations on window
 
 (define (maximize window)
@@ -149,6 +156,11 @@
 
 (define (set-top-left window dim)
   (send (list window "set_top_left" dim) noop))
+
+(define (set-size window dim)
+  (send (list window "set_size" dim) noop))
+
+(define-getter window-title call/window-title window)
 
 ;; Sync getters
 
