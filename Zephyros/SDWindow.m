@@ -103,18 +103,21 @@ AXError _AXUIElementGetWindow(AXUIElementRef, CGWindowID* out);
             AXUIElementRef app = AXUIElementCreateApplication(pid);
             CFArrayRef appwindows;
             AXUIElementCopyAttributeValues(app, kAXWindowsAttribute, 0, 1000, &appwindows);
-            for (id w in (__bridge NSArray*)appwindows) {
-                AXUIElementRef win = (__bridge AXUIElementRef)w;
-                CGWindowID tmp;
-                _AXUIElementGetWindow(win, &tmp); //XXX: undocumented API.  but the alternative is horrifying.
-                if (tmp == win_id) {
-                    // finally got it, insert in the result array.
-                    [windows addObject:[[SDWindow alloc] initWithElement:win]];
-                    break;
+            if (appwindows) {
+                // looks like appwindows can be NULL when this function is called during the
+                // switch-workspaces animation
+                for (id w in (__bridge NSArray*)appwindows) {
+                    AXUIElementRef win = (__bridge AXUIElementRef)w;
+                    CGWindowID tmp;
+                    _AXUIElementGetWindow(win, &tmp); //XXX: undocumented API.  but the alternative is horrifying.
+                    if (tmp == win_id) {
+                        // finally got it, insert in the result array.
+                        [windows addObject:[[SDWindow alloc] initWithElement:win]];
+                        break;
+                    }
                 }
+                CFRelease(appwindows);
             }
-
-            CFRelease(appwindows);
             CFRelease(app);
         }
     }
